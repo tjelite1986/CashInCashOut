@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Budget App</string>
+    
+    <!-- Navigation -->
+    <string name="nav_overview">Översikt</string>
+    <string name="nav_expenses">Utgifter</string>
+    <string name="nav_income">Inkomst</string>
+    <string name="nav_budget">Budget</string>
+    <string name="nav_settings">Inställningar</string>
+    
+    <!-- Overview -->
+    <string name="total_balance">Total balans</string>
+    <string name="monthly_expenses">Månatliga utgifter</string>
+    <string name="monthly_income">Månatlig inkomst</string>
+    
+    <!-- Common -->
+    <string name="add">Lägg till</string>
+    <string name="edit">Redigera</string>
+    <string name="delete">Ta bort</string>
+    <string name="save">Spara</string>
+    <string name="cancel">Avbryt</string>
+    <string name="amount">Belopp</string>
+    <string name="description">Beskrivning</string>
+    <string name="date">Datum</string>
+    <string name="category">Kategori</string>
+</resources>

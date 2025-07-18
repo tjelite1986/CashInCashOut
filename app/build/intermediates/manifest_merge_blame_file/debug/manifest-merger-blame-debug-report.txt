@@ -1,0 +1,340 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.budgetapp.debug"
+4    android:versionCode="2"
+5    android:versionName="1.1-debug" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+9        android:targetSdkVersion="34" />
+10
+11    <uses-permission android:name="android.permission.CAMERA" />
+11-->/home/thomas/budget/app/src/main/AndroidManifest.xml:5:5-65
+11-->/home/thomas/budget/app/src/main/AndroidManifest.xml:5:22-62
+12
+13    <permission
+13-->[androidx.core:core:1.12.0] /home/thomas/.gradle/caches/transforms-3/c8e0f582f84b6db24d1604e35f780ecd/transformed/core-1.12.0/AndroidManifest.xml:22:5-24:47
+14        android:name="com.example.budgetapp.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+14-->[androidx.core:core:1.12.0] /home/thomas/.gradle/caches/transforms-3/c8e0f582f84b6db24d1604e35f780ecd/transformed/core-1.12.0/AndroidManifest.xml:23:9-81
+15        android:protectionLevel="signature" />
+15-->[androidx.core:core:1.12.0] /home/thomas/.gradle/caches/transforms-3/c8e0f582f84b6db24d1604e35f780ecd/transformed/core-1.12.0/AndroidManifest.xml:24:9-44
+16
+17    <uses-permission android:name="com.example.budgetapp.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" /> <!-- Although the *SdkVersion is captured in gradle build files, this is required for non gradle builds -->
+17-->[androidx.core:core:1.12.0] /home/thomas/.gradle/caches/transforms-3/c8e0f582f84b6db24d1604e35f780ecd/transformed/core-1.12.0/AndroidManifest.xml:26:5-97
+17-->[androidx.core:core:1.12.0] /home/thomas/.gradle/caches/transforms-3/c8e0f582f84b6db24d1604e35f780ecd/transformed/core-1.12.0/AndroidManifest.xml:26:22-94
+18    <!-- <uses-sdk android:minSdkVersion="14"/> -->
+19    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+19-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /home/thomas/.gradle/caches/transforms-3/187e0b9ca2a827dc9b43df9d1b882461/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:25:5-79
+19-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /home/thomas/.gradle/caches/transforms-3/187e0b9ca2a827dc9b43df9d1b882461/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:25:22-76
+20    <uses-permission android:name="android.permission.INTERNET" />
+20-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /home/thomas/.gradle/caches/transforms-3/187e0b9ca2a827dc9b43df9d1b882461/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:26:5-67
+20-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /home/thomas/.gradle/caches/transforms-3/187e0b9ca2a827dc9b43df9d1b882461/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:26:22-64
+21
+22    <application
+22-->/home/thomas/budget/app/src/main/AndroidManifest.xml:7:5-72:19
+23        android:allowBackup="true"
+23-->/home/thomas/budget/app/src/main/AndroidManifest.xml:8:9-35
+24        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+24-->[androidx.core:core:1.12.0] /home/thomas/.gradle/caches/transforms-3/c8e0f582f84b6db24d1604e35f780ecd/transformed/core-1.12.0/AndroidManifest.xml:28:18-86
+25        android:dataExtractionRules="@xml/data_extraction_rules"
+25-->/home/thomas/budget/app/src/main/AndroidManifest.xml:9:9-65
+26        android:debuggable="true"
+27        android:extractNativeLibs="false"
+28        android:fullBackupContent="@xml/backup_rules"
+28-->/home/thomas/budget/app/src/main/AndroidManifest.xml:10:9-54
+29        android:icon="@mipmap/ic_launcher"
+29-->/home/thomas/budget/app/src/main/AndroidManifest.xml:11:9-43
+30        android:label="@string/app_name"
+30-->/home/thomas/budget/app/src/main/AndroidManifest.xml:12:9-41
+31        android:roundIcon="@mipmap/ic_launcher_round"
+31-->/home/thomas/budget/app/src/main/AndroidManifest.xml:13:9-54
+32        android:supportsRtl="true"
+32-->/home/thomas/budget/app/src/main/AndroidManifest.xml:14:9-35
+33        android:theme="@style/Theme.BudgetApp" >
+33-->/home/thomas/budget/app/src/main/AndroidManifest.xml:15:9-47
+34        <activity
+34-->/home/thomas/budget/app/src/main/AndroidManifest.xml:18:9-25:20
+35            android:name="com.example.budgetapp.MainActivity"
+35-->/home/thomas/budget/app/src/main/AndroidManifest.xml:19:13-41
+36            android:exported="true" >
+36-->/home/thomas/budget/app/src/main/AndroidManifest.xml:20:13-36
+37            <intent-filter>
+37-->/home/thomas/budget/app/src/main/AndroidManifest.xml:21:13-24:29
+38                <action android:name="android.intent.action.MAIN" />
+38-->/home/thomas/budget/app/src/main/AndroidManifest.xml:22:17-69
+38-->/home/thomas/budget/app/src/main/AndroidManifest.xml:22:25-66
+39
+40                <category android:name="android.intent.category.LAUNCHER" />
+40-->/home/thomas/budget/app/src/main/AndroidManifest.xml:23:17-77
+40-->/home/thomas/budget/app/src/main/AndroidManifest.xml:23:27-74
+41            </intent-filter>
+42        </activity>
+43        <activity
+43-->/home/thomas/budget/app/src/main/AndroidManifest.xml:27:9-31:58
+44            android:name="com.example.budgetapp.AddProductActivity"
+44-->/home/thomas/budget/app/src/main/AndroidManifest.xml:28:13-47
+45            android:exported="false"
+45-->/home/thomas/budget/app/src/main/AndroidManifest.xml:29:13-37
+46            android:parentActivityName="com.example.budgetapp.MainActivity"
+46-->/home/thomas/budget/app/src/main/AndroidManifest.xml:31:13-55
+47            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+47-->/home/thomas/budget/app/src/main/AndroidManifest.xml:30:13-63
+48        <activity
+48-->/home/thomas/budget/app/src/main/AndroidManifest.xml:33:9-36:64
+49            android:name="com.example.budgetapp.BarcodeScannerActivity"
+49-->/home/thomas/budget/app/src/main/AndroidManifest.xml:34:13-51
+50            android:exported="false"
+50-->/home/thomas/budget/app/src/main/AndroidManifest.xml:35:13-37
+51            android:parentActivityName="com.example.budgetapp.AddProductActivity" />
+51-->/home/thomas/budget/app/src/main/AndroidManifest.xml:36:13-61
+52        <activity
+52-->/home/thomas/budget/app/src/main/AndroidManifest.xml:38:9-42:58
+53            android:name="com.example.budgetapp.ProductListActivity"
+53-->/home/thomas/budget/app/src/main/AndroidManifest.xml:39:13-48
+54            android:exported="false"
+54-->/home/thomas/budget/app/src/main/AndroidManifest.xml:40:13-37
+55            android:parentActivityName="com.example.budgetapp.MainActivity"
+55-->/home/thomas/budget/app/src/main/AndroidManifest.xml:42:13-55
+56            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+56-->/home/thomas/budget/app/src/main/AndroidManifest.xml:41:13-63
+57        <activity
+57-->/home/thomas/budget/app/src/main/AndroidManifest.xml:44:9-47:65
+58            android:name="com.example.budgetapp.EditProductActivity"
+58-->/home/thomas/budget/app/src/main/AndroidManifest.xml:45:13-48
+59            android:exported="false"
+59-->/home/thomas/budget/app/src/main/AndroidManifest.xml:46:13-37
+60            android:parentActivityName="com.example.budgetapp.ProductListActivity" />
+60-->/home/thomas/budget/app/src/main/AndroidManifest.xml:47:13-62
+61        <activity
+61-->/home/thomas/budget/app/src/main/AndroidManifest.xml:49:9-52:65
+62            android:name="com.example.budgetapp.ProductPriceManagerActivity"
+62-->/home/thomas/budget/app/src/main/AndroidManifest.xml:50:13-56
+63            android:exported="false"
+63-->/home/thomas/budget/app/src/main/AndroidManifest.xml:51:13-37
+64            android:parentActivityName="com.example.budgetapp.ProductListActivity" />
+64-->/home/thomas/budget/app/src/main/AndroidManifest.xml:52:13-62
+65        <activity
+65-->/home/thomas/budget/app/src/main/AndroidManifest.xml:54:9-58:65
+66            android:name="com.example.budgetapp.StoreManagerActivity"
+66-->/home/thomas/budget/app/src/main/AndroidManifest.xml:55:13-49
+67            android:exported="false"
+67-->/home/thomas/budget/app/src/main/AndroidManifest.xml:56:13-37
+68            android:parentActivityName="com.example.budgetapp.ProductListActivity"
+68-->/home/thomas/budget/app/src/main/AndroidManifest.xml:58:13-62
+69            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+69-->/home/thomas/budget/app/src/main/AndroidManifest.xml:57:13-63
+70        <activity
+70-->/home/thomas/budget/app/src/main/AndroidManifest.xml:60:9-64:58
+71            android:name="com.example.budgetapp.AddIncomeActivity"
+71-->/home/thomas/budget/app/src/main/AndroidManifest.xml:61:13-46
+72            android:exported="false"
+72-->/home/thomas/budget/app/src/main/AndroidManifest.xml:62:13-37
+73            android:parentActivityName="com.example.budgetapp.MainActivity"
+73-->/home/thomas/budget/app/src/main/AndroidManifest.xml:64:13-55
+74            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+74-->/home/thomas/budget/app/src/main/AndroidManifest.xml:63:13-63
+75        <activity
+75-->/home/thomas/budget/app/src/main/AndroidManifest.xml:66:9-70:58
+76            android:name="com.example.budgetapp.AddExpenseActivity"
+76-->/home/thomas/budget/app/src/main/AndroidManifest.xml:67:13-47
+77            android:exported="false"
+77-->/home/thomas/budget/app/src/main/AndroidManifest.xml:68:13-37
+78            android:parentActivityName="com.example.budgetapp.MainActivity"
+78-->/home/thomas/budget/app/src/main/AndroidManifest.xml:70:13-55
+79            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+79-->/home/thomas/budget/app/src/main/AndroidManifest.xml:69:13-63
+80
+81        <!--
+82        Service for holding metadata. Cannot be instantiated.
+83        Metadata will be merged from other manifests.
+84        -->
+85        <service
+85-->[androidx.camera:camera-core:1.3.1] /home/thomas/.gradle/caches/transforms-3/5e401483a98ce8b62c1484b04bb130d5/transformed/jetified-camera-core-1.3.1/AndroidManifest.xml:29:9-33:78
+86            android:name="androidx.camera.core.impl.MetadataHolderService"
+86-->[androidx.camera:camera-core:1.3.1] /home/thomas/.gradle/caches/transforms-3/5e401483a98ce8b62c1484b04bb130d5/transformed/jetified-camera-core-1.3.1/AndroidManifest.xml:30:13-75
+87            android:enabled="false"
+87-->[androidx.camera:camera-core:1.3.1] /home/thomas/.gradle/caches/transforms-3/5e401483a98ce8b62c1484b04bb130d5/transformed/jetified-camera-core-1.3.1/AndroidManifest.xml:31:13-36
+88            android:exported="false" >
+88-->[androidx.camera:camera-core:1.3.1] /home/thomas/.gradle/caches/transforms-3/5e401483a98ce8b62c1484b04bb130d5/transformed/jetified-camera-core-1.3.1/AndroidManifest.xml:32:13-37
+89            <meta-data
+89-->[androidx.camera:camera-camera2:1.3.1] /home/thomas/.gradle/caches/transforms-3/dcf56a688a0a1c289566982c269a24a1/transformed/jetified-camera-camera2-1.3.1/AndroidManifest.xml:30:13-32:89
+90                android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
+90-->[androidx.camera:camera-camera2:1.3.1] /home/thomas/.gradle/caches/transforms-3/dcf56a688a0a1c289566982c269a24a1/transformed/jetified-camera-camera2-1.3.1/AndroidManifest.xml:31:17-103
+91                android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
+91-->[androidx.camera:camera-camera2:1.3.1] /home/thomas/.gradle/caches/transforms-3/dcf56a688a0a1c289566982c269a24a1/transformed/jetified-camera-camera2-1.3.1/AndroidManifest.xml:32:17-86
+92        </service>
+93        <service
+93-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0] /home/thomas/.gradle/caches/transforms-3/9c451ed1d07071d558168d331a3f6b0a/transformed/jetified-play-services-mlkit-barcode-scanning-18.3.0/AndroidManifest.xml:9:9-15:19
+94            android:name="com.google.mlkit.common.internal.MlKitComponentDiscoveryService"
+94-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0] /home/thomas/.gradle/caches/transforms-3/9c451ed1d07071d558168d331a3f6b0a/transformed/jetified-play-services-mlkit-barcode-scanning-18.3.0/AndroidManifest.xml:10:13-91
+95            android:directBootAware="true"
+95-->[com.google.mlkit:common:18.9.0] /home/thomas/.gradle/caches/transforms-3/bdfb949d32277798a93ab41793a4a4b8/transformed/jetified-common-18.9.0/AndroidManifest.xml:17:13-43
+96            android:exported="false" >
+96-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0] /home/thomas/.gradle/caches/transforms-3/9c451ed1d07071d558168d331a3f6b0a/transformed/jetified-play-services-mlkit-barcode-scanning-18.3.0/AndroidManifest.xml:11:13-37
+97            <meta-data
+97-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0] /home/thomas/.gradle/caches/transforms-3/9c451ed1d07071d558168d331a3f6b0a/transformed/jetified-play-services-mlkit-barcode-scanning-18.3.0/AndroidManifest.xml:12:13-14:85
+98                android:name="com.google.firebase.components:com.google.mlkit.vision.barcode.internal.BarcodeRegistrar"
+98-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0] /home/thomas/.gradle/caches/transforms-3/9c451ed1d07071d558168d331a3f6b0a/transformed/jetified-play-services-mlkit-barcode-scanning-18.3.0/AndroidManifest.xml:13:17-120
+99                android:value="com.google.firebase.components.ComponentRegistrar" />
+99-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0] /home/thomas/.gradle/caches/transforms-3/9c451ed1d07071d558168d331a3f6b0a/transformed/jetified-play-services-mlkit-barcode-scanning-18.3.0/AndroidManifest.xml:14:17-82
+100            <meta-data
+100-->[com.google.mlkit:vision-common:17.3.0] /home/thomas/.gradle/caches/transforms-3/e4bf9162b813903ca2056e64d71f3ab8/transformed/jetified-vision-common-17.3.0/AndroidManifest.xml:12:13-14:85
+101                android:name="com.google.firebase.components:com.google.mlkit.vision.common.internal.VisionCommonRegistrar"
+101-->[com.google.mlkit:vision-common:17.3.0] /home/thomas/.gradle/caches/transforms-3/e4bf9162b813903ca2056e64d71f3ab8/transformed/jetified-vision-common-17.3.0/AndroidManifest.xml:13:17-124
+102                android:value="com.google.firebase.components.ComponentRegistrar" />
+102-->[com.google.mlkit:vision-common:17.3.0] /home/thomas/.gradle/caches/transforms-3/e4bf9162b813903ca2056e64d71f3ab8/transformed/jetified-vision-common-17.3.0/AndroidManifest.xml:14:17-82
+103            <meta-data
+103-->[com.google.mlkit:common:18.9.0] /home/thomas/.gradle/caches/transforms-3/bdfb949d32277798a93ab41793a4a4b8/transformed/jetified-common-18.9.0/AndroidManifest.xml:20:13-22:85
+104                android:name="com.google.firebase.components:com.google.mlkit.common.internal.CommonComponentRegistrar"
+104-->[com.google.mlkit:common:18.9.0] /home/thomas/.gradle/caches/transforms-3/bdfb949d32277798a93ab41793a4a4b8/transformed/jetified-common-18.9.0/AndroidManifest.xml:21:17-120
+105                android:value="com.google.firebase.components.ComponentRegistrar" />
+105-->[com.google.mlkit:common:18.9.0] /home/thomas/.gradle/caches/transforms-3/bdfb949d32277798a93ab41793a4a4b8/transformed/jetified-common-18.9.0/AndroidManifest.xml:22:17-82
+106        </service>
+107
+108        <provider
+108-->[com.google.mlkit:common:18.9.0] /home/thomas/.gradle/caches/transforms-3/bdfb949d32277798a93ab41793a4a4b8/transformed/jetified-common-18.9.0/AndroidManifest.xml:9:9-13:38
+109            android:name="com.google.mlkit.common.internal.MlKitInitProvider"
+109-->[com.google.mlkit:common:18.9.0] /home/thomas/.gradle/caches/transforms-3/bdfb949d32277798a93ab41793a4a4b8/transformed/jetified-common-18.9.0/AndroidManifest.xml:10:13-78
+110            android:authorities="com.example.budgetapp.debug.mlkitinitprovider"
+110-->[com.google.mlkit:common:18.9.0] /home/thomas/.gradle/caches/transforms-3/bdfb949d32277798a93ab41793a4a4b8/transformed/jetified-common-18.9.0/AndroidManifest.xml:11:13-69
+111            android:exported="false"
+111-->[com.google.mlkit:common:18.9.0] /home/thomas/.gradle/caches/transforms-3/bdfb949d32277798a93ab41793a4a4b8/transformed/jetified-common-18.9.0/AndroidManifest.xml:12:13-37
+112            android:initOrder="99" />
+112-->[com.google.mlkit:common:18.9.0] /home/thomas/.gradle/caches/transforms-3/bdfb949d32277798a93ab41793a4a4b8/transformed/jetified-common-18.9.0/AndroidManifest.xml:13:13-35
+113
+114        <activity
+114-->[com.google.android.gms:play-services-base:18.1.0] /home/thomas/.gradle/caches/transforms-3/53bc36d90f858a74fca23637ec675d4b/transformed/jetified-play-services-base-18.1.0/AndroidManifest.xml:20:9-22:45
+115            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+115-->[com.google.android.gms:play-services-base:18.1.0] /home/thomas/.gradle/caches/transforms-3/53bc36d90f858a74fca23637ec675d4b/transformed/jetified-play-services-base-18.1.0/AndroidManifest.xml:20:19-85
+116            android:exported="false"
+116-->[com.google.android.gms:play-services-base:18.1.0] /home/thomas/.gradle/caches/transforms-3/53bc36d90f858a74fca23637ec675d4b/transformed/jetified-play-services-base-18.1.0/AndroidManifest.xml:22:19-43
+117            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+117-->[com.google.android.gms:play-services-base:18.1.0] /home/thomas/.gradle/caches/transforms-3/53bc36d90f858a74fca23637ec675d4b/transformed/jetified-play-services-base-18.1.0/AndroidManifest.xml:21:19-78
+118
+119        <meta-data
+119-->[com.google.android.gms:play-services-basement:18.1.0] /home/thomas/.gradle/caches/transforms-3/e20566f277e12a641a26b87893211e1a/transformed/jetified-play-services-basement-18.1.0/AndroidManifest.xml:21:9-23:69
+120            android:name="com.google.android.gms.version"
+120-->[com.google.android.gms:play-services-basement:18.1.0] /home/thomas/.gradle/caches/transforms-3/e20566f277e12a641a26b87893211e1a/transformed/jetified-play-services-basement-18.1.0/AndroidManifest.xml:22:13-58
+121            android:value="@integer/google_play_services_version" />
+121-->[com.google.android.gms:play-services-basement:18.1.0] /home/thomas/.gradle/caches/transforms-3/e20566f277e12a641a26b87893211e1a/transformed/jetified-play-services-basement-18.1.0/AndroidManifest.xml:23:13-66
+122
+123        <provider
+123-->[androidx.emoji2:emoji2:1.2.0] /home/thomas/.gradle/caches/transforms-3/8146f4c5b03300b2a576dfecee518778/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
+124            android:name="androidx.startup.InitializationProvider"
+124-->[androidx.emoji2:emoji2:1.2.0] /home/thomas/.gradle/caches/transforms-3/8146f4c5b03300b2a576dfecee518778/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:25:13-67
+125            android:authorities="com.example.budgetapp.debug.androidx-startup"
+125-->[androidx.emoji2:emoji2:1.2.0] /home/thomas/.gradle/caches/transforms-3/8146f4c5b03300b2a576dfecee518778/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:26:13-68
+126            android:exported="false" >
+126-->[androidx.emoji2:emoji2:1.2.0] /home/thomas/.gradle/caches/transforms-3/8146f4c5b03300b2a576dfecee518778/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:27:13-37
+127            <meta-data
+127-->[androidx.emoji2:emoji2:1.2.0] /home/thomas/.gradle/caches/transforms-3/8146f4c5b03300b2a576dfecee518778/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
+128                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+128-->[androidx.emoji2:emoji2:1.2.0] /home/thomas/.gradle/caches/transforms-3/8146f4c5b03300b2a576dfecee518778/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:30:17-75
+129                android:value="androidx.startup" />
+129-->[androidx.emoji2:emoji2:1.2.0] /home/thomas/.gradle/caches/transforms-3/8146f4c5b03300b2a576dfecee518778/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:31:17-49
+130            <meta-data
+130-->[androidx.lifecycle:lifecycle-process:2.7.0] /home/thomas/.gradle/caches/transforms-3/a18515708b73b7962d745a84f5274d3e/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:29:13-31:52
+131                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+131-->[androidx.lifecycle:lifecycle-process:2.7.0] /home/thomas/.gradle/caches/transforms-3/a18515708b73b7962d745a84f5274d3e/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:30:17-78
+132                android:value="androidx.startup" />
+132-->[androidx.lifecycle:lifecycle-process:2.7.0] /home/thomas/.gradle/caches/transforms-3/a18515708b73b7962d745a84f5274d3e/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:31:17-49
+133            <meta-data
+133-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/thomas/.gradle/caches/transforms-3/498482daeca7e1b2a1450d2707040743/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:29:13-31:52
+134                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+134-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/thomas/.gradle/caches/transforms-3/498482daeca7e1b2a1450d2707040743/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:30:17-85
+135                android:value="androidx.startup" />
+135-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/thomas/.gradle/caches/transforms-3/498482daeca7e1b2a1450d2707040743/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:31:17-49
+136        </provider>
+137
+138        <uses-library
+138-->[androidx.window:window:1.0.0] /home/thomas/.gradle/caches/transforms-3/7eaf48e4773002c5c9c02836841e54a4/transformed/jetified-window-1.0.0/AndroidManifest.xml:25:9-27:40
+139            android:name="androidx.window.extensions"
+139-->[androidx.window:window:1.0.0] /home/thomas/.gradle/caches/transforms-3/7eaf48e4773002c5c9c02836841e54a4/transformed/jetified-window-1.0.0/AndroidManifest.xml:26:13-54
+140            android:required="false" />
+140-->[androidx.window:window:1.0.0] /home/thomas/.gradle/caches/transforms-3/7eaf48e4773002c5c9c02836841e54a4/transformed/jetified-window-1.0.0/AndroidManifest.xml:27:13-37
+141        <uses-library
+141-->[androidx.window:window:1.0.0] /home/thomas/.gradle/caches/transforms-3/7eaf48e4773002c5c9c02836841e54a4/transformed/jetified-window-1.0.0/AndroidManifest.xml:28:9-30:40
+142            android:name="androidx.window.sidecar"
+142-->[androidx.window:window:1.0.0] /home/thomas/.gradle/caches/transforms-3/7eaf48e4773002c5c9c02836841e54a4/transformed/jetified-window-1.0.0/AndroidManifest.xml:29:13-51
+143            android:required="false" />
+143-->[androidx.window:window:1.0.0] /home/thomas/.gradle/caches/transforms-3/7eaf48e4773002c5c9c02836841e54a4/transformed/jetified-window-1.0.0/AndroidManifest.xml:30:13-37
+144
+145        <service
+145-->[androidx.room:room-runtime:2.6.1] /home/thomas/.gradle/caches/transforms-3/8cd5799671618cc37c5842000e4825fa/transformed/room-runtime-2.6.1/AndroidManifest.xml:24:9-28:63
+146            android:name="androidx.room.MultiInstanceInvalidationService"
+146-->[androidx.room:room-runtime:2.6.1] /home/thomas/.gradle/caches/transforms-3/8cd5799671618cc37c5842000e4825fa/transformed/room-runtime-2.6.1/AndroidManifest.xml:25:13-74
+147            android:directBootAware="true"
+147-->[androidx.room:room-runtime:2.6.1] /home/thomas/.gradle/caches/transforms-3/8cd5799671618cc37c5842000e4825fa/transformed/room-runtime-2.6.1/AndroidManifest.xml:26:13-43
+148            android:exported="false" />
+148-->[androidx.room:room-runtime:2.6.1] /home/thomas/.gradle/caches/transforms-3/8cd5799671618cc37c5842000e4825fa/transformed/room-runtime-2.6.1/AndroidManifest.xml:27:13-37
+149
+150        <receiver
+150-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/thomas/.gradle/caches/transforms-3/498482daeca7e1b2a1450d2707040743/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:34:9-52:20
+151            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+151-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/thomas/.gradle/caches/transforms-3/498482daeca7e1b2a1450d2707040743/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:35:13-76
+152            android:directBootAware="false"
+152-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/thomas/.gradle/caches/transforms-3/498482daeca7e1b2a1450d2707040743/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:36:13-44
+153            android:enabled="true"
+153-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/thomas/.gradle/caches/transforms-3/498482daeca7e1b2a1450d2707040743/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:37:13-35
+154            android:exported="true"
+154-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/thomas/.gradle/caches/transforms-3/498482daeca7e1b2a1450d2707040743/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:38:13-36
+155            android:permission="android.permission.DUMP" >
+155-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/thomas/.gradle/caches/transforms-3/498482daeca7e1b2a1450d2707040743/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:39:13-57
+156            <intent-filter>
+156-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/thomas/.gradle/caches/transforms-3/498482daeca7e1b2a1450d2707040743/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:40:13-42:29
+157                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+157-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/thomas/.gradle/caches/transforms-3/498482daeca7e1b2a1450d2707040743/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:41:17-91
+157-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/thomas/.gradle/caches/transforms-3/498482daeca7e1b2a1450d2707040743/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:41:25-88
+158            </intent-filter>
+159            <intent-filter>
+159-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/thomas/.gradle/caches/transforms-3/498482daeca7e1b2a1450d2707040743/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:43:13-45:29
+160                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+160-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/thomas/.gradle/caches/transforms-3/498482daeca7e1b2a1450d2707040743/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:44:17-85
+160-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/thomas/.gradle/caches/transforms-3/498482daeca7e1b2a1450d2707040743/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:44:25-82
+161            </intent-filter>
+162            <intent-filter>
+162-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/thomas/.gradle/caches/transforms-3/498482daeca7e1b2a1450d2707040743/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:46:13-48:29
+163                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+163-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/thomas/.gradle/caches/transforms-3/498482daeca7e1b2a1450d2707040743/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:47:17-88
+163-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/thomas/.gradle/caches/transforms-3/498482daeca7e1b2a1450d2707040743/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:47:25-85
+164            </intent-filter>
+165            <intent-filter>
+165-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/thomas/.gradle/caches/transforms-3/498482daeca7e1b2a1450d2707040743/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:49:13-51:29
+166                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+166-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/thomas/.gradle/caches/transforms-3/498482daeca7e1b2a1450d2707040743/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:50:17-95
+166-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/thomas/.gradle/caches/transforms-3/498482daeca7e1b2a1450d2707040743/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:50:25-92
+167            </intent-filter>
+168        </receiver>
+169
+170        <service
+170-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /home/thomas/.gradle/caches/transforms-3/187e0b9ca2a827dc9b43df9d1b882461/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:29:9-35:19
+171            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+171-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /home/thomas/.gradle/caches/transforms-3/187e0b9ca2a827dc9b43df9d1b882461/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:30:13-103
+172            android:exported="false" >
+172-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /home/thomas/.gradle/caches/transforms-3/187e0b9ca2a827dc9b43df9d1b882461/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:31:13-37
+173            <meta-data
+173-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /home/thomas/.gradle/caches/transforms-3/187e0b9ca2a827dc9b43df9d1b882461/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:32:13-34:39
+174                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+174-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /home/thomas/.gradle/caches/transforms-3/187e0b9ca2a827dc9b43df9d1b882461/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:33:17-94
+175                android:value="cct" />
+175-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /home/thomas/.gradle/caches/transforms-3/187e0b9ca2a827dc9b43df9d1b882461/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:34:17-36
+176        </service>
+177        <service
+177-->[com.google.android.datatransport:transport-runtime:2.2.6] /home/thomas/.gradle/caches/transforms-3/5c538d185f65f0f07394360f5b085d81/transformed/jetified-transport-runtime-2.2.6/AndroidManifest.xml:26:9-30:19
+178            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+178-->[com.google.android.datatransport:transport-runtime:2.2.6] /home/thomas/.gradle/caches/transforms-3/5c538d185f65f0f07394360f5b085d81/transformed/jetified-transport-runtime-2.2.6/AndroidManifest.xml:27:13-117
+179            android:exported="false"
+179-->[com.google.android.datatransport:transport-runtime:2.2.6] /home/thomas/.gradle/caches/transforms-3/5c538d185f65f0f07394360f5b085d81/transformed/jetified-transport-runtime-2.2.6/AndroidManifest.xml:28:13-37
+180            android:permission="android.permission.BIND_JOB_SERVICE" >
+180-->[com.google.android.datatransport:transport-runtime:2.2.6] /home/thomas/.gradle/caches/transforms-3/5c538d185f65f0f07394360f5b085d81/transformed/jetified-transport-runtime-2.2.6/AndroidManifest.xml:29:13-69
+181        </service>
+182
+183        <receiver
+183-->[com.google.android.datatransport:transport-runtime:2.2.6] /home/thomas/.gradle/caches/transforms-3/5c538d185f65f0f07394360f5b085d81/transformed/jetified-transport-runtime-2.2.6/AndroidManifest.xml:32:9-34:40
+184            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+184-->[com.google.android.datatransport:transport-runtime:2.2.6] /home/thomas/.gradle/caches/transforms-3/5c538d185f65f0f07394360f5b085d81/transformed/jetified-transport-runtime-2.2.6/AndroidManifest.xml:33:13-132
+185            android:exported="false" />
+185-->[com.google.android.datatransport:transport-runtime:2.2.6] /home/thomas/.gradle/caches/transforms-3/5c538d185f65f0f07394360f5b085d81/transformed/jetified-transport-runtime-2.2.6/AndroidManifest.xml:34:13-37
+186    </application>
+187
+188</manifest>

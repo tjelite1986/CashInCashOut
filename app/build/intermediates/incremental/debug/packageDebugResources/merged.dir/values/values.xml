@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background">#FAFAFA</color>
+    <color name="black">#FF000000</color>
+    <color name="error">#F44336</color>
+    <color name="expense_red">#F44336</color>
+    <color name="income_green">#4CAF50</color>
+    <color name="on_background">#000000</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="on_secondary">#000000</color>
+    <color name="on_surface">#000000</color>
+    <color name="on_surface_variant">#424242</color>
+    <color name="primary">#2E7D32</color>
+    <color name="primary_variant">#1B5E20</color>
+    <color name="secondary">#4CAF50</color>
+    <color name="secondary_variant">#388E3C</color>
+    <color name="success">#4CAF50</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="surface_variant">#F5F5F5</color>
+    <color name="text_hint">#757575</color>
+    <color name="text_primary">#000000</color>
+    <color name="text_secondary">#424242</color>
+    <color name="warning">#FF9800</color>
+    <color name="white">#FFFFFFFF</color>
+    <string name="add">Lägg till</string>
+    <string name="amount">Belopp</string>
+    <string name="app_name">Budget App</string>
+    <string name="cancel">Avbryt</string>
+    <string name="category">Kategori</string>
+    <string name="date">Datum</string>
+    <string name="delete">Ta bort</string>
+    <string name="description">Beskrivning</string>
+    <string name="edit">Redigera</string>
+    <string name="monthly_expenses">Månatliga utgifter</string>
+    <string name="monthly_income">Månatlig inkomst</string>
+    <string name="nav_budget">Budget</string>
+    <string name="nav_expenses">Utgifter</string>
+    <string name="nav_income">Inkomst</string>
+    <string name="nav_overview">Översikt</string>
+    <string name="nav_settings">Inställningar</string>
+    <string name="save">Spara</string>
+    <string name="total_balance">Total balans</string>
+    <style name="Theme.BudgetApp" parent="Theme.Material3.DayNight">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary_variant</item>
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorSecondaryVariant">@color/secondary_variant</item>
+        <item name="android:colorBackground">@color/background</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+        <item name="colorOnSecondary">@color/on_secondary</item>
+        <item name="colorOnBackground">@color/on_background</item>
+        <item name="colorOnSurface">@color/on_surface</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textColorHint">@color/text_hint</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+    </style>
+    <style name="Theme.BudgetApp.NoActionBar" parent="Theme.BudgetApp">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+</resources>

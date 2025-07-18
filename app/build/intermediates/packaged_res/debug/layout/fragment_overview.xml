@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/nav_overview"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Total Balance Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/primary">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/total_balance"
+                    android:textColor="@color/on_primary"
+                    android:textSize="16sp"
+                    android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/text_total_balance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0 kr"
+                    android:textColor="@color/on_primary"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Monthly Stats Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="24dp">
+
+            <!-- Monthly Income Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/monthly_income"
+                        android:textSize="14sp"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/text_monthly_income"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0 kr"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/income_green"
+                        android:gravity="center"
+                        android:layout_marginTop="8dp" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Monthly Expenses Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/monthly_expenses"
+                        android:textSize="14sp"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/text_monthly_expenses"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0 kr"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/expense_red"
+                        android:gravity="center"
+                        android:layout_marginTop="8dp" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+        <!-- Quick Actions Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Snabbåtgärder"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="16dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/button_add_expense"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"
+                        android:text="Lägg till utgift"
+                        style="@style/Widget.Material3.Button.OutlinedButton" />
+
+                    <Button
+                        android:id="@+id/button_add_income"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"
+                        android:text="Lägg till inkomst" />
+
+                </LinearLayout>
+                
+                <Button
+                    android:id="@+id/buttonViewProducts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Visa alla produkter"
+                    android:layout_marginTop="8dp"
+                    style="@style/Widget.Material3.Button.OutlinedButton" />
+
+                <Button
+                    android:id="@+id/buttonManageStores"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hantera butiker"
+                    android:layout_marginTop="8dp"
+                    app:icon="@drawable/ic_store"
+                    style="@style/Widget.Material3.Button.OutlinedButton" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+</ScrollView>
+
+<com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:id="@+id/fab_add_product"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|end"
+    android:layout_margin="16dp"
+    android:contentDescription="Lägg till produkt"
+    app:srcCompat="@drawable/ic_add_product" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

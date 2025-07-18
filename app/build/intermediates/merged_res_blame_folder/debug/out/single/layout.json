@@ -1,0 +1,106 @@
+[
+    {
+        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-mergeDebugResources-58:/layout/dialog_add_price.xml",
+        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-61:/layout/dialog_add_price.xml"
+    },
+    {
+        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-mergeDebugResources-58:/layout/dialog_add_store.xml",
+        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-61:/layout/dialog_add_store.xml"
+    },
+    {
+        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-mergeDebugResources-58:/layout/fragment_overview.xml",
+        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-61:/layout/fragment_overview.xml"
+    },
+    {
+        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-mergeDebugResources-58:/layout/activity_add_product.xml",
+        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-61:/layout/activity_add_product.xml"
+    },
+    {
+        "merged": "com.example.budgetapp-mergeDebugResources-58:/layout/item_expense.xml",
+        "source": "com.example.budgetapp-main-61:/layout/item_expense.xml"
+    },
+    {
+        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-mergeDebugResources-58:/layout/fragment_settings.xml",
+        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-61:/layout/fragment_settings.xml"
+    },
+    {
+        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-mergeDebugResources-58:/layout/activity_edit_product.xml",
+        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-61:/layout/activity_edit_product.xml"
+    },
+    {
+        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-mergeDebugResources-58:/layout/activity_add_product_old.xml",
+        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-61:/layout/activity_add_product_old.xml"
+    },
+    {
+        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-mergeDebugResources-58:/layout/activity_barcode_scanner.xml",
+        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-61:/layout/activity_barcode_scanner.xml"
+    },
+    {
+        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-mergeDebugResources-58:/layout/dialog_add_store_old.xml",
+        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-61:/layout/dialog_add_store_old.xml"
+    },
+    {
+        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-mergeDebugResources-58:/layout/item_income.xml",
+        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-61:/layout/item_income.xml"
+    },
+    {
+        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-mergeDebugResources-58:/layout/item_product.xml",
+        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-61:/layout/item_product.xml"
+    },
+    {
+        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-mergeDebugResources-58:/layout/activity_product_list.xml",
+        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-61:/layout/activity_product_list.xml"
+    },
+    {
+        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-mergeDebugResources-58:/layout/activity_store_manager.xml",
+        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-61:/layout/activity_store_manager.xml"
+    },
+    {
+        "merged": "com.example.budgetapp-mergeDebugResources-58:/layout/fragment_expenses.xml",
+        "source": "com.example.budgetapp-main-61:/layout/fragment_expenses.xml"
+    },
+    {
+        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-mergeDebugResources-58:/layout/fragment_budget.xml",
+        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-61:/layout/fragment_budget.xml"
+    },
+    {
+        "merged": "com.example.budgetapp-mergeDebugResources-58:/layout/activity_add_expense.xml",
+        "source": "com.example.budgetapp-main-61:/layout/activity_add_expense.xml"
+    },
+    {
+        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-mergeDebugResources-58:/layout/activity_add_income.xml",
+        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-61:/layout/activity_add_income.xml"
+    },
+    {
+        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-mergeDebugResources-58:/layout/fragment_expenses.xml",
+        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-61:/layout/fragment_expenses.xml"
+    },
+    {
+        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-mergeDebugResources-58:/layout/item_product_price.xml",
+        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-61:/layout/item_product_price.xml"
+    },
+    {
+        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-mergeDebugResources-58:/layout/item_store.xml",
+        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-61:/layout/item_store.xml"
+    },
+    {
+        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-mergeDebugResources-58:/layout/dialog_edit_price.xml",
+        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-61:/layout/dialog_edit_price.xml"
+    },
+    {
+        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-mergeDebugResources-58:/layout/fragment_income.xml",
+        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-61:/layout/fragment_income.xml"
+    },
+    {
+        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-mergeDebugResources-58:/layout/activity_main.xml",
+        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-61:/layout/activity_main.xml"
+    },
+    {
+        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-mergeDebugResources-58:/layout/activity_product_price_manager.xml",
+        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-61:/layout/activity_product_price_manager.xml"
+    },
+    {
+        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-mergeDebugResources-58:/layout/item_product_with_prices.xml",
+        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-61:/layout/item_product_with_prices.xml"
+    }
+]
