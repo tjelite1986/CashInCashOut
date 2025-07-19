@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="?attr/colorSurface">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lägg till vara"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="?attr/colorOnSurface"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Store Information -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="12dp">
+
+        <!-- Store Name -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_store_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:hint="Butiknamn"
+            app:startIconDrawable="@drawable/ic_store"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+            <AutoCompleteTextView
+                android:id="@+id/autocomplete_store_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:maxLines="1"
+                android:textColor="?attr/colorOnSurface"
+                android:background="?attr/colorSurface" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Store Chain -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_store_chain"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:hint="Kedja"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+            <AutoCompleteTextView
+                android:id="@+id/dropdown_store_chain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:focusable="false"
+                android:textColor="?attr/colorOnSurface"
+                android:background="?attr/colorSurface" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <!-- Store City -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_store_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:hint="Stad"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+        <AutoCompleteTextView
+            android:id="@+id/autocomplete_store_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:maxLines="1"
+            android:textColor="?attr/colorOnSurface"
+            android:background="?attr/colorSurface" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Product Name with Search -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_product_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:hint="Produktnamn *"
+        app:startIconDrawable="@drawable/ic_add_product"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+        <AutoCompleteTextView
+            android:id="@+id/autocomplete_product_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:maxLines="1"
+            android:textColor="?attr/colorOnSurface"
+            android:background="?attr/colorSurface" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="12dp">
+
+        <!-- Quantity -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_quantity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:hint="Antal *"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_quantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:text="1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Unit -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_unit"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:hint="Enhet"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+            <AutoCompleteTextView
+                android:id="@+id/dropdown_unit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:focusable="false"
+                android:text="st"
+                android:textColor="?attr/colorOnSurface"
+                android:background="?attr/colorSurface" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <!-- Unit Price -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_unit_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:hint="Styckpris *"
+        app:startIconDrawable="@drawable/ic_money"
+        app:suffixText="kr"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_unit_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:maxLines="1" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Discount (Optional) -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_discount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:hint="Rabatt (valfritt)"
+        app:suffixText="kr"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_discount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:maxLines="1"
+            android:text="0" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Total Price Preview -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Totalt: "
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface" />
+
+        <TextView
+            android:id="@+id/text_total_preview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorPrimary"
+            android:text="0,00 kr" />
+
+    </LinearLayout>
+
+    <!-- Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_cancel"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Avbryt"
+            android:layout_marginEnd="8dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lägg till"
+            app:icon="@drawable/ic_add" />
+
+    </LinearLayout>
+
+</LinearLayout>
