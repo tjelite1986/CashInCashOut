@@ -4,40 +4,45 @@ En avancerad Android budget-app skapad med Kotlin och Material Design 3, med fok
 
 ## Funktioner
 
-Appen har en bottom navigation bar med fem huvudsektioner:
+Appen har en bottom navigation bar med fyra huvudsektioner:
 
 ### 📊 Översikt
 - Visar total balans, månatliga inkomster och utgifter
-- Snabbåtgärder för att lägga till inkomster och utgifter
+- **Lånöversikt** - separata kort för lånade och utlånade belopp
+- Snabbåtgärder för att lägga till inkomster, utgifter och lån
 - **Floating Action Button** för att lägga till produkter
 - **"Visa alla produkter"** knapp för att komma åt produktlistan
 - **"Hantera butiker"** knapp för butikshantering
+- **Anpassningsbar** - visa/dölj sektioner via EditHomeActivity
 - Elegant dashboard med cards
 
-### 💸 Utgifter
-- **Komplett utgiftshantering** med alla funktioner implementerade
+### 💸 Transaktioner
+- **Komplett transaktionshantering** för både inkomster och utgifter
+- **Unified view** - se alla transaktioner på ett ställe med filtrering
 - **Lägg till utgifter** med titel, belopp, kategori, butik och betalmetod
+- **Lägg till inkomster** med titel, belopp, kategori, datum och beskrivning
 - **Utgiftskategorier** - Mat, Transport, Hygien, Nöje, Räkningar, Kläder, Hälsa, Boende, Övrigt
+- **Inkomstkategorier** - Lön, Freelance, Investeringar, Bidrag, Övrigt
 - **Butiksregistrering** - spåra var utgiften gjordes
 - **Betalmetoder** - Kort, Kontant, Swish, Faktura
-- **Återkommande utgifter** - månadsvis, veckovis, årligen
-- **Total utgifter** visas i rött kort på översiktsidan
-- **Utgiftslista** med detaljerad information och redigering
-- **Ta bort utgifter** med bekräftelsedialog
-- **Floating Action Button** för att lägga till nya utgifter
+- **Återkommande transaktioner** - månadsvis, veckovis, årligen
+- **Filtrering** - visa alla, endast inkomster eller endast utgifter
+- **Summering** - totala inkomster och utgifter visas överst
+- **Floating Action Button** för att lägga till nya transaktioner
 
-### 💰 Inkomst
-- **Komplett inkomsthantering** med alla funktioner implementerade
-- **Lägg till inkomster** med titel, belopp, kategori, datum och beskrivning
-- **Återkommande inkomster** - månadsvis, veckovis, årligen
-- **Inkomstkategorier** - Lön, Freelance, Investeringar, Bidrag, Övrigt
-- **Datumväljare** med svensk formatering
-- **Total inkomst** visas i overview-kortet
-- **Inkomstlista** med redigering och borttagning
-- **Floating Action Button** för att lägga till nya inkomster
+### 💳 Lån
+- **Komplett lånhanteringssystem** med alla funktioner implementerade
+- **Lägg till lån** - både lånade och utlånade pengar
+- **Låntyper** - "Lånat från någon" (skulder) och "Lånat ut till någon" (fordringar)
+- **Låndetaljer** - titel, belopp, person, ränta, förfallodatum, beskrivning
+- **Återbetalningshantering** - markera lån som återbetalda eller ångra återbetalning
+- **Filtrering** - visa alla, lånade, utlånade, aktiva eller återbetalda lån
+- **Översiktsintegration** - separata kort för lånade och utlånade belopp
+- **Redigering och borttagning** - fullständig CRUD-funktionalitet
+- **FAB-meny** för snabb åtkomst till låntilläggning
 
 ### 📋 Budget
-- Sektion för budgetplanering
+- Sektion för budgetplanering  
 - Plats för framtida funktioner som budgetkategorier och gränser
 
 ### ⚙️ Inställningar
@@ -95,9 +100,10 @@ Appen har en bottom navigation bar med fem huvudsektioner:
 - **Butikssystem** med kedjehantering
 - **Inkomstsystem** med kategori- och återkommandestöd
 - **Utgiftssystem** med kategori-, butiks- och betalmetodsstöd
+- **Lånsystem** med låntyper, ränta, förfallodatum och återbetalningshantering
 - **Relationshantering** mellan produkter, butiker och kategorier
 - **Sökfunktioner** baserat på namn och varumärke
-- **Databasmigration** från version 2 till 6
+- **Databasmigration** från version 2 till 7
 
 ## Teknisk specifikation
 
@@ -107,7 +113,7 @@ Appen har en bottom navigation bar med fem huvudsektioner:
 - **MinSDK**: 24 (Android 7.0)
 - **TargetSDK**: 34
 - **Architecture**: Fragment-based navigation
-- **Databas**: Room (SQLite) version 6
+- **Databas**: Room (SQLite) version 7
 - **Kamera**: CameraX med ML Kit för streckkodscanning
 
 ## Byggd struktur
@@ -124,16 +130,18 @@ app/
 │   │   ├── BarcodeScannerActivity.kt
 │   │   ├── AddIncomeActivity.kt
 │   │   ├── AddExpenseActivity.kt
+│   │   ├── AddLoanActivity.kt
+│   │   ├── EditHomeActivity.kt
 │   │   ├── StoreManagerActivity.kt
 │   │   ├── ProductAdapter.kt
-│   │   ├── IncomeAdapter.kt
-│   │   ├── ExpenseAdapter.kt
+│   │   ├── LoanAdapter.kt
+│   │   ├── TransactionAdapter.kt
 │   │   ├── ProductWithPricesAdapter.kt
 │   │   ├── ProductPriceAdapter.kt
 │   │   ├── fragments/
 │   │   │   ├── OverviewFragment.kt
-│   │   │   ├── ExpensesFragment.kt
-│   │   │   ├── IncomeFragment.kt
+│   │   │   ├── TransactionsFragment.kt
+│   │   │   ├── LoansFragment.kt
 │   │   │   ├── BudgetFragment.kt
 │   │   │   └── SettingsFragment.kt
 │   │   ├── data/
@@ -146,14 +154,16 @@ app/
 │   │       │   ├── Store.kt
 │   │       │   ├── ProductStore.kt
 │   │       │   ├── Income.kt
-│   │       │   └── Expense.kt
+│   │       │   ├── Expense.kt
+│   │       │   └── Loan.kt
 │   │       └── dao/
 │   │           ├── ProductDao.kt
 │   │           ├── CategoryDao.kt
 │   │           ├── StoreDao.kt
 │   │           ├── ProductStoreDao.kt
 │   │           ├── IncomeDao.kt
-│   │           └── ExpenseDao.kt
+│   │           ├── ExpenseDao.kt
+│   │           └── LoanDao.kt
 │   └── res/
 │       ├── layout/          # Layout-filer för UI
 │       ├── drawable/        # Ikoner för navigation
@@ -225,6 +235,20 @@ app/
 - **paymentMethod**: Betalmetod (Kort, Kontant, Swish, Faktura)
 - **createdAt/updatedAt**: Tidsstämplar
 
+### Loan Table
+- **id**: Primary key
+- **title**: Låntitel
+- **amount**: Lånebelopp
+- **description**: Beskrivning (valfri)
+- **personName**: Person som lånat till/från
+- **type**: Låntyp (BORROWED för skuld, LENT för fordran)
+- **interestRate**: Ränta i procent (valfri)
+- **dueDate**: Förfallodatum (valfri)
+- **isPaidBack**: Boolean för återbetald status
+- **paidBackDate**: Datum för återbetalning (valfri)
+- **paidBackAmount**: Återbetalt belopp
+- **createdAt/updatedAt**: Tidsstämplar
+
 ## Fördefinierade data
 
 ### Butiker
@@ -290,10 +314,12 @@ Appen använder ett grönt färgtema som är lämpligt för ekonomi-appar:
 3. **Hantera priser**: Produktlista → "Visa priser" → Se alla priser → Lägg till/redigera/ta bort priser
 4. **Redigera produkt**: Produktlista → "Redigera" → Uppdatera produktinformation
 5. **Lägg till inkomst**: Översikt → "Lägg till inkomst" → Ange titel, belopp, kategori, datum
-6. **Hantera inkomster**: Inkomstfliken → Se alla inkomster → Redigera/ta bort inkomster
-7. **Lägg till utgift**: Översikt → "Lägg till utgift" → Ange titel, belopp, kategori, butik, betalmetod
-8. **Hantera utgifter**: Utgiftsfliken → Se alla utgifter → Redigera/ta bort utgifter
-9. **Hantera butiker**: Översikt → "Hantera butiker" → Lägg till/redigera/ta bort butiker
+6. **Lägg till utgift**: Transaktioner → "Lägg till utgift" → Ange titel, belopp, kategori, butik, betalmetod
+7. **Hantera transaktioner**: Transaktionsfliken → Se inkomster och utgifter → Filtrera och redigera
+8. **Lägg till lån**: Lånfliken → "Lägg till lån" → Välj typ → Ange detaljer → Spara
+9. **Hantera lån**: Lånfliken → Filtrera lån → Markera som återbetalt/ångra → Redigera/ta bort
+10. **Anpassa översikt**: Inställningar (meny) → "Edit Home" → Visa/dölj sektioner
+11. **Hantera butiker**: Översikt → "Hantera butiker" → Lägg till/redigera/ta bort butiker
 
 ## Nästa steg
 
