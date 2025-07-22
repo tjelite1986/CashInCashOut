@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp"
     android:background="?attr/colorSurface">
 
+    <!-- Title (fixed at top) -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,28 +15,141 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="?attr/colorOnSurface"
-        android:layout_marginBottom="16dp" />
+        android:padding="16dp"
+        android:paddingBottom="8dp" />
+
+    <!-- Scrollable content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:maxHeight="400dp"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="8dp">
 
     <!-- Store Information -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="12dp">
+
+        <!-- Store Selection Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <!-- Store Name Dropdown -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_store_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:hint="Butik"
+                app:startIconDrawable="@drawable/ic_store"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autocomplete_store_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
+                    android:maxLines="1"
+                    android:textColor="?attr/colorOnSurface"
+                    android:completionThreshold="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Add New Store Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_add_store"
+                android:layout_width="wrap_content"
+                android:layout_height="56dp"
+                android:text="Ny butik"
+                android:layout_marginTop="4dp"
+                app:icon="@drawable/ic_add"
+                style="@style/Widget.Material3.Button.OutlinedButton" />
+
+        </LinearLayout>
+
+        <!-- Store Chain and City Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Store Chain -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_store_chain"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:hint="Kedja"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                <AutoCompleteTextView
+                    android:id="@+id/dropdown_store_chain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
+                    android:textColor="?attr/colorOnSurface"
+                    android:completionThreshold="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Store City -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_store_city"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Stad"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autocomplete_store_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
+                    android:maxLines="1"
+                    android:textColor="?attr/colorOnSurface"
+                    android:completionThreshold="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Product Name with Search and Barcode Scanning -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginBottom="12dp">
 
-        <!-- Store Name -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_store_name"
+            android:id="@+id/text_input_product_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginEnd="8dp"
-            android:hint="Butiknamn"
-            app:startIconDrawable="@drawable/ic_store"
+            android:hint="Produktnamn *"
+            app:startIconDrawable="@drawable/ic_add_product"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
 
             <AutoCompleteTextView
-                android:id="@+id/autocomplete_store_name"
+                android:id="@+id/autocomplete_product_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
@@ -46,67 +159,16 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Store Chain -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_store_chain"
-            android:layout_width="100dp"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_scan_barcode"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Kedja"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
-
-            <AutoCompleteTextView
-                android:id="@+id/dropdown_store_chain"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none"
-                android:focusable="false"
-                android:textColor="?attr/colorOnSurface"
-                android:background="?attr/colorSurface" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+            android:text="Skanna"
+            android:layout_marginTop="8dp"
+            app:icon="@drawable/ic_add_product"
+            style="@style/Widget.Material3.Button.OutlinedButton" />
 
     </LinearLayout>
-
-    <!-- Store City -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_input_store_city"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:hint="Stad"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
-
-        <AutoCompleteTextView
-            android:id="@+id/autocomplete_store_city"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textCapWords"
-            android:maxLines="1"
-            android:textColor="?attr/colorOnSurface"
-            android:background="?attr/colorSurface" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- Product Name with Search -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_input_product_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:hint="Produktnamn *"
-        app:startIconDrawable="@drawable/ic_add_product"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
-
-        <AutoCompleteTextView
-            android:id="@+id/autocomplete_product_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textCapWords"
-            android:maxLines="1"
-            android:textColor="?attr/colorOnSurface"
-            android:background="?attr/colorSurface" />
-
-    </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -142,15 +204,13 @@
             android:hint="Enhet"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
-            <AutoCompleteTextView
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/dropdown_unit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
-                android:focusable="false"
                 android:text="st"
-                android:textColor="?attr/colorOnSurface"
-                android:background="?attr/colorSurface" />
+                android:textColor="?attr/colorOnSurface" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -173,6 +233,37 @@
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
             android:maxLines="1" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Deposit Switch -->
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switch_has_deposit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Har pant"
+        android:textSize="16sp"
+        android:textColor="?attr/colorOnSurface"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Deposit Amount -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_deposit_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:hint="Pantbelopp per vara"
+        app:suffixText="kr"
+        android:visibility="gone"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_deposit_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:maxLines="1"
+            android:text="1.0" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -221,14 +312,20 @@
             android:textColor="?attr/colorPrimary"
             android:text="0,00 kr" />
 
-    </LinearLayout>
+        </LinearLayout>
 
-    <!-- Buttons -->
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!-- Buttons (fixed at bottom) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="end">
+        android:gravity="end"
+        android:padding="16dp"
+        android:paddingTop="8dp">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_cancel"

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_edit_list"
+        android:title="Redigera lista"
+        android:icon="@drawable/ic_edit"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_mark_completed"
+        android:title="Markera som slutförd"
+        android:icon="@drawable/ic_save"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_share_list"
+        android:title="Dela lista"
+        app:showAsAction="never" />
+
+</menu>

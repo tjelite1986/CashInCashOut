@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -65,6 +66,60 @@
             
         <activity
             android:name=".AddExpenseActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BudgetApp.NoActionBar"
+            android:parentActivityName=".MainActivity" />
+            
+        <activity
+            android:name=".EditHomeActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BudgetApp.NoActionBar"
+            android:parentActivityName=".MainActivity" />
+            
+        <activity
+            android:name=".AddLoanActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BudgetApp.NoActionBar"
+            android:parentActivityName=".MainActivity" />
+            
+        <activity
+            android:name=".activities.AddEditBudgetActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BudgetApp.NoActionBar"
+            android:parentActivityName=".MainActivity" />
+            
+        <activity
+            android:name=".ShoppingListActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BudgetApp.NoActionBar"
+            android:parentActivityName=".MainActivity" />
+            
+        <activity
+            android:name=".AddEditShoppingListActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BudgetApp.NoActionBar"
+            android:parentActivityName=".ShoppingListActivity" />
+            
+        <activity
+            android:name=".ShoppingListDetailActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BudgetApp.NoActionBar"
+            android:parentActivityName=".ShoppingListActivity" />
+            
+        <activity
+            android:name=".AddEditShoppingListItemActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BudgetApp.NoActionBar"
+            android:parentActivityName=".ShoppingListDetailActivity" />
+            
+        <activity
+            android:name=".PriceHistoryActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BudgetApp.NoActionBar"
+            android:parentActivityName=".ProductPriceManagerActivity" />
+            
+        <activity
+            android:name=".SmartRecommendationsActivity"
             android:exported="false"
             android:theme="@style/Theme.BudgetApp.NoActionBar"
             android:parentActivityName=".MainActivity" />

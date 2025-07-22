@@ -18,6 +18,9 @@ interface IncomeDao {
     @Query("SELECT * FROM incomes WHERE date >= :startDate AND date <= :endDate ORDER BY date DESC")
     fun getIncomesByDateRange(startDate: Long, endDate: Long): Flow<List<Income>>
 
+    @Query("SELECT * FROM incomes ORDER BY date DESC")
+    suspend fun getAllIncomesSnapshot(): List<Income>
+
     @Query("SELECT SUM(amount) FROM incomes")
     suspend fun getTotalIncome(): Double?
 
@@ -44,4 +47,7 @@ interface IncomeDao {
 
     @Query("DELETE FROM incomes")
     suspend fun deleteAllIncomes()
+
+    @Query("SELECT COUNT(*) FROM incomes WHERE title = :title AND amount = :amount AND COALESCE(category, '') = :category AND date = :date")
+    suspend fun checkDuplicateIncome(title: String, amount: Double, category: String, date: Long): Int
 }

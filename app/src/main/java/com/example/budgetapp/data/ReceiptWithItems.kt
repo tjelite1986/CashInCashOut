@@ -17,8 +17,10 @@ data class ReceiptItemInput(
     val productId: Long? = null, // Koppling till befintlig produkt om vald
     val storeName: String? = null,
     val storeChain: String? = null,
-    val storeCity: String? = null
+    val storeCity: String? = null,
+    val hasDeposit: Boolean = false, // Om varan har pant
+    val depositAmount: Double = 0.0 // Pantbelopp per vara
 ) {
     val totalPrice: Double
-        get() = (quantity * unitPrice) - discount
+        get() = (quantity * (unitPrice + depositAmount)) - discount
 }

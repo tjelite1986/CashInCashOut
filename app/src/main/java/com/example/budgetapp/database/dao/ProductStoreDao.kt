@@ -6,6 +6,9 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ProductStoreDao {
+    @Query("SELECT * FROM product_stores")
+    fun getAllProductStores(): Flow<List<ProductStore>>
+
     @Query("SELECT * FROM product_stores WHERE productId = :productId ORDER BY price ASC")
     fun getPricesForProduct(productId: Long): Flow<List<ProductStore>>
 

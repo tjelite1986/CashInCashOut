@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="24dp"
-    android:background="@android:color/white">
+    android:background="?attr/colorSurface">
 
     <TextView
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
         android:text="Lägg till butik"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@color/text_primary"
+        android:textColor="?attr/colorOnSurface"
         android:gravity="center"
         android:layout_marginBottom="24dp" />
 
@@ -22,10 +22,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Butiksnamn *"
-        app:boxStrokeColor="@color/primary"
-        app:hintTextColor="@color/primary"
+        app:boxStrokeColor="?attr/colorPrimary"
+        app:hintTextColor="?attr/colorPrimary"
         app:helperText="Obligatoriskt fält"
-        app:helperTextTextColor="@color/text_secondary"
+        app:helperTextTextColor="?attr/colorOnSurfaceVariant"
         android:layout_marginBottom="16dp"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
 
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:inputType="textCapWords"
             android:maxLines="1"
-            android:textColor="@color/text_primary"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="16sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -44,22 +44,22 @@
         android:id="@+id/tilStoreChain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Kedja (t.ex. ICA, Coop, Hemköp)"
-        app:boxStrokeColor="@color/primary"
-        app:hintTextColor="@color/primary"
-        app:helperText="Vilken butikskedja"
-        app:helperTextTextColor="@color/text_secondary"
+        android:hint="Kedja"
+        app:boxStrokeColor="?attr/colorPrimary"
+        app:hintTextColor="?attr/colorPrimary"
+        app:helperText="Välj eller lägg till butikskedja"
+        app:helperTextTextColor="?attr/colorOnSurfaceVariant"
         android:layout_marginBottom="16dp"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etStoreChain"
+        <AutoCompleteTextView
+            android:id="@+id/acStoreChain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textCapWords"
-            android:maxLines="1"
-            android:textColor="@color/text_primary"
-            android:textSize="16sp" />
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="16sp"
+            android:completionThreshold="1" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -68,10 +68,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Adress (valfritt)"
-        app:boxStrokeColor="@color/primary"
-        app:hintTextColor="@color/primary"
+        app:boxStrokeColor="?attr/colorPrimary"
+        app:hintTextColor="?attr/colorPrimary"
         app:helperText="Gatuadress"
-        app:helperTextTextColor="@color/text_secondary"
+        app:helperTextTextColor="?attr/colorOnSurfaceVariant"
         android:layout_marginBottom="16dp"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
 
@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:inputType="textPostalAddress"
             android:maxLines="1"
-            android:textColor="@color/text_primary"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="16sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -91,10 +91,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Stad (valfritt)"
-        app:boxStrokeColor="@color/primary"
-        app:hintTextColor="@color/primary"
+        app:boxStrokeColor="?attr/colorPrimary"
+        app:hintTextColor="?attr/colorPrimary"
         app:helperText="Stad eller ort"
-        app:helperTextTextColor="@color/text_secondary"
+        app:helperTextTextColor="?attr/colorOnSurfaceVariant"
         android:layout_marginBottom="24dp"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
 
@@ -104,7 +104,7 @@
             android:layout_height="wrap_content"
             android:inputType="textCapWords"
             android:maxLines="1"
-            android:textColor="@color/text_primary"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="16sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -121,7 +121,7 @@
             android:layout_height="wrap_content"
             android:text="Avbryt"
             android:layout_marginEnd="8dp"
-            android:textColor="@color/text_secondary"
+            android:textColor="?attr/colorOnSurfaceVariant"
             style="@style/Widget.Material3.Button.TextButton" />
 
         <com.google.android.material.button.MaterialButton
@@ -129,8 +129,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Spara"
-            android:backgroundTint="@color/primary"
-            android:textColor="@color/on_primary" />
+            android:backgroundTint="?attr/colorPrimary"
+            android:textColor="?attr/colorOnPrimary" />
 
     </LinearLayout>
 

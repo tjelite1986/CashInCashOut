@@ -100,7 +100,7 @@
                     app:tint="@android:color/white"
                     android:layout_marginEnd="16dp" />
 
-                <Switch
+                <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/switch_accounts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -154,7 +154,7 @@
                     app:tint="@android:color/white"
                     android:layout_marginEnd="16dp" />
 
-                <Switch
+                <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/switch_income_expenses"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -208,7 +208,7 @@
                     app:tint="@android:color/white"
                     android:layout_marginEnd="16dp" />
 
-                <Switch
+                <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/switch_loans"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -262,7 +262,7 @@
                     app:tint="@android:color/white"
                     android:layout_marginEnd="16dp" />
 
-                <Switch
+                <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/switch_budgets"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -316,7 +316,7 @@
                     app:tint="@android:color/white"
                     android:layout_marginEnd="16dp" />
 
-                <Switch
+                <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/switch_goals"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -370,7 +370,7 @@
                     app:tint="@android:color/white"
                     android:layout_marginEnd="16dp" />
 
-                <Switch
+                <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/switch_net_worth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

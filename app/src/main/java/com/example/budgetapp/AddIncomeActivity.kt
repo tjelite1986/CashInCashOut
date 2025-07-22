@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.budgetapp.database.BudgetDatabase
 import com.example.budgetapp.database.entities.Income
 import com.example.budgetapp.databinding.ActivityAddIncomeBinding
+import com.example.budgetapp.utils.CategoryConstants
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -83,7 +84,7 @@ class AddIncomeActivity : AppCompatActivity() {
     
     private fun setupSpinners() {
         // Category spinner
-        val categories = listOf("Lön", "Bonus", "Freelance", "Investering", "Försäljning", "Övrigt")
+        val categories = CategoryConstants.INCOME_CATEGORIES
         val categoryAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerCategory.adapter = categoryAdapter
@@ -99,7 +100,7 @@ class AddIncomeActivity : AppCompatActivity() {
         })
         
         // Recurring type spinner
-        val recurringTypes = listOf("Månadsvis", "Veckovis", "Årligen")
+        val recurringTypes = CategoryConstants.RECURRING_TYPES
         val recurringAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, recurringTypes)
         recurringAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerRecurringType.adapter = recurringAdapter
@@ -168,7 +169,7 @@ class AddIncomeActivity : AppCompatActivity() {
                             binding.btnSelectDate.text = dateFormat.format(Date(selectedDate))
                             
                             selectedCategory = it.category ?: "Lön"
-                            val categories = listOf("Lön", "Bonus", "Freelance", "Investering", "Försäljning", "Övrigt")
+                            val categories = CategoryConstants.INCOME_CATEGORIES
                             val categoryIndex = categories.indexOf(selectedCategory).takeIf { it >= 0 } ?: 0
                             binding.spinnerCategory.setSelection(categoryIndex)
                             
@@ -176,7 +177,7 @@ class AddIncomeActivity : AppCompatActivity() {
                             
                             if (it.isRecurring && it.recurringType != null) {
                                 selectedRecurringType = it.recurringType
-                                val recurringTypes = listOf("monthly", "weekly", "yearly")
+                                val recurringTypes = listOf("Månadsvis", "Veckovis", "Årligen")
                                 val recurringIndex = recurringTypes.indexOf(it.recurringType).takeIf { idx -> idx >= 0 } ?: 0
                                 binding.spinnerRecurringType.setSelection(recurringIndex)
                                 binding.spinnerRecurringType.visibility = android.view.View.VISIBLE

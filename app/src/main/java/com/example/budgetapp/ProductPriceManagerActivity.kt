@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.budgetapp.database.BudgetDatabase
 import com.example.budgetapp.database.entities.Product
 import com.example.budgetapp.database.entities.ProductStore
+import com.example.budgetapp.database.entities.PriceHistory
 import com.example.budgetapp.database.entities.Store
 import com.example.budgetapp.databinding.ActivityProductPriceManagerBinding
 import kotlinx.coroutines.flow.first
@@ -74,6 +75,12 @@ class ProductPriceManagerActivity : AppCompatActivity() {
     private fun setupClickListeners() {
         binding.fabAddPrice.setOnClickListener {
             showAddPriceDialog()
+        }
+        
+        binding.buttonPriceHistory.setOnClickListener {
+            val intent = Intent(this, PriceHistoryActivity::class.java)
+            intent.putExtra("product_id", productId)
+            startActivity(intent)
         }
     }
 
@@ -169,6 +176,17 @@ class ProductPriceManagerActivity : AppCompatActivity() {
                     lifecycleScope.launch {
                         try {
                             database.productStoreDao().insertProductStore(productStore)
+                            
+                            // Save price history for new price
+                            val priceHistory = PriceHistory(
+                                productId = productId,
+                                storeId = selectedStore.id,
+                                price = price,
+                                campaignPrice = if (hasCampaignPrice) campaignPrice else null,
+                                source = "manual_entry"
+                            )
+                            database.priceHistoryDao().insertPriceHistory(priceHistory)
+                            
                             loadPrices()
                             Toast.makeText(this@ProductPriceManagerActivity, "Pris tillagt!", Toast.LENGTH_SHORT).show()
                         } catch (e: Exception) {
@@ -225,7 +243,24 @@ class ProductPriceManagerActivity : AppCompatActivity() {
                     
                     lifecycleScope.launch {
                         try {
+                            // Check if price actually changed
+                            val oldPrice = productStoreWithStore.productStore.price
+                            val oldCampaignPrice = productStoreWithStore.productStore.campaignPrice
+                            
                             database.productStoreDao().updateProductStore(updatedProductStore)
+                            
+                            // Save price history if price changed
+                            if (price != oldPrice || campaignPrice != oldCampaignPrice) {
+                                val priceHistory = PriceHistory(
+                                    productId = productId,
+                                    storeId = productStoreWithStore.store.id,
+                                    price = price,
+                                    campaignPrice = if (hasCampaignPrice) campaignPrice else null,
+                                    source = "manual_update"
+                                )
+                                database.priceHistoryDao().insertPriceHistory(priceHistory)
+                            }
+                            
                             loadPrices()
                             Toast.makeText(this@ProductPriceManagerActivity, "Pris uppdaterat!", Toast.LENGTH_SHORT).show()
                         } catch (e: Exception) {

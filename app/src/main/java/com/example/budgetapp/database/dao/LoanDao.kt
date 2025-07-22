@@ -10,6 +10,9 @@ interface LoanDao {
     @Query("SELECT * FROM loans ORDER BY createdAt DESC")
     fun getAllLoans(): Flow<List<Loan>>
 
+    @Query("SELECT * FROM loans ORDER BY createdAt DESC")
+    suspend fun getAllLoansSnapshot(): List<Loan>
+
     @Query("SELECT * FROM loans WHERE id = :loanId")
     suspend fun getLoanById(loanId: Long): Loan?
 
@@ -66,4 +69,7 @@ interface LoanDao {
     // Partial payment
     @Query("UPDATE loans SET paidBackAmount = :amount, updatedAt = :updatedAt WHERE id = :loanId")
     suspend fun updatePaidBackAmount(loanId: Long, amount: Double, updatedAt: Long = System.currentTimeMillis())
+
+    @Query("SELECT COUNT(*) FROM loans WHERE title = :title AND amount = :amount AND personName = :personName AND type = :type")
+    suspend fun checkDuplicateLoan(title: String, amount: Double, personName: String, type: LoanType): Int
 }

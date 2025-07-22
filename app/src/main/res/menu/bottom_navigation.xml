@@ -7,14 +7,14 @@
         android:icon="@drawable/ic_overview" />
     
     <item
-        android:id="@+id/nav_expenses"
-        android:title="@string/nav_expenses"
+        android:id="@+id/nav_transactions"
+        android:title="Transaktioner"
         android:icon="@drawable/ic_expenses" />
     
     <item
-        android:id="@+id/nav_income"
-        android:title="@string/nav_income"
-        android:icon="@drawable/ic_income" />
+        android:id="@+id/nav_loans"
+        android:title="Lån"
+        android:icon="@drawable/ic_loans" />
     
     <item
         android:id="@+id/nav_budget"
@@ -22,8 +22,8 @@
         android:icon="@drawable/ic_budget" />
     
     <item
-        android:id="@+id/nav_settings"
-        android:title="@string/nav_settings"
-        android:icon="@drawable/ic_settings" />
+        android:id="@+id/nav_more"
+        android:title="Mer"
+        android:icon="@drawable/ic_menu_dots" />
         
 </menu>

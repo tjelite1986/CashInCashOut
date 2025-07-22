@@ -17,6 +17,9 @@ interface ExpenseDao {
 
     @Query("SELECT * FROM expenses WHERE date >= :startDate AND date <= :endDate ORDER BY date DESC")
     fun getExpensesByDateRange(startDate: Long, endDate: Long): Flow<List<Expense>>
+    
+    @Query("SELECT * FROM expenses WHERE date >= :startDate AND date <= :endDate")
+    suspend fun getExpensesBetweenDates(startDate: Long, endDate: Long): List<Expense>
 
     @Query("SELECT * FROM expenses WHERE store = :store ORDER BY date DESC")
     fun getExpensesByStore(store: String): Flow<List<Expense>>
@@ -50,4 +53,7 @@ interface ExpenseDao {
 
     @Query("DELETE FROM expenses")
     suspend fun deleteAllExpenses()
+
+    @Query("SELECT COUNT(*) FROM expenses WHERE title = :title AND amount = :amount AND COALESCE(category, '') = :category AND date = :date AND COALESCE(store, '') = COALESCE(:store, '')")
+    suspend fun checkDuplicateExpense(title: String, amount: Double, category: String, date: Long, store: String?): Int
 }

@@ -1,9 +1,11 @@
 package com.example.budgetapp
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.budgetapp.database.BudgetDatabase
@@ -11,6 +13,7 @@ import com.example.budgetapp.database.entities.Expense
 import com.example.budgetapp.database.entities.Receipt
 import com.example.budgetapp.database.entities.ReceiptItem
 import com.example.budgetapp.database.entities.Product
+import com.example.budgetapp.database.entities.PriceHistory
 import com.example.budgetapp.utils.CategoryConstants
 import com.example.budgetapp.utils.ErrorHandler
 import com.example.budgetapp.databinding.ActivityAddExpenseBinding
@@ -23,6 +26,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.core.widget.doOnTextChanged
 import java.text.NumberFormat
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.button.MaterialButton
+import android.widget.AutoCompleteTextView
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
@@ -46,6 +52,19 @@ class AddExpenseActivity : AppCompatActivity() {
     private val numberFormat = NumberFormat.getCurrencyInstance(Locale("sv", "SE"))
     private var existingProducts = listOf<Product>()
     private var existingStores = listOf<com.example.budgetapp.database.entities.Store>()
+    private var currentReceiptDialog: DialogAddReceiptItemBinding? = null
+    
+    // Barcode scanner for receipt items
+    private val receiptBarcodeScannerLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val barcode = result.data?.getStringExtra("barcode")
+            if (barcode != null && currentReceiptDialog != null) {
+                handleScannedBarcodeInReceipt(barcode, currentReceiptDialog!!)
+            }
+        }
+    }
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -229,6 +248,11 @@ class AddExpenseActivity : AppCompatActivity() {
                             } else {
                                 binding.spinnerRecurringType.visibility = android.view.View.GONE
                             }
+                            
+                            // Load receipt data if it exists
+                            lifecycleScope.launch {
+                                loadReceiptDataForEditing(expenseId)
+                            }
                         }
                     }
                 } catch (e: Exception) {
@@ -372,16 +396,13 @@ class AddExpenseActivity : AppCompatActivity() {
     
     private fun showAddReceiptItemDialog(editItem: ReceiptItemInput? = null, editPosition: Int = -1) {
         val dialogBinding = DialogAddReceiptItemBinding.inflate(layoutInflater)
+        currentReceiptDialog = dialogBinding
         
-        // Setup store chain dropdown
-        val storeChains = listOf("ICA", "Coop", "Hemköp", "Willys", "City Gross", "Lidl", "Netto", "Rusta", "Jysk", "IKEA", "Byggmax", "Biltema", "Övrigt")
-        val chainAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, storeChains)
-        dialogBinding.dropdownStoreChain.setAdapter(chainAdapter)
+        // Setup store chain dropdown with better functionality
+        setupChainDropdownForReceipt(dialogBinding)
         
-        // Setup store name autocomplete
-        val storeNames = existingStores.map { it.name }.distinct()
-        val storeNameAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, storeNames)
-        dialogBinding.autocompleteStoreName.setAdapter(storeNameAdapter)
+        // Setup store name dropdown with more comprehensive store list
+        setupStoreDropdowns(dialogBinding)
         
         // Setup store city autocomplete
         val storeCities = existingStores.mapNotNull { it.city }.distinct()
@@ -392,6 +413,7 @@ class AddExpenseActivity : AppCompatActivity() {
         val units = listOf("st", "kg", "g", "l", "ml", "cl", "m", "cm")
         val unitAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, units)
         dialogBinding.dropdownUnit.setAdapter(unitAdapter)
+        dialogBinding.dropdownUnit.keyListener = null // Förhindra manual inmatning
         
         // Setup product autocomplete
         val productNames = existingProducts.map { it.name }.distinct()
@@ -404,8 +426,23 @@ class AddExpenseActivity : AppCompatActivity() {
             val existingProduct = existingProducts.find { it.name == selectedProductName }
             existingProduct?.let {
                 dialogBinding.dropdownUnit.setText(it.unit, false)
-                // Could also set typical price if stored
+                // Set deposit information if product has deposit
+                if (it.hasDeposit && it.depositAmount != null) {
+                    dialogBinding.switchHasDeposit.isChecked = true
+                    dialogBinding.editDepositAmount.setText(it.depositAmount.toString())
+                }
             }
+        }
+        
+        // Setup deposit visibility toggle
+        dialogBinding.switchHasDeposit.setOnCheckedChangeListener { _, isChecked ->
+            dialogBinding.textInputDepositAmount.visibility = if (isChecked) {
+                android.view.View.VISIBLE
+            } else {
+                android.view.View.GONE
+            }
+            // Update total when deposit toggle changes
+            updateTotalPreview(dialogBinding)
         }
         
         // Pre-fill if editing
@@ -418,6 +455,11 @@ class AddExpenseActivity : AppCompatActivity() {
             dialogBinding.dropdownUnit.setText(it.unit, false)
             dialogBinding.editUnitPrice.setText(it.unitPrice.toString())
             dialogBinding.editDiscount.setText(it.discount.toString())
+            // Set deposit information
+            dialogBinding.switchHasDeposit.isChecked = it.hasDeposit
+            if (it.hasDeposit) {
+                dialogBinding.editDepositAmount.setText(it.depositAmount.toString())
+            }
             updateTotalPreview(dialogBinding)
         }
         
@@ -425,7 +467,8 @@ class AddExpenseActivity : AppCompatActivity() {
         listOf(
             dialogBinding.editQuantity,
             dialogBinding.editUnitPrice,
-            dialogBinding.editDiscount
+            dialogBinding.editDiscount,
+            dialogBinding.editDepositAmount
         ).forEach { editText ->
             editText.doOnTextChanged { _, _, _, _ ->
                 updateTotalPreview(dialogBinding)
@@ -436,7 +479,19 @@ class AddExpenseActivity : AppCompatActivity() {
             .setView(dialogBinding.root)
             .create()
         
+        // Setup barcode scanning
+        dialogBinding.buttonScanBarcode.setOnClickListener {
+            val intent = Intent(this, BarcodeScannerActivity::class.java)
+            receiptBarcodeScannerLauncher.launch(intent)
+        }
+        
+        // Setup "Add new store" button
+        dialogBinding.buttonAddStore.setOnClickListener {
+            showAddStoreDialogFromReceipt(dialogBinding)
+        }
+        
         dialogBinding.buttonCancel.setOnClickListener {
+            currentReceiptDialog = null
             dialog.dismiss()
         }
         
@@ -452,6 +507,7 @@ class AddExpenseActivity : AppCompatActivity() {
                 
                 receiptItemAdapter.submitList(receiptItems.toList())
                 updateReceiptTotal()
+                currentReceiptDialog = null
                 dialog.dismiss()
                 
                 // Auto-save product and store if they don't exist
@@ -463,13 +519,95 @@ class AddExpenseActivity : AppCompatActivity() {
         dialog.show()
     }
     
+    private fun handleScannedBarcodeInReceipt(barcode: String, dialogBinding: DialogAddReceiptItemBinding) {
+        // Hitta produkt med denna streckkod
+        val existingProduct = existingProducts.find { it.barcode == barcode }
+        
+        if (existingProduct != null) {
+            // Fyll i all produktinformation automatiskt
+            dialogBinding.autocompleteProductName.setText(existingProduct.name)
+            dialogBinding.dropdownUnit.setText(existingProduct.unit ?: "st", false)
+            
+            // Sätt pant-information om den finns
+            if (existingProduct.hasDeposit && existingProduct.depositAmount != null) {
+                dialogBinding.switchHasDeposit.isChecked = true
+                dialogBinding.editDepositAmount.setText(existingProduct.depositAmount.toString())
+            } else {
+                dialogBinding.switchHasDeposit.isChecked = false
+            }
+            
+            // Sätt mängd om den finns
+            existingProduct.amount?.let { amount ->
+                dialogBinding.editQuantity.setText(amount.toString())
+            }
+            
+            // Hitta senaste pris för denna produkt från ProductStore
+            lifecycleScope.launch {
+                try {
+                    // Ta endast första värdet från Flow, inte collect kontinuerligt
+                    val productStores = database.productStoreDao().getPricesForProduct(existingProduct.id)
+                    productStores.collect { stores ->
+                        if (stores.isNotEmpty()) {
+                            // Hitta senaste pris baserat på createdAt
+                            val latestPrice = stores.maxByOrNull { it.createdAt }
+                            
+                            latestPrice?.let { ps ->
+                                var finalPrice = ps.price
+                                
+                                // Debug: visa vad som finns i databasen
+                                android.util.Log.d("BARCODE_SCAN", "Produkt pris: ${ps.price}, har kampanj: ${ps.hasCampaignPrice}")
+                                if (ps.hasCampaignPrice) {
+                                    android.util.Log.d("BARCODE_SCAN", "Kampanjpris: ${ps.campaignPrice}, antal: ${ps.campaignQuantity}")
+                                }
+                                
+                                // För säkerhets skull: använd ALDRIG kampanjpris för scannning
+                                // Detta förhindrar problem med felaktig data i databasen
+                                // Använd bara det normala priset
+                                finalPrice = ps.price
+                                
+                                runOnUiThread {
+                                    // Avrunda till 2 decimaler för att undvika långa decimaltal
+                                    val roundedPrice = String.format("%.2f", finalPrice).toDouble()
+                                    dialogBinding.editUnitPrice.setText(roundedPrice.toString())
+                                    updateTotalPreview(dialogBinding)
+                                }
+                            }
+                        } else {
+                            // Inget pris hittat, låt användaren mata in manuellt
+                            runOnUiThread {
+                                updateTotalPreview(dialogBinding)
+                            }
+                        }
+                        // Avbryt collect efter första hämtningen
+                        return@collect
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    runOnUiThread {
+                        updateTotalPreview(dialogBinding)
+                    }
+                }
+            }
+            Toast.makeText(this, "Produkt hittad: ${existingProduct.name}", Toast.LENGTH_SHORT).show()
+        } else {
+            // Produkten finns inte, bara sätt streckkoden som produktnamn
+            dialogBinding.autocompleteProductName.setText(barcode)
+            Toast.makeText(this, "Okänd produkt. Ange produktnamn manuellt.", Toast.LENGTH_SHORT).show()
+        }
+    }
+    
     private fun updateTotalPreview(dialogBinding: DialogAddReceiptItemBinding) {
         try {
             val quantity = dialogBinding.editQuantity.text.toString().toDoubleOrNull() ?: 0.0
             val unitPrice = dialogBinding.editUnitPrice.text.toString().toDoubleOrNull() ?: 0.0
             val discount = dialogBinding.editDiscount.text.toString().toDoubleOrNull() ?: 0.0
+            val hasDeposit = dialogBinding.switchHasDeposit.isChecked
+            val depositAmount = if (hasDeposit) {
+                dialogBinding.editDepositAmount.text.toString().toDoubleOrNull() ?: 0.0
+            } else 0.0
             
-            val total = (quantity * unitPrice) - discount
+            // Total = (antal × (styckpris + pant)) - rabatt
+            val total = (quantity * (unitPrice + depositAmount)) - discount
             dialogBinding.textTotalPreview.text = numberFormat.format(total)
         } catch (e: Exception) {
             dialogBinding.textTotalPreview.text = "0,00 kr"
@@ -514,6 +652,10 @@ class AddExpenseActivity : AppCompatActivity() {
         val storeName = dialogBinding.autocompleteStoreName.text.toString().takeIf { it.isNotBlank() }
         val storeChain = dialogBinding.dropdownStoreChain.text.toString().takeIf { it.isNotBlank() }
         val storeCity = dialogBinding.autocompleteStoreCity.text.toString().takeIf { it.isNotBlank() }
+        val hasDeposit = dialogBinding.switchHasDeposit.isChecked
+        val depositAmount = if (hasDeposit) {
+            dialogBinding.editDepositAmount.text.toString().toDoubleOrNull() ?: 0.0
+        } else 0.0
         
         // Find existing product ID if it exists
         val existingProduct = existingProducts.find { it.name.equals(productName, ignoreCase = true) }
@@ -527,26 +669,38 @@ class AddExpenseActivity : AppCompatActivity() {
             productId = existingProduct?.id,
             storeName = storeName,
             storeChain = storeChain,
-            storeCity = storeCity
+            storeCity = storeCity,
+            hasDeposit = hasDeposit,
+            depositAmount = depositAmount
         )
     }
     
     private fun saveProductIfNew(item: ReceiptItemInput) {
-        if (item.productId == null) {
-            // Product doesn't exist, save it
-            lifecycleScope.launch {
-                try {
+        lifecycleScope.launch {
+            try {
+                val productId = if (item.productId == null) {
+                    // Product doesn't exist, save it
                     val newProduct = Product(
                         name = item.productName,
                         categoryId = 1, // Default category, could be made configurable
                         amount = item.quantity,
-                        unit = item.unit
+                        unit = item.unit,
+                        hasDeposit = item.hasDeposit,
+                        depositAmount = if (item.hasDeposit) item.depositAmount else null
                     )
                     database.productDao().insertProduct(newProduct)
-                } catch (e: Exception) {
-                    ErrorHandler.logError("AddExpenseActivity", "Error saving new product", e)
-                    e.printStackTrace()
+                } else {
+                    item.productId
                 }
+                
+                // Create ProductStore connection if store information exists
+                item.storeName?.let { storeName ->
+                    createProductStoreConnection(productId, item)
+                }
+                
+            } catch (e: Exception) {
+                ErrorHandler.logError("AddExpenseActivity", "Error saving new product", e)
+                e.printStackTrace()
             }
         }
     }
@@ -554,17 +708,17 @@ class AddExpenseActivity : AppCompatActivity() {
     private fun saveStoreIfNew(item: ReceiptItemInput) {
         val storeName = item.storeName
         if (!storeName.isNullOrBlank()) {
-            // Check if store already exists with same name, chain and city combination
-            val existingStore = existingStores.find { store ->
-                store.name.equals(storeName, ignoreCase = true) &&
-                (store.chain?.equals(item.storeChain, ignoreCase = true) ?: (item.storeChain == null)) &&
-                (store.city?.equals(item.storeCity, ignoreCase = true) ?: (item.storeCity == null))
-            }
-            
-            if (existingStore == null) {
-                // Store doesn't exist, save it
-                lifecycleScope.launch {
-                    try {
+            lifecycleScope.launch {
+                try {
+                    // Use database to check for duplicates with name, chain, and city
+                    val duplicateCount = database.storeDao().checkDuplicateStoreWithCity(
+                        name = storeName,
+                        chain = item.storeChain ?: "",
+                        city = item.storeCity ?: ""
+                    )
+                    
+                    if (duplicateCount == 0) {
+                        // Store doesn't exist, save it
                         val newStore = com.example.budgetapp.database.entities.Store(
                             name = storeName,
                             chain = item.storeChain,
@@ -572,12 +726,12 @@ class AddExpenseActivity : AppCompatActivity() {
                         )
                         database.storeDao().insertStore(newStore)
                         
-                        // Reload stores to update the list
+                        // Reload stores to update the cached list
                         loadExistingStores()
-                    } catch (e: Exception) {
-                        ErrorHandler.logError("AddExpenseActivity", "Error saving new store", e)
-                        e.printStackTrace()
                     }
+                } catch (e: Exception) {
+                    ErrorHandler.logError("AddExpenseActivity", "Error checking/saving store", e)
+                    e.printStackTrace()
                 }
             }
         }
@@ -621,7 +775,12 @@ class AddExpenseActivity : AppCompatActivity() {
                     unitPrice = item.unitPrice,
                     totalPrice = item.totalPrice,
                     unit = item.unit,
-                    discount = item.discount
+                    discount = item.discount,
+                    hasDeposit = item.hasDeposit,
+                    depositAmount = item.depositAmount,
+                    storeName = item.storeName,
+                    storeChain = item.storeChain,
+                    storeCity = item.storeCity
                 )
             }
             
@@ -631,6 +790,260 @@ class AddExpenseActivity : AppCompatActivity() {
             ErrorHandler.logError("AddExpenseActivity", "Error saving receipt data", e)
             e.printStackTrace()
             throw e
+        }
+    }
+    
+    private fun setupStoreDropdowns(dialogBinding: DialogAddReceiptItemBinding) {
+        // Setup store name dropdown
+        val storeNames = existingStores.map { "${it.name}${if (it.city != null) " (${it.city})" else ""}" }.distinct().sorted()
+        val storeNameAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, storeNames)
+        dialogBinding.autocompleteStoreName.setAdapter(storeNameAdapter)
+        dialogBinding.autocompleteStoreName.threshold = 1
+        
+        // Auto-fill chain and city when store is selected
+        dialogBinding.autocompleteStoreName.setOnItemClickListener { _, _, position, _ ->
+            val selectedStoreName = storeNameAdapter.getItem(position) ?: ""
+            val storeName = selectedStoreName.split(" (").first()
+            val matchingStore = existingStores.find { it.name == storeName }
+            
+            matchingStore?.let {
+                dialogBinding.dropdownStoreChain.setText(it.chain ?: "", false)
+                dialogBinding.autocompleteStoreCity.setText(it.city ?: "")
+            }
+        }
+    }
+    
+    private fun setupChainDropdownForReceipt(dialogBinding: DialogAddReceiptItemBinding) {
+        val storeChains = mutableListOf("ICA", "Coop", "Hemköp", "Willys", "Lidl", "Tempo", "Ica Nära", "City Gross", "Bergendahls", "Axfood")
+        
+        lifecycleScope.launch {
+            try {
+                val existingChains = database.storeDao().getDistinctChains()
+                val allChains = (storeChains + existingChains).distinct().sorted()
+                
+                runOnUiThread {
+                    val chainAdapter = ArrayAdapter(this@AddExpenseActivity, android.R.layout.simple_dropdown_item_1line, allChains)
+                    dialogBinding.dropdownStoreChain.setAdapter(chainAdapter)
+                    dialogBinding.dropdownStoreChain.threshold = 1
+                    
+                    // Enable dropdown show on click/focus
+                    dialogBinding.dropdownStoreChain.setOnClickListener {
+                        dialogBinding.dropdownStoreChain.showDropDown()
+                    }
+                    
+                    dialogBinding.dropdownStoreChain.setOnFocusChangeListener { _, hasFocus ->
+                        if (hasFocus) {
+                            dialogBinding.dropdownStoreChain.showDropDown()
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                runOnUiThread {
+                    val chainAdapter = ArrayAdapter(this@AddExpenseActivity, android.R.layout.simple_dropdown_item_1line, storeChains)
+                    dialogBinding.dropdownStoreChain.setAdapter(chainAdapter)
+                    dialogBinding.dropdownStoreChain.threshold = 1
+                }
+            }
+        }
+    }
+    
+    private fun showAddStoreDialogFromReceipt(receiptDialogBinding: DialogAddReceiptItemBinding) {
+        val storeDialogView = layoutInflater.inflate(R.layout.dialog_add_store, null)
+        val nameInput = storeDialogView.findViewById<TextInputEditText>(R.id.etStoreName)
+        val addressInput = storeDialogView.findViewById<TextInputEditText>(R.id.etStoreAddress)
+        val cityInput = storeDialogView.findViewById<TextInputEditText>(R.id.etStoreCity)
+        val chainInput = storeDialogView.findViewById<AutoCompleteTextView>(R.id.acStoreChain)
+        
+        // Setup chain dropdown for the store dialog
+        val storeChains = mutableListOf("ICA", "Coop", "Hemköp", "Willys", "Lidl", "Tempo", "Ica Nära", "City Gross", "Bergendahls", "Axfood")
+        lifecycleScope.launch {
+            try {
+                val existingChains = database.storeDao().getDistinctChains()
+                val allChains = (storeChains + existingChains).distinct().sorted()
+                runOnUiThread {
+                    val chainAdapter = ArrayAdapter(this@AddExpenseActivity, android.R.layout.simple_dropdown_item_1line, allChains)
+                    chainInput.setAdapter(chainAdapter)
+                    chainInput.threshold = 1
+                }
+            } catch (e: Exception) {
+                runOnUiThread {
+                    val chainAdapter = ArrayAdapter(this@AddExpenseActivity, android.R.layout.simple_dropdown_item_1line, storeChains)
+                    chainInput.setAdapter(chainAdapter)
+                    chainInput.threshold = 1
+                }
+            }
+        }
+        
+        val storeDialog = MaterialAlertDialogBuilder(this)
+            .setView(storeDialogView)
+            .create()
+        
+        // Setup save button
+        val saveButton = storeDialogView.findViewById<MaterialButton>(R.id.btnSave)
+        val cancelButton = storeDialogView.findViewById<MaterialButton>(R.id.btnCancel)
+        
+        saveButton.setOnClickListener {
+            val name = nameInput.text.toString().trim()
+            val address = addressInput.text.toString().trim().takeIf { it.isNotEmpty() }
+            val city = cityInput.text.toString().trim().takeIf { it.isNotEmpty() }
+            val chain = chainInput.text.toString().trim().takeIf { it.isNotEmpty() }
+            
+            if (name.isNotEmpty()) {
+                val newStore = com.example.budgetapp.database.entities.Store(
+                    name = name,
+                    address = address,
+                    city = city,
+                    chain = chain
+                )
+                
+                lifecycleScope.launch {
+                    try {
+                        database.storeDao().insertStore(newStore)
+                        
+                        // Reload stores and update dropdown
+                        loadExistingStores()
+                        runOnUiThread {
+                            setupStoreDropdowns(receiptDialogBinding)
+                            
+                            // Auto-select the newly created store
+                            val displayName = "$name${if (city != null) " ($city)" else ""}"
+                            receiptDialogBinding.autocompleteStoreName.setText(displayName)
+                            receiptDialogBinding.dropdownStoreChain.setText(chain ?: "", false)
+                            receiptDialogBinding.autocompleteStoreCity.setText(city ?: "")
+                            
+                            Toast.makeText(this@AddExpenseActivity, "Butik tillagd och vald", Toast.LENGTH_SHORT).show()
+                        }
+                    } catch (e: Exception) {
+                        runOnUiThread {
+                            Toast.makeText(this@AddExpenseActivity, "Fel vid sparning: ${e.message}", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+                storeDialog.dismiss()
+            } else {
+                Toast.makeText(this, "Butiksnamn krävs", Toast.LENGTH_SHORT).show()
+            }
+        }
+        
+        cancelButton.setOnClickListener {
+            storeDialog.dismiss()
+        }
+        
+        storeDialog.show()
+    }
+    
+    private suspend fun createProductStoreConnection(productId: Long, item: ReceiptItemInput) {
+        try {
+            val storeName = item.storeName ?: return
+            
+            // Find or create store
+            val existingStore = existingStores.find { store ->
+                store.name.equals(storeName, ignoreCase = true) &&
+                (store.chain?.equals(item.storeChain, ignoreCase = true) ?: (item.storeChain == null)) &&
+                (store.city?.equals(item.storeCity, ignoreCase = true) ?: (item.storeCity == null))
+            }
+            
+            val storeId = if (existingStore != null) {
+                existingStore.id
+            } else {
+                // Create new store
+                val newStore = com.example.budgetapp.database.entities.Store(
+                    name = storeName,
+                    chain = item.storeChain,
+                    city = item.storeCity
+                )
+                database.storeDao().insertStore(newStore)
+            }
+            
+            // Check if ProductStore connection already exists
+            val existingProductStore = database.productStoreDao()
+                .getProductStorePrice(productId, storeId)
+            
+            if (existingProductStore == null) {
+                // Create new ProductStore connection
+                val productStore = com.example.budgetapp.database.entities.ProductStore(
+                    productId = productId,
+                    storeId = storeId,
+                    price = item.unitPrice,
+                    lastSeen = System.currentTimeMillis()
+                )
+                database.productStoreDao().insertProductStore(productStore)
+                
+                // Save initial price to history
+                val priceHistory = PriceHistory(
+                    productId = productId,
+                    storeId = storeId,
+                    price = item.unitPrice,
+                    source = "receipt_scan"
+                )
+                database.priceHistoryDao().insertPriceHistory(priceHistory)
+            } else {
+                // Update existing ProductStore with new price only if different
+                if (existingProductStore.price != item.unitPrice) {
+                    val updatedProductStore = existingProductStore.copy(
+                        price = item.unitPrice,
+                        lastSeen = System.currentTimeMillis()
+                    )
+                    database.productStoreDao().updateProductStore(updatedProductStore)
+                    
+                    // Save price change to history
+                    val priceHistory = PriceHistory(
+                        productId = productId,
+                        storeId = storeId,
+                        price = item.unitPrice,
+                        source = "receipt_scan"
+                    )
+                    database.priceHistoryDao().insertPriceHistory(priceHistory)
+                }
+            }
+            
+        } catch (e: Exception) {
+            ErrorHandler.logError("AddExpenseActivity", "Error creating ProductStore connection", e)
+            e.printStackTrace()
+        }
+    }
+    
+    private suspend fun loadReceiptDataForEditing(expenseId: Long) {
+        try {
+            // Check if there's a receipt for this expense
+            val receipt = database.receiptDao().getReceiptByExpenseId(expenseId)
+            receipt?.let { existingReceipt ->
+                // Load receipt items
+                val receiptItems = database.receiptItemDao().getReceiptItemsByReceiptId(existingReceipt.id)
+                
+                // Convert ReceiptItem entities to ReceiptItemInput for UI
+                val receiptInputItems = receiptItems.map { item ->
+                    ReceiptItemInput(
+                        productName = item.productName,
+                        quantity = item.quantity,
+                        unitPrice = item.unitPrice,
+                        unit = item.unit,
+                        discount = item.discount,
+                        productId = item.productId,
+                        storeName = item.storeName,
+                        storeChain = item.storeChain,
+                        storeCity = item.storeCity,
+                        hasDeposit = item.hasDeposit,
+                        depositAmount = item.depositAmount
+                    )
+                }
+                
+                runOnUiThread {
+                    // Update receipt items list and adapter
+                    this.receiptItems.clear()
+                    this.receiptItems.addAll(receiptInputItems)
+                    receiptItemAdapter.submitList(this.receiptItems.toList())
+                    
+                    // Show receipt section if there are items
+                    if (receiptInputItems.isNotEmpty()) {
+                        binding.recyclerReceiptItems.visibility = android.view.View.VISIBLE
+                        updateReceiptTotal()
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            ErrorHandler.logError("AddExpenseActivity", "Error loading receipt data for editing", e)
+            e.printStackTrace()
         }
     }
     

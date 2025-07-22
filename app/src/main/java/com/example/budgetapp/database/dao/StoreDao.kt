@@ -32,4 +32,13 @@ interface StoreDao {
 
     @Query("DELETE FROM stores WHERE id = :storeId")
     suspend fun deleteStoreById(storeId: Long)
+
+    @Query("SELECT COUNT(*) FROM stores WHERE name = :name AND COALESCE(chain, '') = :chain")
+    suspend fun checkDuplicateStore(name: String, chain: String): Int
+
+    @Query("SELECT COUNT(*) FROM stores WHERE name = :name AND COALESCE(chain, '') = :chain AND COALESCE(city, '') = :city")
+    suspend fun checkDuplicateStoreWithCity(name: String, chain: String, city: String): Int
+
+    @Query("SELECT DISTINCT chain FROM stores WHERE chain IS NOT NULL ORDER BY chain ASC")
+    suspend fun getDistinctChains(): List<String>
 }

@@ -12,6 +12,7 @@ import com.example.budgetapp.database.entities.Category
 import com.example.budgetapp.database.entities.Product
 import com.example.budgetapp.database.entities.Store
 import com.example.budgetapp.database.entities.ProductStore
+import com.example.budgetapp.database.entities.PriceHistory
 import com.example.budgetapp.databinding.ActivityAddProductBinding
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -340,6 +341,16 @@ class AddProductActivity : AppCompatActivity() {
                 )
                 
                 database.productStoreDao().insertProductStore(productStore)
+                
+                // Save initial price to history
+                val priceHistory = PriceHistory(
+                    productId = productId,
+                    storeId = selectedStoreId!!,
+                    price = price,
+                    campaignPrice = if (hasCampaignPrice) campaignPrice else null,
+                    source = "manual_entry"
+                )
+                database.priceHistoryDao().insertPriceHistory(priceHistory)
                 
                 Toast.makeText(this@AddProductActivity, "Produkt och pris sparad!", Toast.LENGTH_SHORT).show()
                 finish()

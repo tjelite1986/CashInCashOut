@@ -15,6 +15,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import androidx.recyclerview.widget.RecyclerView
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -24,6 +26,21 @@ class StoreManagerActivity : AppCompatActivity() {
     private lateinit var storeAdapter: StoreAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var fab: FloatingActionButton
+    
+    companion object {
+        private val STORE_CHAINS = mutableListOf(
+            "ICA",
+            "Coop",
+            "Hemköp",
+            "Willys",
+            "Lidl",
+            "Tempo",
+            "Ica Nära",
+            "City Gross",
+            "Bergendahls",
+            "Axfood"
+        )
+    }
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,7 +101,10 @@ class StoreManagerActivity : AppCompatActivity() {
         val nameInput = dialogView.findViewById<TextInputEditText>(R.id.etStoreName)
         val addressInput = dialogView.findViewById<TextInputEditText>(R.id.etStoreAddress)
         val cityInput = dialogView.findViewById<TextInputEditText>(R.id.etStoreCity)
-        val chainInput = dialogView.findViewById<TextInputEditText>(R.id.etStoreChain)
+        val chainInput = dialogView.findViewById<AutoCompleteTextView>(R.id.acStoreChain)
+        
+        // Setup chain dropdown
+        setupChainDropdown(chainInput)
         
         val dialog = MaterialAlertDialogBuilder(this)
             .setView(dialogView)
@@ -110,6 +130,8 @@ class StoreManagerActivity : AppCompatActivity() {
                 
                 lifecycleScope.launch {
                     database.storeDao().insertStore(store)
+                    // Add new chain to local list if it's new
+                    chain?.let { addNewChainIfNeeded(it) }
                     Toast.makeText(this@StoreManagerActivity, "Butik sparad", Toast.LENGTH_SHORT).show()
                 }
                 dialog.dismiss()
@@ -130,7 +152,10 @@ class StoreManagerActivity : AppCompatActivity() {
         val nameInput = dialogView.findViewById<TextInputEditText>(R.id.etStoreName)
         val addressInput = dialogView.findViewById<TextInputEditText>(R.id.etStoreAddress)
         val cityInput = dialogView.findViewById<TextInputEditText>(R.id.etStoreCity)
-        val chainInput = dialogView.findViewById<TextInputEditText>(R.id.etStoreChain)
+        val chainInput = dialogView.findViewById<AutoCompleteTextView>(R.id.acStoreChain)
+        
+        // Setup chain dropdown
+        setupChainDropdown(chainInput)
         
         // Förifyll med befintlig data
         nameInput.setText(store.name)
@@ -163,6 +188,8 @@ class StoreManagerActivity : AppCompatActivity() {
                 
                 lifecycleScope.launch {
                     database.storeDao().updateStore(updatedStore)
+                    // Add new chain to local list if it's new
+                    chain?.let { addNewChainIfNeeded(it) }
                     Toast.makeText(this@StoreManagerActivity, "Butik uppdaterad", Toast.LENGTH_SHORT).show()
                 }
                 dialog.dismiss()
@@ -190,5 +217,71 @@ class StoreManagerActivity : AppCompatActivity() {
             }
             .setNegativeButton("Avbryt", null)
             .show()
+    }
+    
+    private fun setupChainDropdown(chainInput: AutoCompleteTextView) {
+        // Load existing chains from database and combine with default list
+        lifecycleScope.launch {
+            try {
+                val existingChains = database.storeDao().getDistinctChains()
+                val allChains = (STORE_CHAINS + existingChains)
+                    .distinct()
+                    .sorted()
+                    .toMutableList()
+                
+                runOnUiThread {
+                    val adapter = ArrayAdapter(
+                        this@StoreManagerActivity,
+                        android.R.layout.simple_dropdown_item_1line,
+                        allChains
+                    )
+                    chainInput.setAdapter(adapter)
+                    
+                    // Configure AutoCompleteTextView for better UX
+                    chainInput.threshold = 1
+                    chainInput.setOnItemClickListener { _, _, position, _ ->
+                        val selectedChain = adapter.getItem(position)
+                        chainInput.setText(selectedChain, false)
+                        chainInput.dismissDropDown()
+                    }
+                    
+                    // Allow dropdown to show when focused
+                    chainInput.setOnFocusChangeListener { _, hasFocus ->
+                        if (hasFocus) {
+                            chainInput.showDropDown()
+                        }
+                    }
+                    
+                    // Show dropdown when clicked
+                    chainInput.setOnClickListener {
+                        chainInput.showDropDown()
+                    }
+                }
+            } catch (e: Exception) {
+                runOnUiThread {
+                    // Fallback to default chains if database query fails
+                    val adapter = ArrayAdapter(
+                        this@StoreManagerActivity,
+                        android.R.layout.simple_dropdown_item_1line,
+                        STORE_CHAINS.toMutableList()
+                    )
+                    chainInput.setAdapter(adapter)
+                    
+                    chainInput.threshold = 1
+                    chainInput.setOnItemClickListener { _, _, position, _ ->
+                        val selectedChain = adapter.getItem(position)
+                        chainInput.setText(selectedChain, false)
+                        chainInput.dismissDropDown()
+                    }
+                }
+            }
+        }
+    }
+    
+    private fun addNewChainIfNeeded(chainName: String) {
+        if (chainName.isNotBlank() && !STORE_CHAINS.contains(chainName)) {
+            STORE_CHAINS.add(chainName)
+            STORE_CHAINS.sort()
+        }
     }
 }

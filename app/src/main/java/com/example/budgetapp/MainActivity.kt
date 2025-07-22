@@ -4,10 +4,12 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.budgetapp.databinding.ActivityMainBinding
 import com.example.budgetapp.fragments.BudgetFragment
-import com.example.budgetapp.fragments.ExpensesFragment
-import com.example.budgetapp.fragments.IncomeFragment
+import com.example.budgetapp.fragments.TransactionsFragment
 import com.example.budgetapp.fragments.OverviewFragment
 import com.example.budgetapp.fragments.SettingsFragment
+import com.example.budgetapp.fragments.LoansFragment
+import com.example.budgetapp.fragments.SimpleStatisticsFragment
+import com.example.budgetapp.fragments.MoreFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,20 +36,20 @@ class MainActivity : AppCompatActivity() {
                         showFragment(OverviewFragment())
                         true
                     }
-                    R.id.nav_expenses -> {
-                        showFragment(ExpensesFragment())
+                    R.id.nav_transactions -> {
+                        showFragment(TransactionsFragment())
                         true
                     }
-                    R.id.nav_income -> {
-                        showFragment(IncomeFragment())
+                    R.id.nav_loans -> {
+                        showFragment(LoansFragment())
                         true
                     }
                     R.id.nav_budget -> {
                         showFragment(BudgetFragment())
                         true
                     }
-                    R.id.nav_settings -> {
-                        showFragment(SettingsFragment())
+                    R.id.nav_more -> {
+                        showFragment(MoreFragment())
                         true
                     }
                     else -> false
@@ -69,6 +71,12 @@ class MainActivity : AppCompatActivity() {
                 .commitAllowingStateLoss()
         } catch (e: Exception) {
             e.printStackTrace()
+            // Fallback to overview fragment if there's an error
+            if (fragment !is OverviewFragment) {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.nav_host_fragment, OverviewFragment())
+                    .commitAllowingStateLoss()
+            }
         }
     }
 }
