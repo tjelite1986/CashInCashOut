@@ -45,7 +45,11 @@ Appen har en bottom navigation bar med fyra huvudsektioner:
 - Sektion för budgetplanering  
 - Plats för framtida funktioner som budgetkategorier och gränser
 
-### ⚙️ Inställningar
+### ⚙️ Mer
+- **Smarta rekommendationer** - AI-driven prisanalys och besparingstips
+- **Inköpslistor** - skapa och hantera inköpslistor med prishistorik
+- **Prishistorik** - spåra prisutveckling över tid med grafer
+- **Kvittohantering** - scanna och registrera kvitton med butiksinformation
 - App-inställningar och konfiguration
 - Information om appen
 
@@ -78,6 +82,7 @@ Appen har en bottom navigation bar med fyra huvudsektioner:
 - **Ta bort priser** - ta bort priser från specifika butiker
 - **Kampanjpriser** - hantera kampanjpriser per butik
 - **Senast sett** - spåra när priset senast observerades
+- **Prishistorik** - automatisk lagring av alla prisändringar över tid
 
 ### Streckkodscanning
 - **Kamerabaserad scanning** med ML Kit
@@ -85,11 +90,63 @@ Appen har en bottom navigation bar med fyra huvudsektioner:
 - **Förifyllt formulär** om produkten redan finns i databasen
 - **Fallback till manuell input** om scanning inte fungerar
 
+## 🤖 Smarta rekommendationer
+
+### Prisanalys och besparingstips
+- **Intelligent prisanalys** - avancerade algoritmer analyserar prishistorik
+- **Flera rekommendationstyper** - Bästa pris, prisfall, bra deals, undvik höga priser
+- **Konfidenspoäng** - bedömer tillförlitlighet baserat på datamängd och aktualitet
+- **Inköpslisteoptimeringar** - får personliga tips för att spara pengar
+- **Smarta förslag** - notifieringar om prisfall och besparingsmöjligheter
+- **Butiksrekommendationer** - hitta de mest kostnadseffektiva butikerna
+- **Potentiella besparingar** - beräknar hur mycket du kan spara
+
+### Funktioner
+- **Prishistorikanalys** - 30 dagars trendanalys för exakt prisförutsägelse
+- **Butiksjämförelser** - jämför priser mellan butiker för samma produkt
+- **Prisvarningar** - få meddelanden när priser sjunker över 10%
+- **Säsongsanalys** - upptäck säsongsvariation i priser
+- **Individuella rekommendationer** - anpassade tips baserat på dina inköpsvanor
+
+## 📋 Inköpslistor
+
+### Listhantering
+- **Skapa inköpslistor** - organisera dina inköp med anpassningsbara listor
+- **Produktsökning** - lägg till produkter från din befintliga produktdatabas
+- **Mängdhantering** - ange kvantitet och enheter för varje vara
+- **Prisuppskattningar** - automatiska prisförslag baserat på historik
+- **Listdelning** - dela listor med familjemedlemmar
+- **Kategoriindelning** - sortera produkter efter kategori
+
+### Smart integration
+- **Prisrekommendationer** - få förslag på bästa butiker för din lista
+- **Besparingsberäkning** - se potentiella besparingar före handlandet
+- **Rutt-optimering** - förslag på mest effektiv inköpsrutt
+- **Kampanjintegration** - automatisk uppdatering när kampanjer upptäcks
+
+## 📊 Prishistorik och analytics
+
+### Prishistorik
+- **Automatisk spårning** - alla prisändringar lagras automatiskt
+- **Grafisk presentation** - interaktiva charts med MPAndroidChart
+- **Trendanalys** - upptäck prismönster och säsongsvariation
+- **Historisk jämförelse** - jämför nuvarande priser med historiska data
+- **Exportfunktioner** - exportera prisdata för vidare analys
+
+### 🧾 Kvittohantering
+
+### Kvittoscanning
+- **Digital kvittolagring** - lagra och organisera kvitton digitalt
+- **Butiksinformation** - automatisk koppling till butiksdatabas
+- **Produktmatchning** - koppla kvittoinköp till befintliga produkter
+- **Utgiftsregistrering** - automatisk registrering av utgifter från kvitton
+- **OCR-integration** - textigenkänning för automatisk dataextraktion
+
 ### 🏪 Butikshantering
 - **Komplett butikshantering** med CRUD-operationer
 - **Lägg till butiker** med namn, adress, stad och kedja
 - **Redigera butiker** - uppdatera information
-- **Ta bort butiker** - med bekräftelse
+- **Ta bort butiker** - med bekräftelse  
 - **Butikslista** med sökfunktionalitet
 - **Kedjehantering** - ICA, Coop, Hemköp, Willys, Lidl
 - **Ljust tema** för bättre läsbarhet
@@ -97,13 +154,17 @@ Appen har en bottom navigation bar med fyra huvudsektioner:
 ### Databas
 - **Room database** för lokal lagring
 - **Kategorisystem** med färgkodning
-- **Butikssystem** med kedjehantering
+- **Butikssystem** med kedjehantering  
 - **Inkomstsystem** med kategori- och återkommandestöd
 - **Utgiftssystem** med kategori-, butiks- och betalmetodsstöd
 - **Lånsystem** med låntyper, ränta, förfallodatum och återbetalningshantering
+- **Prishistoriksystem** - automatisk spårning av alla prisändringar
+- **Inköpslistesystem** - komplett listhantering med kvantiteter
+- **Kvittosystem** - digital lagring med butikskoppling
+- **Rekommendationssystem** - AI-driven prisanalys
 - **Relationshantering** mellan produkter, butiker och kategorier
 - **Sökfunktioner** baserat på namn och varumärke
-- **Databasmigration** från version 2 till 7
+- **Databasmigration** från version 2 till 11+
 
 ## Teknisk specifikation
 
@@ -112,9 +173,11 @@ Appen har en bottom navigation bar med fyra huvudsektioner:
 - **Navigation**: Bottom Navigation Bar med fragments
 - **MinSDK**: 24 (Android 7.0)
 - **TargetSDK**: 34
-- **Architecture**: Fragment-based navigation
-- **Databas**: Room (SQLite) version 7
+- **Architecture**: Fragment-based navigation med MVVM-pattern
+- **Databas**: Room (SQLite) version 11+
 - **Kamera**: CameraX med ML Kit för streckkodscanning
+- **Charts**: MPAndroidChart för prishistorikgrafer  
+- **AI-analys**: Anpassad smart rekommendationsalgoritm
 
 ## Byggd struktur
 
@@ -133,19 +196,39 @@ app/
 │   │   ├── AddLoanActivity.kt
 │   │   ├── EditHomeActivity.kt
 │   │   ├── StoreManagerActivity.kt
+│   │   ├── SmartRecommendationsActivity.kt
+│   │   ├── ShoppingListActivity.kt
+│   │   ├── ShoppingListDetailActivity.kt
+│   │   ├── PriceHistoryActivity.kt
 │   │   ├── ProductAdapter.kt
 │   │   ├── LoanAdapter.kt
 │   │   ├── TransactionAdapter.kt
 │   │   ├── ProductWithPricesAdapter.kt
 │   │   ├── ProductPriceAdapter.kt
+│   │   ├── adapters/
+│   │   │   ├── SmartSuggestionAdapter.kt
+│   │   │   ├── RecommendationAdapter.kt
+│   │   │   ├── ShoppingListAdapter.kt
+│   │   │   └── ShoppingListItemAdapter.kt
 │   │   ├── fragments/
 │   │   │   ├── OverviewFragment.kt
 │   │   │   ├── TransactionsFragment.kt
 │   │   │   ├── LoansFragment.kt
 │   │   │   ├── BudgetFragment.kt
+│   │   │   ├── MoreFragment.kt
 │   │   │   └── SettingsFragment.kt
+│   │   ├── services/
+│   │   │   └── SmartRecommendationService.kt
+│   │   ├── repository/
+│   │   │   ├── BudgetRepository.kt
+│   │   │   └── ShoppingListRepository.kt
+│   │   ├── viewmodel/
+│   │   │   ├── ShoppingListViewModel.kt
+│   │   │   └── ShoppingListViewModelFactory.kt
 │   │   ├── data/
-│   │   │   └── ProductWithPrices.kt
+│   │   │   ├── ProductWithPrices.kt
+│   │   │   ├── PriceRecommendation.kt
+│   │   │   └── BackupData.kt
 │   │   └── database/
 │   │       ├── BudgetDatabase.kt
 │   │       ├── entities/
@@ -155,7 +238,13 @@ app/
 │   │       │   ├── ProductStore.kt
 │   │       │   ├── Income.kt
 │   │       │   ├── Expense.kt
-│   │       │   └── Loan.kt
+│   │       │   ├── Loan.kt
+│   │       │   ├── PriceHistory.kt
+│   │       │   ├── ShoppingList.kt
+│   │       │   ├── ShoppingListItem.kt
+│   │       │   ├── Receipt.kt
+│   │       │   ├── ReceiptItem.kt
+│   │       │   └── Budget.kt
 │   │       └── dao/
 │   │           ├── ProductDao.kt
 │   │           ├── CategoryDao.kt
@@ -163,7 +252,13 @@ app/
 │   │           ├── ProductStoreDao.kt
 │   │           ├── IncomeDao.kt
 │   │           ├── ExpenseDao.kt
-│   │           └── LoanDao.kt
+│   │           ├── LoanDao.kt
+│   │           ├── PriceHistoryDao.kt
+│   │           ├── ShoppingListDao.kt
+│   │           ├── ShoppingListItemDao.kt
+│   │           ├── ReceiptDao.kt
+│   │           ├── ReceiptItemDao.kt
+│   │           └── BudgetDao.kt
 │   └── res/
 │       ├── layout/          # Layout-filer för UI
 │       ├── drawable/        # Ikoner för navigation
@@ -249,6 +344,73 @@ app/
 - **paidBackAmount**: Återbetalt belopp
 - **createdAt/updatedAt**: Tidsstämplar
 
+### PriceHistory Table
+- **id**: Primary key
+- **productId**: Foreign key till Product
+- **storeId**: Foreign key till Store
+- **price**: Registrerat pris
+- **recordedAt**: Tidsstämpel för prisregistrering
+- **createdAt**: Skapad-tidsstämpel
+
+### ShoppingList Table
+- **id**: Primary key
+- **name**: Listnamn
+- **description**: Beskrivning (valfri)
+- **isCompleted**: Boolean för slutförd status
+- **totalEstimatedCost**: Uppskattad total kostnad
+- **totalActualCost**: Faktisk total kostnad
+- **completedAt**: Slutfört datum (valfri)
+- **createdAt/updatedAt**: Tidsstämplar
+
+### ShoppingListItem Table
+- **id**: Primary key  
+- **shoppingListId**: Foreign key till ShoppingList
+- **productId**: Foreign key till Product (valfri)
+- **customItemName**: Anpassat produktnamn (valfri)
+- **quantity**: Kvantitet
+- **unit**: Enhet (st, kg, l, etc.)
+- **estimatedPrice**: Uppskattat pris
+- **actualPrice**: Faktiskt pris (valfri)
+- **notes**: Anteckningar (valfri)
+- **isCompleted**: Boolean för slutförd status
+- **priority**: Prioritetsnivå (-1=låg, 0=normal, 1=hög)
+- **createdAt/updatedAt**: Tidsstämplar
+- **completedAt**: Slutfört datum (valfri)
+
+### Receipt Table
+- **id**: Primary key
+- **storeId**: Foreign key till Store
+- **totalAmount**: Total belopp
+- **receiptDate**: Kvittodatum  
+- **receiptNumber**: Kvittonummer (valfri)
+- **paymentMethod**: Betalmetod
+- **notes**: Anteckningar (valfri)
+- **createdAt/updatedAt**: Tidsstämplar
+
+### ReceiptItem Table  
+- **id**: Primary key
+- **receiptId**: Foreign key till Receipt
+- **productId**: Foreign key till Product (valfri)
+- **itemName**: Produktnamn
+- **quantity**: Kvantitet
+- **unitPrice**: Enhetspris
+- **totalPrice**: Totalpris
+- **category**: Produktkategori (valfri)
+- **createdAt**: Skapad-tidsstämpel
+
+### Budget Table
+- **id**: Primary key
+- **name**: Budgetnamn
+- **description**: Beskrivning (valfri)
+- **budgetType**: Budgettyp (MONTHLY, WEEKLY, YEARLY)
+- **totalBudget**: Total budgetgräns
+- **spentAmount**: Använt belopp
+- **remainingAmount**: Återstående belopp
+- **period**: Budgetperiod
+- **categoryId**: Foreign key till Category (valfri)
+- **isActive**: Boolean för aktiv status
+- **createdAt/updatedAt**: Tidsstämplar
+
 ## Fördefinierade data
 
 ### Butiker
@@ -320,20 +482,31 @@ Appen använder ett grönt färgtema som är lämpligt för ekonomi-appar:
 9. **Hantera lån**: Lånfliken → Filtrera lån → Markera som återbetalt/ångra → Redigera/ta bort
 10. **Anpassa översikt**: Inställningar (meny) → "Edit Home" → Visa/dölj sektioner
 11. **Hantera butiker**: Översikt → "Hantera butiker" → Lägg till/redigera/ta bort butiker
+12. **Smart rekommendationer**: Mer-fliken → "Smarta tips" → Se prisanalys och besparingsförslag
+13. **Inköpslistor**: Mer-fliken → "Inköpslistor" → Skapa listor → Lägg till produkter → Få prisrekommendationer
+14. **Prishistorik**: Produktlista → "Visa prishistorik" → Se prisutveckling över tid
 
 ## Nästa steg
 
-Grundstrukturen är nu klar och redo för vidareutveckling. Möjliga nästa steg:
+Appen är nu komplett med avancerade funktioner. Möjliga förbättringar:
 
-1. **Dataexport**: Exportera inkomst- och utgiftsdata till CSV/Excel
-2. **Statistik**: Lägg till grafer för inkomst/utgift-utveckling över tid
-3. **Budgetgränser**: Sätt månads- och kategorivisa budgetgränser
-4. **Rapporter**: Månadsrapporter och kategorivisning
-5. **Notifikationer**: Påminnelser om kampanjpriser och budgetvarningar
-6. **Inköpslistor**: Skapa och hantera inköpslistor
-7. **Prishistorik**: Spåra prisutveckling över tid
-8. **Butikskartor**: Integration med Google Maps
-9. **Delning**: Dela produkter och priser med andra användare
+1. **Butikskartor** - Google Maps integration för att hitta närmaste butiker ⭐
+2. **Dataexport**: Exportera prisdata och rekommendationer till CSV/Excel
+3. **Förbättrad AI**: Maskininlärning för ännu mer exakta prisförutsägelser  
+4. **Push-notifikationer**: Realtidsvarningar när priser sjunker
+5. **Delning**: Dela inköpslistor och rekommendationer med familjen
+6. **OCR-kvittoscanning**: Automatisk textigenkänning från kvitton
+7. **Avancerad budgetering**: Automatisk kategorisering och budgetvarningar
+8. **Säsongsanalys**: Förutsäg säsongspriser och optimala inköpstider
+9. **Kundklubsintegration**: Synkronisering med ICA Kortet, Coop medlemskap
+
+✅ **Implementerat**:
+- Smarta rekommendationer med AI-analys
+- Komplett prishistoriksystem  
+- Inköpslistor med prisoptimering
+- Kvittohantering
+- Avancerad databas (11+ tabeller)
+- Modern Material Design 3 UI
 
 ## Hur man bygger
 
