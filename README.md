@@ -46,6 +46,7 @@ Appen har en bottom navigation bar med fyra huvudsektioner:
 - Plats för framtida funktioner som budgetkategorier och gränser
 
 ### ⚙️ Mer
+- **Kategorihantering** - avancerat system för att hantera inkomst- och utgiftskategorier
 - **Smarta rekommendationer** - AI-driven prisanalys och besparingstips
 - **Inköpslistor** - skapa och hantera inköpslistor med prishistorik
 - **Prishistorik** - spåra prisutveckling över tid med grafer
@@ -133,6 +134,23 @@ Appen har en bottom navigation bar med fyra huvudsektioner:
 - **Historisk jämförelse** - jämför nuvarande priser med historiska data
 - **Exportfunktioner** - exportera prisdata för vidare analys
 
+### 🏷️ Kategorihantering
+
+### Avancerat kategorisystem
+- **Visuell kategorihantering** - färgade ikoner och intuitivt gränssnitt
+- **Inkomst- och utgiftskategorier** - separata kategorier för olika transaktionstyper
+- **Anpassningsbara ikoner** - över 28 ikoner att välja mellan (mat, transport, löner, etc.)
+- **Färgkodning** - 20 vibrant färger för enkel identifiering
+- **Tobak- och dryckeskategorier** - specialikoner för specifika utgiftstyper
+- **Sökfunktionalitet** - hitta kategorier snabbt med sökfunktion
+- **Lägg till/redigera/ta bort** - fullständig CRUD-funktionalitet
+- **Transaktionsräkning** - spåra hur många transaktioner per kategori
+- **Subkategorier** - stöd för hierarkiska kategorier (planerad funktion)
+
+### Ikoner som inkluderas
+- **Utgiftskategorier**: Mat, transport, shopping, underhållning, räkningar, hem, hälsa, teknik, sport, bil, bensin, kläder, utbildning, kaffe, presenter, husdjur, resor, skönhet, apotek, butik, tobak, drycker
+- **Inkomstkategorier**: Lön, bonus, frilans, investeringar, försäljning, kalendrar, pengar
+
 ### 🧾 Kvittohantering
 
 ### Kvittoscanning
@@ -194,6 +212,8 @@ app/
 │   │   ├── AddIncomeActivity.kt
 │   │   ├── AddExpenseActivity.kt
 │   │   ├── AddLoanActivity.kt
+│   │   ├── CategoryManagerActivity.kt
+│   │   ├── AddEditCategoryActivity.kt
 │   │   ├── EditHomeActivity.kt
 │   │   ├── StoreManagerActivity.kt
 │   │   ├── SmartRecommendationsActivity.kt
@@ -206,6 +226,9 @@ app/
 │   │   ├── ProductWithPricesAdapter.kt
 │   │   ├── ProductPriceAdapter.kt
 │   │   ├── adapters/
+│   │   │   ├── CategoryManagerAdapter.kt
+│   │   │   ├── CategoryIconAdapter.kt
+│   │   │   ├── ColorPickerAdapter.kt
 │   │   │   ├── SmartSuggestionAdapter.kt
 │   │   │   ├── RecommendationAdapter.kt
 │   │   │   ├── ShoppingListAdapter.kt
@@ -222,9 +245,12 @@ app/
 │   │   ├── repository/
 │   │   │   ├── BudgetRepository.kt
 │   │   │   └── ShoppingListRepository.kt
-│   │   ├── viewmodel/
+│   │   ├── viewmodels/
+│   │   │   ├── CategoryViewModel.kt
 │   │   │   ├── ShoppingListViewModel.kt
 │   │   │   └── ShoppingListViewModelFactory.kt
+│   │   ├── utils/
+│   │   │   └── CategoryConstants.kt
 │   │   ├── data/
 │   │   │   ├── ProductWithPrices.kt
 │   │   │   ├── PriceRecommendation.kt
@@ -303,7 +329,15 @@ app/
 ### Category Table
 - **id**: Primary key
 - **name**: Kategorinamn
-- **color**: Färgkod
+- **color**: Färgkod (hex-format)
+- **iconResName**: Ikonresursnamn (t.ex. "ic_dining")
+- **type**: Kategoritype (EXPENSE/INCOME enum)
+- **parentCategoryId**: Foreign key för subkategorier (valfri)
+- **isSubcategory**: Boolean för subkategori-status
+- **associatedKeywords**: Sökord för automatisk kategorisering
+- **transactionCount**: Antal transaktioner i kategorin
+- **isActive**: Boolean för aktiv status
+- **sortOrder**: Sorteringsordning
 - **createdAt/updatedAt**: Tidsstämplar
 
 ### Income Table
@@ -482,9 +516,10 @@ Appen använder ett grönt färgtema som är lämpligt för ekonomi-appar:
 9. **Hantera lån**: Lånfliken → Filtrera lån → Markera som återbetalt/ångra → Redigera/ta bort
 10. **Anpassa översikt**: Inställningar (meny) → "Edit Home" → Visa/dölj sektioner
 11. **Hantera butiker**: Översikt → "Hantera butiker" → Lägg till/redigera/ta bort butiker
-12. **Smart rekommendationer**: Mer-fliken → "Smarta tips" → Se prisanalys och besparingsförslag
-13. **Inköpslistor**: Mer-fliken → "Inköpslistor" → Skapa listor → Lägg till produkter → Få prisrekommendationer
-14. **Prishistorik**: Produktlista → "Visa prishistorik" → Se prisutveckling över tid
+12. **Hantera kategorier**: Mer-fliken → "Kategorier" → Lägg till/redigera kategorier → Välj ikoner och färger
+13. **Smart rekommendationer**: Mer-fliken → "Smarta tips" → Se prisanalys och besparingsförslag
+14. **Inköpslistor**: Mer-fliken → "Inköpslistor" → Skapa listor → Lägg till produkter → Få prisrekommendationer
+15. **Prishistorik**: Produktlista → "Visa prishistorik" → Se prisutveckling över tid
 
 ## Nästa steg
 
@@ -501,6 +536,7 @@ Appen är nu komplett med avancerade funktioner. Möjliga förbättringar:
 9. **Kundklubsintegration**: Synkronisering med ICA Kortet, Coop medlemskap
 
 ✅ **Implementerat**:
+- Avancerat kategorisystem med visuella ikoner och färger
 - Smarta rekommendationer med AI-analys
 - Komplett prishistoriksystem  
 - Inköpslistor med prisoptimering
