@@ -7,21 +7,21 @@ data class BackupData(
     @SerializedName("version")
     val version: String = "1.0",
     @SerializedName("exportDate")
-    val exportDate: Long = System.currentTimeMillis(),
+    val exportDate: Long? = null,
     @SerializedName("categories")
-    val categories: List<Category> = emptyList(),
+    val categories: List<Category>? = null,
     @SerializedName("incomes")
-    val incomes: List<Income> = emptyList(),
+    val incomes: List<Income>? = null,
     @SerializedName("expenses")
-    val expenses: List<Expense> = emptyList(),
+    val expenses: List<Expense>? = null,
     @SerializedName("loans")
-    val loans: List<Loan> = emptyList(),
+    val loans: List<Loan>? = null,
     @SerializedName("budgets")
-    val budgets: List<Budget> = emptyList(),
+    val budgets: List<Budget>? = null,
     @SerializedName("stores")
-    val stores: List<Store> = emptyList(),
+    val stores: List<Store>? = null,
     @SerializedName("products")
-    val products: List<Product> = emptyList(),
+    val products: List<Product>? = null,
     @SerializedName("productStores")
-    val productStores: List<ProductStore> = emptyList()
+    val productStores: List<ProductStore>? = null
 )

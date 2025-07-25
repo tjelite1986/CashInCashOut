@@ -36,6 +36,8 @@ class BackupManager(private val context: Context, private val database: BudgetDa
         val productStores = database.productStoreDao().getAllProductStores().first()
         
         BackupData(
+            version = "1.0",
+            exportDate = System.currentTimeMillis(),
             categories = categories,
             incomes = incomes,
             expenses = expenses,
@@ -59,7 +61,7 @@ class BackupManager(private val context: Context, private val database: BudgetDa
             } ?: return@withContext Result.failure(Exception("Kunde inte öppna fil för skrivning"))
             
             val timestamp = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
-                .format(Date(backupData.exportDate))
+                .format(Date(backupData.exportDate ?: System.currentTimeMillis()))
             
             Result.success("Backup exporterad: $timestamp")
         } catch (e: Exception) {
@@ -75,12 +77,26 @@ class BackupManager(private val context: Context, private val database: BudgetDa
                 }
             } ?: return@withContext Result.failure(Exception("Kunde inte läsa fil"))
             
-            val backupData = gson.fromJson(jsonString, BackupData::class.java)
+            // Try to detect and handle different backup formats
+            val backupData = when {
+                isLegacyBudgetAppBackup(jsonString) -> {
+                    convertLegacyBackup(jsonString)
+                }
+                else -> {
+                    gson.fromJson(jsonString, BackupData::class.java)
+                }
+            }
             
             // Importera data till databasen
             val importResult = importData(backupData)
             
-            Result.success("Import slutförd! ${importResult.itemsAdded} nya objekt lades till. ${importResult.duplicatesSkipped} dubbletter skippades.")
+            val sourceInfo = if (isLegacyBudgetAppBackup(jsonString)) {
+                " (från Budget App backup)"
+            } else {
+                ""
+            }
+            
+            Result.success("Import slutförd${sourceInfo}! ${importResult.itemsAdded} nya objekt lades till. ${importResult.duplicatesSkipped} dubbletter skippades.")
         } catch (e: Exception) {
             Result.failure(e)
         }
@@ -91,8 +107,8 @@ class BackupManager(private val context: Context, private val database: BudgetDa
         var itemsAdded = 0
         
         // Importera kategorier först (andra tabeller refererar till dem)
-        backupData.categories.forEach { category ->
-            val duplicateCount = database.categoryDao().checkDuplicateCategory(category.name)
+        backupData.categories?.forEach { category ->
+            val duplicateCount = database.categoryDao().checkDuplicateCategory(category.name, category.type)
             if (duplicateCount == 0) {
                 database.categoryDao().insertCategory(category.copy(id = 0))
                 itemsAdded++
@@ -102,7 +118,7 @@ class BackupManager(private val context: Context, private val database: BudgetDa
         }
         
         // Importera butiker med dubblettdetektering
-        backupData.stores.forEach { store ->
+        backupData.stores?.forEach { store ->
             val duplicateCount = database.storeDao().checkDuplicateStore(store.name, store.chain ?: "")
             if (duplicateCount == 0) {
                 database.storeDao().insertStore(store.copy(id = 0))
@@ -113,13 +129,13 @@ class BackupManager(private val context: Context, private val database: BudgetDa
         }
         
         // Importera produkter (för nu utan dubblettdetektering - kan läggas till senare)
-        backupData.products.forEach { product ->
+        backupData.products?.forEach { product ->
             database.productDao().insertProduct(product.copy(id = 0))
             itemsAdded++
         }
         
         // Importera inkomster med dubblettdetektering
-        backupData.incomes.forEach { income ->
+        backupData.incomes?.forEach { income ->
             val duplicateCount = database.incomeDao().checkDuplicateIncome(
                 income.title, income.amount, income.category ?: "", income.date
             )
@@ -132,7 +148,7 @@ class BackupManager(private val context: Context, private val database: BudgetDa
         }
         
         // Importera utgifter med dubblettdetektering
-        backupData.expenses.forEach { expense ->
+        backupData.expenses?.forEach { expense ->
             val duplicateCount = database.expenseDao().checkDuplicateExpense(
                 expense.title, expense.amount, expense.category ?: "", expense.date, expense.store
             )
@@ -145,7 +161,7 @@ class BackupManager(private val context: Context, private val database: BudgetDa
         }
         
         // Importera lån med dubblettdetektering
-        backupData.loans.forEach { loan ->
+        backupData.loans?.forEach { loan ->
             val duplicateCount = database.loanDao().checkDuplicateLoan(
                 loan.title, loan.amount, loan.personName, loan.type
             )
@@ -158,16 +174,18 @@ class BackupManager(private val context: Context, private val database: BudgetDa
         }
         
         // Importera budgetar (för nu utan dubblettdetektering)
-        backupData.budgets.forEach { budget ->
+        backupData.budgets?.forEach { budget ->
             database.budgetDao().insertBudget(budget.copy(id = 0))
             itemsAdded++
         }
         
         // Importera produktbutik-relationer sist (har redan unique constraint)
-        if (backupData.productStores.isNotEmpty()) {
-            val productStoresWithoutId = backupData.productStores.map { it.copy(id = 0) }
-            database.productStoreDao().insertProductStores(productStoresWithoutId)
-            itemsAdded += backupData.productStores.size
+        backupData.productStores?.let { productStores ->
+            if (productStores.isNotEmpty()) {
+                val productStoresWithoutId = productStores.map { it.copy(id = 0) }
+                database.productStoreDao().insertProductStores(productStoresWithoutId)
+                itemsAdded += productStores.size
+            }
         }
         
         return@withContext ImportResult(itemsAdded, duplicatesSkipped)
@@ -177,5 +195,63 @@ class BackupManager(private val context: Context, private val database: BudgetDa
         val timestamp = SimpleDateFormat("yyyy-MM-dd_HH-mm", Locale.getDefault())
             .format(Date())
         return "budget_backup_$timestamp.json"
+    }
+    
+    private fun isLegacyBudgetAppBackup(jsonString: String): Boolean {
+        return try {
+            // Legacy backups might have different structure or file names like "budget_backup_*"
+            // Check for patterns that indicate old Budget App format
+            jsonString.contains("\"appName\":\"Budget App\"") ||
+            jsonString.contains("\"version\":\"0.") ||
+            (!jsonString.contains("\"version\":\"1.") && jsonString.contains("\"categories\"")) ||
+            // If it has the basic structure but no version field, it's likely legacy
+            (!jsonString.contains("\"version\":") && (jsonString.contains("\"incomes\"") || jsonString.contains("\"expenses\"")))
+        } catch (e: Exception) {
+            false
+        }
+    }
+    
+    private fun convertLegacyBackup(jsonString: String): BackupData {
+        return try {
+            // First, try to parse as current format in case it's compatible
+            val directParse = try {
+                gson.fromJson(jsonString, BackupData::class.java)
+            } catch (e: Exception) {
+                null
+            }
+            
+            if (directParse != null) {
+                // If direct parsing works, use it but ensure version is set
+                directParse.copy(version = "1.0 (migrated from Budget App)")
+            } else {
+                // Handle other legacy formats or create empty backup with migration note
+                BackupData(
+                    version = "1.0 (legacy migration)",
+                    exportDate = System.currentTimeMillis(),
+                    categories = emptyList(),
+                    incomes = emptyList(),
+                    expenses = emptyList(),
+                    loans = emptyList(),
+                    budgets = emptyList(),
+                    stores = emptyList(),
+                    products = emptyList(),
+                    productStores = emptyList()
+                )
+            }
+        } catch (e: Exception) {
+            // If all else fails, return empty backup
+            BackupData(
+                version = "1.0 (failed migration)",
+                exportDate = System.currentTimeMillis(),
+                categories = emptyList(),
+                incomes = emptyList(),
+                expenses = emptyList(),
+                loans = emptyList(),
+                budgets = emptyList(),
+                stores = emptyList(),
+                products = emptyList(),
+                productStores = emptyList()
+            )
+        }
     }
 }
