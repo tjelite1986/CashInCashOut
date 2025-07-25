@@ -140,14 +140,21 @@ class ProductListActivity : AppCompatActivity() {
         }
         
         val priceInfo = productWithPrices.prices.joinToString("\n") { priceData ->
-            val price = priceData.productStore.price
+            val basePrice = priceData.productStore.price
+            val depositAmount = if (productWithPrices.product.hasDeposit) productWithPrices.product.depositAmount ?: 0.0 else 0.0
+            val totalPrice = basePrice + depositAmount
             val store = priceData.store
             val campaignInfo = if (priceData.productStore.hasCampaignPrice) {
                 val quantity = priceData.productStore.campaignQuantity ?: 1
                 val campaignPrice = priceData.productStore.campaignPrice ?: 0.0
                 " (Kampanj: $quantity för $campaignPrice kr)"
             } else ""
-            "${store.name} (${store.chain}): $price kr$campaignInfo"
+            val priceText = if (depositAmount > 0.0) {
+                "${String.format("%.2f", totalPrice)} kr (inkl. pant ${String.format("%.2f", depositAmount)} kr)"
+            } else {
+                "${String.format("%.2f", totalPrice)} kr"
+            }
+            "${store.name} (${store.chain}): $priceText$campaignInfo"
         }
         
         AlertDialog.Builder(this)

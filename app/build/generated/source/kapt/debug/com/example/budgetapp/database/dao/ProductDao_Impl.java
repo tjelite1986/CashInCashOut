@@ -49,7 +49,7 @@ public final class ProductDao_Impl implements ProductDao {
       @Override
       @NonNull
       protected String createQuery() {
-        return "INSERT OR ABORT INTO `products` (`id`,`name`,`categoryId`,`hasDeposit`,`depositAmount`,`barcode`,`productName`,`description`,`amount`,`unit`,`createdAt`,`updatedAt`) VALUES (nullif(?, 0),?,?,?,?,?,?,?,?,?,?,?)";
+        return "INSERT OR ABORT INTO `products` (`id`,`name`,`productCategoryId`,`hasDeposit`,`depositAmount`,`barcode`,`productName`,`description`,`amount`,`unit`,`createdAt`,`updatedAt`) VALUES (nullif(?, 0),?,?,?,?,?,?,?,?,?,?,?)";
       }
 
       @Override
@@ -61,10 +61,10 @@ public final class ProductDao_Impl implements ProductDao {
         } else {
           statement.bindString(2, entity.getName());
         }
-        if (entity.getCategoryId() == null) {
+        if (entity.getProductCategoryId() == null) {
           statement.bindNull(3);
         } else {
-          statement.bindLong(3, entity.getCategoryId());
+          statement.bindLong(3, entity.getProductCategoryId());
         }
         final int _tmp = entity.getHasDeposit() ? 1 : 0;
         statement.bindLong(4, _tmp);
@@ -119,7 +119,7 @@ public final class ProductDao_Impl implements ProductDao {
       @Override
       @NonNull
       protected String createQuery() {
-        return "UPDATE OR ABORT `products` SET `id` = ?,`name` = ?,`categoryId` = ?,`hasDeposit` = ?,`depositAmount` = ?,`barcode` = ?,`productName` = ?,`description` = ?,`amount` = ?,`unit` = ?,`createdAt` = ?,`updatedAt` = ? WHERE `id` = ?";
+        return "UPDATE OR ABORT `products` SET `id` = ?,`name` = ?,`productCategoryId` = ?,`hasDeposit` = ?,`depositAmount` = ?,`barcode` = ?,`productName` = ?,`description` = ?,`amount` = ?,`unit` = ?,`createdAt` = ?,`updatedAt` = ? WHERE `id` = ?";
       }
 
       @Override
@@ -131,10 +131,10 @@ public final class ProductDao_Impl implements ProductDao {
         } else {
           statement.bindString(2, entity.getName());
         }
-        if (entity.getCategoryId() == null) {
+        if (entity.getProductCategoryId() == null) {
           statement.bindNull(3);
         } else {
-          statement.bindLong(3, entity.getCategoryId());
+          statement.bindLong(3, entity.getProductCategoryId());
         }
         final int _tmp = entity.getHasDeposit() ? 1 : 0;
         statement.bindLong(4, _tmp);
@@ -274,7 +274,7 @@ public final class ProductDao_Impl implements ProductDao {
         try {
           final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
           final int _cursorIndexOfName = CursorUtil.getColumnIndexOrThrow(_cursor, "name");
-          final int _cursorIndexOfCategoryId = CursorUtil.getColumnIndexOrThrow(_cursor, "categoryId");
+          final int _cursorIndexOfProductCategoryId = CursorUtil.getColumnIndexOrThrow(_cursor, "productCategoryId");
           final int _cursorIndexOfHasDeposit = CursorUtil.getColumnIndexOrThrow(_cursor, "hasDeposit");
           final int _cursorIndexOfDepositAmount = CursorUtil.getColumnIndexOrThrow(_cursor, "depositAmount");
           final int _cursorIndexOfBarcode = CursorUtil.getColumnIndexOrThrow(_cursor, "barcode");
@@ -295,11 +295,11 @@ public final class ProductDao_Impl implements ProductDao {
             } else {
               _tmpName = _cursor.getString(_cursorIndexOfName);
             }
-            final Long _tmpCategoryId;
-            if (_cursor.isNull(_cursorIndexOfCategoryId)) {
-              _tmpCategoryId = null;
+            final Long _tmpProductCategoryId;
+            if (_cursor.isNull(_cursorIndexOfProductCategoryId)) {
+              _tmpProductCategoryId = null;
             } else {
-              _tmpCategoryId = _cursor.getLong(_cursorIndexOfCategoryId);
+              _tmpProductCategoryId = _cursor.getLong(_cursorIndexOfProductCategoryId);
             }
             final boolean _tmpHasDeposit;
             final int _tmp;
@@ -345,7 +345,7 @@ public final class ProductDao_Impl implements ProductDao {
             _tmpCreatedAt = _cursor.getLong(_cursorIndexOfCreatedAt);
             final long _tmpUpdatedAt;
             _tmpUpdatedAt = _cursor.getLong(_cursorIndexOfUpdatedAt);
-            _item = new Product(_tmpId,_tmpName,_tmpCategoryId,_tmpHasDeposit,_tmpDepositAmount,_tmpBarcode,_tmpProductName,_tmpDescription,_tmpAmount,_tmpUnit,_tmpCreatedAt,_tmpUpdatedAt);
+            _item = new Product(_tmpId,_tmpName,_tmpProductCategoryId,_tmpHasDeposit,_tmpDepositAmount,_tmpBarcode,_tmpProductName,_tmpDescription,_tmpAmount,_tmpUnit,_tmpCreatedAt,_tmpUpdatedAt);
             _result.add(_item);
           }
           return _result;
@@ -376,7 +376,7 @@ public final class ProductDao_Impl implements ProductDao {
         try {
           final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
           final int _cursorIndexOfName = CursorUtil.getColumnIndexOrThrow(_cursor, "name");
-          final int _cursorIndexOfCategoryId = CursorUtil.getColumnIndexOrThrow(_cursor, "categoryId");
+          final int _cursorIndexOfProductCategoryId = CursorUtil.getColumnIndexOrThrow(_cursor, "productCategoryId");
           final int _cursorIndexOfHasDeposit = CursorUtil.getColumnIndexOrThrow(_cursor, "hasDeposit");
           final int _cursorIndexOfDepositAmount = CursorUtil.getColumnIndexOrThrow(_cursor, "depositAmount");
           final int _cursorIndexOfBarcode = CursorUtil.getColumnIndexOrThrow(_cursor, "barcode");
@@ -396,11 +396,11 @@ public final class ProductDao_Impl implements ProductDao {
             } else {
               _tmpName = _cursor.getString(_cursorIndexOfName);
             }
-            final Long _tmpCategoryId;
-            if (_cursor.isNull(_cursorIndexOfCategoryId)) {
-              _tmpCategoryId = null;
+            final Long _tmpProductCategoryId;
+            if (_cursor.isNull(_cursorIndexOfProductCategoryId)) {
+              _tmpProductCategoryId = null;
             } else {
-              _tmpCategoryId = _cursor.getLong(_cursorIndexOfCategoryId);
+              _tmpProductCategoryId = _cursor.getLong(_cursorIndexOfProductCategoryId);
             }
             final boolean _tmpHasDeposit;
             final int _tmp;
@@ -446,7 +446,7 @@ public final class ProductDao_Impl implements ProductDao {
             _tmpCreatedAt = _cursor.getLong(_cursorIndexOfCreatedAt);
             final long _tmpUpdatedAt;
             _tmpUpdatedAt = _cursor.getLong(_cursorIndexOfUpdatedAt);
-            _result = new Product(_tmpId,_tmpName,_tmpCategoryId,_tmpHasDeposit,_tmpDepositAmount,_tmpBarcode,_tmpProductName,_tmpDescription,_tmpAmount,_tmpUnit,_tmpCreatedAt,_tmpUpdatedAt);
+            _result = new Product(_tmpId,_tmpName,_tmpProductCategoryId,_tmpHasDeposit,_tmpDepositAmount,_tmpBarcode,_tmpProductName,_tmpDescription,_tmpAmount,_tmpUnit,_tmpCreatedAt,_tmpUpdatedAt);
           } else {
             _result = null;
           }
@@ -479,7 +479,7 @@ public final class ProductDao_Impl implements ProductDao {
         try {
           final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
           final int _cursorIndexOfName = CursorUtil.getColumnIndexOrThrow(_cursor, "name");
-          final int _cursorIndexOfCategoryId = CursorUtil.getColumnIndexOrThrow(_cursor, "categoryId");
+          final int _cursorIndexOfProductCategoryId = CursorUtil.getColumnIndexOrThrow(_cursor, "productCategoryId");
           final int _cursorIndexOfHasDeposit = CursorUtil.getColumnIndexOrThrow(_cursor, "hasDeposit");
           final int _cursorIndexOfDepositAmount = CursorUtil.getColumnIndexOrThrow(_cursor, "depositAmount");
           final int _cursorIndexOfBarcode = CursorUtil.getColumnIndexOrThrow(_cursor, "barcode");
@@ -499,11 +499,11 @@ public final class ProductDao_Impl implements ProductDao {
             } else {
               _tmpName = _cursor.getString(_cursorIndexOfName);
             }
-            final Long _tmpCategoryId;
-            if (_cursor.isNull(_cursorIndexOfCategoryId)) {
-              _tmpCategoryId = null;
+            final Long _tmpProductCategoryId;
+            if (_cursor.isNull(_cursorIndexOfProductCategoryId)) {
+              _tmpProductCategoryId = null;
             } else {
-              _tmpCategoryId = _cursor.getLong(_cursorIndexOfCategoryId);
+              _tmpProductCategoryId = _cursor.getLong(_cursorIndexOfProductCategoryId);
             }
             final boolean _tmpHasDeposit;
             final int _tmp;
@@ -549,7 +549,7 @@ public final class ProductDao_Impl implements ProductDao {
             _tmpCreatedAt = _cursor.getLong(_cursorIndexOfCreatedAt);
             final long _tmpUpdatedAt;
             _tmpUpdatedAt = _cursor.getLong(_cursorIndexOfUpdatedAt);
-            _result = new Product(_tmpId,_tmpName,_tmpCategoryId,_tmpHasDeposit,_tmpDepositAmount,_tmpBarcode,_tmpProductName,_tmpDescription,_tmpAmount,_tmpUnit,_tmpCreatedAt,_tmpUpdatedAt);
+            _result = new Product(_tmpId,_tmpName,_tmpProductCategoryId,_tmpHasDeposit,_tmpDepositAmount,_tmpBarcode,_tmpProductName,_tmpDescription,_tmpAmount,_tmpUnit,_tmpCreatedAt,_tmpUpdatedAt);
           } else {
             _result = null;
           }
@@ -563,11 +563,11 @@ public final class ProductDao_Impl implements ProductDao {
   }
 
   @Override
-  public Flow<List<Product>> getProductsByCategory(final long categoryId) {
-    final String _sql = "SELECT * FROM products WHERE categoryId = ? ORDER BY name ASC";
+  public Flow<List<Product>> getProductsByCategory(final long productCategoryId) {
+    final String _sql = "SELECT * FROM products WHERE productCategoryId = ? ORDER BY name ASC";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
-    _statement.bindLong(_argIndex, categoryId);
+    _statement.bindLong(_argIndex, productCategoryId);
     return CoroutinesRoom.createFlow(__db, false, new String[] {"products"}, new Callable<List<Product>>() {
       @Override
       @NonNull
@@ -576,7 +576,7 @@ public final class ProductDao_Impl implements ProductDao {
         try {
           final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
           final int _cursorIndexOfName = CursorUtil.getColumnIndexOrThrow(_cursor, "name");
-          final int _cursorIndexOfCategoryId = CursorUtil.getColumnIndexOrThrow(_cursor, "categoryId");
+          final int _cursorIndexOfProductCategoryId = CursorUtil.getColumnIndexOrThrow(_cursor, "productCategoryId");
           final int _cursorIndexOfHasDeposit = CursorUtil.getColumnIndexOrThrow(_cursor, "hasDeposit");
           final int _cursorIndexOfDepositAmount = CursorUtil.getColumnIndexOrThrow(_cursor, "depositAmount");
           final int _cursorIndexOfBarcode = CursorUtil.getColumnIndexOrThrow(_cursor, "barcode");
@@ -597,11 +597,11 @@ public final class ProductDao_Impl implements ProductDao {
             } else {
               _tmpName = _cursor.getString(_cursorIndexOfName);
             }
-            final Long _tmpCategoryId;
-            if (_cursor.isNull(_cursorIndexOfCategoryId)) {
-              _tmpCategoryId = null;
+            final Long _tmpProductCategoryId;
+            if (_cursor.isNull(_cursorIndexOfProductCategoryId)) {
+              _tmpProductCategoryId = null;
             } else {
-              _tmpCategoryId = _cursor.getLong(_cursorIndexOfCategoryId);
+              _tmpProductCategoryId = _cursor.getLong(_cursorIndexOfProductCategoryId);
             }
             final boolean _tmpHasDeposit;
             final int _tmp;
@@ -647,7 +647,7 @@ public final class ProductDao_Impl implements ProductDao {
             _tmpCreatedAt = _cursor.getLong(_cursorIndexOfCreatedAt);
             final long _tmpUpdatedAt;
             _tmpUpdatedAt = _cursor.getLong(_cursorIndexOfUpdatedAt);
-            _item = new Product(_tmpId,_tmpName,_tmpCategoryId,_tmpHasDeposit,_tmpDepositAmount,_tmpBarcode,_tmpProductName,_tmpDescription,_tmpAmount,_tmpUnit,_tmpCreatedAt,_tmpUpdatedAt);
+            _item = new Product(_tmpId,_tmpName,_tmpProductCategoryId,_tmpHasDeposit,_tmpDepositAmount,_tmpBarcode,_tmpProductName,_tmpDescription,_tmpAmount,_tmpUnit,_tmpCreatedAt,_tmpUpdatedAt);
             _result.add(_item);
           }
           return _result;
@@ -687,7 +687,7 @@ public final class ProductDao_Impl implements ProductDao {
         try {
           final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
           final int _cursorIndexOfName = CursorUtil.getColumnIndexOrThrow(_cursor, "name");
-          final int _cursorIndexOfCategoryId = CursorUtil.getColumnIndexOrThrow(_cursor, "categoryId");
+          final int _cursorIndexOfProductCategoryId = CursorUtil.getColumnIndexOrThrow(_cursor, "productCategoryId");
           final int _cursorIndexOfHasDeposit = CursorUtil.getColumnIndexOrThrow(_cursor, "hasDeposit");
           final int _cursorIndexOfDepositAmount = CursorUtil.getColumnIndexOrThrow(_cursor, "depositAmount");
           final int _cursorIndexOfBarcode = CursorUtil.getColumnIndexOrThrow(_cursor, "barcode");
@@ -708,11 +708,11 @@ public final class ProductDao_Impl implements ProductDao {
             } else {
               _tmpName = _cursor.getString(_cursorIndexOfName);
             }
-            final Long _tmpCategoryId;
-            if (_cursor.isNull(_cursorIndexOfCategoryId)) {
-              _tmpCategoryId = null;
+            final Long _tmpProductCategoryId;
+            if (_cursor.isNull(_cursorIndexOfProductCategoryId)) {
+              _tmpProductCategoryId = null;
             } else {
-              _tmpCategoryId = _cursor.getLong(_cursorIndexOfCategoryId);
+              _tmpProductCategoryId = _cursor.getLong(_cursorIndexOfProductCategoryId);
             }
             final boolean _tmpHasDeposit;
             final int _tmp;
@@ -758,7 +758,7 @@ public final class ProductDao_Impl implements ProductDao {
             _tmpCreatedAt = _cursor.getLong(_cursorIndexOfCreatedAt);
             final long _tmpUpdatedAt;
             _tmpUpdatedAt = _cursor.getLong(_cursorIndexOfUpdatedAt);
-            _item = new Product(_tmpId,_tmpName,_tmpCategoryId,_tmpHasDeposit,_tmpDepositAmount,_tmpBarcode,_tmpProductName,_tmpDescription,_tmpAmount,_tmpUnit,_tmpCreatedAt,_tmpUpdatedAt);
+            _item = new Product(_tmpId,_tmpName,_tmpProductCategoryId,_tmpHasDeposit,_tmpDepositAmount,_tmpBarcode,_tmpProductName,_tmpDescription,_tmpAmount,_tmpUnit,_tmpCreatedAt,_tmpUpdatedAt);
             _result.add(_item);
           }
           return _result;
@@ -816,6 +816,317 @@ public final class ProductDao_Impl implements ProductDao {
               _tmpAvgPrice = _cursor.getDouble(_cursorIndexOfAvgPrice);
             }
             _result = new ProductDao.PriceStats(_tmpMinPrice,_tmpMaxPrice,_tmpAvgPrice);
+          } else {
+            _result = null;
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+          _statement.release();
+        }
+      }
+    }, arg1);
+  }
+
+  @Override
+  public Object getPriceStatsWithCampaignAndDeposit(final long productId,
+      final Continuation<? super ProductDao.PriceStatsWithDeposit> arg1) {
+    final String _sql = "\n"
+            + "        SELECT \n"
+            + "            MIN(CASE \n"
+            + "                WHEN ps.hasCampaignPrice THEN COALESCE(ps.campaignPrice, ps.price)\n"
+            + "                ELSE ps.price \n"
+            + "            END) as minPrice,\n"
+            + "            MAX(CASE \n"
+            + "                WHEN ps.hasCampaignPrice THEN COALESCE(ps.campaignPrice, ps.price)\n"
+            + "                ELSE ps.price \n"
+            + "            END) as maxPrice,\n"
+            + "            AVG(CASE \n"
+            + "                WHEN ps.hasCampaignPrice THEN COALESCE(ps.campaignPrice, ps.price)\n"
+            + "                ELSE ps.price \n"
+            + "            END) as avgPrice,\n"
+            + "            p.hasDeposit,\n"
+            + "            p.depositAmount\n"
+            + "        FROM product_stores ps\n"
+            + "        INNER JOIN products p ON ps.productId = p.id\n"
+            + "        WHERE ps.productId = ?\n"
+            + "        GROUP BY p.hasDeposit, p.depositAmount\n"
+            + "    ";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
+    int _argIndex = 1;
+    _statement.bindLong(_argIndex, productId);
+    final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
+    return CoroutinesRoom.execute(__db, false, _cancellationSignal, new Callable<ProductDao.PriceStatsWithDeposit>() {
+      @Override
+      @Nullable
+      public ProductDao.PriceStatsWithDeposit call() throws Exception {
+        final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+        try {
+          final int _cursorIndexOfMinPrice = 0;
+          final int _cursorIndexOfMaxPrice = 1;
+          final int _cursorIndexOfAvgPrice = 2;
+          final int _cursorIndexOfHasDeposit = 3;
+          final int _cursorIndexOfDepositAmount = 4;
+          final ProductDao.PriceStatsWithDeposit _result;
+          if (_cursor.moveToFirst()) {
+            final Double _tmpMinPrice;
+            if (_cursor.isNull(_cursorIndexOfMinPrice)) {
+              _tmpMinPrice = null;
+            } else {
+              _tmpMinPrice = _cursor.getDouble(_cursorIndexOfMinPrice);
+            }
+            final Double _tmpMaxPrice;
+            if (_cursor.isNull(_cursorIndexOfMaxPrice)) {
+              _tmpMaxPrice = null;
+            } else {
+              _tmpMaxPrice = _cursor.getDouble(_cursorIndexOfMaxPrice);
+            }
+            final Double _tmpAvgPrice;
+            if (_cursor.isNull(_cursorIndexOfAvgPrice)) {
+              _tmpAvgPrice = null;
+            } else {
+              _tmpAvgPrice = _cursor.getDouble(_cursorIndexOfAvgPrice);
+            }
+            final boolean _tmpHasDeposit;
+            final int _tmp;
+            _tmp = _cursor.getInt(_cursorIndexOfHasDeposit);
+            _tmpHasDeposit = _tmp != 0;
+            final Double _tmpDepositAmount;
+            if (_cursor.isNull(_cursorIndexOfDepositAmount)) {
+              _tmpDepositAmount = null;
+            } else {
+              _tmpDepositAmount = _cursor.getDouble(_cursorIndexOfDepositAmount);
+            }
+            _result = new ProductDao.PriceStatsWithDeposit(_tmpMinPrice,_tmpMaxPrice,_tmpAvgPrice,_tmpHasDeposit,_tmpDepositAmount);
+          } else {
+            _result = null;
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+          _statement.release();
+        }
+      }
+    }, arg1);
+  }
+
+  @Override
+  public Object getProductStoresWithPrices(final long productId,
+      final Continuation<? super List<ProductDao.ProductStoreWithPrice>> arg1) {
+    final String _sql = "\n"
+            + "        SELECT \n"
+            + "            ps.*,\n"
+            + "            s.name as store_name,\n"
+            + "            s.address as store_address,\n"
+            + "            (CASE \n"
+            + "                WHEN ps.hasCampaignPrice THEN COALESCE(ps.campaignPrice, ps.price)\n"
+            + "                ELSE ps.price \n"
+            + "            END) as effective_price,\n"
+            + "            p.hasDeposit,\n"
+            + "            p.depositAmount\n"
+            + "        FROM product_stores ps\n"
+            + "        INNER JOIN stores s ON ps.storeId = s.id\n"
+            + "        INNER JOIN products p ON ps.productId = p.id\n"
+            + "        WHERE ps.productId = ?\n"
+            + "        ORDER BY effective_price ASC\n"
+            + "    ";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
+    int _argIndex = 1;
+    _statement.bindLong(_argIndex, productId);
+    final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
+    return CoroutinesRoom.execute(__db, false, _cancellationSignal, new Callable<List<ProductDao.ProductStoreWithPrice>>() {
+      @Override
+      @NonNull
+      public List<ProductDao.ProductStoreWithPrice> call() throws Exception {
+        final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+        try {
+          final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
+          final int _cursorIndexOfProductId = CursorUtil.getColumnIndexOrThrow(_cursor, "productId");
+          final int _cursorIndexOfStoreId = CursorUtil.getColumnIndexOrThrow(_cursor, "storeId");
+          final int _cursorIndexOfPrice = CursorUtil.getColumnIndexOrThrow(_cursor, "price");
+          final int _cursorIndexOfHasCampaignPrice = CursorUtil.getColumnIndexOrThrow(_cursor, "hasCampaignPrice");
+          final int _cursorIndexOfCampaignQuantity = CursorUtil.getColumnIndexOrThrow(_cursor, "campaignQuantity");
+          final int _cursorIndexOfCampaignPrice = CursorUtil.getColumnIndexOrThrow(_cursor, "campaignPrice");
+          final int _cursorIndexOfLastSeen = CursorUtil.getColumnIndexOrThrow(_cursor, "lastSeen");
+          final int _cursorIndexOfCreatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "createdAt");
+          final int _cursorIndexOfUpdatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "updatedAt");
+          final int _cursorIndexOfStoreName = CursorUtil.getColumnIndexOrThrow(_cursor, "store_name");
+          final int _cursorIndexOfStoreAddress = CursorUtil.getColumnIndexOrThrow(_cursor, "store_address");
+          final int _cursorIndexOfEffectivePrice = CursorUtil.getColumnIndexOrThrow(_cursor, "effective_price");
+          final int _cursorIndexOfHasDeposit = CursorUtil.getColumnIndexOrThrow(_cursor, "hasDeposit");
+          final int _cursorIndexOfDepositAmount = CursorUtil.getColumnIndexOrThrow(_cursor, "depositAmount");
+          final List<ProductDao.ProductStoreWithPrice> _result = new ArrayList<ProductDao.ProductStoreWithPrice>(_cursor.getCount());
+          while (_cursor.moveToNext()) {
+            final ProductDao.ProductStoreWithPrice _item;
+            final long _tmpId;
+            _tmpId = _cursor.getLong(_cursorIndexOfId);
+            final long _tmpProductId;
+            _tmpProductId = _cursor.getLong(_cursorIndexOfProductId);
+            final long _tmpStoreId;
+            _tmpStoreId = _cursor.getLong(_cursorIndexOfStoreId);
+            final double _tmpPrice;
+            _tmpPrice = _cursor.getDouble(_cursorIndexOfPrice);
+            final boolean _tmpHasCampaignPrice;
+            final int _tmp;
+            _tmp = _cursor.getInt(_cursorIndexOfHasCampaignPrice);
+            _tmpHasCampaignPrice = _tmp != 0;
+            final Integer _tmpCampaignQuantity;
+            if (_cursor.isNull(_cursorIndexOfCampaignQuantity)) {
+              _tmpCampaignQuantity = null;
+            } else {
+              _tmpCampaignQuantity = _cursor.getInt(_cursorIndexOfCampaignQuantity);
+            }
+            final Double _tmpCampaignPrice;
+            if (_cursor.isNull(_cursorIndexOfCampaignPrice)) {
+              _tmpCampaignPrice = null;
+            } else {
+              _tmpCampaignPrice = _cursor.getDouble(_cursorIndexOfCampaignPrice);
+            }
+            final long _tmpLastSeen;
+            _tmpLastSeen = _cursor.getLong(_cursorIndexOfLastSeen);
+            final long _tmpCreatedAt;
+            _tmpCreatedAt = _cursor.getLong(_cursorIndexOfCreatedAt);
+            final long _tmpUpdatedAt;
+            _tmpUpdatedAt = _cursor.getLong(_cursorIndexOfUpdatedAt);
+            final String _tmpStore_name;
+            if (_cursor.isNull(_cursorIndexOfStoreName)) {
+              _tmpStore_name = null;
+            } else {
+              _tmpStore_name = _cursor.getString(_cursorIndexOfStoreName);
+            }
+            final String _tmpStore_address;
+            if (_cursor.isNull(_cursorIndexOfStoreAddress)) {
+              _tmpStore_address = null;
+            } else {
+              _tmpStore_address = _cursor.getString(_cursorIndexOfStoreAddress);
+            }
+            final double _tmpEffective_price;
+            _tmpEffective_price = _cursor.getDouble(_cursorIndexOfEffectivePrice);
+            final boolean _tmpHasDeposit;
+            final int _tmp_1;
+            _tmp_1 = _cursor.getInt(_cursorIndexOfHasDeposit);
+            _tmpHasDeposit = _tmp_1 != 0;
+            final Double _tmpDepositAmount;
+            if (_cursor.isNull(_cursorIndexOfDepositAmount)) {
+              _tmpDepositAmount = null;
+            } else {
+              _tmpDepositAmount = _cursor.getDouble(_cursorIndexOfDepositAmount);
+            }
+            _item = new ProductDao.ProductStoreWithPrice(_tmpId,_tmpProductId,_tmpStoreId,_tmpPrice,_tmpHasCampaignPrice,_tmpCampaignQuantity,_tmpCampaignPrice,_tmpLastSeen,_tmpCreatedAt,_tmpUpdatedAt,_tmpStore_name,_tmpStore_address,_tmpEffective_price,_tmpHasDeposit,_tmpDepositAmount);
+            _result.add(_item);
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+          _statement.release();
+        }
+      }
+    }, arg1);
+  }
+
+  @Override
+  public Object getCheapestStoreForProduct(final long productId,
+      final Continuation<? super ProductDao.ProductStoreWithPrice> arg1) {
+    final String _sql = "\n"
+            + "        SELECT \n"
+            + "            ps.*,\n"
+            + "            s.name as store_name,\n"
+            + "            s.address as store_address,\n"
+            + "            (CASE \n"
+            + "                WHEN ps.hasCampaignPrice THEN COALESCE(ps.campaignPrice, ps.price)\n"
+            + "                ELSE ps.price \n"
+            + "            END) as effective_price,\n"
+            + "            p.hasDeposit,\n"
+            + "            p.depositAmount\n"
+            + "        FROM product_stores ps\n"
+            + "        INNER JOIN stores s ON ps.storeId = s.id\n"
+            + "        INNER JOIN products p ON ps.productId = p.id\n"
+            + "        WHERE ps.productId = ?\n"
+            + "        ORDER BY effective_price ASC\n"
+            + "        LIMIT 1\n"
+            + "    ";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
+    int _argIndex = 1;
+    _statement.bindLong(_argIndex, productId);
+    final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
+    return CoroutinesRoom.execute(__db, false, _cancellationSignal, new Callable<ProductDao.ProductStoreWithPrice>() {
+      @Override
+      @Nullable
+      public ProductDao.ProductStoreWithPrice call() throws Exception {
+        final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+        try {
+          final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
+          final int _cursorIndexOfProductId = CursorUtil.getColumnIndexOrThrow(_cursor, "productId");
+          final int _cursorIndexOfStoreId = CursorUtil.getColumnIndexOrThrow(_cursor, "storeId");
+          final int _cursorIndexOfPrice = CursorUtil.getColumnIndexOrThrow(_cursor, "price");
+          final int _cursorIndexOfHasCampaignPrice = CursorUtil.getColumnIndexOrThrow(_cursor, "hasCampaignPrice");
+          final int _cursorIndexOfCampaignQuantity = CursorUtil.getColumnIndexOrThrow(_cursor, "campaignQuantity");
+          final int _cursorIndexOfCampaignPrice = CursorUtil.getColumnIndexOrThrow(_cursor, "campaignPrice");
+          final int _cursorIndexOfLastSeen = CursorUtil.getColumnIndexOrThrow(_cursor, "lastSeen");
+          final int _cursorIndexOfCreatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "createdAt");
+          final int _cursorIndexOfUpdatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "updatedAt");
+          final int _cursorIndexOfStoreName = CursorUtil.getColumnIndexOrThrow(_cursor, "store_name");
+          final int _cursorIndexOfStoreAddress = CursorUtil.getColumnIndexOrThrow(_cursor, "store_address");
+          final int _cursorIndexOfEffectivePrice = CursorUtil.getColumnIndexOrThrow(_cursor, "effective_price");
+          final int _cursorIndexOfHasDeposit = CursorUtil.getColumnIndexOrThrow(_cursor, "hasDeposit");
+          final int _cursorIndexOfDepositAmount = CursorUtil.getColumnIndexOrThrow(_cursor, "depositAmount");
+          final ProductDao.ProductStoreWithPrice _result;
+          if (_cursor.moveToFirst()) {
+            final long _tmpId;
+            _tmpId = _cursor.getLong(_cursorIndexOfId);
+            final long _tmpProductId;
+            _tmpProductId = _cursor.getLong(_cursorIndexOfProductId);
+            final long _tmpStoreId;
+            _tmpStoreId = _cursor.getLong(_cursorIndexOfStoreId);
+            final double _tmpPrice;
+            _tmpPrice = _cursor.getDouble(_cursorIndexOfPrice);
+            final boolean _tmpHasCampaignPrice;
+            final int _tmp;
+            _tmp = _cursor.getInt(_cursorIndexOfHasCampaignPrice);
+            _tmpHasCampaignPrice = _tmp != 0;
+            final Integer _tmpCampaignQuantity;
+            if (_cursor.isNull(_cursorIndexOfCampaignQuantity)) {
+              _tmpCampaignQuantity = null;
+            } else {
+              _tmpCampaignQuantity = _cursor.getInt(_cursorIndexOfCampaignQuantity);
+            }
+            final Double _tmpCampaignPrice;
+            if (_cursor.isNull(_cursorIndexOfCampaignPrice)) {
+              _tmpCampaignPrice = null;
+            } else {
+              _tmpCampaignPrice = _cursor.getDouble(_cursorIndexOfCampaignPrice);
+            }
+            final long _tmpLastSeen;
+            _tmpLastSeen = _cursor.getLong(_cursorIndexOfLastSeen);
+            final long _tmpCreatedAt;
+            _tmpCreatedAt = _cursor.getLong(_cursorIndexOfCreatedAt);
+            final long _tmpUpdatedAt;
+            _tmpUpdatedAt = _cursor.getLong(_cursorIndexOfUpdatedAt);
+            final String _tmpStore_name;
+            if (_cursor.isNull(_cursorIndexOfStoreName)) {
+              _tmpStore_name = null;
+            } else {
+              _tmpStore_name = _cursor.getString(_cursorIndexOfStoreName);
+            }
+            final String _tmpStore_address;
+            if (_cursor.isNull(_cursorIndexOfStoreAddress)) {
+              _tmpStore_address = null;
+            } else {
+              _tmpStore_address = _cursor.getString(_cursorIndexOfStoreAddress);
+            }
+            final double _tmpEffective_price;
+            _tmpEffective_price = _cursor.getDouble(_cursorIndexOfEffectivePrice);
+            final boolean _tmpHasDeposit;
+            final int _tmp_1;
+            _tmp_1 = _cursor.getInt(_cursorIndexOfHasDeposit);
+            _tmpHasDeposit = _tmp_1 != 0;
+            final Double _tmpDepositAmount;
+            if (_cursor.isNull(_cursorIndexOfDepositAmount)) {
+              _tmpDepositAmount = null;
+            } else {
+              _tmpDepositAmount = _cursor.getDouble(_cursorIndexOfDepositAmount);
+            }
+            _result = new ProductDao.ProductStoreWithPrice(_tmpId,_tmpProductId,_tmpStoreId,_tmpPrice,_tmpHasCampaignPrice,_tmpCampaignQuantity,_tmpCampaignPrice,_tmpLastSeen,_tmpCreatedAt,_tmpUpdatedAt,_tmpStore_name,_tmpStore_address,_tmpEffective_price,_tmpHasDeposit,_tmpDepositAmount);
           } else {
             _result = null;
           }

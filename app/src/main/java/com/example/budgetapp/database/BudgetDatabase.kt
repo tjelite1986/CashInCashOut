@@ -8,8 +8,10 @@ import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.budgetapp.database.dao.CategoryDao
+import com.example.budgetapp.database.dao.ProductCategoryDao
 import com.example.budgetapp.database.dao.ProductDao
 import com.example.budgetapp.database.dao.StoreDao
+import com.example.budgetapp.database.dao.StoreChainDao
 import com.example.budgetapp.database.dao.ProductStoreDao
 import com.example.budgetapp.database.dao.IncomeDao
 import com.example.budgetapp.database.dao.ExpenseDao
@@ -20,9 +22,18 @@ import com.example.budgetapp.database.dao.ReceiptItemDao
 import com.example.budgetapp.database.dao.ShoppingListDao
 import com.example.budgetapp.database.dao.ShoppingListItemDao
 import com.example.budgetapp.database.dao.PriceHistoryDao
+import com.example.budgetapp.database.dao.ReminderSettingsDao
+import com.example.budgetapp.database.dao.AppUsageDao
+import com.example.budgetapp.database.dao.TransactionNotificationDao
+import com.example.budgetapp.database.dao.FinancialInsightDao
+import com.example.budgetapp.database.dao.FinancialGoalDao
+import com.example.budgetapp.database.dao.SpendingPatternDao
+import com.example.budgetapp.database.dao.SpendingForecastDao
 import com.example.budgetapp.database.entities.Category
+import com.example.budgetapp.database.entities.ProductCategory
 import com.example.budgetapp.database.entities.Product
 import com.example.budgetapp.database.entities.Store
+import com.example.budgetapp.database.entities.StoreChain
 import com.example.budgetapp.database.entities.ProductStore
 import com.example.budgetapp.database.entities.Income
 import com.example.budgetapp.database.entities.Expense
@@ -33,23 +44,33 @@ import com.example.budgetapp.database.entities.ReceiptItem
 import com.example.budgetapp.database.entities.ShoppingList
 import com.example.budgetapp.database.entities.ShoppingListItem
 import com.example.budgetapp.database.entities.PriceHistory
+import com.example.budgetapp.database.entities.ReminderSettings
+import com.example.budgetapp.database.entities.AppUsage
+import com.example.budgetapp.database.entities.TransactionNotification
+import com.example.budgetapp.database.entities.FinancialInsight
+import com.example.budgetapp.database.entities.FinancialGoal
+import com.example.budgetapp.database.entities.SpendingPattern
+import com.example.budgetapp.database.entities.SpendingForecast
 import com.example.budgetapp.database.entities.LoanTypeConverter
 import com.example.budgetapp.database.entities.BudgetTypeConverter
+import com.example.budgetapp.database.entities.AnalyticsTypeConverters
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Database(
-    entities = [Product::class, Category::class, Store::class, ProductStore::class, Income::class, Expense::class, Loan::class, Budget::class, Receipt::class, ReceiptItem::class, ShoppingList::class, ShoppingListItem::class, PriceHistory::class],
-    version = 11,
+    entities = [Product::class, ProductCategory::class, Category::class, Store::class, StoreChain::class, ProductStore::class, Income::class, Expense::class, Loan::class, Budget::class, Receipt::class, ReceiptItem::class, ShoppingList::class, ShoppingListItem::class, PriceHistory::class, ReminderSettings::class, AppUsage::class, TransactionNotification::class, FinancialInsight::class, FinancialGoal::class, SpendingPattern::class, SpendingForecast::class],
+    version = 18,
     exportSchema = false
 )
-@TypeConverters(LoanTypeConverter::class, BudgetTypeConverter::class)
+@TypeConverters(LoanTypeConverter::class, BudgetTypeConverter::class, AnalyticsTypeConverters::class)
 abstract class BudgetDatabase : RoomDatabase() {
     
     abstract fun productDao(): ProductDao
+    abstract fun productCategoryDao(): ProductCategoryDao
     abstract fun categoryDao(): CategoryDao
     abstract fun storeDao(): StoreDao
+    abstract fun storeChainDao(): StoreChainDao
     abstract fun productStoreDao(): ProductStoreDao
     abstract fun incomeDao(): IncomeDao
     abstract fun expenseDao(): ExpenseDao
@@ -60,6 +81,13 @@ abstract class BudgetDatabase : RoomDatabase() {
     abstract fun shoppingListDao(): ShoppingListDao
     abstract fun shoppingListItemDao(): ShoppingListItemDao
     abstract fun priceHistoryDao(): PriceHistoryDao
+    abstract fun reminderSettingsDao(): ReminderSettingsDao
+    abstract fun appUsageDao(): AppUsageDao
+    abstract fun transactionNotificationDao(): TransactionNotificationDao
+    abstract fun financialInsightDao(): FinancialInsightDao
+    abstract fun financialGoalDao(): FinancialGoalDao
+    abstract fun spendingPatternDao(): SpendingPatternDao
+    abstract fun spendingForecastDao(): SpendingForecastDao
     
     companion object {
         @Volatile
@@ -230,6 +258,9 @@ abstract class BudgetDatabase : RoomDatabase() {
                 database.execSQL("CREATE INDEX IF NOT EXISTS index_expenses_date ON expenses(date)")
                 database.execSQL("CREATE INDEX IF NOT EXISTS index_expenses_category ON expenses(category)")
                 database.execSQL("CREATE INDEX IF NOT EXISTS index_expenses_store ON expenses(store)")
+                database.execSQL("CREATE INDEX IF NOT EXISTS index_expenses_isRecurring ON expenses(isRecurring)")
+                database.execSQL("CREATE INDEX IF NOT EXISTS index_expenses_amount ON expenses(amount)")
+                database.execSQL("CREATE INDEX IF NOT EXISTS index_expenses_paymentMethod ON expenses(paymentMethod)")
             }
         }
         
@@ -261,7 +292,7 @@ abstract class BudgetDatabase : RoomDatabase() {
             }
         }
         
-        private val MIGRATION_7_8 = object : Migration(7, 8) {
+        val MIGRATION_7_8 = object : Migration(7, 8) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 try {
                     // Use helper to check if budgets table already exists
@@ -300,7 +331,7 @@ abstract class BudgetDatabase : RoomDatabase() {
             }
         }
         
-        private val MIGRATION_8_9 = object : Migration(8, 9) {
+        val MIGRATION_8_9 = object : Migration(8, 9) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 try {
                     // Create receipts table
@@ -360,7 +391,7 @@ abstract class BudgetDatabase : RoomDatabase() {
             }
         }
         
-        private val MIGRATION_9_10 = object : Migration(9, 10) {
+        val MIGRATION_9_10 = object : Migration(9, 10) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 try {
                     // Add new columns to receipt_items table for pant and store information
@@ -385,7 +416,7 @@ abstract class BudgetDatabase : RoomDatabase() {
             }
         }
         
-        private val MIGRATION_10_11 = object : Migration(10, 11) {
+        val MIGRATION_10_11 = object : Migration(10, 11) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 try {
                     // Add new location fields to stores table
@@ -491,6 +522,408 @@ abstract class BudgetDatabase : RoomDatabase() {
                 } catch (e: Exception) {
                     e.printStackTrace()
                     throw Exception("Migration 10->11 failed: ${e.message}", e)
+                }
+            }
+        }
+        
+        val MIGRATION_11_12 = object : Migration(11, 12) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                try {
+                    // Create product_categories table
+                    val createProductCategoriesTableSQL = """
+                        CREATE TABLE IF NOT EXISTS product_categories (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                            name TEXT NOT NULL,
+                            color TEXT,
+                            iconName TEXT,
+                            isDefault INTEGER NOT NULL DEFAULT 0,
+                            createdAt INTEGER NOT NULL
+                        )
+                    """
+                    
+                    if (!DatabaseMigrationHelper.safeExecuteSQL(database, createProductCategoriesTableSQL)) {
+                        throw Exception("Failed to create product_categories table")
+                    }
+                    
+                    // Add productCategoryId column to products table
+                    if (!DatabaseMigrationHelper.safeExecuteSQL(database, "ALTER TABLE products ADD COLUMN productCategoryId INTEGER")) {
+                        throw Exception("Failed to add productCategoryId column to products table")
+                    }
+                    
+                    // Create index for productCategoryId
+                    DatabaseMigrationHelper.safeExecuteSQL(database, "CREATE INDEX IF NOT EXISTS index_products_productCategoryId ON products(productCategoryId)")
+                    
+                    // Populate with default product categories
+                    val defaultCategories = listOf(
+                        "Mat & Dryck", "Kött & Chark", "Mejeri", "Frukt & Grönt", "Bröd & Bakverk",
+                        "Konserver", "Fryst", "Godis & Snacks", "Drycker", "Hygien & Skönhet",
+                        "Hushållsprodukter", "Elektronik", "Kläder", "Hem & Trädgård", "Sport & Fritid",
+                        "Böcker & Media", "Leksaker", "Husdjur", "Övrigt"
+                    )
+                    
+                    val currentTime = System.currentTimeMillis()
+                    defaultCategories.forEach { categoryName ->
+                        DatabaseMigrationHelper.safeExecuteSQL(database, 
+                            "INSERT INTO product_categories (name, isDefault, createdAt) VALUES ('$categoryName', 1, $currentTime)")
+                    }
+                    
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    throw Exception("Migration 11->12 failed: ${e.message}", e)
+                }
+            }
+        }
+        
+        val MIGRATION_12_13 = object : Migration(12, 13) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                try {
+                    // Add productSize column to receipt_items table
+                    if (!DatabaseMigrationHelper.safeExecuteSQL(database, "ALTER TABLE receipt_items ADD COLUMN productSize TEXT")) {
+                        throw Exception("Failed to add productSize column to receipt_items table")
+                    }
+                    
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    throw Exception("Migration 12->13 failed: ${e.message}", e)
+                }
+            }
+        }
+        
+        val MIGRATION_13_14 = object : Migration(13, 14) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                try {
+                    // Create reminder_settings table
+                    val createReminderSettingsTableSQL = """
+                        CREATE TABLE IF NOT EXISTS reminder_settings (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                            reminderType TEXT NOT NULL,
+                            isEnabled INTEGER NOT NULL DEFAULT 1,
+                            alertTime TEXT NOT NULL DEFAULT '20:00',
+                            title TEXT NOT NULL,
+                            message TEXT NOT NULL,
+                            createdAt INTEGER NOT NULL,
+                            updatedAt INTEGER NOT NULL
+                        )
+                    """
+                    
+                    if (!DatabaseMigrationHelper.safeExecuteSQL(database, createReminderSettingsTableSQL)) {
+                        throw Exception("Failed to create reminder_settings table")
+                    }
+                    
+                    // Create app_usage table
+                    val createAppUsageTableSQL = """
+                        CREATE TABLE IF NOT EXISTS app_usage (
+                            id INTEGER PRIMARY KEY NOT NULL DEFAULT 1,
+                            lastOpenedAt INTEGER NOT NULL,
+                            updatedAt INTEGER NOT NULL
+                        )
+                    """
+                    
+                    if (!DatabaseMigrationHelper.safeExecuteSQL(database, createAppUsageTableSQL)) {
+                        throw Exception("Failed to create app_usage table")
+                    }
+                    
+                    // Create indices
+                    DatabaseMigrationHelper.safeExecuteSQL(database, "CREATE INDEX IF NOT EXISTS index_reminder_settings_reminderType ON reminder_settings(reminderType)")
+                    DatabaseMigrationHelper.safeExecuteSQL(database, "CREATE INDEX IF NOT EXISTS index_reminder_settings_isEnabled ON reminder_settings(isEnabled)")
+                    
+                    // Insert default reminder settings
+                    val currentTime = System.currentTimeMillis()
+                    val defaultReminders = listOf(
+                        Triple("DAILY_IF_NOT_OPENED", "Daglig påminnelse", "Glöm inte att registrera dina utgifter idag!"),
+                        Triple("HOURS_24_FROM_LAST_OPEN", "24-timmars påminnelse", "Det har gått 24 timmar sedan du senast använde appen"),
+                        Triple("DAILY_ALWAYS", "Daglig påminnelse (alltid)", "Dags att kolla din budget!")
+                    )
+                    
+                    defaultReminders.forEach { (type, title, message) ->
+                        DatabaseMigrationHelper.safeExecuteSQL(database, 
+                            "INSERT INTO reminder_settings (reminderType, title, message, createdAt, updatedAt) VALUES ('$type', '$title', '$message', $currentTime, $currentTime)")
+                    }
+                    
+                    // Initialize app_usage with current time
+                    DatabaseMigrationHelper.safeExecuteSQL(database, 
+                        "INSERT INTO app_usage (id, lastOpenedAt, updatedAt) VALUES (1, $currentTime, $currentTime)")
+                    
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    throw Exception("Migration 13->14 failed: ${e.message}", e)
+                }
+            }
+        }
+        
+        val MIGRATION_14_15 = object : Migration(14, 15) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                try {
+                    // Create transaction_notifications table
+                    val createTransactionNotificationsTableSQL = """
+                        CREATE TABLE IF NOT EXISTS transaction_notifications (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                            transactionType TEXT NOT NULL,
+                            transactionId INTEGER NOT NULL,
+                            transactionTitle TEXT NOT NULL,
+                            isEnabled INTEGER NOT NULL DEFAULT 1,
+                            reminderDaysBefore INTEGER NOT NULL DEFAULT 1,
+                            customMessage TEXT,
+                            createdAt INTEGER NOT NULL,
+                            updatedAt INTEGER NOT NULL
+                        )
+                    """
+                    
+                    if (!DatabaseMigrationHelper.safeExecuteSQL(database, createTransactionNotificationsTableSQL)) {
+                        throw Exception("Failed to create transaction_notifications table")
+                    }
+                    
+                    // Create indices for better performance
+                    DatabaseMigrationHelper.safeExecuteSQL(database, "CREATE INDEX IF NOT EXISTS index_transaction_notifications_transactionId ON transaction_notifications(transactionId)")
+                    DatabaseMigrationHelper.safeExecuteSQL(database, "CREATE INDEX IF NOT EXISTS index_transaction_notifications_transactionType ON transaction_notifications(transactionType)")
+                    DatabaseMigrationHelper.safeExecuteSQL(database, "CREATE INDEX IF NOT EXISTS index_transaction_notifications_isEnabled ON transaction_notifications(isEnabled)")
+                    
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    throw Exception("Migration 14->15 failed: ${e.message}", e)
+                }
+            }
+        }
+        
+        val MIGRATION_15_16 = object : Migration(15, 16) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                try {
+                    // Add new columns to categories table
+                    DatabaseMigrationHelper.safeExecuteSQL(database, "ALTER TABLE categories ADD COLUMN iconResName TEXT NOT NULL DEFAULT 'ic_category_default'")
+                    DatabaseMigrationHelper.safeExecuteSQL(database, "ALTER TABLE categories ADD COLUMN type TEXT NOT NULL DEFAULT 'EXPENSE'")
+                    DatabaseMigrationHelper.safeExecuteSQL(database, "ALTER TABLE categories ADD COLUMN parentCategoryId INTEGER")
+                    DatabaseMigrationHelper.safeExecuteSQL(database, "ALTER TABLE categories ADD COLUMN isSubcategory INTEGER NOT NULL DEFAULT 0")
+                    DatabaseMigrationHelper.safeExecuteSQL(database, "ALTER TABLE categories ADD COLUMN associatedKeywords TEXT NOT NULL DEFAULT ''")
+                    DatabaseMigrationHelper.safeExecuteSQL(database, "ALTER TABLE categories ADD COLUMN transactionCount INTEGER NOT NULL DEFAULT 0")
+                    DatabaseMigrationHelper.safeExecuteSQL(database, "ALTER TABLE categories ADD COLUMN isActive INTEGER NOT NULL DEFAULT 1")
+                    DatabaseMigrationHelper.safeExecuteSQL(database, "ALTER TABLE categories ADD COLUMN sortOrder INTEGER NOT NULL DEFAULT 0")
+                    
+                    // Update existing categories with default color if null
+                    DatabaseMigrationHelper.safeExecuteSQL(database, "UPDATE categories SET color = '#FF6B6B' WHERE color IS NULL")
+                    
+                    // Clear old categories and insert new default categories with proper structure
+                    DatabaseMigrationHelper.safeExecuteSQL(database, "DELETE FROM categories")
+                    
+                    // Insert new default expense categories
+                    val currentTime = System.currentTimeMillis()
+                    val defaultExpenseCategories = listOf(
+                        "('Dining', '#607D8B', 'ic_dining', 'EXPENSE', NULL, 0, '', 0, 1, 1)",
+                        "('Groceries', '#4CAF50', 'ic_groceries', 'EXPENSE', NULL, 0, '', 0, 1, 2)",
+                        "('Shopping', '#E91E63', 'ic_shopping', 'EXPENSE', NULL, 0, '', 0, 1, 3)",
+                        "('Transit', '#FF9800', 'ic_transit', 'EXPENSE', NULL, 0, '', 0, 1, 4)",
+                        "('Entertainment', '#2196F3', 'ic_entertainment', 'EXPENSE', NULL, 0, '', 0, 1, 5)",
+                        "('Bills & Fees', '#4CAF50', 'ic_bills', 'EXPENSE', NULL, 0, '', 0, 1, 6)",
+                        "('Boende', '#795548', 'ic_home', 'EXPENSE', NULL, 0, '', 0, 1, 7)",
+                        "('Hälsa', '#F44336', 'ic_health', 'EXPENSE', NULL, 0, '', 0, 1, 8)",
+                        "('Teknik', '#9C27B0', 'ic_tech', 'EXPENSE', NULL, 0, '', 0, 1, 9)",
+                        "('Sport', '#009688', 'ic_sport', 'EXPENSE', NULL, 0, '', 0, 1, 10)"
+                    )
+                    
+                    // Insert new default income categories
+                    val defaultIncomeCategories = listOf(
+                        "('Salary', '#4CAF50', 'ic_income', 'INCOME', NULL, 0, '', 0, 1, 1)",
+                        "('Bonus', '#FF9800', 'ic_bonus', 'INCOME', NULL, 0, '', 0, 1, 2)",
+                        "('Freelance', '#2196F3', 'ic_freelance', 'INCOME', NULL, 0, '', 0, 1, 3)",
+                        "('Investment', '#9C27B0', 'ic_investment', 'INCOME', NULL, 0, '', 0, 1, 4)",
+                        "('Sale', '#E91E63', 'ic_sale', 'INCOME', NULL, 0, '', 0, 1, 5)",
+                        "('Other Income', '#607D8B', 'ic_other', 'INCOME', NULL, 0, '', 0, 1, 6)"
+                    )
+                    
+                    (defaultExpenseCategories + defaultIncomeCategories).forEach { values ->
+                        DatabaseMigrationHelper.safeExecuteSQL(database, 
+                            "INSERT INTO categories (name, color, iconResName, type, parentCategoryId, isSubcategory, associatedKeywords, transactionCount, isActive, sortOrder) VALUES $values"
+                        )
+                    }
+                    
+                    // Create indices for better performance
+                    DatabaseMigrationHelper.safeExecuteSQL(database, "CREATE INDEX IF NOT EXISTS index_categories_type ON categories(type)")
+                    DatabaseMigrationHelper.safeExecuteSQL(database, "CREATE INDEX IF NOT EXISTS index_categories_parentCategoryId ON categories(parentCategoryId)")
+                    DatabaseMigrationHelper.safeExecuteSQL(database, "CREATE INDEX IF NOT EXISTS index_categories_isActive ON categories(isActive)")
+                    DatabaseMigrationHelper.safeExecuteSQL(database, "CREATE INDEX IF NOT EXISTS index_categories_sortOrder ON categories(sortOrder)")
+                    
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    throw Exception("Migration 15->16 failed: ${e.message}", e)
+                }
+            }
+        }
+        
+        val MIGRATION_16_17 = object : Migration(16, 17) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                try {
+                    // Create store_chains table
+                    val createStoreChainsTableSQL = """
+                        CREATE TABLE IF NOT EXISTS store_chains (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                            name TEXT NOT NULL,
+                            logoUrl TEXT,
+                            website TEXT,
+                            description TEXT,
+                            isDefault INTEGER NOT NULL DEFAULT 0,
+                            isActive INTEGER NOT NULL DEFAULT 1,
+                            createdAt INTEGER NOT NULL,
+                            updatedAt INTEGER NOT NULL
+                        )
+                    """
+                    
+                    if (!DatabaseMigrationHelper.safeExecuteSQL(database, createStoreChainsTableSQL)) {
+                        throw Exception("Failed to create store_chains table")
+                    }
+                    
+                    // Create indices for better performance
+                    DatabaseMigrationHelper.safeExecuteSQL(database, "CREATE INDEX IF NOT EXISTS index_store_chains_name ON store_chains(name)")
+                    DatabaseMigrationHelper.safeExecuteSQL(database, "CREATE INDEX IF NOT EXISTS index_store_chains_isActive ON store_chains(isActive)")
+                    DatabaseMigrationHelper.safeExecuteSQL(database, "CREATE INDEX IF NOT EXISTS index_store_chains_isDefault ON store_chains(isDefault)")
+                    
+                    // Insert default store chains
+                    val currentTime = System.currentTimeMillis()
+                    val defaultChains = listOf(
+                        "ICA", "Coop", "Hemköp", "Willys", "Lidl", 
+                        "Tempo", "Ica Nära", "City Gross", "Bergendahls", "Axfood"
+                    )
+                    
+                    defaultChains.forEach { chainName ->
+                        DatabaseMigrationHelper.safeExecuteSQL(database, 
+                            "INSERT INTO store_chains (name, isDefault, isActive, createdAt, updatedAt) VALUES ('$chainName', 1, 1, $currentTime, $currentTime)")
+                    }
+                    
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    throw Exception("Migration 16->17 failed: ${e.message}", e)
+                }
+            }
+        }
+        
+        val MIGRATION_17_18 = object : Migration(17, 18) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                try {
+                    // Create financial_insights table
+                    val createFinancialInsightsTableSQL = """
+                        CREATE TABLE IF NOT EXISTS financial_insights (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                            insightType TEXT NOT NULL,
+                            title TEXT NOT NULL,
+                            description TEXT NOT NULL,
+                            severity TEXT NOT NULL,
+                            category TEXT,
+                            amount REAL,
+                            percentage REAL,
+                            confidenceScore REAL NOT NULL,
+                            actionable INTEGER NOT NULL DEFAULT 1,
+                            suggestedAction TEXT,
+                            isRead INTEGER NOT NULL DEFAULT 0,
+                            isActedUpon INTEGER NOT NULL DEFAULT 0,
+                            validUntil INTEGER,
+                            data TEXT,
+                            createdAt INTEGER NOT NULL,
+                            updatedAt INTEGER NOT NULL
+                        )
+                    """
+                    
+                    if (!DatabaseMigrationHelper.safeExecuteSQL(database, createFinancialInsightsTableSQL)) {
+                        throw Exception("Failed to create financial_insights table")
+                    }
+                    
+                    // Create financial_goals table
+                    val createFinancialGoalsTableSQL = """
+                        CREATE TABLE IF NOT EXISTS financial_goals (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                            name TEXT NOT NULL,
+                            description TEXT,
+                            goalType TEXT NOT NULL,
+                            targetAmount REAL NOT NULL,
+                            currentAmount REAL NOT NULL DEFAULT 0.0,
+                            targetDate INTEGER,
+                            priority TEXT NOT NULL,
+                            isActive INTEGER NOT NULL DEFAULT 1,
+                            isCompleted INTEGER NOT NULL DEFAULT 0,
+                            completedAt INTEGER,
+                            reminderEnabled INTEGER NOT NULL DEFAULT 0,
+                            reminderFrequency TEXT,
+                            autoTransferEnabled INTEGER NOT NULL DEFAULT 0,
+                            autoTransferAmount REAL,
+                            linkedAccountId TEXT,
+                            tags TEXT,
+                            createdAt INTEGER NOT NULL,
+                            updatedAt INTEGER NOT NULL
+                        )
+                    """
+                    
+                    if (!DatabaseMigrationHelper.safeExecuteSQL(database, createFinancialGoalsTableSQL)) {
+                        throw Exception("Failed to create financial_goals table")
+                    }
+                    
+                    // Create spending_patterns table
+                    val createSpendingPatternsTableSQL = """
+                        CREATE TABLE IF NOT EXISTS spending_patterns (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                            category TEXT NOT NULL,
+                            timeframe TEXT NOT NULL,
+                            averageAmount REAL NOT NULL,
+                            totalAmount REAL NOT NULL,
+                            transactionCount INTEGER NOT NULL,
+                            trendDirection TEXT NOT NULL,
+                            trendStrength REAL NOT NULL,
+                            seasonality TEXT NOT NULL,
+                            anomalyScore REAL NOT NULL,
+                            frequency TEXT NOT NULL,
+                            analysisDate INTEGER NOT NULL,
+                            confidence REAL NOT NULL,
+                            insights TEXT
+                        )
+                    """
+                    
+                    if (!DatabaseMigrationHelper.safeExecuteSQL(database, createSpendingPatternsTableSQL)) {
+                        throw Exception("Failed to create spending_patterns table")
+                    }
+                    
+                    // Create spending_forecasts table
+                    val createSpendingForecastsTableSQL = """
+                        CREATE TABLE IF NOT EXISTS spending_forecasts (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                            category TEXT NOT NULL,
+                            forecastDate INTEGER NOT NULL,
+                            predictedAmount REAL NOT NULL,
+                            actualAmount REAL,
+                            accuracy REAL,
+                            forecastMethod TEXT NOT NULL,
+                            confidence REAL NOT NULL,
+                            validUntil INTEGER NOT NULL,
+                            factors TEXT,
+                            createdAt INTEGER NOT NULL
+                        )
+                    """
+                    
+                    if (!DatabaseMigrationHelper.safeExecuteSQL(database, createSpendingForecastsTableSQL)) {
+                        throw Exception("Failed to create spending_forecasts table")
+                    }
+                    
+                    // Create indices for better performance
+                    val indices = listOf(
+                        "CREATE INDEX IF NOT EXISTS index_financial_insights_insightType ON financial_insights(insightType)",
+                        "CREATE INDEX IF NOT EXISTS index_financial_insights_severity ON financial_insights(severity)",
+                        "CREATE INDEX IF NOT EXISTS index_financial_insights_category ON financial_insights(category)",
+                        "CREATE INDEX IF NOT EXISTS index_financial_insights_isRead ON financial_insights(isRead)",
+                        "CREATE INDEX IF NOT EXISTS index_financial_insights_createdAt ON financial_insights(createdAt)",
+                        "CREATE INDEX IF NOT EXISTS index_financial_goals_goalType ON financial_goals(goalType)",
+                        "CREATE INDEX IF NOT EXISTS index_financial_goals_priority ON financial_goals(priority)",
+                        "CREATE INDEX IF NOT EXISTS index_financial_goals_isActive ON financial_goals(isActive)",
+                        "CREATE INDEX IF NOT EXISTS index_financial_goals_targetDate ON financial_goals(targetDate)",
+                        "CREATE INDEX IF NOT EXISTS index_spending_patterns_category ON spending_patterns(category)",
+                        "CREATE INDEX IF NOT EXISTS index_spending_patterns_timeframe ON spending_patterns(timeframe)",
+                        "CREATE INDEX IF NOT EXISTS index_spending_patterns_analysisDate ON spending_patterns(analysisDate)",
+                        "CREATE INDEX IF NOT EXISTS index_spending_forecasts_category ON spending_forecasts(category)",
+                        "CREATE INDEX IF NOT EXISTS index_spending_forecasts_forecastDate ON spending_forecasts(forecastDate)",
+                        "CREATE INDEX IF NOT EXISTS index_spending_forecasts_validUntil ON spending_forecasts(validUntil)"
+                    )
+                    
+                    indices.forEach { sql ->
+                        DatabaseMigrationHelper.safeExecuteSQL(database, sql)
+                    }
+                    
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    throw Exception("Migration 17->18 failed: ${e.message}", e)
                 }
             }
         }

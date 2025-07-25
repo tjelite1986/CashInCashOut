@@ -14,7 +14,8 @@ class ShoppingListItemAdapter(
     private val onItemClick: (ShoppingListItem) -> Unit,
     private val onDeleteClick: (ShoppingListItem) -> Unit,
     private val onCompleteToggle: (ShoppingListItem) -> Unit,
-    private val onQuantityChange: (ShoppingListItem, Int) -> Unit
+    private val onQuantityChange: (ShoppingListItem, Int) -> Unit,
+    private val onActualPriceChange: ((ShoppingListItem, Double) -> Unit)? = null
 ) : ListAdapter<ShoppingListItem, ShoppingListItemAdapter.ViewHolder>(ShoppingListItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -54,10 +55,11 @@ class ShoppingListItemAdapter(
                     textEstimatedPrice.text = "Inget pris"
                 }
                 
+                // Sätt faktiskt pris i EditText
                 if (item.actualPrice != null && item.actualPrice > 0) {
-                    textActualPrice.text = String.format("%.2f kr", item.actualPrice)
+                    editTextActualPrice.setText(String.format("%.2f", item.actualPrice))
                 } else {
-                    textActualPrice.text = "-"
+                    editTextActualPrice.setText("")
                 }
                 
                 // Visa anteckningar om de finns
@@ -122,6 +124,20 @@ class ShoppingListItemAdapter(
                         }
                     }
                 })
+                
+                // Faktiskt pris-ändring
+                onActualPriceChange?.let { callback ->
+                    editTextActualPrice.addTextChangedListener(object : TextWatcher {
+                        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+                        override fun afterTextChanged(s: Editable?) {
+                            val price = s?.toString()?.toDoubleOrNull()
+                            if (price != null && price != item.actualPrice && price >= 0) {
+                                callback(item, price)
+                            }
+                        }
+                    })
+                }
             }
         }
     }

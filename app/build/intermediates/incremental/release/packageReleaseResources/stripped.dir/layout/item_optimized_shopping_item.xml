@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:background="?attr/selectableItemBackground">
+
+    <!-- Main Row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <!-- Product Info -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/text_item_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Mjölk 3%"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_best_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:text="BÄST"
+                    android:textSize="8sp"
+                    app:chipBackgroundColor="@color/success"
+                    app:chipStrokeWidth="0dp"
+                    android:textColor="@android:color/white"
+                    app:chipMinHeight="24dp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/text_quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1 st"
+                android:textSize="12sp"
+                android:textColor="@android:color/darker_gray"
+                android:layout_marginTop="2dp" />
+
+        </LinearLayout>
+
+        <!-- Price Info -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="end">
+
+            <TextView
+                android:id="@+id/text_total_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15.90 kr"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary" />
+
+            <TextView
+                android:id="@+id/text_unit_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15.90 kr/st"
+                android:textSize="10sp"
+                android:textColor="@android:color/darker_gray" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Campaign Info -->
+    <TextView
+        android:id="@+id/text_campaign_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="📢 3 för 40 kr"
+        android:textSize="11sp"
+        android:textColor="@color/warning"
+        android:textStyle="italic"
+        android:layout_marginTop="4dp"
+        android:visibility="gone" />
+
+    <!-- Savings Info -->
+    <TextView
+        android:id="@+id/text_savings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sparar: 5.10 kr"
+        android:textSize="11sp"
+        android:textColor="@color/success"
+        android:textStyle="bold"
+        android:layout_marginTop="2dp"
+        android:visibility="gone" />
+
+</LinearLayout>

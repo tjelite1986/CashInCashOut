@@ -17,6 +17,7 @@ import com.example.budgetapp.database.entities.Expense;
 import java.lang.Class;
 import java.lang.Double;
 import java.lang.Exception;
+import java.lang.Integer;
 import java.lang.Long;
 import java.lang.Object;
 import java.lang.Override;
@@ -177,7 +178,7 @@ public final class ExpenseDao_Impl implements ExpenseDao {
   }
 
   @Override
-  public Object insertExpense(final Expense expense, final Continuation<? super Long> $completion) {
+  public Object insertExpense(final Expense expense, final Continuation<? super Long> arg1) {
     return CoroutinesRoom.execute(__db, true, new Callable<Long>() {
       @Override
       @NonNull
@@ -191,12 +192,12 @@ public final class ExpenseDao_Impl implements ExpenseDao {
           __db.endTransaction();
         }
       }
-    }, $completion);
+    }, arg1);
   }
 
   @Override
   public Object insertExpenses(final List<Expense> expenses,
-      final Continuation<? super Unit> $completion) {
+      final Continuation<? super Unit> arg1) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -210,11 +211,11 @@ public final class ExpenseDao_Impl implements ExpenseDao {
           __db.endTransaction();
         }
       }
-    }, $completion);
+    }, arg1);
   }
 
   @Override
-  public Object deleteExpense(final Expense expense, final Continuation<? super Unit> $completion) {
+  public Object deleteExpense(final Expense expense, final Continuation<? super Unit> arg1) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -228,11 +229,11 @@ public final class ExpenseDao_Impl implements ExpenseDao {
           __db.endTransaction();
         }
       }
-    }, $completion);
+    }, arg1);
   }
 
   @Override
-  public Object updateExpense(final Expense expense, final Continuation<? super Unit> $completion) {
+  public Object updateExpense(final Expense expense, final Continuation<? super Unit> arg1) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -246,12 +247,11 @@ public final class ExpenseDao_Impl implements ExpenseDao {
           __db.endTransaction();
         }
       }
-    }, $completion);
+    }, arg1);
   }
 
   @Override
-  public Object deleteExpenseById(final long expenseId,
-      final Continuation<? super Unit> $completion) {
+  public Object deleteExpenseById(final long expenseId, final Continuation<? super Unit> arg1) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -272,11 +272,11 @@ public final class ExpenseDao_Impl implements ExpenseDao {
           __preparedStmtOfDeleteExpenseById.release(_stmt);
         }
       }
-    }, $completion);
+    }, arg1);
   }
 
   @Override
-  public Object deleteAllExpenses(final Continuation<? super Unit> $completion) {
+  public Object deleteAllExpenses(final Continuation<? super Unit> arg0) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -295,7 +295,7 @@ public final class ExpenseDao_Impl implements ExpenseDao {
           __preparedStmtOfDeleteAllExpenses.release(_stmt);
         }
       }
-    }, $completion);
+    }, arg0);
   }
 
   @Override
@@ -390,8 +390,7 @@ public final class ExpenseDao_Impl implements ExpenseDao {
   }
 
   @Override
-  public Object getExpenseById(final long expenseId,
-      final Continuation<? super Expense> $completion) {
+  public Object getExpenseById(final long expenseId, final Continuation<? super Expense> arg1) {
     final String _sql = "SELECT * FROM expenses WHERE id = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -477,7 +476,7 @@ public final class ExpenseDao_Impl implements ExpenseDao {
           _statement.release();
         }
       }
-    }, $completion);
+    }, arg1);
   }
 
   @Override
@@ -673,6 +672,187 @@ public final class ExpenseDao_Impl implements ExpenseDao {
   }
 
   @Override
+  public Object getExpensesBetweenDates(final long startDate, final long endDate,
+      final Continuation<? super List<Expense>> arg2) {
+    final String _sql = "SELECT * FROM expenses WHERE date >= ? AND date <= ?";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 2);
+    int _argIndex = 1;
+    _statement.bindLong(_argIndex, startDate);
+    _argIndex = 2;
+    _statement.bindLong(_argIndex, endDate);
+    final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
+    return CoroutinesRoom.execute(__db, false, _cancellationSignal, new Callable<List<Expense>>() {
+      @Override
+      @NonNull
+      public List<Expense> call() throws Exception {
+        final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+        try {
+          final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
+          final int _cursorIndexOfTitle = CursorUtil.getColumnIndexOrThrow(_cursor, "title");
+          final int _cursorIndexOfAmount = CursorUtil.getColumnIndexOrThrow(_cursor, "amount");
+          final int _cursorIndexOfDescription = CursorUtil.getColumnIndexOrThrow(_cursor, "description");
+          final int _cursorIndexOfCategory = CursorUtil.getColumnIndexOrThrow(_cursor, "category");
+          final int _cursorIndexOfStore = CursorUtil.getColumnIndexOrThrow(_cursor, "store");
+          final int _cursorIndexOfDate = CursorUtil.getColumnIndexOrThrow(_cursor, "date");
+          final int _cursorIndexOfIsRecurring = CursorUtil.getColumnIndexOrThrow(_cursor, "isRecurring");
+          final int _cursorIndexOfRecurringType = CursorUtil.getColumnIndexOrThrow(_cursor, "recurringType");
+          final int _cursorIndexOfPaymentMethod = CursorUtil.getColumnIndexOrThrow(_cursor, "paymentMethod");
+          final int _cursorIndexOfCreatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "createdAt");
+          final int _cursorIndexOfUpdatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "updatedAt");
+          final List<Expense> _result = new ArrayList<Expense>(_cursor.getCount());
+          while (_cursor.moveToNext()) {
+            final Expense _item;
+            final long _tmpId;
+            _tmpId = _cursor.getLong(_cursorIndexOfId);
+            final String _tmpTitle;
+            if (_cursor.isNull(_cursorIndexOfTitle)) {
+              _tmpTitle = null;
+            } else {
+              _tmpTitle = _cursor.getString(_cursorIndexOfTitle);
+            }
+            final double _tmpAmount;
+            _tmpAmount = _cursor.getDouble(_cursorIndexOfAmount);
+            final String _tmpDescription;
+            if (_cursor.isNull(_cursorIndexOfDescription)) {
+              _tmpDescription = null;
+            } else {
+              _tmpDescription = _cursor.getString(_cursorIndexOfDescription);
+            }
+            final String _tmpCategory;
+            if (_cursor.isNull(_cursorIndexOfCategory)) {
+              _tmpCategory = null;
+            } else {
+              _tmpCategory = _cursor.getString(_cursorIndexOfCategory);
+            }
+            final String _tmpStore;
+            if (_cursor.isNull(_cursorIndexOfStore)) {
+              _tmpStore = null;
+            } else {
+              _tmpStore = _cursor.getString(_cursorIndexOfStore);
+            }
+            final long _tmpDate;
+            _tmpDate = _cursor.getLong(_cursorIndexOfDate);
+            final boolean _tmpIsRecurring;
+            final int _tmp;
+            _tmp = _cursor.getInt(_cursorIndexOfIsRecurring);
+            _tmpIsRecurring = _tmp != 0;
+            final String _tmpRecurringType;
+            if (_cursor.isNull(_cursorIndexOfRecurringType)) {
+              _tmpRecurringType = null;
+            } else {
+              _tmpRecurringType = _cursor.getString(_cursorIndexOfRecurringType);
+            }
+            final String _tmpPaymentMethod;
+            if (_cursor.isNull(_cursorIndexOfPaymentMethod)) {
+              _tmpPaymentMethod = null;
+            } else {
+              _tmpPaymentMethod = _cursor.getString(_cursorIndexOfPaymentMethod);
+            }
+            final long _tmpCreatedAt;
+            _tmpCreatedAt = _cursor.getLong(_cursorIndexOfCreatedAt);
+            final long _tmpUpdatedAt;
+            _tmpUpdatedAt = _cursor.getLong(_cursorIndexOfUpdatedAt);
+            _item = new Expense(_tmpId,_tmpTitle,_tmpAmount,_tmpDescription,_tmpCategory,_tmpStore,_tmpDate,_tmpIsRecurring,_tmpRecurringType,_tmpPaymentMethod,_tmpCreatedAt,_tmpUpdatedAt);
+            _result.add(_item);
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+          _statement.release();
+        }
+      }
+    }, arg2);
+  }
+
+  @Override
+  public Object getAllExpensesSnapshot(final Continuation<? super List<Expense>> arg0) {
+    final String _sql = "SELECT * FROM expenses ORDER BY date DESC";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
+    final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
+    return CoroutinesRoom.execute(__db, false, _cancellationSignal, new Callable<List<Expense>>() {
+      @Override
+      @NonNull
+      public List<Expense> call() throws Exception {
+        final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+        try {
+          final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
+          final int _cursorIndexOfTitle = CursorUtil.getColumnIndexOrThrow(_cursor, "title");
+          final int _cursorIndexOfAmount = CursorUtil.getColumnIndexOrThrow(_cursor, "amount");
+          final int _cursorIndexOfDescription = CursorUtil.getColumnIndexOrThrow(_cursor, "description");
+          final int _cursorIndexOfCategory = CursorUtil.getColumnIndexOrThrow(_cursor, "category");
+          final int _cursorIndexOfStore = CursorUtil.getColumnIndexOrThrow(_cursor, "store");
+          final int _cursorIndexOfDate = CursorUtil.getColumnIndexOrThrow(_cursor, "date");
+          final int _cursorIndexOfIsRecurring = CursorUtil.getColumnIndexOrThrow(_cursor, "isRecurring");
+          final int _cursorIndexOfRecurringType = CursorUtil.getColumnIndexOrThrow(_cursor, "recurringType");
+          final int _cursorIndexOfPaymentMethod = CursorUtil.getColumnIndexOrThrow(_cursor, "paymentMethod");
+          final int _cursorIndexOfCreatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "createdAt");
+          final int _cursorIndexOfUpdatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "updatedAt");
+          final List<Expense> _result = new ArrayList<Expense>(_cursor.getCount());
+          while (_cursor.moveToNext()) {
+            final Expense _item;
+            final long _tmpId;
+            _tmpId = _cursor.getLong(_cursorIndexOfId);
+            final String _tmpTitle;
+            if (_cursor.isNull(_cursorIndexOfTitle)) {
+              _tmpTitle = null;
+            } else {
+              _tmpTitle = _cursor.getString(_cursorIndexOfTitle);
+            }
+            final double _tmpAmount;
+            _tmpAmount = _cursor.getDouble(_cursorIndexOfAmount);
+            final String _tmpDescription;
+            if (_cursor.isNull(_cursorIndexOfDescription)) {
+              _tmpDescription = null;
+            } else {
+              _tmpDescription = _cursor.getString(_cursorIndexOfDescription);
+            }
+            final String _tmpCategory;
+            if (_cursor.isNull(_cursorIndexOfCategory)) {
+              _tmpCategory = null;
+            } else {
+              _tmpCategory = _cursor.getString(_cursorIndexOfCategory);
+            }
+            final String _tmpStore;
+            if (_cursor.isNull(_cursorIndexOfStore)) {
+              _tmpStore = null;
+            } else {
+              _tmpStore = _cursor.getString(_cursorIndexOfStore);
+            }
+            final long _tmpDate;
+            _tmpDate = _cursor.getLong(_cursorIndexOfDate);
+            final boolean _tmpIsRecurring;
+            final int _tmp;
+            _tmp = _cursor.getInt(_cursorIndexOfIsRecurring);
+            _tmpIsRecurring = _tmp != 0;
+            final String _tmpRecurringType;
+            if (_cursor.isNull(_cursorIndexOfRecurringType)) {
+              _tmpRecurringType = null;
+            } else {
+              _tmpRecurringType = _cursor.getString(_cursorIndexOfRecurringType);
+            }
+            final String _tmpPaymentMethod;
+            if (_cursor.isNull(_cursorIndexOfPaymentMethod)) {
+              _tmpPaymentMethod = null;
+            } else {
+              _tmpPaymentMethod = _cursor.getString(_cursorIndexOfPaymentMethod);
+            }
+            final long _tmpCreatedAt;
+            _tmpCreatedAt = _cursor.getLong(_cursorIndexOfCreatedAt);
+            final long _tmpUpdatedAt;
+            _tmpUpdatedAt = _cursor.getLong(_cursorIndexOfUpdatedAt);
+            _item = new Expense(_tmpId,_tmpTitle,_tmpAmount,_tmpDescription,_tmpCategory,_tmpStore,_tmpDate,_tmpIsRecurring,_tmpRecurringType,_tmpPaymentMethod,_tmpCreatedAt,_tmpUpdatedAt);
+            _result.add(_item);
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+          _statement.release();
+        }
+      }
+    }, arg0);
+  }
+
+  @Override
   public Flow<List<Expense>> getExpensesByStore(final String store) {
     final String _sql = "SELECT * FROM expenses WHERE store = ? ORDER BY date DESC";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
@@ -770,7 +950,7 @@ public final class ExpenseDao_Impl implements ExpenseDao {
   }
 
   @Override
-  public Object getTotalExpenses(final Continuation<? super Double> $completion) {
+  public Object getTotalExpenses(final Continuation<? super Double> arg0) {
     final String _sql = "SELECT SUM(amount) FROM expenses";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
@@ -798,12 +978,12 @@ public final class ExpenseDao_Impl implements ExpenseDao {
           _statement.release();
         }
       }
-    }, $completion);
+    }, arg0);
   }
 
   @Override
   public Object getTotalExpensesByDateRange(final long startDate, final long endDate,
-      final Continuation<? super Double> $completion) {
+      final Continuation<? super Double> arg2) {
     final String _sql = "SELECT SUM(amount) FROM expenses WHERE date >= ? AND date <= ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 2);
     int _argIndex = 1;
@@ -835,12 +1015,12 @@ public final class ExpenseDao_Impl implements ExpenseDao {
           _statement.release();
         }
       }
-    }, $completion);
+    }, arg2);
   }
 
   @Override
   public Object getTotalExpensesByCategory(final String category,
-      final Continuation<? super Double> $completion) {
+      final Continuation<? super Double> arg1) {
     final String _sql = "SELECT SUM(amount) FROM expenses WHERE category = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -874,12 +1054,12 @@ public final class ExpenseDao_Impl implements ExpenseDao {
           _statement.release();
         }
       }
-    }, $completion);
+    }, arg1);
   }
 
   @Override
   public Object getTotalExpensesByStore(final String store,
-      final Continuation<? super Double> $completion) {
+      final Continuation<? super Double> arg1) {
     final String _sql = "SELECT SUM(amount) FROM expenses WHERE store = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -913,7 +1093,151 @@ public final class ExpenseDao_Impl implements ExpenseDao {
           _statement.release();
         }
       }
-    }, $completion);
+    }, arg1);
+  }
+
+  @Override
+  public Object checkDuplicateExpense(final String title, final double amount,
+      final String category, final long date, final String store,
+      final Continuation<? super Integer> arg5) {
+    final String _sql = "SELECT COUNT(*) FROM expenses WHERE title = ? AND amount = ? AND COALESCE(category, '') = ? AND date = ? AND COALESCE(store, '') = COALESCE(?, '')";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 5);
+    int _argIndex = 1;
+    if (title == null) {
+      _statement.bindNull(_argIndex);
+    } else {
+      _statement.bindString(_argIndex, title);
+    }
+    _argIndex = 2;
+    _statement.bindDouble(_argIndex, amount);
+    _argIndex = 3;
+    if (category == null) {
+      _statement.bindNull(_argIndex);
+    } else {
+      _statement.bindString(_argIndex, category);
+    }
+    _argIndex = 4;
+    _statement.bindLong(_argIndex, date);
+    _argIndex = 5;
+    if (store == null) {
+      _statement.bindNull(_argIndex);
+    } else {
+      _statement.bindString(_argIndex, store);
+    }
+    final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
+    return CoroutinesRoom.execute(__db, false, _cancellationSignal, new Callable<Integer>() {
+      @Override
+      @NonNull
+      public Integer call() throws Exception {
+        final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+        try {
+          final Integer _result;
+          if (_cursor.moveToFirst()) {
+            final Integer _tmp;
+            if (_cursor.isNull(0)) {
+              _tmp = null;
+            } else {
+              _tmp = _cursor.getInt(0);
+            }
+            _result = _tmp;
+          } else {
+            _result = null;
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+          _statement.release();
+        }
+      }
+    }, arg5);
+  }
+
+  @Override
+  public Object getRecurringExpenses(final Continuation<? super List<Expense>> arg0) {
+    final String _sql = "SELECT * FROM expenses WHERE isRecurring = 1 ORDER BY date DESC";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
+    final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
+    return CoroutinesRoom.execute(__db, false, _cancellationSignal, new Callable<List<Expense>>() {
+      @Override
+      @NonNull
+      public List<Expense> call() throws Exception {
+        final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+        try {
+          final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
+          final int _cursorIndexOfTitle = CursorUtil.getColumnIndexOrThrow(_cursor, "title");
+          final int _cursorIndexOfAmount = CursorUtil.getColumnIndexOrThrow(_cursor, "amount");
+          final int _cursorIndexOfDescription = CursorUtil.getColumnIndexOrThrow(_cursor, "description");
+          final int _cursorIndexOfCategory = CursorUtil.getColumnIndexOrThrow(_cursor, "category");
+          final int _cursorIndexOfStore = CursorUtil.getColumnIndexOrThrow(_cursor, "store");
+          final int _cursorIndexOfDate = CursorUtil.getColumnIndexOrThrow(_cursor, "date");
+          final int _cursorIndexOfIsRecurring = CursorUtil.getColumnIndexOrThrow(_cursor, "isRecurring");
+          final int _cursorIndexOfRecurringType = CursorUtil.getColumnIndexOrThrow(_cursor, "recurringType");
+          final int _cursorIndexOfPaymentMethod = CursorUtil.getColumnIndexOrThrow(_cursor, "paymentMethod");
+          final int _cursorIndexOfCreatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "createdAt");
+          final int _cursorIndexOfUpdatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "updatedAt");
+          final List<Expense> _result = new ArrayList<Expense>(_cursor.getCount());
+          while (_cursor.moveToNext()) {
+            final Expense _item;
+            final long _tmpId;
+            _tmpId = _cursor.getLong(_cursorIndexOfId);
+            final String _tmpTitle;
+            if (_cursor.isNull(_cursorIndexOfTitle)) {
+              _tmpTitle = null;
+            } else {
+              _tmpTitle = _cursor.getString(_cursorIndexOfTitle);
+            }
+            final double _tmpAmount;
+            _tmpAmount = _cursor.getDouble(_cursorIndexOfAmount);
+            final String _tmpDescription;
+            if (_cursor.isNull(_cursorIndexOfDescription)) {
+              _tmpDescription = null;
+            } else {
+              _tmpDescription = _cursor.getString(_cursorIndexOfDescription);
+            }
+            final String _tmpCategory;
+            if (_cursor.isNull(_cursorIndexOfCategory)) {
+              _tmpCategory = null;
+            } else {
+              _tmpCategory = _cursor.getString(_cursorIndexOfCategory);
+            }
+            final String _tmpStore;
+            if (_cursor.isNull(_cursorIndexOfStore)) {
+              _tmpStore = null;
+            } else {
+              _tmpStore = _cursor.getString(_cursorIndexOfStore);
+            }
+            final long _tmpDate;
+            _tmpDate = _cursor.getLong(_cursorIndexOfDate);
+            final boolean _tmpIsRecurring;
+            final int _tmp;
+            _tmp = _cursor.getInt(_cursorIndexOfIsRecurring);
+            _tmpIsRecurring = _tmp != 0;
+            final String _tmpRecurringType;
+            if (_cursor.isNull(_cursorIndexOfRecurringType)) {
+              _tmpRecurringType = null;
+            } else {
+              _tmpRecurringType = _cursor.getString(_cursorIndexOfRecurringType);
+            }
+            final String _tmpPaymentMethod;
+            if (_cursor.isNull(_cursorIndexOfPaymentMethod)) {
+              _tmpPaymentMethod = null;
+            } else {
+              _tmpPaymentMethod = _cursor.getString(_cursorIndexOfPaymentMethod);
+            }
+            final long _tmpCreatedAt;
+            _tmpCreatedAt = _cursor.getLong(_cursorIndexOfCreatedAt);
+            final long _tmpUpdatedAt;
+            _tmpUpdatedAt = _cursor.getLong(_cursorIndexOfUpdatedAt);
+            _item = new Expense(_tmpId,_tmpTitle,_tmpAmount,_tmpDescription,_tmpCategory,_tmpStore,_tmpDate,_tmpIsRecurring,_tmpRecurringType,_tmpPaymentMethod,_tmpCreatedAt,_tmpUpdatedAt);
+            _result.add(_item);
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+          _statement.release();
+        }
+      }
+    }, arg0);
   }
 
   @NonNull

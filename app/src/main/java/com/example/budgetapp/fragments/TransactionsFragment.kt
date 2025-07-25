@@ -19,13 +19,14 @@ import com.example.budgetapp.Transaction
 import com.example.budgetapp.TransactionAdapter
 import com.example.budgetapp.database.BudgetDatabase
 import com.example.budgetapp.databinding.FragmentTransactionsBinding
+import com.example.budgetapp.data.ThemeSettings
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.CancellationException
 import java.text.NumberFormat
 import java.util.*
 
-class TransactionsFragment : Fragment() {
+class TransactionsFragment : BaseFragment() {
 
     private var _binding: FragmentTransactionsBinding? = null
     private val binding get() = _binding!!
@@ -320,6 +321,11 @@ class TransactionsFragment : Fragment() {
                 intent.putExtra("expense_id", transaction.expense.id)
                 startActivity(intent)
             }
+            is Transaction.LoanTransaction -> {
+                val intent = Intent(requireContext(), com.example.budgetapp.AddLoanActivity::class.java)
+                intent.putExtra("loan_id", transaction.loan.id)
+                startActivity(intent)
+            }
         }
     }
 
@@ -346,6 +352,9 @@ class TransactionsFragment : Fragment() {
                     }
                     is Transaction.ExpenseTransaction -> {
                         database.expenseDao().deleteExpense(transaction.expense)
+                    }
+                    is Transaction.LoanTransaction -> {
+                        database.loanDao().deleteLoan(transaction.loan)
                     }
                 }
                 if (_binding != null) {
@@ -399,5 +408,113 @@ class TransactionsFragment : Fragment() {
         }
         super.onDestroyView()
         _binding = null
+    }
+    
+    override fun applyCustomTheme(settings: ThemeSettings) {
+        // Apply custom theme styling specific to TransactionsFragment
+        val accentColor = themeManager.getAccentColorInt()
+        
+        // Update FAB colors
+        binding.fabMain.backgroundTintList = android.content.res.ColorStateList.valueOf(accentColor)
+        binding.fabIncome.backgroundTintList = android.content.res.ColorStateList.valueOf(accentColor)
+        binding.fabExpense.backgroundTintList = android.content.res.ColorStateList.valueOf(accentColor)
+        
+        // Apply theme to filter chips
+        applyThemeToChips(settings)
+        
+        // Apply colorful styling to summary cards if enabled
+        if (settings.interfaceStyle == com.example.budgetapp.data.InterfaceStyle.COLORFUL) {
+            applyColorfulSummaryCards(accentColor)
+        }
+        
+        // Update adapter theme
+        if (::transactionAdapter.isInitialized) {
+            transactionAdapter.applyTheme(settings)
+        }
+    }
+    
+    private fun applyColorfulSummaryCards(accentColor: Int) {
+        // Apply very subtle colorful backgrounds to summary cards
+        
+        // Income card with very subtle green tint
+        binding.cardIncomeSummary.setCardBackgroundColor(
+            adjustColorHue(accentColor, 0.33f, 0.04f) // Much more subtle green
+        )
+        
+        // Expense card with very subtle red tint
+        binding.cardExpensesSummary.setCardBackgroundColor(
+            adjustColorHue(accentColor, 0.0f, 0.04f) // Much more subtle red
+        )
+    }
+    
+    private fun adjustColorAlpha(color: Int, alpha: Float): Int {
+        val a = (255 * alpha).toInt()
+        val r = android.graphics.Color.red(color)
+        val g = android.graphics.Color.green(color)
+        val b = android.graphics.Color.blue(color)
+        return android.graphics.Color.argb(a, r, g, b)
+    }
+    
+    private fun applyThemeToChips(settings: ThemeSettings) {
+        val accentColor = themeManager.getAccentColorInt()
+        val isColorful = settings.interfaceStyle == com.example.budgetapp.data.InterfaceStyle.COLORFUL
+        
+        val chips = listOf(binding.chipAll, binding.chipIncome, binding.chipExpenses)
+        
+        chips.forEach { chip ->
+            val context = requireContext()
+            
+            if (isColorful) {
+                // Subtle colorful styling
+                val subtleAccent = adjustColorAlpha(accentColor, 0.12f)
+                val textColor = adjustColorBrightness(accentColor, 0.6f) // Darker for better readability
+                
+                chip.chipBackgroundColor = android.content.res.ColorStateList.valueOf(subtleAccent)
+                chip.setTextColor(android.content.res.ColorStateList.valueOf(textColor))
+                chip.chipStrokeColor = android.content.res.ColorStateList.valueOf(adjustColorAlpha(accentColor, 0.2f))
+                chip.checkedIconTint = android.content.res.ColorStateList.valueOf(textColor)
+            } else {
+                // Clean material design colors
+                val isDark = themeManager.isDarkMode()
+                
+                if (isDark) {
+                    chip.chipBackgroundColor = android.content.res.ColorStateList.valueOf(
+                        context.getColor(com.google.android.material.R.color.material_dynamic_neutral20)
+                    )
+                    chip.setTextColor(android.content.res.ColorStateList.valueOf(
+                        context.getColor(com.google.android.material.R.color.material_dynamic_neutral90)
+                    ))
+                } else {
+                    chip.chipBackgroundColor = android.content.res.ColorStateList.valueOf(
+                        context.getColor(com.google.android.material.R.color.material_dynamic_neutral95)
+                    )
+                    chip.setTextColor(android.content.res.ColorStateList.valueOf(
+                        context.getColor(com.google.android.material.R.color.material_dynamic_neutral10)
+                    ))
+                }
+                
+                chip.chipStrokeColor = android.content.res.ColorStateList.valueOf(
+                    adjustColorAlpha(accentColor, 0.3f)
+                )
+                chip.checkedIconTint = android.content.res.ColorStateList.valueOf(accentColor)
+            }
+        }
+    }
+    
+    private fun adjustColorBrightness(color: Int, factor: Float): Int {
+        val red = (android.graphics.Color.red(color) * factor).toInt().coerceIn(0, 255)
+        val green = (android.graphics.Color.green(color) * factor).toInt().coerceIn(0, 255)
+        val blue = (android.graphics.Color.blue(color) * factor).toInt().coerceIn(0, 255)
+        return android.graphics.Color.rgb(red, green, blue)
+    }
+    
+    private fun adjustColorHue(baseColor: Int, hueShift: Float, alpha: Float): Int {
+        val hsv = FloatArray(3)
+        android.graphics.Color.colorToHSV(baseColor, hsv)
+        hsv[0] = (hsv[0] + hueShift * 360) % 360
+        hsv[1] = hsv[1] * 0.3f // Much more subtle saturation
+        hsv[2] = hsv[2] * 0.9f // Slightly reduce brightness
+        val adjustedColor = android.graphics.Color.HSVToColor(hsv)
+        return adjustColorAlpha(adjustedColor, alpha)
     }
 }

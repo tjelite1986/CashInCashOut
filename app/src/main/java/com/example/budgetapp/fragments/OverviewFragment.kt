@@ -16,12 +16,13 @@ import com.example.budgetapp.EditHomeActivity
 import com.example.budgetapp.database.BudgetDatabase
 import com.example.budgetapp.database.entities.LoanType
 import com.example.budgetapp.databinding.FragmentOverviewBinding
+import com.example.budgetapp.data.ThemeSettings
 import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class OverviewFragment : Fragment() {
+class OverviewFragment : BaseFragment() {
 
     private var _binding: FragmentOverviewBinding? = null
     private val binding get() = _binding!!
@@ -111,16 +112,26 @@ class OverviewFragment : Fragment() {
                 // Net worth is only based on income/expenses, loans are separate
                 val netWorth = balance
                 
-                // Update UI on main thread
-                binding.textMonthlyIncome.text = currencyFormat.format(totalIncome)
-                binding.textMonthlyExpenses.text = currencyFormat.format(totalExpenses)
-                binding.textTotalBalance.text = currencyFormat.format(balance)
-                binding.textBorrowedAmount.text = currencyFormat.format(borrowedAmount)
-                binding.textLentAmount.text = currencyFormat.format(lentAmount)
-                binding.textNetWorth.text = currencyFormat.format(netWorth)
+                // Update UI on main thread (check if binding is still valid)
+                _binding?.let { binding ->
+                    binding.textMonthlyIncome.text = currencyFormat.format(totalIncome)
+                    binding.textMonthlyExpenses.text = currencyFormat.format(totalExpenses)
+                    binding.textTotalBalance.text = currencyFormat.format(balance)
+                    binding.textBorrowedAmount.text = currencyFormat.format(borrowedAmount)
+                    binding.textLentAmount.text = currencyFormat.format(lentAmount)
+                    binding.textNetWorth.text = currencyFormat.format(netWorth)
+                }
             } catch (e: Exception) {
-                e.printStackTrace()
-                // Keep default values if database query fails
+                com.example.budgetapp.utils.ErrorHandler.logError("OverviewFragment", "Failed to load financial data", e)
+                // Keep default values if database query fails (check if binding is still valid)
+                _binding?.let { binding ->
+                    binding.textMonthlyIncome.text = "0 kr"
+                    binding.textMonthlyExpenses.text = "0 kr"
+                    binding.textTotalBalance.text = "0 kr"
+                    binding.textBorrowedAmount.text = "0 kr"
+                    binding.textLentAmount.text = "0 kr"
+                    binding.textNetWorth.text = "0 kr"
+                }
             }
         }
     }
@@ -174,6 +185,50 @@ class OverviewFragment : Fragment() {
         }
     }
 
+    override fun applyCustomTheme(settings: ThemeSettings) {
+        // Apply custom theme styling specific to OverviewFragment
+        val accentColor = themeManager.getAccentColorInt()
+        
+        // Tag buttons for accent color application
+        binding.buttonAddIncome.tag = "accent_button"
+        binding.buttonAddExpense.tag = "accent_button"
+        binding.buttonAddBorrowed.tag = "accent_button"
+        binding.buttonAddLent.tag = "accent_button"
+        
+        // Apply colorful backgrounds to cards if enabled
+        if (settings.interfaceStyle == com.example.budgetapp.data.InterfaceStyle.COLORFUL) {
+            applyColorfulCardBackgrounds(accentColor)
+        }
+    }
+    
+    private fun applyColorfulCardBackgrounds(accentColor: Int) {
+        // Apply subtle colorful backgrounds to overview cards
+        binding.cardAccounts.setCardBackgroundColor(adjustColorHue(accentColor, 0.0f, 0.08f))
+        binding.cardIncomeExpenses.setCardBackgroundColor(adjustColorHue(accentColor, 0.3f, 0.08f))
+        binding.cardLoans.setCardBackgroundColor(adjustColorHue(accentColor, 0.6f, 0.08f))
+        binding.cardBudgets?.setCardBackgroundColor(adjustColorHue(accentColor, 0.1f, 0.08f))
+        binding.cardGoals?.setCardBackgroundColor(adjustColorHue(accentColor, 0.8f, 0.08f))
+        binding.cardNetWorth?.setCardBackgroundColor(adjustColorHue(accentColor, 0.5f, 0.08f))
+    }
+    
+    private fun adjustColorAlpha(color: Int, alpha: Float): Int {
+        val a = (255 * alpha).toInt()
+        val r = android.graphics.Color.red(color)
+        val g = android.graphics.Color.green(color)
+        val b = android.graphics.Color.blue(color)
+        return android.graphics.Color.argb(a, r, g, b)
+    }
+    
+    private fun adjustColorHue(color: Int, hueShift: Float, alpha: Float): Int {
+        val hsv = FloatArray(3)
+        android.graphics.Color.colorToHSV(color, hsv)
+        hsv[0] = (hsv[0] + hueShift * 360) % 360
+        hsv[1] = hsv[1] * 0.3f // Reduce saturation
+        hsv[2] = hsv[2] * 0.95f // Slightly reduce brightness
+        val adjustedColor = android.graphics.Color.HSVToColor(hsv)
+        return adjustColorAlpha(adjustedColor, alpha)
+    }
+    
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

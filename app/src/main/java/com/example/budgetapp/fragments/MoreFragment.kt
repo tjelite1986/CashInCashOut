@@ -6,10 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.budgetapp.BudgetRolloverSettingsActivity
+import com.example.budgetapp.NotificationSettingsActivity
 import com.example.budgetapp.ProductListActivity
 import com.example.budgetapp.ShoppingListActivity
 import com.example.budgetapp.SmartRecommendationsActivity
+import com.example.budgetapp.StoreAndProductManagerActivity
 import com.example.budgetapp.StoreManagerActivity
+import com.example.budgetapp.ThemePreferencesActivity
 import com.example.budgetapp.databinding.FragmentMoreBinding
 
 class MoreFragment : Fragment() {
@@ -53,9 +57,15 @@ class MoreFragment : Fragment() {
             startActivity(intent)
         }
         
-        // Store Management
+        // Budget Rollover Settings
+        binding.cardBudgetRollover.setOnClickListener {
+            val intent = Intent(requireContext(), BudgetRolloverSettingsActivity::class.java)
+            startActivity(intent)
+        }
+        
+        // Store and Product Management (combined)
         binding.cardStoreManagement.setOnClickListener {
-            val intent = Intent(requireContext(), StoreManagerActivity::class.java)
+            val intent = Intent(requireContext(), StoreAndProductManagerActivity::class.java)
             startActivity(intent)
         }
         
@@ -65,9 +75,15 @@ class MoreFragment : Fragment() {
             startActivity(intent)
         }
         
-        // Product Management
-        binding.cardProductManagement.setOnClickListener {
-            val intent = Intent(requireContext(), ProductListActivity::class.java)
+        // Theme Settings
+        binding.cardThemeSettings.setOnClickListener {
+            val intent = Intent(requireContext(), ThemePreferencesActivity::class.java)
+            startActivity(intent)
+        }
+        
+        // Notification Settings
+        binding.cardNotificationSettings.setOnClickListener {
+            val intent = Intent(requireContext(), NotificationSettingsActivity::class.java)
             startActivity(intent)
         }
         

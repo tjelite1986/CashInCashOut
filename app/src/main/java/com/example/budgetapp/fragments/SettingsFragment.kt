@@ -15,6 +15,9 @@ import com.example.budgetapp.data.BackupManager
 import com.example.budgetapp.data.TransactionExportManager
 import com.example.budgetapp.database.BudgetDatabase
 import com.example.budgetapp.databinding.FragmentSettingsBinding
+import com.example.budgetapp.ProductCategoryManagerActivity
+import com.example.budgetapp.CategoryManagerActivity
+import com.example.budgetapp.NotificationSettingsActivity
 import kotlinx.coroutines.launch
 
 class SettingsFragment : Fragment() {
@@ -106,48 +109,42 @@ class SettingsFragment : Fragment() {
         
         // Set default values
         binding.textCurrency.text = "SEK"
-        binding.textTheme.text = "Systemets val"
+        // Theme setting removed - handled by new theme system
         binding.textLanguage.text = "Svenska"
         binding.textBudgetPeriod.text = "Månadsvis"
         binding.textWarningThreshold.text = "80%"
         
-        // Set switch states
-        binding.switchNotifications.isChecked = true
-        binding.switchBudgetAlerts.isChecked = true
-        binding.switchMonthlySummary.isChecked = false
+        // Set switch states from settings
         binding.switchRoundNumbers.isChecked = false
     }
     
     private fun setupClickListeners() {
         // General Settings
         binding.layoutCurrency.setOnClickListener { showCurrencyDialog() }
-        binding.layoutTheme.setOnClickListener { showThemeDialog() }
+        // Theme click listener removed
         binding.layoutLanguage.setOnClickListener { showLanguageDialog() }
         
         // Budget Settings
         binding.layoutBudgetPeriod.setOnClickListener { showBudgetPeriodDialog() }
         binding.layoutWarningThreshold.setOnClickListener { showWarningThresholdDialog() }
         
+        // Notification settings click listener
+        binding.layoutNotificationSettings.setOnClickListener {
+            val intent = Intent(requireContext(), NotificationSettingsActivity::class.java)
+            startActivity(intent)
+        }
+        
         // Switch listeners
-        binding.switchNotifications.setOnCheckedChangeListener { _, isChecked ->
-            val message = if (isChecked) "Aviseringar aktiverade" else "Aviseringar inaktiverade"
-            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-        }
-        
-        binding.switchBudgetAlerts.setOnCheckedChangeListener { _, isChecked ->
-            val message = if (isChecked) "Budgetvarningar aktiverade" else "Budgetvarningar inaktiverade"
-            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-        }
-        
-        binding.switchMonthlySummary.setOnCheckedChangeListener { _, isChecked ->
-            val message = if (isChecked) "Månadssammanfattning aktiverad" else "Månadssammanfattning inaktiverad"
-            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-        }
-        
         binding.switchRoundNumbers.setOnCheckedChangeListener { _, isChecked ->
             val message = if (isChecked) "Avrundning aktiverad" else "Avrundning inaktiverad"
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
         }
+        
+        // Product Management
+        binding.layoutManageProductCategories.setOnClickListener { openProductCategoryManager() }
+        
+        // Category Management
+        binding.layoutManageCategories.setOnClickListener { openCategoryManager() }
         
         // Data & Security
         binding.layoutExportData.setOnClickListener { exportData() }
@@ -158,6 +155,7 @@ class SettingsFragment : Fragment() {
         // About
         binding.layoutPrivacyPolicy.setOnClickListener { showPrivacyPolicy() }
     }
+    
     
     private fun showCurrencyDialog() {
         val currencies = arrayOf("SEK", "EUR", "USD", "NOK", "DKK", "GBP", "CAD", "AUD", "JPY")
@@ -175,21 +173,7 @@ class SettingsFragment : Fragment() {
             .show()
     }
     
-    private fun showThemeDialog() {
-        val themes = arrayOf("Ljust tema", "Mörkt tema", "Systemets val")
-        val currentTheme = binding.textTheme.text.toString()
-        val currentIndex = themes.indexOf(currentTheme)
-        
-        AlertDialog.Builder(requireContext())
-            .setTitle("Välj tema")
-            .setSingleChoiceItems(themes, currentIndex) { dialog, which ->
-                binding.textTheme.text = themes[which]
-                Toast.makeText(requireContext(), "Tema ändrat till ${themes[which]}", Toast.LENGTH_SHORT).show()
-                dialog.dismiss()
-            }
-            .setNegativeButton("Avbryt", null)
-            .show()
-    }
+    // showThemeDialog() method removed - theme handled by new system
     
     private fun showLanguageDialog() {
         val languages = arrayOf("Svenska", "English", "Norsk", "Dansk")
@@ -287,6 +271,16 @@ class SettingsFragment : Fragment() {
             .setMessage("Denna app sparar all data lokalt på din enhet. Ingen data skickas till externa servrar.\n\nAll information som du anger (transaktioner, budgetar, etc.) förblir privat och lagras endast på din enhet.\n\nVi samlar inte in, delar eller säljer din personliga information.")
             .setPositiveButton("OK", null)
             .show()
+    }
+    
+    private fun openProductCategoryManager() {
+        val intent = Intent(requireContext(), ProductCategoryManagerActivity::class.java)
+        startActivity(intent)
+    }
+    
+    private fun openCategoryManager() {
+        val intent = Intent(requireContext(), CategoryManagerActivity::class.java)
+        startActivity(intent)
     }
     
     private fun showExportOptionsDialog(onOptionsSelected: (Boolean, Boolean, Boolean) -> Unit) {

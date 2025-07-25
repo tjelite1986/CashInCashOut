@@ -50,4 +50,7 @@ interface IncomeDao {
 
     @Query("SELECT COUNT(*) FROM incomes WHERE title = :title AND amount = :amount AND COALESCE(category, '') = :category AND date = :date")
     suspend fun checkDuplicateIncome(title: String, amount: Double, category: String, date: Long): Int
+    
+    @Query("SELECT * FROM incomes WHERE isRecurring = 1 ORDER BY date DESC")
+    suspend fun getRecurringIncomes(): List<Income>
 }

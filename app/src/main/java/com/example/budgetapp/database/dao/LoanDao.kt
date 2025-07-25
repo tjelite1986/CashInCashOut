@@ -22,6 +22,9 @@ interface LoanDao {
     @Query("SELECT * FROM loans WHERE isPaidBack = :isPaidBack ORDER BY createdAt DESC")
     fun getLoansByStatus(isPaidBack: Boolean): Flow<List<Loan>>
 
+    @Query("SELECT * FROM loans WHERE isPaidBack = 0 ORDER BY createdAt DESC")
+    suspend fun getUnpaidLoans(): List<Loan>
+
     @Query("SELECT * FROM loans WHERE personName LIKE '%' || :personName || '%' ORDER BY createdAt DESC")
     fun getLoansByPerson(personName: String): Flow<List<Loan>>
 

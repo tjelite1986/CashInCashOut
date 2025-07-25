@@ -18,6 +18,7 @@ import com.example.budgetapp.database.BudgetDatabase
 import com.example.budgetapp.database.entities.Loan
 import com.example.budgetapp.database.entities.LoanType
 import com.example.budgetapp.databinding.FragmentLoansBinding
+import com.example.budgetapp.data.ThemeSettings
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.combine
@@ -25,7 +26,7 @@ import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.util.*
 
-class LoansFragment : Fragment() {
+class LoansFragment : BaseFragment() {
 
     private var _binding: FragmentLoansBinding? = null
     private val binding get() = _binding!!
@@ -469,5 +470,119 @@ class LoansFragment : Fragment() {
         }
         super.onDestroyView()
         _binding = null
+    }
+    
+    override fun applyCustomTheme(settings: ThemeSettings) {
+        // Apply custom theme styling specific to LoansFragment
+        val accentColor = themeManager.getAccentColorInt()
+        
+        // Update FAB colors
+        binding.fabMain.backgroundTintList = android.content.res.ColorStateList.valueOf(accentColor)
+        binding.fabBorrowed.backgroundTintList = android.content.res.ColorStateList.valueOf(accentColor)
+        binding.fabLent.backgroundTintList = android.content.res.ColorStateList.valueOf(accentColor)
+        
+        // Apply theme to filter chips
+        applyThemeToChips(settings)
+        
+        // Apply colorful styling to summary cards if enabled
+        if (settings.interfaceStyle == com.example.budgetapp.data.InterfaceStyle.COLORFUL) {
+            applyColorfulLoanCards(accentColor)
+        }
+        
+        // Update adapter theme
+        if (::loanAdapter.isInitialized) {
+            loanAdapter.applyTheme(settings)
+        }
+    }
+    
+    private fun applyColorfulLoanCards(accentColor: Int) {
+        // Apply very subtle colorful backgrounds to loan summary cards
+        
+        // Borrowed loans card with very subtle orange tint
+        binding.cardBorrowedSummary.setCardBackgroundColor(
+            adjustColorHue(accentColor, 0.08f, 0.04f) // Much more subtle orange
+        )
+        
+        // Lent loans card with very subtle blue tint
+        binding.cardLentSummary.setCardBackgroundColor(
+            adjustColorHue(accentColor, 0.55f, 0.04f) // Much more subtle blue
+        )
+    }
+    
+    private fun adjustColorAlpha(color: Int, alpha: Float): Int {
+        val a = (255 * alpha).toInt()
+        val r = android.graphics.Color.red(color)
+        val g = android.graphics.Color.green(color)
+        val b = android.graphics.Color.blue(color)
+        return android.graphics.Color.argb(a, r, g, b)
+    }
+    
+    private fun applyThemeToChips(settings: ThemeSettings) {
+        val accentColor = themeManager.getAccentColorInt()
+        val isColorful = settings.interfaceStyle == com.example.budgetapp.data.InterfaceStyle.COLORFUL
+        
+        val chips = listOf(
+            binding.chipAll, 
+            binding.chipBorrowed, 
+            binding.chipLent, 
+            binding.chipActive, 
+            binding.chipPaidBack
+        )
+        
+        chips.forEach { chip ->
+            val context = requireContext()
+            
+            if (isColorful) {
+                // Subtle colorful styling
+                val subtleAccent = adjustColorAlpha(accentColor, 0.12f)
+                val textColor = adjustColorBrightness(accentColor, 0.6f) // Darker for better readability
+                
+                chip.chipBackgroundColor = android.content.res.ColorStateList.valueOf(subtleAccent)
+                chip.setTextColor(android.content.res.ColorStateList.valueOf(textColor))
+                chip.chipStrokeColor = android.content.res.ColorStateList.valueOf(adjustColorAlpha(accentColor, 0.2f))
+                chip.checkedIconTint = android.content.res.ColorStateList.valueOf(textColor)
+            } else {
+                // Clean material design colors
+                val isDark = themeManager.isDarkMode()
+                
+                if (isDark) {
+                    chip.chipBackgroundColor = android.content.res.ColorStateList.valueOf(
+                        context.getColor(com.google.android.material.R.color.material_dynamic_neutral20)
+                    )
+                    chip.setTextColor(android.content.res.ColorStateList.valueOf(
+                        context.getColor(com.google.android.material.R.color.material_dynamic_neutral90)
+                    ))
+                } else {
+                    chip.chipBackgroundColor = android.content.res.ColorStateList.valueOf(
+                        context.getColor(com.google.android.material.R.color.material_dynamic_neutral95)
+                    )
+                    chip.setTextColor(android.content.res.ColorStateList.valueOf(
+                        context.getColor(com.google.android.material.R.color.material_dynamic_neutral10)
+                    ))
+                }
+                
+                chip.chipStrokeColor = android.content.res.ColorStateList.valueOf(
+                    adjustColorAlpha(accentColor, 0.3f)
+                )
+                chip.checkedIconTint = android.content.res.ColorStateList.valueOf(accentColor)
+            }
+        }
+    }
+    
+    private fun adjustColorBrightness(color: Int, factor: Float): Int {
+        val red = (android.graphics.Color.red(color) * factor).toInt().coerceIn(0, 255)
+        val green = (android.graphics.Color.green(color) * factor).toInt().coerceIn(0, 255)
+        val blue = (android.graphics.Color.blue(color) * factor).toInt().coerceIn(0, 255)
+        return android.graphics.Color.rgb(red, green, blue)
+    }
+    
+    private fun adjustColorHue(baseColor: Int, hueShift: Float, alpha: Float): Int {
+        val hsv = FloatArray(3)
+        android.graphics.Color.colorToHSV(baseColor, hsv)
+        hsv[0] = (hsv[0] + hueShift * 360) % 360
+        hsv[1] = hsv[1] * 0.3f // Much more subtle saturation
+        hsv[2] = hsv[2] * 0.9f // Slightly reduce brightness
+        val adjustedColor = android.graphics.Color.HSVToColor(hsv)
+        return adjustColorAlpha(adjustedColor, alpha)
     }
 }

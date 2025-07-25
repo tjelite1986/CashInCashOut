@@ -15,7 +15,9 @@ import androidx.room.util.DBUtil;
 import androidx.sqlite.db.SupportSQLiteStatement;
 import com.example.budgetapp.database.entities.Store;
 import java.lang.Class;
+import java.lang.Double;
 import java.lang.Exception;
+import java.lang.Integer;
 import java.lang.Long;
 import java.lang.Object;
 import java.lang.Override;
@@ -47,7 +49,7 @@ public final class StoreDao_Impl implements StoreDao {
       @Override
       @NonNull
       protected String createQuery() {
-        return "INSERT OR REPLACE INTO `stores` (`id`,`name`,`address`,`city`,`chain`,`createdAt`,`updatedAt`) VALUES (nullif(?, 0),?,?,?,?,?,?)";
+        return "INSERT OR REPLACE INTO `stores` (`id`,`name`,`address`,`city`,`chain`,`latitude`,`longitude`,`phoneNumber`,`website`,`openingHours`,`isActive`,`createdAt`,`updatedAt`) VALUES (nullif(?, 0),?,?,?,?,?,?,?,?,?,?,?,?)";
       }
 
       @Override
@@ -74,8 +76,35 @@ public final class StoreDao_Impl implements StoreDao {
         } else {
           statement.bindString(5, entity.getChain());
         }
-        statement.bindLong(6, entity.getCreatedAt());
-        statement.bindLong(7, entity.getUpdatedAt());
+        if (entity.getLatitude() == null) {
+          statement.bindNull(6);
+        } else {
+          statement.bindDouble(6, entity.getLatitude());
+        }
+        if (entity.getLongitude() == null) {
+          statement.bindNull(7);
+        } else {
+          statement.bindDouble(7, entity.getLongitude());
+        }
+        if (entity.getPhoneNumber() == null) {
+          statement.bindNull(8);
+        } else {
+          statement.bindString(8, entity.getPhoneNumber());
+        }
+        if (entity.getWebsite() == null) {
+          statement.bindNull(9);
+        } else {
+          statement.bindString(9, entity.getWebsite());
+        }
+        if (entity.getOpeningHours() == null) {
+          statement.bindNull(10);
+        } else {
+          statement.bindString(10, entity.getOpeningHours());
+        }
+        final int _tmp = entity.isActive() ? 1 : 0;
+        statement.bindLong(11, _tmp);
+        statement.bindLong(12, entity.getCreatedAt());
+        statement.bindLong(13, entity.getUpdatedAt());
       }
     };
     this.__deletionAdapterOfStore = new EntityDeletionOrUpdateAdapter<Store>(__db) {
@@ -95,7 +124,7 @@ public final class StoreDao_Impl implements StoreDao {
       @Override
       @NonNull
       protected String createQuery() {
-        return "UPDATE OR ABORT `stores` SET `id` = ?,`name` = ?,`address` = ?,`city` = ?,`chain` = ?,`createdAt` = ?,`updatedAt` = ? WHERE `id` = ?";
+        return "UPDATE OR ABORT `stores` SET `id` = ?,`name` = ?,`address` = ?,`city` = ?,`chain` = ?,`latitude` = ?,`longitude` = ?,`phoneNumber` = ?,`website` = ?,`openingHours` = ?,`isActive` = ?,`createdAt` = ?,`updatedAt` = ? WHERE `id` = ?";
       }
 
       @Override
@@ -122,9 +151,36 @@ public final class StoreDao_Impl implements StoreDao {
         } else {
           statement.bindString(5, entity.getChain());
         }
-        statement.bindLong(6, entity.getCreatedAt());
-        statement.bindLong(7, entity.getUpdatedAt());
-        statement.bindLong(8, entity.getId());
+        if (entity.getLatitude() == null) {
+          statement.bindNull(6);
+        } else {
+          statement.bindDouble(6, entity.getLatitude());
+        }
+        if (entity.getLongitude() == null) {
+          statement.bindNull(7);
+        } else {
+          statement.bindDouble(7, entity.getLongitude());
+        }
+        if (entity.getPhoneNumber() == null) {
+          statement.bindNull(8);
+        } else {
+          statement.bindString(8, entity.getPhoneNumber());
+        }
+        if (entity.getWebsite() == null) {
+          statement.bindNull(9);
+        } else {
+          statement.bindString(9, entity.getWebsite());
+        }
+        if (entity.getOpeningHours() == null) {
+          statement.bindNull(10);
+        } else {
+          statement.bindString(10, entity.getOpeningHours());
+        }
+        final int _tmp = entity.isActive() ? 1 : 0;
+        statement.bindLong(11, _tmp);
+        statement.bindLong(12, entity.getCreatedAt());
+        statement.bindLong(13, entity.getUpdatedAt());
+        statement.bindLong(14, entity.getId());
       }
     };
     this.__preparedStmtOfDeleteStoreById = new SharedSQLiteStatement(__db) {
@@ -249,6 +305,12 @@ public final class StoreDao_Impl implements StoreDao {
           final int _cursorIndexOfAddress = CursorUtil.getColumnIndexOrThrow(_cursor, "address");
           final int _cursorIndexOfCity = CursorUtil.getColumnIndexOrThrow(_cursor, "city");
           final int _cursorIndexOfChain = CursorUtil.getColumnIndexOrThrow(_cursor, "chain");
+          final int _cursorIndexOfLatitude = CursorUtil.getColumnIndexOrThrow(_cursor, "latitude");
+          final int _cursorIndexOfLongitude = CursorUtil.getColumnIndexOrThrow(_cursor, "longitude");
+          final int _cursorIndexOfPhoneNumber = CursorUtil.getColumnIndexOrThrow(_cursor, "phoneNumber");
+          final int _cursorIndexOfWebsite = CursorUtil.getColumnIndexOrThrow(_cursor, "website");
+          final int _cursorIndexOfOpeningHours = CursorUtil.getColumnIndexOrThrow(_cursor, "openingHours");
+          final int _cursorIndexOfIsActive = CursorUtil.getColumnIndexOrThrow(_cursor, "isActive");
           final int _cursorIndexOfCreatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "createdAt");
           final int _cursorIndexOfUpdatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "updatedAt");
           final List<Store> _result = new ArrayList<Store>(_cursor.getCount());
@@ -280,11 +342,45 @@ public final class StoreDao_Impl implements StoreDao {
             } else {
               _tmpChain = _cursor.getString(_cursorIndexOfChain);
             }
+            final Double _tmpLatitude;
+            if (_cursor.isNull(_cursorIndexOfLatitude)) {
+              _tmpLatitude = null;
+            } else {
+              _tmpLatitude = _cursor.getDouble(_cursorIndexOfLatitude);
+            }
+            final Double _tmpLongitude;
+            if (_cursor.isNull(_cursorIndexOfLongitude)) {
+              _tmpLongitude = null;
+            } else {
+              _tmpLongitude = _cursor.getDouble(_cursorIndexOfLongitude);
+            }
+            final String _tmpPhoneNumber;
+            if (_cursor.isNull(_cursorIndexOfPhoneNumber)) {
+              _tmpPhoneNumber = null;
+            } else {
+              _tmpPhoneNumber = _cursor.getString(_cursorIndexOfPhoneNumber);
+            }
+            final String _tmpWebsite;
+            if (_cursor.isNull(_cursorIndexOfWebsite)) {
+              _tmpWebsite = null;
+            } else {
+              _tmpWebsite = _cursor.getString(_cursorIndexOfWebsite);
+            }
+            final String _tmpOpeningHours;
+            if (_cursor.isNull(_cursorIndexOfOpeningHours)) {
+              _tmpOpeningHours = null;
+            } else {
+              _tmpOpeningHours = _cursor.getString(_cursorIndexOfOpeningHours);
+            }
+            final boolean _tmpIsActive;
+            final int _tmp;
+            _tmp = _cursor.getInt(_cursorIndexOfIsActive);
+            _tmpIsActive = _tmp != 0;
             final long _tmpCreatedAt;
             _tmpCreatedAt = _cursor.getLong(_cursorIndexOfCreatedAt);
             final long _tmpUpdatedAt;
             _tmpUpdatedAt = _cursor.getLong(_cursorIndexOfUpdatedAt);
-            _item = new Store(_tmpId,_tmpName,_tmpAddress,_tmpCity,_tmpChain,_tmpCreatedAt,_tmpUpdatedAt);
+            _item = new Store(_tmpId,_tmpName,_tmpAddress,_tmpCity,_tmpChain,_tmpLatitude,_tmpLongitude,_tmpPhoneNumber,_tmpWebsite,_tmpOpeningHours,_tmpIsActive,_tmpCreatedAt,_tmpUpdatedAt);
             _result.add(_item);
           }
           return _result;
@@ -318,6 +414,12 @@ public final class StoreDao_Impl implements StoreDao {
           final int _cursorIndexOfAddress = CursorUtil.getColumnIndexOrThrow(_cursor, "address");
           final int _cursorIndexOfCity = CursorUtil.getColumnIndexOrThrow(_cursor, "city");
           final int _cursorIndexOfChain = CursorUtil.getColumnIndexOrThrow(_cursor, "chain");
+          final int _cursorIndexOfLatitude = CursorUtil.getColumnIndexOrThrow(_cursor, "latitude");
+          final int _cursorIndexOfLongitude = CursorUtil.getColumnIndexOrThrow(_cursor, "longitude");
+          final int _cursorIndexOfPhoneNumber = CursorUtil.getColumnIndexOrThrow(_cursor, "phoneNumber");
+          final int _cursorIndexOfWebsite = CursorUtil.getColumnIndexOrThrow(_cursor, "website");
+          final int _cursorIndexOfOpeningHours = CursorUtil.getColumnIndexOrThrow(_cursor, "openingHours");
+          final int _cursorIndexOfIsActive = CursorUtil.getColumnIndexOrThrow(_cursor, "isActive");
           final int _cursorIndexOfCreatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "createdAt");
           final int _cursorIndexOfUpdatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "updatedAt");
           final Store _result;
@@ -348,11 +450,45 @@ public final class StoreDao_Impl implements StoreDao {
             } else {
               _tmpChain = _cursor.getString(_cursorIndexOfChain);
             }
+            final Double _tmpLatitude;
+            if (_cursor.isNull(_cursorIndexOfLatitude)) {
+              _tmpLatitude = null;
+            } else {
+              _tmpLatitude = _cursor.getDouble(_cursorIndexOfLatitude);
+            }
+            final Double _tmpLongitude;
+            if (_cursor.isNull(_cursorIndexOfLongitude)) {
+              _tmpLongitude = null;
+            } else {
+              _tmpLongitude = _cursor.getDouble(_cursorIndexOfLongitude);
+            }
+            final String _tmpPhoneNumber;
+            if (_cursor.isNull(_cursorIndexOfPhoneNumber)) {
+              _tmpPhoneNumber = null;
+            } else {
+              _tmpPhoneNumber = _cursor.getString(_cursorIndexOfPhoneNumber);
+            }
+            final String _tmpWebsite;
+            if (_cursor.isNull(_cursorIndexOfWebsite)) {
+              _tmpWebsite = null;
+            } else {
+              _tmpWebsite = _cursor.getString(_cursorIndexOfWebsite);
+            }
+            final String _tmpOpeningHours;
+            if (_cursor.isNull(_cursorIndexOfOpeningHours)) {
+              _tmpOpeningHours = null;
+            } else {
+              _tmpOpeningHours = _cursor.getString(_cursorIndexOfOpeningHours);
+            }
+            final boolean _tmpIsActive;
+            final int _tmp;
+            _tmp = _cursor.getInt(_cursorIndexOfIsActive);
+            _tmpIsActive = _tmp != 0;
             final long _tmpCreatedAt;
             _tmpCreatedAt = _cursor.getLong(_cursorIndexOfCreatedAt);
             final long _tmpUpdatedAt;
             _tmpUpdatedAt = _cursor.getLong(_cursorIndexOfUpdatedAt);
-            _result = new Store(_tmpId,_tmpName,_tmpAddress,_tmpCity,_tmpChain,_tmpCreatedAt,_tmpUpdatedAt);
+            _result = new Store(_tmpId,_tmpName,_tmpAddress,_tmpCity,_tmpChain,_tmpLatitude,_tmpLongitude,_tmpPhoneNumber,_tmpWebsite,_tmpOpeningHours,_tmpIsActive,_tmpCreatedAt,_tmpUpdatedAt);
           } else {
             _result = null;
           }
@@ -386,6 +522,12 @@ public final class StoreDao_Impl implements StoreDao {
           final int _cursorIndexOfAddress = CursorUtil.getColumnIndexOrThrow(_cursor, "address");
           final int _cursorIndexOfCity = CursorUtil.getColumnIndexOrThrow(_cursor, "city");
           final int _cursorIndexOfChain = CursorUtil.getColumnIndexOrThrow(_cursor, "chain");
+          final int _cursorIndexOfLatitude = CursorUtil.getColumnIndexOrThrow(_cursor, "latitude");
+          final int _cursorIndexOfLongitude = CursorUtil.getColumnIndexOrThrow(_cursor, "longitude");
+          final int _cursorIndexOfPhoneNumber = CursorUtil.getColumnIndexOrThrow(_cursor, "phoneNumber");
+          final int _cursorIndexOfWebsite = CursorUtil.getColumnIndexOrThrow(_cursor, "website");
+          final int _cursorIndexOfOpeningHours = CursorUtil.getColumnIndexOrThrow(_cursor, "openingHours");
+          final int _cursorIndexOfIsActive = CursorUtil.getColumnIndexOrThrow(_cursor, "isActive");
           final int _cursorIndexOfCreatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "createdAt");
           final int _cursorIndexOfUpdatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "updatedAt");
           final List<Store> _result = new ArrayList<Store>(_cursor.getCount());
@@ -417,11 +559,45 @@ public final class StoreDao_Impl implements StoreDao {
             } else {
               _tmpChain = _cursor.getString(_cursorIndexOfChain);
             }
+            final Double _tmpLatitude;
+            if (_cursor.isNull(_cursorIndexOfLatitude)) {
+              _tmpLatitude = null;
+            } else {
+              _tmpLatitude = _cursor.getDouble(_cursorIndexOfLatitude);
+            }
+            final Double _tmpLongitude;
+            if (_cursor.isNull(_cursorIndexOfLongitude)) {
+              _tmpLongitude = null;
+            } else {
+              _tmpLongitude = _cursor.getDouble(_cursorIndexOfLongitude);
+            }
+            final String _tmpPhoneNumber;
+            if (_cursor.isNull(_cursorIndexOfPhoneNumber)) {
+              _tmpPhoneNumber = null;
+            } else {
+              _tmpPhoneNumber = _cursor.getString(_cursorIndexOfPhoneNumber);
+            }
+            final String _tmpWebsite;
+            if (_cursor.isNull(_cursorIndexOfWebsite)) {
+              _tmpWebsite = null;
+            } else {
+              _tmpWebsite = _cursor.getString(_cursorIndexOfWebsite);
+            }
+            final String _tmpOpeningHours;
+            if (_cursor.isNull(_cursorIndexOfOpeningHours)) {
+              _tmpOpeningHours = null;
+            } else {
+              _tmpOpeningHours = _cursor.getString(_cursorIndexOfOpeningHours);
+            }
+            final boolean _tmpIsActive;
+            final int _tmp;
+            _tmp = _cursor.getInt(_cursorIndexOfIsActive);
+            _tmpIsActive = _tmp != 0;
             final long _tmpCreatedAt;
             _tmpCreatedAt = _cursor.getLong(_cursorIndexOfCreatedAt);
             final long _tmpUpdatedAt;
             _tmpUpdatedAt = _cursor.getLong(_cursorIndexOfUpdatedAt);
-            _item = new Store(_tmpId,_tmpName,_tmpAddress,_tmpCity,_tmpChain,_tmpCreatedAt,_tmpUpdatedAt);
+            _item = new Store(_tmpId,_tmpName,_tmpAddress,_tmpCity,_tmpChain,_tmpLatitude,_tmpLongitude,_tmpPhoneNumber,_tmpWebsite,_tmpOpeningHours,_tmpIsActive,_tmpCreatedAt,_tmpUpdatedAt);
             _result.add(_item);
           }
           return _result;
@@ -458,6 +634,12 @@ public final class StoreDao_Impl implements StoreDao {
           final int _cursorIndexOfAddress = CursorUtil.getColumnIndexOrThrow(_cursor, "address");
           final int _cursorIndexOfCity = CursorUtil.getColumnIndexOrThrow(_cursor, "city");
           final int _cursorIndexOfChain = CursorUtil.getColumnIndexOrThrow(_cursor, "chain");
+          final int _cursorIndexOfLatitude = CursorUtil.getColumnIndexOrThrow(_cursor, "latitude");
+          final int _cursorIndexOfLongitude = CursorUtil.getColumnIndexOrThrow(_cursor, "longitude");
+          final int _cursorIndexOfPhoneNumber = CursorUtil.getColumnIndexOrThrow(_cursor, "phoneNumber");
+          final int _cursorIndexOfWebsite = CursorUtil.getColumnIndexOrThrow(_cursor, "website");
+          final int _cursorIndexOfOpeningHours = CursorUtil.getColumnIndexOrThrow(_cursor, "openingHours");
+          final int _cursorIndexOfIsActive = CursorUtil.getColumnIndexOrThrow(_cursor, "isActive");
           final int _cursorIndexOfCreatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "createdAt");
           final int _cursorIndexOfUpdatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "updatedAt");
           final List<Store> _result = new ArrayList<Store>(_cursor.getCount());
@@ -489,11 +671,45 @@ public final class StoreDao_Impl implements StoreDao {
             } else {
               _tmpChain = _cursor.getString(_cursorIndexOfChain);
             }
+            final Double _tmpLatitude;
+            if (_cursor.isNull(_cursorIndexOfLatitude)) {
+              _tmpLatitude = null;
+            } else {
+              _tmpLatitude = _cursor.getDouble(_cursorIndexOfLatitude);
+            }
+            final Double _tmpLongitude;
+            if (_cursor.isNull(_cursorIndexOfLongitude)) {
+              _tmpLongitude = null;
+            } else {
+              _tmpLongitude = _cursor.getDouble(_cursorIndexOfLongitude);
+            }
+            final String _tmpPhoneNumber;
+            if (_cursor.isNull(_cursorIndexOfPhoneNumber)) {
+              _tmpPhoneNumber = null;
+            } else {
+              _tmpPhoneNumber = _cursor.getString(_cursorIndexOfPhoneNumber);
+            }
+            final String _tmpWebsite;
+            if (_cursor.isNull(_cursorIndexOfWebsite)) {
+              _tmpWebsite = null;
+            } else {
+              _tmpWebsite = _cursor.getString(_cursorIndexOfWebsite);
+            }
+            final String _tmpOpeningHours;
+            if (_cursor.isNull(_cursorIndexOfOpeningHours)) {
+              _tmpOpeningHours = null;
+            } else {
+              _tmpOpeningHours = _cursor.getString(_cursorIndexOfOpeningHours);
+            }
+            final boolean _tmpIsActive;
+            final int _tmp;
+            _tmp = _cursor.getInt(_cursorIndexOfIsActive);
+            _tmpIsActive = _tmp != 0;
             final long _tmpCreatedAt;
             _tmpCreatedAt = _cursor.getLong(_cursorIndexOfCreatedAt);
             final long _tmpUpdatedAt;
             _tmpUpdatedAt = _cursor.getLong(_cursorIndexOfUpdatedAt);
-            _item = new Store(_tmpId,_tmpName,_tmpAddress,_tmpCity,_tmpChain,_tmpCreatedAt,_tmpUpdatedAt);
+            _item = new Store(_tmpId,_tmpName,_tmpAddress,_tmpCity,_tmpChain,_tmpLatitude,_tmpLongitude,_tmpPhoneNumber,_tmpWebsite,_tmpOpeningHours,_tmpIsActive,_tmpCreatedAt,_tmpUpdatedAt);
             _result.add(_item);
           }
           return _result;
@@ -507,6 +723,132 @@ public final class StoreDao_Impl implements StoreDao {
         _statement.release();
       }
     });
+  }
+
+  @Override
+  public Object checkDuplicateStore(final String name, final String chain,
+      final Continuation<? super Integer> arg2) {
+    final String _sql = "SELECT COUNT(*) FROM stores WHERE name = ? AND COALESCE(chain, '') = ?";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 2);
+    int _argIndex = 1;
+    if (name == null) {
+      _statement.bindNull(_argIndex);
+    } else {
+      _statement.bindString(_argIndex, name);
+    }
+    _argIndex = 2;
+    if (chain == null) {
+      _statement.bindNull(_argIndex);
+    } else {
+      _statement.bindString(_argIndex, chain);
+    }
+    final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
+    return CoroutinesRoom.execute(__db, false, _cancellationSignal, new Callable<Integer>() {
+      @Override
+      @NonNull
+      public Integer call() throws Exception {
+        final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+        try {
+          final Integer _result;
+          if (_cursor.moveToFirst()) {
+            final Integer _tmp;
+            if (_cursor.isNull(0)) {
+              _tmp = null;
+            } else {
+              _tmp = _cursor.getInt(0);
+            }
+            _result = _tmp;
+          } else {
+            _result = null;
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+          _statement.release();
+        }
+      }
+    }, arg2);
+  }
+
+  @Override
+  public Object checkDuplicateStoreWithCity(final String name, final String chain,
+      final String city, final Continuation<? super Integer> arg3) {
+    final String _sql = "SELECT COUNT(*) FROM stores WHERE name = ? AND COALESCE(chain, '') = ? AND COALESCE(city, '') = ?";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 3);
+    int _argIndex = 1;
+    if (name == null) {
+      _statement.bindNull(_argIndex);
+    } else {
+      _statement.bindString(_argIndex, name);
+    }
+    _argIndex = 2;
+    if (chain == null) {
+      _statement.bindNull(_argIndex);
+    } else {
+      _statement.bindString(_argIndex, chain);
+    }
+    _argIndex = 3;
+    if (city == null) {
+      _statement.bindNull(_argIndex);
+    } else {
+      _statement.bindString(_argIndex, city);
+    }
+    final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
+    return CoroutinesRoom.execute(__db, false, _cancellationSignal, new Callable<Integer>() {
+      @Override
+      @NonNull
+      public Integer call() throws Exception {
+        final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+        try {
+          final Integer _result;
+          if (_cursor.moveToFirst()) {
+            final Integer _tmp;
+            if (_cursor.isNull(0)) {
+              _tmp = null;
+            } else {
+              _tmp = _cursor.getInt(0);
+            }
+            _result = _tmp;
+          } else {
+            _result = null;
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+          _statement.release();
+        }
+      }
+    }, arg3);
+  }
+
+  @Override
+  public Object getDistinctChains(final Continuation<? super List<String>> arg0) {
+    final String _sql = "SELECT DISTINCT chain FROM stores WHERE chain IS NOT NULL ORDER BY chain ASC";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
+    final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
+    return CoroutinesRoom.execute(__db, false, _cancellationSignal, new Callable<List<String>>() {
+      @Override
+      @NonNull
+      public List<String> call() throws Exception {
+        final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+        try {
+          final List<String> _result = new ArrayList<String>(_cursor.getCount());
+          while (_cursor.moveToNext()) {
+            final String _item;
+            if (_cursor.isNull(0)) {
+              _item = null;
+            } else {
+              _item = _cursor.getString(0);
+            }
+            _result.add(_item);
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+          _statement.release();
+        }
+      }
+    }, arg0);
   }
 
   @NonNull

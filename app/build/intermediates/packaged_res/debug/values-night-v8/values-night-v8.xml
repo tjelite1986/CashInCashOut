@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background">#121212</color>
+    <color name="black">#FF000000</color>
+    <color name="chart_color_1">#FF6B35</color>
+    <color name="chart_color_2">#F7931E</color>
+    <color name="chart_color_3">#FFD23F</color>
+    <color name="chart_color_4">#06FFA5</color>
+    <color name="chart_color_5">#0066FF</color>
+    <color name="chart_expense_color">#F44336</color>
+    <color name="chart_income_color">#4CAF50</color>
+    <color name="chart_net_color">#2196F3</color>
+    <color name="colorful_background_1">#2E2E2E</color>
+    <color name="colorful_background_2">#2C2C2C</color>
+    <color name="colorful_background_3">#2A2A2A</color>
+    <color name="colorful_background_4">#282828</color>
+    <color name="colorful_gradient_end">#FF8F00</color>
+    <color name="colorful_gradient_start">#FFA726</color>
+    <color name="colorful_surface_1">#333333</color>
+    <color name="colorful_surface_2">#313131</color>
+    <color name="colorful_surface_3">#2F2F2F</color>
+    <color name="error">#F44336</color>
+    <color name="expense_red">#F44336</color>
+    <color name="income_green">#4CAF50</color>
+    <color name="light_blue_background">#1A237E</color>
+    <color name="light_green_background">#1B4332</color>
+    <color name="light_orange_background">#3E2723</color>
+    <color name="light_red_background">#4A1C1C</color>
+    <color name="on_background">#FFFFFF</color>
+    <color name="on_primary">#000000</color>
+    <color name="on_secondary">#000000</color>
+    <color name="on_surface">#FFFFFF</color>
+    <color name="on_surface_variant">#E0E0E0</color>
+    <color name="primary">#4CAF50</color>
+    <color name="primary_variant">#388E3C</color>
+    <color name="secondary">#66BB6A</color>
+    <color name="secondary_variant">#4CAF50</color>
+    <color name="success">#4CAF50</color>
+    <color name="surface">#1E1E1E</color>
+    <color name="surface_variant">#2E2E2E</color>
+    <color name="text_hint">#757575</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#B0B0B0</color>
+    <color name="warning">#FF9800</color>
+    <color name="white">#FFFFFFFF</color>
+    <style name="DropDownItemStyle">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:background">@color/surface</item>
+    </style>
+    <style name="Theme.BudgetApp" parent="Theme.Material3.DayNight">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary_variant</item>
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorSecondaryVariant">@color/secondary_variant</item>
+        <item name="android:colorBackground">@color/background</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+        <item name="colorOnSecondary">@color/on_secondary</item>
+        <item name="colorOnBackground">@color/on_background</item>
+        <item name="colorOnSurface">@color/on_surface</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textColorHint">@color/text_hint</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        
+        <item name="android:dropDownItemStyle">@style/DropDownItemStyle</item>
+    </style>
+    <style name="Theme.BudgetApp.NoActionBar" parent="Theme.BudgetApp">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+</resources>

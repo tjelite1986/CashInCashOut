@@ -8,7 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.budgetapp.database.BudgetDatabase
-import com.example.budgetapp.database.entities.Category
+import com.example.budgetapp.database.entities.ProductCategory
 import com.example.budgetapp.database.entities.Product
 import com.example.budgetapp.databinding.ActivityEditProductBinding
 import kotlinx.coroutines.flow.first
@@ -18,7 +18,7 @@ class EditProductActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEditProductBinding
     private lateinit var database: BudgetDatabase
-    private var categories: List<Category> = emptyList()
+    private var categories: List<ProductCategory> = emptyList()
     private var selectedCategoryId: Long? = null
     private var selectedUnit: String = "st"
     private var productId: Long = -1
@@ -81,7 +81,7 @@ class EditProductActivity : AppCompatActivity() {
 
     private fun loadCategories() {
         lifecycleScope.launch {
-            categories = database.categoryDao().getAllCategories().first()
+            categories = database.productCategoryDao().getAllProductCategories().first()
             setupCategorySpinner()
         }
     }
@@ -165,7 +165,7 @@ class EditProductActivity : AppCompatActivity() {
         }
         
         // Set category
-        product.categoryId?.let { categoryId ->
+        product.productCategoryId?.let { categoryId ->
             val categoryIndex = categories.indexOfFirst { it.id == categoryId }
             if (categoryIndex >= 0) {
                 binding.spinnerCategory.setSelection(categoryIndex + 1)
@@ -212,7 +212,7 @@ class EditProductActivity : AppCompatActivity() {
         
         val updatedProduct = currentProduct?.copy(
             name = name,
-            categoryId = selectedCategoryId,
+            productCategoryId = selectedCategoryId,
             hasDeposit = hasDeposit,
             depositAmount = depositAmount,
             barcode = barcode,

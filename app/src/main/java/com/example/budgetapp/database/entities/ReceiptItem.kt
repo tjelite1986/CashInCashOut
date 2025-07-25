@@ -31,6 +31,7 @@ data class ReceiptItem(
     val unitPrice: Double,
     val totalPrice: Double,
     val unit: String = "st", // st, kg, g, l, ml, etc.
+    val productSize: String? = null, // Produktstorlek/volym (t.ex. 500ml, 1kg)
     val discount: Double = 0.0,
     val hasDeposit: Boolean = false, // Om produkten har pant
     val depositAmount: Double = 0.0, // Pantsumma per enhet

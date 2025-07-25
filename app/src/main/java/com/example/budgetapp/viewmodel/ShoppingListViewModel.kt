@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.budgetapp.database.entities.ShoppingList
 import com.example.budgetapp.database.entities.ShoppingListItem
+import com.example.budgetapp.data.ShoppingListItemWithProduct
 import com.example.budgetapp.repository.ShoppingListRepository
 import kotlinx.coroutines.launch
 
@@ -56,6 +57,10 @@ class ShoppingListViewModel(private val repository: ShoppingListRepository) : Vi
     // Shopping List Item operations
     fun getItemsForShoppingList(shoppingListId: Long): LiveData<List<ShoppingListItem>> {
         return repository.getItemsForShoppingList(shoppingListId)
+    }
+    
+    fun getItemsWithProductForShoppingList(shoppingListId: Long): LiveData<List<ShoppingListItemWithProduct>> {
+        return repository.getItemsWithProductForShoppingList(shoppingListId)
     }
     
     fun getActiveItemsForShoppingList(shoppingListId: Long): LiveData<List<ShoppingListItem>> {
@@ -117,5 +122,9 @@ class ShoppingListViewModel(private val repository: ShoppingListRepository) : Vi
     
     fun getTotalActualCostForShoppingList(shoppingListId: Long): LiveData<Double?> {
         return repository.getTotalActualCostForShoppingList(shoppingListId)
+    }
+    
+    suspend fun getShoppingListItemById(id: Long): ShoppingListItem? {
+        return repository.getShoppingListItemById(id)
     }
 }

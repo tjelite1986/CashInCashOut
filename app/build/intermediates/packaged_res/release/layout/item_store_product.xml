@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp"
+    android:background="?attr/selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <!-- Product Name -->
+        <TextView
+            android:id="@+id/text_product_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mjölk 3%"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!-- Price Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/text_current_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="15.90 kr"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary" />
+
+            <TextView
+                android:id="@+id/text_campaign_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kampanj: 12.90 kr"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/warning"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <!-- Campaign Info -->
+        <TextView
+            android:id="@+id/text_campaign_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="📢 3 för 40 kr"
+            android:textSize="12sp"
+            android:textColor="@color/warning"
+            android:layout_marginTop="4dp"
+            android:visibility="gone" />
+
+        <!-- Last Updated -->
+        <TextView
+            android:id="@+id/text_last_updated"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Uppdaterad: 15 dec 2024"
+            android:textSize="11sp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="8dp" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

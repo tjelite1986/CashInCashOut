@@ -1,0 +1,857 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.budgetapp"
+4    android:versionCode="2"
+5    android:versionName="1.1" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+9        android:targetSdkVersion="34" />
+10
+11    <uses-permission android:name="android.permission.CAMERA" />
+11-->/home/thomas/budget/app/src/main/AndroidManifest.xml:5:5-65
+11-->/home/thomas/budget/app/src/main/AndroidManifest.xml:5:22-62
+12
+13    <uses-feature
+13-->/home/thomas/budget/app/src/main/AndroidManifest.xml:6:5-85
+14        android:name="android.hardware.camera"
+14-->/home/thomas/budget/app/src/main/AndroidManifest.xml:6:19-57
+15        android:required="false" />
+15-->/home/thomas/budget/app/src/main/AndroidManifest.xml:6:58-82
+16
+17    <!-- Notification permissions -->
+18    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+18-->/home/thomas/budget/app/src/main/AndroidManifest.xml:9:5-77
+18-->/home/thomas/budget/app/src/main/AndroidManifest.xml:9:22-74
+19    <uses-permission android:name="android.permission.VIBRATE" />
+19-->/home/thomas/budget/app/src/main/AndroidManifest.xml:10:5-66
+19-->/home/thomas/budget/app/src/main/AndroidManifest.xml:10:22-63
+20    <uses-permission android:name="android.permission.WAKE_LOCK" />
+20-->/home/thomas/budget/app/src/main/AndroidManifest.xml:11:5-68
+20-->/home/thomas/budget/app/src/main/AndroidManifest.xml:11:22-65
+21    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+21-->/home/thomas/budget/app/src/main/AndroidManifest.xml:12:5-81
+21-->/home/thomas/budget/app/src/main/AndroidManifest.xml:12:22-78
+22    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+22-->/home/thomas/budget/app/src/main/AndroidManifest.xml:13:5-79
+22-->/home/thomas/budget/app/src/main/AndroidManifest.xml:13:22-76
+23    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+23-->/home/thomas/budget/app/src/main/AndroidManifest.xml:14:5-74
+23-->/home/thomas/budget/app/src/main/AndroidManifest.xml:14:22-71
+24    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+24-->[com.google.android.libraries.places:places:3.3.0] /home/thomas/.gradle/caches/transforms-3/27f7612843168f0a41a8ea8f367243b6/transformed/jetified-places-3.3.0/AndroidManifest.xml:9:5-81
+24-->[com.google.android.libraries.places:places:3.3.0] /home/thomas/.gradle/caches/transforms-3/27f7612843168f0a41a8ea8f367243b6/transformed/jetified-places-3.3.0/AndroidManifest.xml:9:22-78
+25    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+25-->[com.google.android.libraries.places:places:3.3.0] /home/thomas/.gradle/caches/transforms-3/27f7612843168f0a41a8ea8f367243b6/transformed/jetified-places-3.3.0/AndroidManifest.xml:10:5-79
+25-->[com.google.android.libraries.places:places:3.3.0] /home/thomas/.gradle/caches/transforms-3/27f7612843168f0a41a8ea8f367243b6/transformed/jetified-places-3.3.0/AndroidManifest.xml:10:22-76
+26    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+26-->[com.google.android.libraries.places:places:3.3.0] /home/thomas/.gradle/caches/transforms-3/27f7612843168f0a41a8ea8f367243b6/transformed/jetified-places-3.3.0/AndroidManifest.xml:11:5-76
+26-->[com.google.android.libraries.places:places:3.3.0] /home/thomas/.gradle/caches/transforms-3/27f7612843168f0a41a8ea8f367243b6/transformed/jetified-places-3.3.0/AndroidManifest.xml:11:22-73
+27    <uses-permission android:name="android.permission.INTERNET" /> <!-- Include required permissions for Google Maps API to run. -->
+27-->[com.google.android.libraries.places:places:3.3.0] /home/thomas/.gradle/caches/transforms-3/27f7612843168f0a41a8ea8f367243b6/transformed/jetified-places-3.3.0/AndroidManifest.xml:12:5-67
+27-->[com.google.android.libraries.places:places:3.3.0] /home/thomas/.gradle/caches/transforms-3/27f7612843168f0a41a8ea8f367243b6/transformed/jetified-places-3.3.0/AndroidManifest.xml:12:22-64
+28    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+28-->[com.google.android.gms:play-services-maps:18.2.0] /home/thomas/.gradle/caches/transforms-3/285d5663bf1bc1721a96668ff51eaddf/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:23:5-79
+28-->[com.google.android.gms:play-services-maps:18.2.0] /home/thomas/.gradle/caches/transforms-3/285d5663bf1bc1721a96668ff51eaddf/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:23:22-76
+29
+30    <uses-feature
+30-->[com.google.android.gms:play-services-maps:18.2.0] /home/thomas/.gradle/caches/transforms-3/285d5663bf1bc1721a96668ff51eaddf/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:26:5-28:35
+31        android:glEsVersion="0x00020000"
+31-->[com.google.android.gms:play-services-maps:18.2.0] /home/thomas/.gradle/caches/transforms-3/285d5663bf1bc1721a96668ff51eaddf/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:27:9-41
+32        android:required="true" />
+32-->[com.google.android.gms:play-services-maps:18.2.0] /home/thomas/.gradle/caches/transforms-3/285d5663bf1bc1721a96668ff51eaddf/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:28:9-32
+33
+34    <queries>
+34-->[com.google.android.gms:play-services-maps:18.2.0] /home/thomas/.gradle/caches/transforms-3/285d5663bf1bc1721a96668ff51eaddf/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:30:5-34:15
+35
+36        <!-- Needs to be explicitly declared on Android R+ -->
+37        <package android:name="com.google.android.apps.maps" />
+37-->[com.google.android.gms:play-services-maps:18.2.0] /home/thomas/.gradle/caches/transforms-3/285d5663bf1bc1721a96668ff51eaddf/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:33:9-64
+37-->[com.google.android.gms:play-services-maps:18.2.0] /home/thomas/.gradle/caches/transforms-3/285d5663bf1bc1721a96668ff51eaddf/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:33:18-61
+38    </queries>
+39
+40    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+40-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:26:5-77
+40-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:26:22-74
+41
+42    <permission
+42-->[androidx.core:core:1.13.1] /home/thomas/.gradle/caches/transforms-3/f9b17af1f2cfea96c32144502d325ad2/transformed/core-1.13.1/AndroidManifest.xml:22:5-24:47
+43        android:name="com.example.budgetapp.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+43-->[androidx.core:core:1.13.1] /home/thomas/.gradle/caches/transforms-3/f9b17af1f2cfea96c32144502d325ad2/transformed/core-1.13.1/AndroidManifest.xml:23:9-81
+44        android:protectionLevel="signature" />
+44-->[androidx.core:core:1.13.1] /home/thomas/.gradle/caches/transforms-3/f9b17af1f2cfea96c32144502d325ad2/transformed/core-1.13.1/AndroidManifest.xml:24:9-44
+45
+46    <uses-permission android:name="com.example.budgetapp.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+46-->[androidx.core:core:1.13.1] /home/thomas/.gradle/caches/transforms-3/f9b17af1f2cfea96c32144502d325ad2/transformed/core-1.13.1/AndroidManifest.xml:26:5-97
+46-->[androidx.core:core:1.13.1] /home/thomas/.gradle/caches/transforms-3/f9b17af1f2cfea96c32144502d325ad2/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
+47
+48    <application
+48-->/home/thomas/budget/app/src/main/AndroidManifest.xml:16:5-229:19
+49        android:allowBackup="true"
+49-->/home/thomas/budget/app/src/main/AndroidManifest.xml:17:9-35
+50        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+50-->[androidx.core:core:1.13.1] /home/thomas/.gradle/caches/transforms-3/f9b17af1f2cfea96c32144502d325ad2/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
+51        android:dataExtractionRules="@xml/data_extraction_rules"
+51-->/home/thomas/budget/app/src/main/AndroidManifest.xml:18:9-65
+52        android:extractNativeLibs="false"
+53        android:fullBackupContent="@xml/backup_rules"
+53-->/home/thomas/budget/app/src/main/AndroidManifest.xml:19:9-54
+54        android:icon="@mipmap/ic_launcher"
+54-->/home/thomas/budget/app/src/main/AndroidManifest.xml:20:9-43
+55        android:label="@string/app_name"
+55-->/home/thomas/budget/app/src/main/AndroidManifest.xml:21:9-41
+56        android:roundIcon="@mipmap/ic_launcher_round"
+56-->/home/thomas/budget/app/src/main/AndroidManifest.xml:22:9-54
+57        android:supportsRtl="true"
+57-->/home/thomas/budget/app/src/main/AndroidManifest.xml:23:9-35
+58        android:theme="@style/Theme.BudgetApp" >
+58-->/home/thomas/budget/app/src/main/AndroidManifest.xml:24:9-47
+59        <activity
+59-->/home/thomas/budget/app/src/main/AndroidManifest.xml:27:9-34:20
+60            android:name="com.example.budgetapp.MainActivity"
+60-->/home/thomas/budget/app/src/main/AndroidManifest.xml:28:13-41
+61            android:exported="true" >
+61-->/home/thomas/budget/app/src/main/AndroidManifest.xml:29:13-36
+62            <intent-filter>
+62-->/home/thomas/budget/app/src/main/AndroidManifest.xml:30:13-33:29
+63                <action android:name="android.intent.action.MAIN" />
+63-->/home/thomas/budget/app/src/main/AndroidManifest.xml:31:17-69
+63-->/home/thomas/budget/app/src/main/AndroidManifest.xml:31:25-66
+64
+65                <category android:name="android.intent.category.LAUNCHER" />
+65-->/home/thomas/budget/app/src/main/AndroidManifest.xml:32:17-77
+65-->/home/thomas/budget/app/src/main/AndroidManifest.xml:32:27-74
+66            </intent-filter>
+67        </activity>
+68        <activity
+68-->/home/thomas/budget/app/src/main/AndroidManifest.xml:36:9-40:58
+69            android:name="com.example.budgetapp.AddProductActivity"
+69-->/home/thomas/budget/app/src/main/AndroidManifest.xml:37:13-47
+70            android:exported="false"
+70-->/home/thomas/budget/app/src/main/AndroidManifest.xml:38:13-37
+71            android:parentActivityName="com.example.budgetapp.MainActivity"
+71-->/home/thomas/budget/app/src/main/AndroidManifest.xml:40:13-55
+72            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+72-->/home/thomas/budget/app/src/main/AndroidManifest.xml:39:13-63
+73        <activity
+73-->/home/thomas/budget/app/src/main/AndroidManifest.xml:42:9-45:64
+74            android:name="com.example.budgetapp.BarcodeScannerActivity"
+74-->/home/thomas/budget/app/src/main/AndroidManifest.xml:43:13-51
+75            android:exported="false"
+75-->/home/thomas/budget/app/src/main/AndroidManifest.xml:44:13-37
+76            android:parentActivityName="com.example.budgetapp.AddProductActivity" />
+76-->/home/thomas/budget/app/src/main/AndroidManifest.xml:45:13-61
+77        <activity
+77-->/home/thomas/budget/app/src/main/AndroidManifest.xml:47:9-51:58
+78            android:name="com.example.budgetapp.ProductListActivity"
+78-->/home/thomas/budget/app/src/main/AndroidManifest.xml:48:13-48
+79            android:exported="false"
+79-->/home/thomas/budget/app/src/main/AndroidManifest.xml:49:13-37
+80            android:parentActivityName="com.example.budgetapp.MainActivity"
+80-->/home/thomas/budget/app/src/main/AndroidManifest.xml:51:13-55
+81            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+81-->/home/thomas/budget/app/src/main/AndroidManifest.xml:50:13-63
+82        <activity
+82-->/home/thomas/budget/app/src/main/AndroidManifest.xml:53:9-56:65
+83            android:name="com.example.budgetapp.EditProductActivity"
+83-->/home/thomas/budget/app/src/main/AndroidManifest.xml:54:13-48
+84            android:exported="false"
+84-->/home/thomas/budget/app/src/main/AndroidManifest.xml:55:13-37
+85            android:parentActivityName="com.example.budgetapp.ProductListActivity" />
+85-->/home/thomas/budget/app/src/main/AndroidManifest.xml:56:13-62
+86        <activity
+86-->/home/thomas/budget/app/src/main/AndroidManifest.xml:58:9-61:65
+87            android:name="com.example.budgetapp.ProductPriceManagerActivity"
+87-->/home/thomas/budget/app/src/main/AndroidManifest.xml:59:13-56
+88            android:exported="false"
+88-->/home/thomas/budget/app/src/main/AndroidManifest.xml:60:13-37
+89            android:parentActivityName="com.example.budgetapp.ProductListActivity" />
+89-->/home/thomas/budget/app/src/main/AndroidManifest.xml:61:13-62
+90        <activity
+90-->/home/thomas/budget/app/src/main/AndroidManifest.xml:63:9-67:65
+91            android:name="com.example.budgetapp.StoreManagerActivity"
+91-->/home/thomas/budget/app/src/main/AndroidManifest.xml:64:13-49
+92            android:exported="false"
+92-->/home/thomas/budget/app/src/main/AndroidManifest.xml:65:13-37
+93            android:parentActivityName="com.example.budgetapp.ProductListActivity"
+93-->/home/thomas/budget/app/src/main/AndroidManifest.xml:67:13-62
+94            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+94-->/home/thomas/budget/app/src/main/AndroidManifest.xml:66:13-63
+95        <activity
+95-->/home/thomas/budget/app/src/main/AndroidManifest.xml:69:9-73:66
+96            android:name="com.example.budgetapp.StoreChainManagerActivity"
+96-->/home/thomas/budget/app/src/main/AndroidManifest.xml:70:13-54
+97            android:exported="false"
+97-->/home/thomas/budget/app/src/main/AndroidManifest.xml:71:13-37
+98            android:parentActivityName="com.example.budgetapp.StoreManagerActivity"
+98-->/home/thomas/budget/app/src/main/AndroidManifest.xml:73:13-63
+99            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+99-->/home/thomas/budget/app/src/main/AndroidManifest.xml:72:13-63
+100        <activity
+100-->/home/thomas/budget/app/src/main/AndroidManifest.xml:75:9-79:58
+101            android:name="com.example.budgetapp.AddIncomeActivity"
+101-->/home/thomas/budget/app/src/main/AndroidManifest.xml:76:13-46
+102            android:exported="false"
+102-->/home/thomas/budget/app/src/main/AndroidManifest.xml:77:13-37
+103            android:parentActivityName="com.example.budgetapp.MainActivity"
+103-->/home/thomas/budget/app/src/main/AndroidManifest.xml:79:13-55
+104            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+104-->/home/thomas/budget/app/src/main/AndroidManifest.xml:78:13-63
+105        <activity
+105-->/home/thomas/budget/app/src/main/AndroidManifest.xml:81:9-85:58
+106            android:name="com.example.budgetapp.AddExpenseActivity"
+106-->/home/thomas/budget/app/src/main/AndroidManifest.xml:82:13-47
+107            android:exported="false"
+107-->/home/thomas/budget/app/src/main/AndroidManifest.xml:83:13-37
+108            android:parentActivityName="com.example.budgetapp.MainActivity"
+108-->/home/thomas/budget/app/src/main/AndroidManifest.xml:85:13-55
+109            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+109-->/home/thomas/budget/app/src/main/AndroidManifest.xml:84:13-63
+110        <activity
+110-->/home/thomas/budget/app/src/main/AndroidManifest.xml:87:9-91:58
+111            android:name="com.example.budgetapp.EditHomeActivity"
+111-->/home/thomas/budget/app/src/main/AndroidManifest.xml:88:13-45
+112            android:exported="false"
+112-->/home/thomas/budget/app/src/main/AndroidManifest.xml:89:13-37
+113            android:parentActivityName="com.example.budgetapp.MainActivity"
+113-->/home/thomas/budget/app/src/main/AndroidManifest.xml:91:13-55
+114            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+114-->/home/thomas/budget/app/src/main/AndroidManifest.xml:90:13-63
+115        <activity
+115-->/home/thomas/budget/app/src/main/AndroidManifest.xml:93:9-97:58
+116            android:name="com.example.budgetapp.AddLoanActivity"
+116-->/home/thomas/budget/app/src/main/AndroidManifest.xml:94:13-44
+117            android:exported="false"
+117-->/home/thomas/budget/app/src/main/AndroidManifest.xml:95:13-37
+118            android:parentActivityName="com.example.budgetapp.MainActivity"
+118-->/home/thomas/budget/app/src/main/AndroidManifest.xml:97:13-55
+119            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+119-->/home/thomas/budget/app/src/main/AndroidManifest.xml:96:13-63
+120        <activity
+120-->/home/thomas/budget/app/src/main/AndroidManifest.xml:99:9-103:58
+121            android:name="com.example.budgetapp.activities.AddEditBudgetActivity"
+121-->/home/thomas/budget/app/src/main/AndroidManifest.xml:100:13-61
+122            android:exported="false"
+122-->/home/thomas/budget/app/src/main/AndroidManifest.xml:101:13-37
+123            android:parentActivityName="com.example.budgetapp.MainActivity"
+123-->/home/thomas/budget/app/src/main/AndroidManifest.xml:103:13-55
+124            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+124-->/home/thomas/budget/app/src/main/AndroidManifest.xml:102:13-63
+125        <activity
+125-->/home/thomas/budget/app/src/main/AndroidManifest.xml:105:9-109:58
+126            android:name="com.example.budgetapp.ShoppingListActivity"
+126-->/home/thomas/budget/app/src/main/AndroidManifest.xml:106:13-49
+127            android:exported="false"
+127-->/home/thomas/budget/app/src/main/AndroidManifest.xml:107:13-37
+128            android:parentActivityName="com.example.budgetapp.MainActivity"
+128-->/home/thomas/budget/app/src/main/AndroidManifest.xml:109:13-55
+129            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+129-->/home/thomas/budget/app/src/main/AndroidManifest.xml:108:13-63
+130        <activity
+130-->/home/thomas/budget/app/src/main/AndroidManifest.xml:111:9-115:66
+131            android:name="com.example.budgetapp.AddEditShoppingListActivity"
+131-->/home/thomas/budget/app/src/main/AndroidManifest.xml:112:13-56
+132            android:exported="false"
+132-->/home/thomas/budget/app/src/main/AndroidManifest.xml:113:13-37
+133            android:parentActivityName="com.example.budgetapp.ShoppingListActivity"
+133-->/home/thomas/budget/app/src/main/AndroidManifest.xml:115:13-63
+134            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+134-->/home/thomas/budget/app/src/main/AndroidManifest.xml:114:13-63
+135        <activity
+135-->/home/thomas/budget/app/src/main/AndroidManifest.xml:117:9-121:66
+136            android:name="com.example.budgetapp.ShoppingListDetailActivity"
+136-->/home/thomas/budget/app/src/main/AndroidManifest.xml:118:13-55
+137            android:exported="false"
+137-->/home/thomas/budget/app/src/main/AndroidManifest.xml:119:13-37
+138            android:parentActivityName="com.example.budgetapp.ShoppingListActivity"
+138-->/home/thomas/budget/app/src/main/AndroidManifest.xml:121:13-63
+139            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+139-->/home/thomas/budget/app/src/main/AndroidManifest.xml:120:13-63
+140        <activity
+140-->/home/thomas/budget/app/src/main/AndroidManifest.xml:123:9-127:72
+141            android:name="com.example.budgetapp.AddEditShoppingListItemActivity"
+141-->/home/thomas/budget/app/src/main/AndroidManifest.xml:124:13-60
+142            android:exported="false"
+142-->/home/thomas/budget/app/src/main/AndroidManifest.xml:125:13-37
+143            android:parentActivityName="com.example.budgetapp.ShoppingListDetailActivity"
+143-->/home/thomas/budget/app/src/main/AndroidManifest.xml:127:13-69
+144            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+144-->/home/thomas/budget/app/src/main/AndroidManifest.xml:126:13-63
+145        <activity
+145-->/home/thomas/budget/app/src/main/AndroidManifest.xml:129:9-133:77
+146            android:name="com.example.budgetapp.SelectProductActivity"
+146-->/home/thomas/budget/app/src/main/AndroidManifest.xml:130:13-50
+147            android:exported="false"
+147-->/home/thomas/budget/app/src/main/AndroidManifest.xml:131:13-37
+148            android:parentActivityName="com.example.budgetapp.AddEditShoppingListItemActivity"
+148-->/home/thomas/budget/app/src/main/AndroidManifest.xml:133:13-74
+149            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+149-->/home/thomas/budget/app/src/main/AndroidManifest.xml:132:13-63
+150        <activity
+150-->/home/thomas/budget/app/src/main/AndroidManifest.xml:135:9-139:72
+151            android:name="com.example.budgetapp.OptimizedShoppingActivity"
+151-->/home/thomas/budget/app/src/main/AndroidManifest.xml:136:13-54
+152            android:exported="false"
+152-->/home/thomas/budget/app/src/main/AndroidManifest.xml:137:13-37
+153            android:parentActivityName="com.example.budgetapp.ShoppingListDetailActivity"
+153-->/home/thomas/budget/app/src/main/AndroidManifest.xml:139:13-69
+154            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+154-->/home/thomas/budget/app/src/main/AndroidManifest.xml:138:13-63
+155        <activity
+155-->/home/thomas/budget/app/src/main/AndroidManifest.xml:141:9-145:73
+156            android:name="com.example.budgetapp.PriceHistoryActivity"
+156-->/home/thomas/budget/app/src/main/AndroidManifest.xml:142:13-49
+157            android:exported="false"
+157-->/home/thomas/budget/app/src/main/AndroidManifest.xml:143:13-37
+158            android:parentActivityName="com.example.budgetapp.ProductPriceManagerActivity"
+158-->/home/thomas/budget/app/src/main/AndroidManifest.xml:145:13-70
+159            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+159-->/home/thomas/budget/app/src/main/AndroidManifest.xml:144:13-63
+160        <activity
+160-->/home/thomas/budget/app/src/main/AndroidManifest.xml:147:9-151:58
+161            android:name="com.example.budgetapp.SmartRecommendationsActivity"
+161-->/home/thomas/budget/app/src/main/AndroidManifest.xml:148:13-57
+162            android:exported="false"
+162-->/home/thomas/budget/app/src/main/AndroidManifest.xml:149:13-37
+163            android:parentActivityName="com.example.budgetapp.MainActivity"
+163-->/home/thomas/budget/app/src/main/AndroidManifest.xml:151:13-55
+164            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+164-->/home/thomas/budget/app/src/main/AndroidManifest.xml:150:13-63
+165        <activity
+165-->/home/thomas/budget/app/src/main/AndroidManifest.xml:153:9-157:58
+166            android:name="com.example.budgetapp.BudgetAnalyticsActivity"
+166-->/home/thomas/budget/app/src/main/AndroidManifest.xml:154:13-52
+167            android:exported="false"
+167-->/home/thomas/budget/app/src/main/AndroidManifest.xml:155:13-37
+168            android:parentActivityName="com.example.budgetapp.MainActivity"
+168-->/home/thomas/budget/app/src/main/AndroidManifest.xml:157:13-55
+169            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+169-->/home/thomas/budget/app/src/main/AndroidManifest.xml:156:13-63
+170        <activity
+170-->/home/thomas/budget/app/src/main/AndroidManifest.xml:159:9-163:58
+171            android:name="com.example.budgetapp.CategoryManagerActivity"
+171-->/home/thomas/budget/app/src/main/AndroidManifest.xml:160:13-52
+172            android:exported="false"
+172-->/home/thomas/budget/app/src/main/AndroidManifest.xml:161:13-37
+173            android:parentActivityName="com.example.budgetapp.MainActivity"
+173-->/home/thomas/budget/app/src/main/AndroidManifest.xml:163:13-55
+174            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+174-->/home/thomas/budget/app/src/main/AndroidManifest.xml:162:13-63
+175        <activity
+175-->/home/thomas/budget/app/src/main/AndroidManifest.xml:165:9-169:69
+176            android:name="com.example.budgetapp.AddEditCategoryActivity"
+176-->/home/thomas/budget/app/src/main/AndroidManifest.xml:166:13-52
+177            android:exported="false"
+177-->/home/thomas/budget/app/src/main/AndroidManifest.xml:167:13-37
+178            android:parentActivityName="com.example.budgetapp.CategoryManagerActivity"
+178-->/home/thomas/budget/app/src/main/AndroidManifest.xml:169:13-66
+179            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+179-->/home/thomas/budget/app/src/main/AndroidManifest.xml:168:13-63
+180        <activity
+180-->/home/thomas/budget/app/src/main/AndroidManifest.xml:171:9-175:58
+181            android:name="com.example.budgetapp.BudgetRolloverSettingsActivity"
+181-->/home/thomas/budget/app/src/main/AndroidManifest.xml:172:13-59
+182            android:exported="false"
+182-->/home/thomas/budget/app/src/main/AndroidManifest.xml:173:13-37
+183            android:parentActivityName="com.example.budgetapp.MainActivity"
+183-->/home/thomas/budget/app/src/main/AndroidManifest.xml:175:13-55
+184            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+184-->/home/thomas/budget/app/src/main/AndroidManifest.xml:174:13-63
+185        <activity
+185-->/home/thomas/budget/app/src/main/AndroidManifest.xml:177:9-181:58
+186            android:name="com.example.budgetapp.ThemePreferencesActivity"
+186-->/home/thomas/budget/app/src/main/AndroidManifest.xml:178:13-53
+187            android:exported="false"
+187-->/home/thomas/budget/app/src/main/AndroidManifest.xml:179:13-37
+188            android:parentActivityName="com.example.budgetapp.MainActivity"
+188-->/home/thomas/budget/app/src/main/AndroidManifest.xml:181:13-55
+189            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+189-->/home/thomas/budget/app/src/main/AndroidManifest.xml:180:13-63
+190        <activity
+190-->/home/thomas/budget/app/src/main/AndroidManifest.xml:183:9-187:58
+191            android:name="com.example.budgetapp.ProductCategoryManagerActivity"
+191-->/home/thomas/budget/app/src/main/AndroidManifest.xml:184:13-59
+192            android:exported="false"
+192-->/home/thomas/budget/app/src/main/AndroidManifest.xml:185:13-37
+193            android:parentActivityName="com.example.budgetapp.MainActivity"
+193-->/home/thomas/budget/app/src/main/AndroidManifest.xml:187:13-55
+194            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+194-->/home/thomas/budget/app/src/main/AndroidManifest.xml:186:13-63
+195        <activity
+195-->/home/thomas/budget/app/src/main/AndroidManifest.xml:189:9-193:58
+196            android:name="com.example.budgetapp.NotificationSettingsActivity"
+196-->/home/thomas/budget/app/src/main/AndroidManifest.xml:190:13-57
+197            android:exported="false"
+197-->/home/thomas/budget/app/src/main/AndroidManifest.xml:191:13-37
+198            android:parentActivityName="com.example.budgetapp.MainActivity"
+198-->/home/thomas/budget/app/src/main/AndroidManifest.xml:193:13-55
+199            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+199-->/home/thomas/budget/app/src/main/AndroidManifest.xml:192:13-63
+200        <activity
+200-->/home/thomas/budget/app/src/main/AndroidManifest.xml:195:9-199:74
+201            android:name="com.example.budgetapp.TransactionSelectorActivity"
+201-->/home/thomas/budget/app/src/main/AndroidManifest.xml:196:13-56
+202            android:exported="false"
+202-->/home/thomas/budget/app/src/main/AndroidManifest.xml:197:13-37
+203            android:parentActivityName="com.example.budgetapp.NotificationSettingsActivity"
+203-->/home/thomas/budget/app/src/main/AndroidManifest.xml:199:13-71
+204            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+204-->/home/thomas/budget/app/src/main/AndroidManifest.xml:198:13-63
+205        <activity
+205-->/home/thomas/budget/app/src/main/AndroidManifest.xml:201:9-205:74
+206            android:name="com.example.budgetapp.StoreDetailActivity"
+206-->/home/thomas/budget/app/src/main/AndroidManifest.xml:202:13-48
+207            android:exported="false"
+207-->/home/thomas/budget/app/src/main/AndroidManifest.xml:203:13-37
+208            android:parentActivityName="com.example.budgetapp.SmartRecommendationsActivity"
+208-->/home/thomas/budget/app/src/main/AndroidManifest.xml:205:13-71
+209            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+209-->/home/thomas/budget/app/src/main/AndroidManifest.xml:204:13-63
+210        <activity
+210-->/home/thomas/budget/app/src/main/AndroidManifest.xml:207:9-211:58
+211            android:name="com.example.budgetapp.StoreAndProductManagerActivity"
+211-->/home/thomas/budget/app/src/main/AndroidManifest.xml:208:13-59
+212            android:exported="false"
+212-->/home/thomas/budget/app/src/main/AndroidManifest.xml:209:13-37
+213            android:parentActivityName="com.example.budgetapp.MainActivity"
+213-->/home/thomas/budget/app/src/main/AndroidManifest.xml:211:13-55
+214            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+214-->/home/thomas/budget/app/src/main/AndroidManifest.xml:210:13-63
+215
+216        <!-- Notification Receiver -->
+217        <receiver
+217-->/home/thomas/budget/app/src/main/AndroidManifest.xml:214:9-227:20
+218            android:name="com.example.budgetapp.receivers.NotificationReceiver"
+218-->/home/thomas/budget/app/src/main/AndroidManifest.xml:215:13-59
+219            android:enabled="true"
+219-->/home/thomas/budget/app/src/main/AndroidManifest.xml:216:13-35
+220            android:exported="false" >
+220-->/home/thomas/budget/app/src/main/AndroidManifest.xml:217:13-37
+221            <intent-filter>
+221-->/home/thomas/budget/app/src/main/AndroidManifest.xml:218:13-226:29
+222                <action android:name="com.example.budgetapp.DAILY_IF_NOT_OPENED" />
+222-->/home/thomas/budget/app/src/main/AndroidManifest.xml:219:17-84
+222-->/home/thomas/budget/app/src/main/AndroidManifest.xml:219:25-81
+223                <action android:name="com.example.budgetapp.DAILY_ALWAYS" />
+223-->/home/thomas/budget/app/src/main/AndroidManifest.xml:220:17-77
+223-->/home/thomas/budget/app/src/main/AndroidManifest.xml:220:25-74
+224                <action android:name="com.example.budgetapp.24_HOURS_CHECK" />
+224-->/home/thomas/budget/app/src/main/AndroidManifest.xml:221:17-79
+224-->/home/thomas/budget/app/src/main/AndroidManifest.xml:221:25-76
+225                <action android:name="com.example.budgetapp.UPCOMING_TRANSACTIONS" />
+225-->/home/thomas/budget/app/src/main/AndroidManifest.xml:222:17-86
+225-->/home/thomas/budget/app/src/main/AndroidManifest.xml:222:25-83
+226                <action android:name="android.intent.action.BOOT_COMPLETED" />
+226-->/home/thomas/budget/app/src/main/AndroidManifest.xml:223:17-79
+226-->/home/thomas/budget/app/src/main/AndroidManifest.xml:223:25-76
+227                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+227-->/home/thomas/budget/app/src/main/AndroidManifest.xml:224:17-84
+227-->/home/thomas/budget/app/src/main/AndroidManifest.xml:224:25-81
+228
+229                <data android:scheme="package" />
+229-->/home/thomas/budget/app/src/main/AndroidManifest.xml:225:17-50
+229-->/home/thomas/budget/app/src/main/AndroidManifest.xml:225:23-47
+230            </intent-filter>
+231        </receiver>
+232
+233        <!--
+234        Service for holding metadata. Cannot be instantiated.
+235        Metadata will be merged from other manifests.
+236        -->
+237        <service
+237-->[androidx.camera:camera-core:1.3.1] /home/thomas/.gradle/caches/transforms-3/5e401483a98ce8b62c1484b04bb130d5/transformed/jetified-camera-core-1.3.1/AndroidManifest.xml:29:9-33:78
+238            android:name="androidx.camera.core.impl.MetadataHolderService"
+238-->[androidx.camera:camera-core:1.3.1] /home/thomas/.gradle/caches/transforms-3/5e401483a98ce8b62c1484b04bb130d5/transformed/jetified-camera-core-1.3.1/AndroidManifest.xml:30:13-75
+239            android:enabled="false"
+239-->[androidx.camera:camera-core:1.3.1] /home/thomas/.gradle/caches/transforms-3/5e401483a98ce8b62c1484b04bb130d5/transformed/jetified-camera-core-1.3.1/AndroidManifest.xml:31:13-36
+240            android:exported="false" >
+240-->[androidx.camera:camera-core:1.3.1] /home/thomas/.gradle/caches/transforms-3/5e401483a98ce8b62c1484b04bb130d5/transformed/jetified-camera-core-1.3.1/AndroidManifest.xml:32:13-37
+241            <meta-data
+241-->[androidx.camera:camera-camera2:1.3.1] /home/thomas/.gradle/caches/transforms-3/dcf56a688a0a1c289566982c269a24a1/transformed/jetified-camera-camera2-1.3.1/AndroidManifest.xml:30:13-32:89
+242                android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
+242-->[androidx.camera:camera-camera2:1.3.1] /home/thomas/.gradle/caches/transforms-3/dcf56a688a0a1c289566982c269a24a1/transformed/jetified-camera-camera2-1.3.1/AndroidManifest.xml:31:17-103
+243                android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
+243-->[androidx.camera:camera-camera2:1.3.1] /home/thomas/.gradle/caches/transforms-3/dcf56a688a0a1c289566982c269a24a1/transformed/jetified-camera-camera2-1.3.1/AndroidManifest.xml:32:17-86
+244        </service>
+245
+246        <activity
+246-->[com.google.android.libraries.places:places:3.3.0] /home/thomas/.gradle/caches/transforms-3/27f7612843168f0a41a8ea8f367243b6/transformed/jetified-places-3.3.0/AndroidManifest.xml:15:9-21:20
+247            android:name="com.google.android.libraries.places.widget.AutocompleteActivity"
+247-->[com.google.android.libraries.places:places:3.3.0] /home/thomas/.gradle/caches/transforms-3/27f7612843168f0a41a8ea8f367243b6/transformed/jetified-places-3.3.0/AndroidManifest.xml:16:13-91
+248            android:exported="false"
+248-->[com.google.android.libraries.places:places:3.3.0] /home/thomas/.gradle/caches/transforms-3/27f7612843168f0a41a8ea8f367243b6/transformed/jetified-places-3.3.0/AndroidManifest.xml:17:13-37
+249            android:label="@string/places_autocomplete_label"
+249-->[com.google.android.libraries.places:places:3.3.0] /home/thomas/.gradle/caches/transforms-3/27f7612843168f0a41a8ea8f367243b6/transformed/jetified-places-3.3.0/AndroidManifest.xml:18:13-62
+250            android:theme="@style/PlacesAutocompleteOverlay"
+250-->[com.google.android.libraries.places:places:3.3.0] /home/thomas/.gradle/caches/transforms-3/27f7612843168f0a41a8ea8f367243b6/transformed/jetified-places-3.3.0/AndroidManifest.xml:19:13-61
+251            android:windowSoftInputMode="adjustResize" >
+251-->[com.google.android.libraries.places:places:3.3.0] /home/thomas/.gradle/caches/transforms-3/27f7612843168f0a41a8ea8f367243b6/transformed/jetified-places-3.3.0/AndroidManifest.xml:20:13-55
+252        </activity> <!-- Needs to be explicitly declared on P+ -->
+253        <uses-library
+253-->[com.google.android.gms:play-services-maps:18.2.0] /home/thomas/.gradle/caches/transforms-3/285d5663bf1bc1721a96668ff51eaddf/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:39:9-41:40
+254            android:name="org.apache.http.legacy"
+254-->[com.google.android.gms:play-services-maps:18.2.0] /home/thomas/.gradle/caches/transforms-3/285d5663bf1bc1721a96668ff51eaddf/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:40:13-50
+255            android:required="false" />
+255-->[com.google.android.gms:play-services-maps:18.2.0] /home/thomas/.gradle/caches/transforms-3/285d5663bf1bc1721a96668ff51eaddf/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:41:13-37
+256
+257        <service
+257-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0] /home/thomas/.gradle/caches/transforms-3/9c451ed1d07071d558168d331a3f6b0a/transformed/jetified-play-services-mlkit-barcode-scanning-18.3.0/AndroidManifest.xml:9:9-15:19
+258            android:name="com.google.mlkit.common.internal.MlKitComponentDiscoveryService"
+258-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0] /home/thomas/.gradle/caches/transforms-3/9c451ed1d07071d558168d331a3f6b0a/transformed/jetified-play-services-mlkit-barcode-scanning-18.3.0/AndroidManifest.xml:10:13-91
+259            android:directBootAware="true"
+259-->[com.google.mlkit:common:18.9.0] /home/thomas/.gradle/caches/transforms-3/bdfb949d32277798a93ab41793a4a4b8/transformed/jetified-common-18.9.0/AndroidManifest.xml:17:13-43
+260            android:exported="false" >
+260-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0] /home/thomas/.gradle/caches/transforms-3/9c451ed1d07071d558168d331a3f6b0a/transformed/jetified-play-services-mlkit-barcode-scanning-18.3.0/AndroidManifest.xml:11:13-37
+261            <meta-data
+261-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0] /home/thomas/.gradle/caches/transforms-3/9c451ed1d07071d558168d331a3f6b0a/transformed/jetified-play-services-mlkit-barcode-scanning-18.3.0/AndroidManifest.xml:12:13-14:85
+262                android:name="com.google.firebase.components:com.google.mlkit.vision.barcode.internal.BarcodeRegistrar"
+262-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0] /home/thomas/.gradle/caches/transforms-3/9c451ed1d07071d558168d331a3f6b0a/transformed/jetified-play-services-mlkit-barcode-scanning-18.3.0/AndroidManifest.xml:13:17-120
+263                android:value="com.google.firebase.components.ComponentRegistrar" />
+263-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0] /home/thomas/.gradle/caches/transforms-3/9c451ed1d07071d558168d331a3f6b0a/transformed/jetified-play-services-mlkit-barcode-scanning-18.3.0/AndroidManifest.xml:14:17-82
+264            <meta-data
+264-->[com.google.mlkit:vision-common:17.3.0] /home/thomas/.gradle/caches/transforms-3/e4bf9162b813903ca2056e64d71f3ab8/transformed/jetified-vision-common-17.3.0/AndroidManifest.xml:12:13-14:85
+265                android:name="com.google.firebase.components:com.google.mlkit.vision.common.internal.VisionCommonRegistrar"
+265-->[com.google.mlkit:vision-common:17.3.0] /home/thomas/.gradle/caches/transforms-3/e4bf9162b813903ca2056e64d71f3ab8/transformed/jetified-vision-common-17.3.0/AndroidManifest.xml:13:17-124
+266                android:value="com.google.firebase.components.ComponentRegistrar" />
+266-->[com.google.mlkit:vision-common:17.3.0] /home/thomas/.gradle/caches/transforms-3/e4bf9162b813903ca2056e64d71f3ab8/transformed/jetified-vision-common-17.3.0/AndroidManifest.xml:14:17-82
+267            <meta-data
+267-->[com.google.mlkit:common:18.9.0] /home/thomas/.gradle/caches/transforms-3/bdfb949d32277798a93ab41793a4a4b8/transformed/jetified-common-18.9.0/AndroidManifest.xml:20:13-22:85
+268                android:name="com.google.firebase.components:com.google.mlkit.common.internal.CommonComponentRegistrar"
+268-->[com.google.mlkit:common:18.9.0] /home/thomas/.gradle/caches/transforms-3/bdfb949d32277798a93ab41793a4a4b8/transformed/jetified-common-18.9.0/AndroidManifest.xml:21:17-120
+269                android:value="com.google.firebase.components.ComponentRegistrar" />
+269-->[com.google.mlkit:common:18.9.0] /home/thomas/.gradle/caches/transforms-3/bdfb949d32277798a93ab41793a4a4b8/transformed/jetified-common-18.9.0/AndroidManifest.xml:22:17-82
+270        </service>
+271
+272        <provider
+272-->[com.google.mlkit:common:18.9.0] /home/thomas/.gradle/caches/transforms-3/bdfb949d32277798a93ab41793a4a4b8/transformed/jetified-common-18.9.0/AndroidManifest.xml:9:9-13:38
+273            android:name="com.google.mlkit.common.internal.MlKitInitProvider"
+273-->[com.google.mlkit:common:18.9.0] /home/thomas/.gradle/caches/transforms-3/bdfb949d32277798a93ab41793a4a4b8/transformed/jetified-common-18.9.0/AndroidManifest.xml:10:13-78
+274            android:authorities="com.example.budgetapp.mlkitinitprovider"
+274-->[com.google.mlkit:common:18.9.0] /home/thomas/.gradle/caches/transforms-3/bdfb949d32277798a93ab41793a4a4b8/transformed/jetified-common-18.9.0/AndroidManifest.xml:11:13-69
+275            android:exported="false"
+275-->[com.google.mlkit:common:18.9.0] /home/thomas/.gradle/caches/transforms-3/bdfb949d32277798a93ab41793a4a4b8/transformed/jetified-common-18.9.0/AndroidManifest.xml:12:13-37
+276            android:initOrder="99" />
+276-->[com.google.mlkit:common:18.9.0] /home/thomas/.gradle/caches/transforms-3/bdfb949d32277798a93ab41793a4a4b8/transformed/jetified-common-18.9.0/AndroidManifest.xml:13:13-35
+277
+278        <activity
+278-->[com.google.android.gms:play-services-base:18.1.0] /home/thomas/.gradle/caches/transforms-3/53bc36d90f858a74fca23637ec675d4b/transformed/jetified-play-services-base-18.1.0/AndroidManifest.xml:20:9-22:45
+279            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+279-->[com.google.android.gms:play-services-base:18.1.0] /home/thomas/.gradle/caches/transforms-3/53bc36d90f858a74fca23637ec675d4b/transformed/jetified-play-services-base-18.1.0/AndroidManifest.xml:20:19-85
+280            android:exported="false"
+280-->[com.google.android.gms:play-services-base:18.1.0] /home/thomas/.gradle/caches/transforms-3/53bc36d90f858a74fca23637ec675d4b/transformed/jetified-play-services-base-18.1.0/AndroidManifest.xml:22:19-43
+281            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+281-->[com.google.android.gms:play-services-base:18.1.0] /home/thomas/.gradle/caches/transforms-3/53bc36d90f858a74fca23637ec675d4b/transformed/jetified-play-services-base-18.1.0/AndroidManifest.xml:21:19-78
+282
+283        <meta-data
+283-->[com.google.android.gms:play-services-basement:18.1.0] /home/thomas/.gradle/caches/transforms-3/e20566f277e12a641a26b87893211e1a/transformed/jetified-play-services-basement-18.1.0/AndroidManifest.xml:21:9-23:69
+284            android:name="com.google.android.gms.version"
+284-->[com.google.android.gms:play-services-basement:18.1.0] /home/thomas/.gradle/caches/transforms-3/e20566f277e12a641a26b87893211e1a/transformed/jetified-play-services-basement-18.1.0/AndroidManifest.xml:22:13-58
+285            android:value="@integer/google_play_services_version" />
+285-->[com.google.android.gms:play-services-basement:18.1.0] /home/thomas/.gradle/caches/transforms-3/e20566f277e12a641a26b87893211e1a/transformed/jetified-play-services-basement-18.1.0/AndroidManifest.xml:23:13-66
+286
+287        <provider
+287-->[androidx.emoji2:emoji2:1.3.0] /home/thomas/.gradle/caches/transforms-3/e27e7686ea43a56879e649f2f09b759a/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
+288            android:name="androidx.startup.InitializationProvider"
+288-->[androidx.emoji2:emoji2:1.3.0] /home/thomas/.gradle/caches/transforms-3/e27e7686ea43a56879e649f2f09b759a/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:25:13-67
+289            android:authorities="com.example.budgetapp.androidx-startup"
+289-->[androidx.emoji2:emoji2:1.3.0] /home/thomas/.gradle/caches/transforms-3/e27e7686ea43a56879e649f2f09b759a/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:26:13-68
+290            android:exported="false" >
+290-->[androidx.emoji2:emoji2:1.3.0] /home/thomas/.gradle/caches/transforms-3/e27e7686ea43a56879e649f2f09b759a/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:27:13-37
+291            <meta-data
+291-->[androidx.emoji2:emoji2:1.3.0] /home/thomas/.gradle/caches/transforms-3/e27e7686ea43a56879e649f2f09b759a/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
+292                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+292-->[androidx.emoji2:emoji2:1.3.0] /home/thomas/.gradle/caches/transforms-3/e27e7686ea43a56879e649f2f09b759a/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:30:17-75
+293                android:value="androidx.startup" />
+293-->[androidx.emoji2:emoji2:1.3.0] /home/thomas/.gradle/caches/transforms-3/e27e7686ea43a56879e649f2f09b759a/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:31:17-49
+294            <meta-data
+294-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:34:13-36:52
+295                android:name="androidx.work.WorkManagerInitializer"
+295-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:35:17-68
+296                android:value="androidx.startup" />
+296-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:36:17-49
+297            <meta-data
+297-->[androidx.lifecycle:lifecycle-process:2.7.0] /home/thomas/.gradle/caches/transforms-3/a18515708b73b7962d745a84f5274d3e/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:29:13-31:52
+298                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+298-->[androidx.lifecycle:lifecycle-process:2.7.0] /home/thomas/.gradle/caches/transforms-3/a18515708b73b7962d745a84f5274d3e/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:30:17-78
+299                android:value="androidx.startup" />
+299-->[androidx.lifecycle:lifecycle-process:2.7.0] /home/thomas/.gradle/caches/transforms-3/a18515708b73b7962d745a84f5274d3e/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:31:17-49
+300            <meta-data
+300-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/thomas/.gradle/caches/transforms-3/de0672e08312ea99eb6315c1d3baf595/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
+301                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+301-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/thomas/.gradle/caches/transforms-3/de0672e08312ea99eb6315c1d3baf595/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
+302                android:value="androidx.startup" />
+302-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/thomas/.gradle/caches/transforms-3/de0672e08312ea99eb6315c1d3baf595/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
+303        </provider>
+304
+305        <service
+305-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:39:9-45:35
+306            android:name="androidx.work.impl.background.systemalarm.SystemAlarmService"
+306-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:40:13-88
+307            android:directBootAware="false"
+307-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:41:13-44
+308            android:enabled="@bool/enable_system_alarm_service_default"
+308-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:42:13-72
+309            android:exported="false" />
+309-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:43:13-37
+310        <service
+310-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:46:9-52:35
+311            android:name="androidx.work.impl.background.systemjob.SystemJobService"
+311-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:47:13-84
+312            android:directBootAware="false"
+312-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:48:13-44
+313            android:enabled="@bool/enable_system_job_service_default"
+313-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:49:13-70
+314            android:exported="true"
+314-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:50:13-36
+315            android:permission="android.permission.BIND_JOB_SERVICE" />
+315-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:51:13-69
+316        <service
+316-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:53:9-59:35
+317            android:name="androidx.work.impl.foreground.SystemForegroundService"
+317-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:54:13-81
+318            android:directBootAware="false"
+318-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:55:13-44
+319            android:enabled="@bool/enable_system_foreground_service_default"
+319-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:56:13-77
+320            android:exported="false" />
+320-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:57:13-37
+321
+322        <receiver
+322-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:61:9-66:35
+323            android:name="androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver"
+323-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:62:13-88
+324            android:directBootAware="false"
+324-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:63:13-44
+325            android:enabled="true"
+325-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:64:13-35
+326            android:exported="false" />
+326-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:65:13-37
+327        <receiver
+327-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:67:9-77:20
+328            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy"
+328-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:68:13-106
+329            android:directBootAware="false"
+329-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:69:13-44
+330            android:enabled="false"
+330-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:70:13-36
+331            android:exported="false" >
+331-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:71:13-37
+332            <intent-filter>
+332-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:73:13-76:29
+333                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+333-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:74:17-87
+333-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:74:25-84
+334                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+334-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:75:17-90
+334-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:75:25-87
+335            </intent-filter>
+336        </receiver>
+337        <receiver
+337-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:78:9-88:20
+338            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy"
+338-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:79:13-104
+339            android:directBootAware="false"
+339-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:80:13-44
+340            android:enabled="false"
+340-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:81:13-36
+341            android:exported="false" >
+341-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:82:13-37
+342            <intent-filter>
+342-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:84:13-87:29
+343                <action android:name="android.intent.action.BATTERY_OKAY" />
+343-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:85:17-77
+343-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:85:25-74
+344                <action android:name="android.intent.action.BATTERY_LOW" />
+344-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:86:17-76
+344-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:86:25-73
+345            </intent-filter>
+346        </receiver>
+347        <receiver
+347-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:89:9-99:20
+348            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy"
+348-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:90:13-104
+349            android:directBootAware="false"
+349-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:91:13-44
+350            android:enabled="false"
+350-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:92:13-36
+351            android:exported="false" >
+351-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:93:13-37
+352            <intent-filter>
+352-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:95:13-98:29
+353                <action android:name="android.intent.action.DEVICE_STORAGE_LOW" />
+353-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:96:17-83
+353-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:96:25-80
+354                <action android:name="android.intent.action.DEVICE_STORAGE_OK" />
+354-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:97:17-82
+354-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:97:25-79
+355            </intent-filter>
+356        </receiver>
+357        <receiver
+357-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:100:9-109:20
+358            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy"
+358-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:101:13-103
+359            android:directBootAware="false"
+359-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:102:13-44
+360            android:enabled="false"
+360-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:103:13-36
+361            android:exported="false" >
+361-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:104:13-37
+362            <intent-filter>
+362-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:106:13-108:29
+363                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+363-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:107:17-79
+363-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:107:25-76
+364            </intent-filter>
+365        </receiver>
+366        <receiver
+366-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:110:9-121:20
+367            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
+367-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:111:13-88
+368            android:directBootAware="false"
+368-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:112:13-44
+369            android:enabled="false"
+369-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:113:13-36
+370            android:exported="false" >
+370-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:114:13-37
+371            <intent-filter>
+371-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:116:13-120:29
+372                <action android:name="android.intent.action.BOOT_COMPLETED" />
+372-->/home/thomas/budget/app/src/main/AndroidManifest.xml:223:17-79
+372-->/home/thomas/budget/app/src/main/AndroidManifest.xml:223:25-76
+373                <action android:name="android.intent.action.TIME_SET" />
+373-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:118:17-73
+373-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:118:25-70
+374                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+374-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:119:17-81
+374-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:119:25-78
+375            </intent-filter>
+376        </receiver>
+377        <receiver
+377-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:122:9-131:20
+378            android:name="androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver"
+378-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:123:13-99
+379            android:directBootAware="false"
+379-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:124:13-44
+380            android:enabled="@bool/enable_system_alarm_service_default"
+380-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:125:13-72
+381            android:exported="false" >
+381-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:126:13-37
+382            <intent-filter>
+382-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:128:13-130:29
+383                <action android:name="androidx.work.impl.background.systemalarm.UpdateProxies" />
+383-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:129:17-98
+383-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:129:25-95
+384            </intent-filter>
+385        </receiver>
+386        <receiver
+386-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:132:9-142:20
+387            android:name="androidx.work.impl.diagnostics.DiagnosticsReceiver"
+387-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:133:13-78
+388            android:directBootAware="false"
+388-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:134:13-44
+389            android:enabled="true"
+389-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:135:13-35
+390            android:exported="true"
+390-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:136:13-36
+391            android:permission="android.permission.DUMP" >
+391-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:137:13-57
+392            <intent-filter>
+392-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:139:13-141:29
+393                <action android:name="androidx.work.diagnostics.REQUEST_DIAGNOSTICS" />
+393-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:140:17-88
+393-->[androidx.work:work-runtime:2.9.0] /home/thomas/.gradle/caches/transforms-3/6c8893acb0662f02d66342f145fae9b0/transformed/work-runtime-2.9.0/AndroidManifest.xml:140:25-85
+394            </intent-filter>
+395        </receiver>
+396
+397        <uses-library
+397-->[androidx.window:window:1.0.0] /home/thomas/.gradle/caches/transforms-3/7eaf48e4773002c5c9c02836841e54a4/transformed/jetified-window-1.0.0/AndroidManifest.xml:25:9-27:40
+398            android:name="androidx.window.extensions"
+398-->[androidx.window:window:1.0.0] /home/thomas/.gradle/caches/transforms-3/7eaf48e4773002c5c9c02836841e54a4/transformed/jetified-window-1.0.0/AndroidManifest.xml:26:13-54
+399            android:required="false" />
+399-->[androidx.window:window:1.0.0] /home/thomas/.gradle/caches/transforms-3/7eaf48e4773002c5c9c02836841e54a4/transformed/jetified-window-1.0.0/AndroidManifest.xml:27:13-37
+400        <uses-library
+400-->[androidx.window:window:1.0.0] /home/thomas/.gradle/caches/transforms-3/7eaf48e4773002c5c9c02836841e54a4/transformed/jetified-window-1.0.0/AndroidManifest.xml:28:9-30:40
+401            android:name="androidx.window.sidecar"
+401-->[androidx.window:window:1.0.0] /home/thomas/.gradle/caches/transforms-3/7eaf48e4773002c5c9c02836841e54a4/transformed/jetified-window-1.0.0/AndroidManifest.xml:29:13-51
+402            android:required="false" />
+402-->[androidx.window:window:1.0.0] /home/thomas/.gradle/caches/transforms-3/7eaf48e4773002c5c9c02836841e54a4/transformed/jetified-window-1.0.0/AndroidManifest.xml:30:13-37
+403
+404        <service
+404-->[androidx.room:room-runtime:2.6.1] /home/thomas/.gradle/caches/transforms-3/8cd5799671618cc37c5842000e4825fa/transformed/room-runtime-2.6.1/AndroidManifest.xml:24:9-28:63
+405            android:name="androidx.room.MultiInstanceInvalidationService"
+405-->[androidx.room:room-runtime:2.6.1] /home/thomas/.gradle/caches/transforms-3/8cd5799671618cc37c5842000e4825fa/transformed/room-runtime-2.6.1/AndroidManifest.xml:25:13-74
+406            android:directBootAware="true"
+406-->[androidx.room:room-runtime:2.6.1] /home/thomas/.gradle/caches/transforms-3/8cd5799671618cc37c5842000e4825fa/transformed/room-runtime-2.6.1/AndroidManifest.xml:26:13-43
+407            android:exported="false" />
+407-->[androidx.room:room-runtime:2.6.1] /home/thomas/.gradle/caches/transforms-3/8cd5799671618cc37c5842000e4825fa/transformed/room-runtime-2.6.1/AndroidManifest.xml:27:13-37
+408
+409        <receiver
+409-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/thomas/.gradle/caches/transforms-3/de0672e08312ea99eb6315c1d3baf595/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
+410            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+410-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/thomas/.gradle/caches/transforms-3/de0672e08312ea99eb6315c1d3baf595/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
+411            android:directBootAware="false"
+411-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/thomas/.gradle/caches/transforms-3/de0672e08312ea99eb6315c1d3baf595/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
+412            android:enabled="true"
+412-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/thomas/.gradle/caches/transforms-3/de0672e08312ea99eb6315c1d3baf595/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
+413            android:exported="true"
+413-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/thomas/.gradle/caches/transforms-3/de0672e08312ea99eb6315c1d3baf595/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
+414            android:permission="android.permission.DUMP" >
+414-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/thomas/.gradle/caches/transforms-3/de0672e08312ea99eb6315c1d3baf595/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
+415            <intent-filter>
+415-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/thomas/.gradle/caches/transforms-3/de0672e08312ea99eb6315c1d3baf595/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
+416                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+416-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/thomas/.gradle/caches/transforms-3/de0672e08312ea99eb6315c1d3baf595/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
+416-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/thomas/.gradle/caches/transforms-3/de0672e08312ea99eb6315c1d3baf595/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
+417            </intent-filter>
+418            <intent-filter>
+418-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/thomas/.gradle/caches/transforms-3/de0672e08312ea99eb6315c1d3baf595/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
+419                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+419-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/thomas/.gradle/caches/transforms-3/de0672e08312ea99eb6315c1d3baf595/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
+419-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/thomas/.gradle/caches/transforms-3/de0672e08312ea99eb6315c1d3baf595/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
+420            </intent-filter>
+421            <intent-filter>
+421-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/thomas/.gradle/caches/transforms-3/de0672e08312ea99eb6315c1d3baf595/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
+422                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+422-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/thomas/.gradle/caches/transforms-3/de0672e08312ea99eb6315c1d3baf595/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
+422-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/thomas/.gradle/caches/transforms-3/de0672e08312ea99eb6315c1d3baf595/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
+423            </intent-filter>
+424            <intent-filter>
+424-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/thomas/.gradle/caches/transforms-3/de0672e08312ea99eb6315c1d3baf595/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
+425                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+425-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/thomas/.gradle/caches/transforms-3/de0672e08312ea99eb6315c1d3baf595/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
+425-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/thomas/.gradle/caches/transforms-3/de0672e08312ea99eb6315c1d3baf595/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
+426            </intent-filter>
+427        </receiver>
+428
+429        <service
+429-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /home/thomas/.gradle/caches/transforms-3/187e0b9ca2a827dc9b43df9d1b882461/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:29:9-35:19
+430            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+430-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /home/thomas/.gradle/caches/transforms-3/187e0b9ca2a827dc9b43df9d1b882461/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:30:13-103
+431            android:exported="false" >
+431-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /home/thomas/.gradle/caches/transforms-3/187e0b9ca2a827dc9b43df9d1b882461/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:31:13-37
+432            <meta-data
+432-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /home/thomas/.gradle/caches/transforms-3/187e0b9ca2a827dc9b43df9d1b882461/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:32:13-34:39
+433                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+433-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /home/thomas/.gradle/caches/transforms-3/187e0b9ca2a827dc9b43df9d1b882461/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:33:17-94
+434                android:value="cct" />
+434-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /home/thomas/.gradle/caches/transforms-3/187e0b9ca2a827dc9b43df9d1b882461/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:34:17-36
+435        </service>
+436        <service
+436-->[com.google.android.datatransport:transport-runtime:2.2.6] /home/thomas/.gradle/caches/transforms-3/5c538d185f65f0f07394360f5b085d81/transformed/jetified-transport-runtime-2.2.6/AndroidManifest.xml:26:9-30:19
+437            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+437-->[com.google.android.datatransport:transport-runtime:2.2.6] /home/thomas/.gradle/caches/transforms-3/5c538d185f65f0f07394360f5b085d81/transformed/jetified-transport-runtime-2.2.6/AndroidManifest.xml:27:13-117
+438            android:exported="false"
+438-->[com.google.android.datatransport:transport-runtime:2.2.6] /home/thomas/.gradle/caches/transforms-3/5c538d185f65f0f07394360f5b085d81/transformed/jetified-transport-runtime-2.2.6/AndroidManifest.xml:28:13-37
+439            android:permission="android.permission.BIND_JOB_SERVICE" >
+439-->[com.google.android.datatransport:transport-runtime:2.2.6] /home/thomas/.gradle/caches/transforms-3/5c538d185f65f0f07394360f5b085d81/transformed/jetified-transport-runtime-2.2.6/AndroidManifest.xml:29:13-69
+440        </service>
+441
+442        <receiver
+442-->[com.google.android.datatransport:transport-runtime:2.2.6] /home/thomas/.gradle/caches/transforms-3/5c538d185f65f0f07394360f5b085d81/transformed/jetified-transport-runtime-2.2.6/AndroidManifest.xml:32:9-34:40
+443            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+443-->[com.google.android.datatransport:transport-runtime:2.2.6] /home/thomas/.gradle/caches/transforms-3/5c538d185f65f0f07394360f5b085d81/transformed/jetified-transport-runtime-2.2.6/AndroidManifest.xml:33:13-132
+444            android:exported="false" />
+444-->[com.google.android.datatransport:transport-runtime:2.2.6] /home/thomas/.gradle/caches/transforms-3/5c538d185f65f0f07394360f5b085d81/transformed/jetified-transport-runtime-2.2.6/AndroidManifest.xml:34:13-37
+445    </application>
+446
+447</manifest>

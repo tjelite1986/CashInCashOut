@@ -8,15 +8,21 @@ data class ProductWithPrices(
     val product: Product,
     val prices: List<ProductStoreWithStore>
 ) {
+    private fun getTotalPrice(productStore: ProductStore): Double {
+        val basePrice = productStore.price
+        val depositAmount = if (product.hasDeposit) product.depositAmount ?: 0.0 else 0.0
+        return basePrice + depositAmount
+    }
+    
     val lowestPrice: Double?
-        get() = prices.minOfOrNull { it.productStore.price }
+        get() = prices.minOfOrNull { getTotalPrice(it.productStore) }
     
     val highestPrice: Double?
-        get() = prices.maxOfOrNull { it.productStore.price }
+        get() = prices.maxOfOrNull { getTotalPrice(it.productStore) }
     
     val averagePrice: Double?
         get() = if (prices.isNotEmpty()) {
-            prices.map { it.productStore.price }.average()
+            prices.map { getTotalPrice(it.productStore) }.average()
         } else null
 }
 

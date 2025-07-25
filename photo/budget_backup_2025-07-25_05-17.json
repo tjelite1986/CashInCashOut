@@ -1,0 +1,384 @@
+{
+  "budgets": [],
+  "categories": [
+    {
+      "associatedKeywords": "",
+      "color": "#FF6B6B",
+      "iconResName": "ic_dining",
+      "id": 1,
+      "isActive": true,
+      "isSubcategory": false,
+      "name": "Mat",
+      "sortOrder": 0,
+      "transactionCount": 0,
+      "type": "EXPENSE"
+    }
+  ],
+  "expenses": [
+    {
+      "amount": 665.21,
+      "category": "Räkningar",
+      "createdAt": 1753409510311,
+      "date": 1753927865017,
+      "id": 2,
+      "isRecurring": false,
+      "paymentMethod": "Kort",
+      "title": "Vattenfall (El)",
+      "updatedAt": 1753409510311
+    },
+    {
+      "amount": 943.0,
+      "category": "Räkningar",
+      "createdAt": 1753409573218,
+      "date": 1753582341538,
+      "id": 3,
+      "isRecurring": false,
+      "paymentMethod": "Faktura",
+      "title": "Bredband2",
+      "updatedAt": 1753409573218
+    },
+    {
+      "amount": 3000.0,
+      "category": "Räkningar",
+      "createdAt": 1753410061349,
+      "date": 1753410028515,
+      "id": 10,
+      "isRecurring": false,
+      "paymentMethod": "Faktura",
+      "title": "Vänersborgsbostäder 3000/6729",
+      "updatedAt": 1753410061349
+    },
+    {
+      "amount": 625.0,
+      "category": "Räkningar",
+      "createdAt": 1753410003848,
+      "date": 1753409982505,
+      "id": 9,
+      "isRecurring": false,
+      "paymentMethod": "Kort",
+      "title": "Barnbidraget (Slut)",
+      "updatedAt": 1753410003848
+    },
+    {
+      "amount": 3115.0,
+      "category": "Räkningar",
+      "createdAt": 1753409952530,
+      "date": 1753409923696,
+      "id": 8,
+      "isRecurring": false,
+      "paymentMethod": "Swish",
+      "title": "LÅN",
+      "updatedAt": 1753409952530
+    },
+    {
+      "amount": 718.32,
+      "category": "Räkningar",
+      "createdAt": 1753409882245,
+      "date": 1753409859816,
+      "id": 7,
+      "isRecurring": false,
+      "paymentMethod": "Swish",
+      "title": "Vattenfall (El)",
+      "updatedAt": 1753409882245
+    },
+    {
+      "amount": 860.0,
+      "category": "Transport",
+      "createdAt": 1753409659246,
+      "date": 1753409634207,
+      "id": 5,
+      "isRecurring": true,
+      "paymentMethod": "Kort",
+      "recurringType": "monthly",
+      "title": "Västtrafik 860",
+      "updatedAt": 1753409659246
+    },
+    {
+      "amount": 1000.0,
+      "category": "Räkningar",
+      "createdAt": 1753409599472,
+      "date": 1753409581658,
+      "id": 4,
+      "isRecurring": false,
+      "paymentMethod": "Faktura",
+      "title": "Inkasso Intrum",
+      "updatedAt": 1753409599472
+    },
+    {
+      "amount": 16.95,
+      "category": "Mat",
+      "createdAt": 1753383604816,
+      "date": 1753383551983,
+      "id": 1,
+      "isRecurring": false,
+      "paymentMethod": "Kort",
+      "title": "Hemköp Torpa",
+      "updatedAt": 1753383604816
+    }
+  ],
+  "exportDate": 1753413473285,
+  "incomes": [
+    {
+      "amount": 3200.0,
+      "category": "Lön",
+      "createdAt": 1753387171247,
+      "date": 1753473557556,
+      "id": 2,
+      "isRecurring": false,
+      "title": "Bostadsbidrag",
+      "updatedAt": 1753387171247
+    },
+    {
+      "amount": 16288.0,
+      "category": "Lön",
+      "createdAt": 1753409814481,
+      "date": 1753409803848,
+      "id": 5,
+      "isRecurring": false,
+      "title": "Lön Juli",
+      "updatedAt": 1753409814481
+    },
+    {
+      "amount": 625.0,
+      "category": "Lön",
+      "createdAt": 1753387155340,
+      "date": 1752868732753,
+      "id": 1,
+      "isRecurring": false,
+      "title": "Bostadsbidrag",
+      "updatedAt": 1753387155340
+    }
+  ],
+  "loans": [
+    {
+      "amount": 100.0,
+      "createdAt": 1753387553909,
+      "dueDate": 1753473952004,
+      "id": 8,
+      "interestRate": 0.0,
+      "isPaidBack": true,
+      "paidBackAmount": 100.0,
+      "paidBackDate": 1753408243634,
+      "personName": "Camilla Johansson",
+      "title": "Lån Från Camilla",
+      "type": "BORROWED",
+      "updatedAt": 1753408243634
+    },
+    {
+      "amount": 100.0,
+      "createdAt": 1753387515299,
+      "dueDate": 1753473913476,
+      "id": 7,
+      "interestRate": 0.0,
+      "isPaidBack": true,
+      "paidBackAmount": 100.0,
+      "paidBackDate": 1753409424904,
+      "personName": "Angelica Karlsson",
+      "title": "Lån Från Angelica",
+      "type": "BORROWED",
+      "updatedAt": 1753409424904
+    },
+    {
+      "amount": 115.0,
+      "createdAt": 1753387465527,
+      "dueDate": 1753473863905,
+      "id": 6,
+      "interestRate": 0.0,
+      "isPaidBack": true,
+      "paidBackAmount": 115.0,
+      "paidBackDate": 1753408251738,
+      "personName": "Gustav Engström",
+      "title": "Lån Från Gustav",
+      "type": "BORROWED",
+      "updatedAt": 1753408251738
+    },
+    {
+      "amount": 300.0,
+      "createdAt": 1753387398412,
+      "dueDate": 1753473796690,
+      "id": 5,
+      "interestRate": 0.0,
+      "isPaidBack": true,
+      "paidBackAmount": 300.0,
+      "paidBackDate": 1753409448792,
+      "personName": "Mervi Karppinen",
+      "title": "Lån Från Mervi",
+      "type": "BORROWED",
+      "updatedAt": 1753409448792
+    },
+    {
+      "amount": 500.0,
+      "createdAt": 1753387356925,
+      "dueDate": 1753473754349,
+      "id": 4,
+      "interestRate": 0.0,
+      "isPaidBack": true,
+      "paidBackAmount": 500.0,
+      "paidBackDate": 1753408256515,
+      "personName": "Veronica Johansson",
+      "title": "Lån Från Veronica",
+      "type": "BORROWED",
+      "updatedAt": 1753408256515
+    },
+    {
+      "amount": 1000.0,
+      "createdAt": 1753387320829,
+      "dueDate": 1753473719591,
+      "id": 3,
+      "interestRate": 0.0,
+      "isPaidBack": true,
+      "paidBackAmount": 1000.0,
+      "paidBackDate": 1753408260646,
+      "personName": "Christian Bengtsson",
+      "title": "Lån Från Christian",
+      "type": "BORROWED",
+      "updatedAt": 1753408260646
+    },
+    {
+      "amount": 1000.0,
+      "createdAt": 1753387283042,
+      "dueDate": 1753473677972,
+      "id": 2,
+      "interestRate": 0.0,
+      "isPaidBack": true,
+      "paidBackAmount": 1000.0,
+      "paidBackDate": 1753408264807,
+      "personName": "Lena Kingstam",
+      "title": "Lån Från Lena Kingstam",
+      "type": "BORROWED",
+      "updatedAt": 1753408264807
+    }
+  ],
+  "productStores": [
+    {
+      "createdAt": 1753383478219,
+      "hasCampaignPrice": false,
+      "id": 1,
+      "lastSeen": 1753383478219,
+      "price": 15.95,
+      "productId": 1,
+      "storeId": 1,
+      "updatedAt": 1753383478219
+    },
+    {
+      "createdAt": 1753385080155,
+      "hasCampaignPrice": false,
+      "id": 3,
+      "lastSeen": 1753385080155,
+      "price": 14.95,
+      "productId": 1,
+      "storeId": 4,
+      "updatedAt": 1753385080155
+    },
+    {
+      "createdAt": 1753385515951,
+      "hasCampaignPrice": false,
+      "id": 4,
+      "lastSeen": 1753385515951,
+      "price": 38.95,
+      "productId": 2,
+      "storeId": 1,
+      "updatedAt": 1753385515951
+    },
+    {
+      "createdAt": 1753385590568,
+      "hasCampaignPrice": false,
+      "id": 5,
+      "lastSeen": 1753385590568,
+      "price": 20.95,
+      "productId": 2,
+      "storeId": 4,
+      "updatedAt": 1753385590568
+    },
+    {
+      "campaignPrice": 20.0,
+      "campaignQuantity": 3,
+      "createdAt": 1753386978200,
+      "hasCampaignPrice": true,
+      "id": 6,
+      "lastSeen": 1753386978200,
+      "price": 9.95,
+      "productId": 3,
+      "storeId": 1,
+      "updatedAt": 1753386978200
+    },
+    {
+      "createdAt": 1753387037704,
+      "hasCampaignPrice": false,
+      "id": 7,
+      "lastSeen": 1753387037704,
+      "price": 14.95,
+      "productId": 4,
+      "storeId": 1,
+      "updatedAt": 1753387037704
+    }
+  ],
+  "products": [
+    {
+      "amount": 1.0,
+      "barcode": "73513513",
+      "createdAt": 1753383478203,
+      "depositAmount": 1.0,
+      "hasDeposit": true,
+      "id": 1,
+      "name": "Coca-Cola 500ml",
+      "productCategoryId": 9,
+      "unit": "st",
+      "updatedAt": 1753383537302
+    },
+    {
+      "amount": 220.0,
+      "barcode": "7611612221351",
+      "createdAt": 1753386978190,
+      "depositAmount": 1.0,
+      "hasDeposit": true,
+      "id": 3,
+      "name": "Powerking 250ml",
+      "productCategoryId": 9,
+      "unit": "ml",
+      "updatedAt": 1753386978190
+    },
+    {
+      "amount": 500.0,
+      "createdAt": 1753387037699,
+      "hasDeposit": false,
+      "id": 4,
+      "name": "Ris",
+      "productCategoryId": 6,
+      "unit": "g",
+      "updatedAt": 1753387037699
+    },
+    {
+      "amount": 1.0,
+      "barcode": "123",
+      "createdAt": 1753385515943,
+      "hasDeposit": false,
+      "id": 2,
+      "name": "Toapapper",
+      "productCategoryId": 11,
+      "unit": "st",
+      "updatedAt": 1753385590563
+    }
+  ],
+  "stores": [
+    {
+      "chain": "ICA",
+      "city": "Vänersborg",
+      "createdAt": 1753385055811,
+      "id": 4,
+      "isActive": true,
+      "name": "Kvantum",
+      "updatedAt": 1753385055811
+    },
+    {
+      "chain": "Hemköp",
+      "city": "Vänersborg",
+      "createdAt": 1753383399625,
+      "id": 1,
+      "isActive": true,
+      "name": "Torpa",
+      "updatedAt": 1753383399625
+    }
+  ],
+  "version": "1.0"
+}

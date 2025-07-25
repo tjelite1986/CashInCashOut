@@ -74,4 +74,11 @@ interface PriceHistoryDao {
         val maxPrice: Double,
         val avgPrice: Double
     )
+    
+    // Suspend functions for background thread access
+    @Query("SELECT * FROM price_history WHERE productId = :productId ORDER BY recordedAt DESC")
+    suspend fun getPriceHistoryForProductSuspend(productId: Long): List<PriceHistory>
+    
+    @Query("SELECT * FROM price_history WHERE recordedAt >= :date ORDER BY recordedAt DESC")
+    suspend fun getRecentPriceHistorySuspend(date: Long): List<PriceHistory>
 }

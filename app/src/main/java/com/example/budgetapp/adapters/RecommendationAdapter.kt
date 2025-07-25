@@ -3,6 +3,7 @@ package com.example.budgetapp.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.budgetapp.R
@@ -33,9 +34,14 @@ class RecommendationAdapter(
     }
 
     fun submitRecommendations(recommendations: ShoppingListRecommendations) {
+        val oldItems = displayItems.toList()
         this.recommendations = recommendations
         updateDisplayItems()
-        notifyDataSetChanged()
+        
+        // Use DiffUtil for better performance
+        val diffCallback = DisplayItemDiffCallback(oldItems, displayItems)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        diffResult.dispatchUpdatesTo(this)
     }
 
     private fun updateDisplayItems() {
@@ -171,6 +177,35 @@ class RecommendationAdapter(
             binding.root.setOnClickListener {
                 onItemClick(itemRecommendation)
             }
+        }
+    }
+    
+    private class DisplayItemDiffCallback(
+        private val oldList: List<DisplayItem>,
+        private val newList: List<DisplayItem>
+    ) : DiffUtil.Callback() {
+        
+        override fun getOldListSize(): Int = oldList.size
+        
+        override fun getNewListSize(): Int = newList.size
+        
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            val oldItem = oldList[oldItemPosition]
+            val newItem = newList[newItemPosition]
+            
+            return when {
+                oldItem is DisplayItem.StoreHeader && newItem is DisplayItem.StoreHeader -> true
+                oldItem is DisplayItem.ItemHeader && newItem is DisplayItem.ItemHeader -> true
+                oldItem is DisplayItem.StoreItem && newItem is DisplayItem.StoreItem -> 
+                    oldItem.store.store.id == newItem.store.store.id
+                oldItem is DisplayItem.ItemItem && newItem is DisplayItem.ItemItem -> 
+                    oldItem.item.itemId == newItem.item.itemId
+                else -> false
+            }
+        }
+        
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition] == newList[newItemPosition]
         }
     }
 }

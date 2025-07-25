@@ -4,7 +4,7 @@ En avancerad Android budget-app skapad med Kotlin och Material Design 3, med fok
 
 ## Funktioner
 
-Appen har en bottom navigation bar med fyra huvudsektioner:
+Appen har en bottom navigation bar med fem huvudsektioner och en floating menu-knapp för extra funktioner:
 
 ### 📊 Översikt
 - Visar total balans, månatliga inkomster och utgifter
@@ -45,14 +45,29 @@ Appen har en bottom navigation bar med fyra huvudsektioner:
 - Sektion för budgetplanering  
 - Plats för framtida funktioner som budgetkategorier och gränser
 
-### ⚙️ Mer
+### 📊 Analytics
+- **AI-driven finansiell analys** - avancerad dashboard med intelligenta insikter
+- **Finansiell hälsoscore** - realtidsberäkning baserat på sparkvot, målprogress och utgiftsstabilitet
+- **Smarta rekommendationer** - över 15 olika insiktstyper med konfidenspoäng
+- **Målprogress-spårning** - övervakning av aktiva finansiella mål
+- **Anomalidetektering** - identifierar ovanliga utgiftsmönster och varnar för budgetöverskridanden
+- **Prediktiv analys** - förutsäger framtida utgifter baserat på historisk data
+- **Insight-kategorisering** - kritiska, höga, mediumvarningar med färgkodning
+- **Interaktiv dashboard** - detaljerade insiktsdialoger med handlingsrekommendationer
+
+### ⚙️ Floating Menu (⋮)
+Tillgänglig via den lilla runda knappen längst upp till höger:
 - **Kategorihantering** - avancerat system för att hantera inkomst- och utgiftskategorier
 - **Smarta rekommendationer** - AI-driven prisanalys och besparingstips
 - **Inköpslistor** - skapa och hantera inköpslistor med prishistorik
 - **Prishistorik** - spåra prisutveckling över tid med grafer
 - **Kvittohantering** - scanna och registrera kvitton med butiksinformation
-- App-inställningar och konfiguration
-- Information om appen
+- **Butik & Produkthantering** - komplett CRUD för butiker och produkter
+- **Statistics** - detaljerad statistisk översikt
+- **Settings** - app-inställningar och konfiguration
+- **Export Data** - exportera finansiell data (kommer snart)
+- **Backup** - säkerhetskopiera data (kommer snart)
+- **About** - information om appen
 
 ## 🛒 Produkthantering
 
@@ -125,10 +140,11 @@ Appen använder en **lagerad arkitektur** med tydlig separation av ansvar:
 - **TransactionsFragment** - Enhetlig transaktionsvy med filtrering
 - **LoansFragment** - Komplett lånhanteringssystem
 - **BudgetFragment** - Budgetplanering och spårning
-- **MoreFragment** - Inställningar och ytterligare funktioner
+- **AnalyticsFragment** - AI-driven finansiell analys och dashboard
+- **MoreFragment** - Inställningar och ytterligare funktioner (via floating menu)
 
 #### Databasarkitektur (`database/`)
-**Room Database Version 16** med 17 entiteter:
+**Room Database Version 18** med 21 entiteter inklusive avancerade analytics:
 
 **Kärnfinansiella entiteter:**
 - `Expense` - Utgiftsspårning med kategorier, butiker, betalmetoder
@@ -147,8 +163,15 @@ Appen använder en **lagerad arkitektur** med tydlig separation av ansvar:
 - `ShoppingList` + `ShoppingListItem` - Inköpslisteoptimering
 - `TransactionNotification` - Smart notifikationssystem
 
+**AI Analytics-entiteter:**
+- `FinancialInsight` - AI-genererade finansiella insikter och rekommendationer
+- `FinancialGoal` - Målsättning och progress-spårning
+- `SpendingPattern` - Utgiftsmönsteranalys för anomalidetektering  
+- `SpendingForecast` - Prediktiva utgiftsprognoser
+
 #### Services & Bakgrundsbearbetning (`services/`)
 - **SmartRecommendationService** - AI-driven prisanalys
+- **AdvancedAnalyticsService** - Avancerad finansiell AI-analys och insiktsgenerering
 - **BudgetNotificationService** - Automatiserade budgetvarningar
 - **BudgetRolloverWorker** - Månatlig budgetbearbetning
 - **ShoppingListOptimizer** - Butiksbaserad inköpsoptimering
@@ -262,7 +285,7 @@ Rent dataåtkomstlager med repositories för:
 - **MinSDK**: 24 (Android 7.0)
 - **TargetSDK**: 34
 - **Architecture**: Fragment-based navigation med MVVM-pattern
-- **Databas**: Room (SQLite) version 11+
+- **Databas**: Room (SQLite) version 18 med avancerade analytics-entiteter
 - **Kamera**: CameraX med ML Kit för streckkodscanning
 - **Charts**: MPAndroidChart för prishistorikgrafer  
 - **AI-analys**: Anpassad smart rekommendationsalgoritm
@@ -302,23 +325,29 @@ app/
 │   │   │   ├── SmartSuggestionAdapter.kt
 │   │   │   ├── RecommendationAdapter.kt
 │   │   │   ├── ShoppingListAdapter.kt
-│   │   │   └── ShoppingListItemAdapter.kt
+│   │   │   ├── ShoppingListItemAdapter.kt
+│   │   │   └── InsightAdapter.kt
 │   │   ├── fragments/
 │   │   │   ├── OverviewFragment.kt
 │   │   │   ├── TransactionsFragment.kt
 │   │   │   ├── LoansFragment.kt
 │   │   │   ├── BudgetFragment.kt
+│   │   │   ├── AnalyticsFragment.kt
 │   │   │   ├── MoreFragment.kt
-│   │   │   └── SettingsFragment.kt
+│   │   │   ├── SettingsFragment.kt
+│   │   │   └── InsightDetailsDialogFragment.kt
 │   │   ├── services/
-│   │   │   └── SmartRecommendationService.kt
+│   │   │   ├── SmartRecommendationService.kt
+│   │   │   └── AdvancedAnalyticsService.kt
 │   │   ├── repository/
 │   │   │   ├── BudgetRepository.kt
 │   │   │   └── ShoppingListRepository.kt
 │   │   ├── viewmodels/
 │   │   │   ├── CategoryViewModel.kt
 │   │   │   ├── ShoppingListViewModel.kt
-│   │   │   └── ShoppingListViewModelFactory.kt
+│   │   │   ├── ShoppingListViewModelFactory.kt
+│   │   │   ├── AnalyticsViewModel.kt
+│   │   │   └── AnalyticsViewModelFactory.kt
 │   │   ├── utils/
 │   │   │   └── CategoryConstants.kt
 │   │   ├── data/
@@ -340,7 +369,11 @@ app/
 │   │       │   ├── ShoppingListItem.kt
 │   │       │   ├── Receipt.kt
 │   │       │   ├── ReceiptItem.kt
-│   │       │   └── Budget.kt
+│   │       │   ├── Budget.kt
+│   │       │   ├── FinancialInsight.kt
+│   │       │   ├── FinancialGoal.kt
+│   │       │   ├── SpendingPattern.kt
+│   │       │   └── SpendingForecast.kt
 │   │       └── dao/
 │   │           ├── ProductDao.kt
 │   │           ├── CategoryDao.kt
@@ -354,7 +387,11 @@ app/
 │   │           ├── ShoppingListItemDao.kt
 │   │           ├── ReceiptDao.kt
 │   │           ├── ReceiptItemDao.kt
-│   │           └── BudgetDao.kt
+│   │           ├── BudgetDao.kt
+│   │           ├── FinancialInsightDao.kt
+│   │           ├── FinancialGoalDao.kt
+│   │           ├── SpendingPatternDao.kt
+│   │           └── SpendingForecastDao.kt
 │   └── res/
 │       ├── layout/          # Layout-filer för UI
 │       ├── drawable/        # Ikoner för navigation
@@ -606,12 +643,14 @@ Appen är nu komplett med avancerade funktioner. Möjliga förbättringar:
 9. **Kundklubsintegration**: Synkronisering med ICA Kortet, Coop medlemskap
 
 ✅ **Implementerat**:
+- **Avancerad AI Analytics Dashboard** - Finansiell hälsoscore, smarta insikter, målprogress
+- **Floating Menu Navigation** - Clean design utan toolbar men med full funktionalitet
 - Avancerat kategorisystem med visuella ikoner och färger
 - Smarta rekommendationer med AI-analys
 - Komplett prishistoriksystem  
 - Inköpslistor med prisoptimering
 - Kvittohantering
-- Avancerad databas (11+ tabeller)
+- Avancerad databas (18+ tabeller med analytics-entiteter)
 - Modern Material Design 3 UI
 
 ## Hur man bygger

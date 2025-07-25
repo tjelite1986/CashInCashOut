@@ -36,11 +36,17 @@ class ReceiptItemAdapter(
 
         fun bind(item: ReceiptItemInput, position: Int) {
             binding.apply {
-                textProductName.text = if (item.hasDeposit) {
-                    "${item.productName} (med pant)"
-                } else {
-                    item.productName
+                // Visa produktnamn med ev. storlek och pant
+                val nameText = buildString {
+                    append(item.productName)
+                    if (item.productSize != null) {
+                        append(" (${item.productSize})")
+                    }
+                    if (item.hasDeposit) {
+                        append(" [med pant]")
+                    }
                 }
+                textProductName.text = nameText
                 
                 textQuantity.text = "${item.quantity} ${item.unit}"
                 

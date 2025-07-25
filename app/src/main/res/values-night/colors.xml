@@ -32,4 +32,31 @@
     <!-- Income/Expense colors -->
     <color name="income_green">#4CAF50</color>
     <color name="expense_red">#F44336</color>
+    
+    <!-- Chart colors for dark theme -->
+    <color name="chart_income_color">#4CAF50</color>
+    <color name="chart_expense_color">#F44336</color>
+    <color name="chart_net_color">#2196F3</color>
+    <color name="chart_color_1">#FF6B35</color>
+    <color name="chart_color_2">#F7931E</color>
+    <color name="chart_color_3">#FFD23F</color>
+    <color name="chart_color_4">#06FFA5</color>
+    <color name="chart_color_5">#0066FF</color>
+    
+    <!-- Dark recommendation colors -->
+    <color name="light_green_background">#1B4332</color>
+    <color name="light_red_background">#4A1C1C</color>
+    <color name="light_blue_background">#1A237E</color>
+    <color name="light_orange_background">#3E2723</color>
+    
+    <!-- Dark colorful interface colors -->
+    <color name="colorful_background_1">#2E2E2E</color>
+    <color name="colorful_background_2">#2C2C2C</color>
+    <color name="colorful_background_3">#2A2A2A</color>
+    <color name="colorful_background_4">#282828</color>
+    <color name="colorful_surface_1">#333333</color>
+    <color name="colorful_surface_2">#313131</color>
+    <color name="colorful_surface_3">#2F2F2F</color>
+    <color name="colorful_gradient_start">#FFA726</color>
+    <color name="colorful_gradient_end">#FF8F00</color>
 </resources>

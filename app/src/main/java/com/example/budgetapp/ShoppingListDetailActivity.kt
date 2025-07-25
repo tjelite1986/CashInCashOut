@@ -8,7 +8,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.budgetapp.adapters.ShoppingListItemAdapter
+import com.example.budgetapp.adapters.ShoppingListItemWithProductAdapter
 import com.example.budgetapp.database.BudgetDatabase
 import com.example.budgetapp.databinding.ActivityShoppingListDetailBinding
 import com.example.budgetapp.repository.ShoppingListRepository
@@ -21,7 +21,7 @@ import java.util.*
 class ShoppingListDetailActivity : AppCompatActivity() {
     
     private lateinit var binding: ActivityShoppingListDetailBinding
-    private lateinit var adapter: ShoppingListItemAdapter
+    private lateinit var adapter: ShoppingListItemWithProductAdapter
     private var shoppingListId: Long = -1
     
     private val viewModel: ShoppingListViewModel by viewModels {
@@ -65,7 +65,7 @@ class ShoppingListDetailActivity : AppCompatActivity() {
     }
     
     private fun setupRecyclerView() {
-        adapter = ShoppingListItemAdapter(
+        adapter = ShoppingListItemWithProductAdapter(
             onItemClick = { item ->
                 // Öppna redigering av vara
                 val intent = Intent(this, AddEditShoppingListItemActivity::class.java)
@@ -82,6 +82,11 @@ class ShoppingListDetailActivity : AppCompatActivity() {
             onQuantityChange = { item, newQuantity ->
                 if (newQuantity > 0) {
                     viewModel.updateShoppingListItemQuantity(item.id, newQuantity)
+                }
+            },
+            onActualPriceChange = { item, newPrice ->
+                if (newPrice >= 0) {
+                    viewModel.updateShoppingListItemActualPrice(item.id, newPrice)
                 }
             }
         )
@@ -113,7 +118,7 @@ class ShoppingListDetailActivity : AppCompatActivity() {
         }
         
         // Observera varor i listan
-        viewModel.getItemsForShoppingList(shoppingListId).observe(this) { items ->
+        viewModel.getItemsWithProductForShoppingList(shoppingListId).observe(this) { items ->
             adapter.submitList(items)
             
             if (items.isEmpty()) {
@@ -193,6 +198,12 @@ class ShoppingListDetailActivity : AppCompatActivity() {
             }
             R.id.action_mark_completed -> {
                 viewModel.toggleShoppingListStatus(shoppingListId, true)
+                true
+            }
+            R.id.action_optimize_shopping -> {
+                val intent = Intent(this, OptimizedShoppingActivity::class.java)
+                intent.putExtra("shopping_list_id", shoppingListId)
+                startActivity(intent)
                 true
             }
             R.id.action_share_list -> {

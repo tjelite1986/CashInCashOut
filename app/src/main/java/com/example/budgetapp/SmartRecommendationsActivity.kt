@@ -68,7 +68,11 @@ class SmartRecommendationsActivity : AppCompatActivity() {
         // Recommendations adapter (for specific shopping list)
         recommendationAdapter = RecommendationAdapter(
             onStoreClick = { storeRecommendation ->
-                // TODO: Open store details or navigate to store
+                val intent = Intent(this, StoreDetailActivity::class.java)
+                intent.putExtra("store_id", storeRecommendation.store.id)
+                intent.putExtra("total_savings", storeRecommendation.totalSavings)
+                intent.putExtra("item_count", storeRecommendation.itemCount)
+                startActivity(intent)
             },
             onItemClick = { itemRecommendation ->
                 // Show item price details
@@ -112,7 +116,8 @@ class SmartRecommendationsActivity : AppCompatActivity() {
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-                // Handle error
+                // Show error state to user
+                showErrorState("Ett fel uppstod vid laddning av rekommendationer: ${e.message}")
             }
         }
     }
@@ -183,7 +188,10 @@ class SmartRecommendationsActivity : AppCompatActivity() {
             }
             
             SuggestionType.STORE_RECOMMENDATION -> {
-                // TODO: Navigate to store details or map
+                val storeId = suggestion.data["store_id"] as? Long ?: return
+                val intent = Intent(this, StoreDetailActivity::class.java)
+                intent.putExtra("store_id", storeId)
+                startActivity(intent)
             }
             
             else -> {
@@ -195,5 +203,12 @@ class SmartRecommendationsActivity : AppCompatActivity() {
     private fun showOptimizedShoppingPlan(recommendations: ShoppingListRecommendations) {
         // TODO: Implement optimized shopping plan activity
         // For now, just show the recommendations
+    }
+    
+    private fun showErrorState(message: String) {
+        binding.layoutSmartSuggestions.visibility = View.GONE
+        binding.layoutShoppingListRecommendations.visibility = View.GONE
+        binding.textNoSuggestions.text = message
+        binding.textNoSuggestions.visibility = View.VISIBLE
     }
 }

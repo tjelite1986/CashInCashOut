@@ -3,11 +3,13 @@ package com.example.budgetapp
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.budgetapp.database.entities.Product
 import com.example.budgetapp.databinding.ItemProductPriceBinding
 import java.text.DecimalFormat
 
 class ProductPriceAdapter(
     private val prices: List<ProductPriceManagerActivity.ProductStoreWithStore>,
+    private val product: Product?,
     private val onEditClick: (ProductPriceManagerActivity.ProductStoreWithStore) -> Unit,
     private val onDeleteClick: (ProductPriceManagerActivity.ProductStoreWithStore) -> Unit
 ) : RecyclerView.Adapter<ProductPriceAdapter.PriceViewHolder>() {
@@ -28,8 +30,17 @@ class ProductPriceAdapter(
             textViewStoreName.text = priceData.store.name
             textViewStoreChain.text = priceData.store.chain ?: ""
             
-            // Price
-            textViewPrice.text = "${priceFormatter.format(priceData.productStore.price)} kr"
+            // Calculate total price including deposit
+            val basePrice = priceData.productStore.price
+            val depositAmount = if (product?.hasDeposit == true) product.depositAmount ?: 0.0 else 0.0
+            val totalPrice = basePrice + depositAmount
+            
+            // Price (show both base price and total if there's deposit)
+            if (depositAmount > 0.0) {
+                textViewPrice.text = "${priceFormatter.format(totalPrice)} kr (inkl. pant ${priceFormatter.format(depositAmount)} kr)"
+            } else {
+                textViewPrice.text = "${priceFormatter.format(totalPrice)} kr"
+            }
             
             // Campaign price
             if (priceData.productStore.hasCampaignPrice) {

@@ -10,14 +10,40 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <!-- Notification permissions -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- Include required permissions for Google Maps API to run. -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <queries>
+
+        <!-- Needs to be explicitly declared on Android R+ -->
+        <package android:name="com.google.android.apps.maps" />
+    </queries>
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
     <permission
         android:name="com.example.budgetapp.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.example.budgetapp.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" /> <!-- Although the *SdkVersion is captured in gradle build files, this is required for non gradle builds -->
-    <!-- <uses-sdk android:minSdkVersion="14"/> -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.example.budgetapp.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
 
     <application
         android:allowBackup="true"
@@ -68,6 +94,11 @@
             android:parentActivityName="com.example.budgetapp.ProductListActivity"
             android:theme="@style/Theme.BudgetApp.NoActionBar" />
         <activity
+            android:name="com.example.budgetapp.StoreChainManagerActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.budgetapp.StoreManagerActivity"
+            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+        <activity
             android:name="com.example.budgetapp.AddIncomeActivity"
             android:exported="false"
             android:parentActivityName="com.example.budgetapp.MainActivity"
@@ -77,6 +108,128 @@
             android:exported="false"
             android:parentActivityName="com.example.budgetapp.MainActivity"
             android:theme="@style/Theme.BudgetApp.NoActionBar" />
+        <activity
+            android:name="com.example.budgetapp.EditHomeActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.budgetapp.MainActivity"
+            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+        <activity
+            android:name="com.example.budgetapp.AddLoanActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.budgetapp.MainActivity"
+            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+        <activity
+            android:name="com.example.budgetapp.activities.AddEditBudgetActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.budgetapp.MainActivity"
+            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+        <activity
+            android:name="com.example.budgetapp.ShoppingListActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.budgetapp.MainActivity"
+            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+        <activity
+            android:name="com.example.budgetapp.AddEditShoppingListActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.budgetapp.ShoppingListActivity"
+            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+        <activity
+            android:name="com.example.budgetapp.ShoppingListDetailActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.budgetapp.ShoppingListActivity"
+            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+        <activity
+            android:name="com.example.budgetapp.AddEditShoppingListItemActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.budgetapp.ShoppingListDetailActivity"
+            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+        <activity
+            android:name="com.example.budgetapp.SelectProductActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.budgetapp.AddEditShoppingListItemActivity"
+            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+        <activity
+            android:name="com.example.budgetapp.OptimizedShoppingActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.budgetapp.ShoppingListDetailActivity"
+            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+        <activity
+            android:name="com.example.budgetapp.PriceHistoryActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.budgetapp.ProductPriceManagerActivity"
+            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+        <activity
+            android:name="com.example.budgetapp.SmartRecommendationsActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.budgetapp.MainActivity"
+            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+        <activity
+            android:name="com.example.budgetapp.BudgetAnalyticsActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.budgetapp.MainActivity"
+            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+        <activity
+            android:name="com.example.budgetapp.CategoryManagerActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.budgetapp.MainActivity"
+            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+        <activity
+            android:name="com.example.budgetapp.AddEditCategoryActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.budgetapp.CategoryManagerActivity"
+            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+        <activity
+            android:name="com.example.budgetapp.BudgetRolloverSettingsActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.budgetapp.MainActivity"
+            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+        <activity
+            android:name="com.example.budgetapp.ThemePreferencesActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.budgetapp.MainActivity"
+            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+        <activity
+            android:name="com.example.budgetapp.ProductCategoryManagerActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.budgetapp.MainActivity"
+            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+        <activity
+            android:name="com.example.budgetapp.NotificationSettingsActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.budgetapp.MainActivity"
+            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+        <activity
+            android:name="com.example.budgetapp.TransactionSelectorActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.budgetapp.NotificationSettingsActivity"
+            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+        <activity
+            android:name="com.example.budgetapp.StoreDetailActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.budgetapp.SmartRecommendationsActivity"
+            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+        <activity
+            android:name="com.example.budgetapp.StoreAndProductManagerActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.budgetapp.MainActivity"
+            android:theme="@style/Theme.BudgetApp.NoActionBar" />
+
+        <!-- Notification Receiver -->
+        <receiver
+            android:name="com.example.budgetapp.receivers.NotificationReceiver"
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.example.budgetapp.DAILY_IF_NOT_OPENED" />
+                <action android:name="com.example.budgetapp.DAILY_ALWAYS" />
+                <action android:name="com.example.budgetapp.24_HOURS_CHECK" />
+                <action android:name="com.example.budgetapp.UPCOMING_TRANSACTIONS" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
 
         <!--
         Service for holding metadata. Cannot be instantiated.
@@ -90,6 +243,18 @@
                 android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
                 android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
         </service>
+
+        <activity
+            android:name="com.google.android.libraries.places.widget.AutocompleteActivity"
+            android:exported="false"
+            android:label="@string/places_autocomplete_label"
+            android:theme="@style/PlacesAutocompleteOverlay"
+            android:windowSoftInputMode="adjustResize" >
+        </activity> <!-- Needs to be explicitly declared on P+ -->
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
         <service
             android:name="com.google.mlkit.common.internal.MlKitComponentDiscoveryService"
             android:directBootAware="true"
@@ -128,12 +293,107 @@
                 android:name="androidx.emoji2.text.EmojiCompatInitializer"
                 android:value="androidx.startup" />
             <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup" />
+            <meta-data
                 android:name="androidx.lifecycle.ProcessLifecycleInitializer"
                 android:value="androidx.startup" />
             <meta-data
                 android:name="androidx.profileinstaller.ProfileInstallerInitializer"
                 android:value="androidx.startup" />
         </provider>
+
+        <service
+            android:name="androidx.work.impl.background.systemalarm.SystemAlarmService"
+            android:directBootAware="false"
+            android:enabled="@bool/enable_system_alarm_service_default"
+            android:exported="false" />
+        <service
+            android:name="androidx.work.impl.background.systemjob.SystemJobService"
+            android:directBootAware="false"
+            android:enabled="@bool/enable_system_job_service_default"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+            android:name="androidx.work.impl.foreground.SystemForegroundService"
+            android:directBootAware="false"
+            android:enabled="@bool/enable_system_foreground_service_default"
+            android:exported="false" />
+
+        <receiver
+            android:name="androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver"
+            android:directBootAware="false"
+            android:enabled="true"
+            android:exported="false" />
+        <receiver
+            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy"
+            android:directBootAware="false"
+            android:enabled="false"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy"
+            android:directBootAware="false"
+            android:enabled="false"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.BATTERY_OKAY" />
+                <action android:name="android.intent.action.BATTERY_LOW" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy"
+            android:directBootAware="false"
+            android:enabled="false"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.DEVICE_STORAGE_LOW" />
+                <action android:name="android.intent.action.DEVICE_STORAGE_OK" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy"
+            android:directBootAware="false"
+            android:enabled="false"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
+            android:directBootAware="false"
+            android:enabled="false"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver"
+            android:directBootAware="false"
+            android:enabled="@bool/enable_system_alarm_service_default"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="androidx.work.impl.background.systemalarm.UpdateProxies" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="androidx.work.impl.diagnostics.DiagnosticsReceiver"
+            android:directBootAware="false"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.DUMP" >
+            <intent-filter>
+                <action android:name="androidx.work.diagnostics.REQUEST_DIAGNOSTICS" />
+            </intent-filter>
+        </receiver>
 
         <uses-library
             android:name="androidx.window.extensions"

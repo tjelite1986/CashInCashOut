@@ -3,11 +3,16 @@ package com.example.budgetapp.database.dao
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.budgetapp.database.entities.ShoppingListItem
+import com.example.budgetapp.data.ShoppingListItemWithProduct
 
 @Dao
 interface ShoppingListItemDao {
     @Query("SELECT * FROM shopping_list_items WHERE shoppingListId = :shoppingListId ORDER BY priority DESC, createdAt ASC")
     fun getItemsForShoppingList(shoppingListId: Long): LiveData<List<ShoppingListItem>>
+    
+    @Transaction
+    @Query("SELECT * FROM shopping_list_items WHERE shoppingListId = :shoppingListId ORDER BY priority DESC, createdAt ASC")
+    fun getItemsWithProductForShoppingList(shoppingListId: Long): LiveData<List<ShoppingListItemWithProduct>>
 
     @Query("SELECT * FROM shopping_list_items WHERE shoppingListId = :shoppingListId AND isCompleted = :isCompleted ORDER BY priority DESC, createdAt ASC")
     fun getItemsForShoppingListByStatus(shoppingListId: Long, isCompleted: Boolean): LiveData<List<ShoppingListItem>>
@@ -56,4 +61,8 @@ interface ShoppingListItemDao {
 
     @Query("SELECT SUM(actualPrice * quantity) FROM shopping_list_items WHERE shoppingListId = :shoppingListId AND actualPrice IS NOT NULL")
     fun getTotalActualCostForShoppingList(shoppingListId: Long): LiveData<Double?>
+    
+    // Suspend functions for background thread access
+    @Query("SELECT * FROM shopping_list_items WHERE shoppingListId = :shoppingListId ORDER BY priority DESC, createdAt ASC")
+    suspend fun getItemsForShoppingListSuspend(shoppingListId: Long): List<ShoppingListItem>
 }

@@ -20,7 +20,11 @@ class SmartRecommendationService(private val database: BudgetDatabase) {
 
     suspend fun getShoppingListRecommendations(shoppingListId: Long): ShoppingListRecommendations? {
         val shoppingList = database.shoppingListDao().getShoppingListById(shoppingListId) ?: return null
-        val items = database.shoppingListItemDao().getItemsForShoppingList(shoppingListId).value ?: emptyList()
+        val items = database.shoppingListItemDao().getItemsForShoppingListSuspend(shoppingListId)
+        
+        if (items.isEmpty()) {
+            return null
+        }
         
         val itemRecommendations = mutableListOf<ItemRecommendation>()
         var totalEstimatedSavings = 0.0
@@ -38,8 +42,8 @@ class SmartRecommendationService(private val database: BudgetDatabase) {
             .flatMap { it.priceRecommendations }
             .groupBy { it.storeId }
         
-        val storeRecommendations = storeGroups.map { (storeId, recommendations) ->
-            val store = database.storeDao().getStoreById(storeId)!!
+        val storeRecommendations = storeGroups.mapNotNull { (storeId, recommendations) ->
+            val store = database.storeDao().getStoreById(storeId) ?: return@mapNotNull null // Null safety fix
             val totalSavings = recommendations.sumOf { it.savingsAmount }
             val itemCount = recommendations.size
             
@@ -63,13 +67,14 @@ class SmartRecommendationService(private val database: BudgetDatabase) {
         val productId = item.productId ?: return null
         val product = database.productDao().getProductById(productId) ?: return null
         
-        val priceHistory = database.priceHistoryDao().getPriceHistoryForProduct(productId).value ?: emptyList()
+        val priceHistory = database.priceHistoryDao().getPriceHistoryForProductSuspend(productId)
         if (priceHistory.isEmpty()) return null
         
         val priceRecommendations = generatePriceRecommendations(productId, product.name ?: "Unknown", priceHistory)
         val bestPrice = priceRecommendations.minByOrNull { it.currentPrice }
         
-        val currentEstimate = item.estimatedPrice ?: priceRecommendations.map { it.currentPrice }.average()
+        val currentEstimate = item.estimatedPrice ?: 
+            if (priceRecommendations.isNotEmpty()) priceRecommendations.map { it.currentPrice }.average() else 0.0
         val bestPriceValue = bestPrice?.currentPrice ?: currentEstimate
         val potentialSavings = max(0.0, currentEstimate - bestPriceValue)
         
@@ -98,6 +103,8 @@ class SmartRecommendationService(private val database: BudgetDatabase) {
         
         // Calculate overall statistics
         val allPrices = priceHistory.map { it.price }
+        if (allPrices.isEmpty()) return emptyList()
+        
         val overallAverage = allPrices.average()
         val overallMin = allPrices.minOrNull() ?: 0.0
         val overallMax = allPrices.maxOrNull() ?: 0.0
@@ -106,7 +113,9 @@ class SmartRecommendationService(private val database: BudgetDatabase) {
             val store = database.storeDao().getStoreById(storeId) ?: continue
             val currentPrice = storeHistory.maxByOrNull { it.recordedAt }?.price ?: continue
             
-            val storeAverage = storeHistory.map { it.price }.average()
+            val storePrices = storeHistory.map { it.price }
+            if (storePrices.isEmpty()) continue
+            val storeAverage = storePrices.average()
             val savingsAmount = max(0.0, overallAverage - currentPrice)
             val savingsPercent = if (overallAverage > 0) (savingsAmount / overallAverage) * 100 else 0.0
             
@@ -139,7 +148,7 @@ class SmartRecommendationService(private val database: BudgetDatabase) {
             )
         }
         
-        return recommendations.sortedBy { it.currentPrice }
+        return recommendations.sortedBy { it.currentPrice }.take(10) // Limit to top 10 stores for performance
     }
     
     private fun determineRecommendationType(
@@ -162,7 +171,7 @@ class SmartRecommendationService(private val database: BudgetDatabase) {
         if (recentHistory.size >= 2) {
             val oldestRecent = recentHistory.minByOrNull { it.recordedAt }
             val newestRecent = recentHistory.maxByOrNull { it.recordedAt }
-            if (oldestRecent != null && newestRecent != null) {
+            if (oldestRecent != null && newestRecent != null && oldestRecent.price > 0) {
                 val priceChange = (newestRecent.price - oldestRecent.price) / oldestRecent.price
                 if (priceChange <= -PRICE_DROP_THRESHOLD) {
                     return RecommendationType.PRICE_DROP
@@ -184,6 +193,8 @@ class SmartRecommendationService(private val database: BudgetDatabase) {
     }
     
     private fun calculateConfidence(storeHistory: List<PriceHistory>, totalDataPoints: Int): Double {
+        if (storeHistory.isEmpty() || totalDataPoints <= 0) return 0.1
+        
         val dataPointWeight = min(1.0, storeHistory.size.toDouble() / max(5.0, totalDataPoints * 0.2))
         val recencyWeight = if (storeHistory.isNotEmpty()) {
             val latestUpdate = storeHistory.maxOf { it.recordedAt }
@@ -198,7 +209,7 @@ class SmartRecommendationService(private val database: BudgetDatabase) {
         val suggestions = mutableListOf<SmartSuggestion>()
         
         // Get active shopping lists for optimization suggestions
-        val activeShoppingLists = database.shoppingListDao().getShoppingListsByStatus(false).value ?: emptyList()
+        val activeShoppingLists = database.shoppingListDao().getShoppingListsByStatusSuspend(false)
         
         for (shoppingList in activeShoppingLists) {
             val recommendations = getShoppingListRecommendations(shoppingList.id)
@@ -219,7 +230,7 @@ class SmartRecommendationService(private val database: BudgetDatabase) {
         
         // Get price alerts for significant price drops
         val recentPriceDrops = findRecentPriceDrops()
-        for (drop in recentPriceDrops.take(3)) { // Limit to top 3
+        for (drop in recentPriceDrops.take(5)) { // Limit to top 5 price drops
             suggestions.add(
                 SmartSuggestion(
                     id = "price_drop_${drop.productId}_${drop.storeId}",
@@ -241,7 +252,7 @@ class SmartRecommendationService(private val database: BudgetDatabase) {
     
     private suspend fun findRecentPriceDrops(): List<PriceRecommendation> {
         val cutoffTime = System.currentTimeMillis() - RECENT_PRICE_DAYS
-        val recentHistory = database.priceHistoryDao().getRecentPriceHistory(cutoffTime).value ?: emptyList()
+        val recentHistory = database.priceHistoryDao().getRecentPriceHistorySuspend(cutoffTime)
         
         val priceDrops = mutableListOf<PriceRecommendation>()
         
@@ -255,6 +266,7 @@ class SmartRecommendationService(private val database: BudgetDatabase) {
             val oldest = sorted.first()
             val newest = sorted.last()
             
+            if (oldest.price <= 0) continue // Avoid division by zero
             val priceChange = (newest.price - oldest.price) / oldest.price
             if (priceChange <= -PRICE_DROP_THRESHOLD) {
                 val product = database.productDao().getProductById(newest.productId) ?: continue

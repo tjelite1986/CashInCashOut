@@ -1,12 +1,17 @@
 package com.example.budgetapp.repository
 
+import android.content.Context
 import com.example.budgetapp.database.BudgetDatabase
 import com.example.budgetapp.database.entities.Budget
 import com.example.budgetapp.database.entities.BudgetPeriod
+import com.example.budgetapp.services.BudgetNotificationService
 import kotlinx.coroutines.flow.Flow
 import java.util.*
 
-class BudgetRepository(private val database: BudgetDatabase) {
+class BudgetRepository(
+    private val database: BudgetDatabase,
+    private val context: Context? = null
+) {
     
     private val budgetDao = database.budgetDao()
     private val expenseDao = database.expenseDao()
@@ -164,6 +169,53 @@ class BudgetRepository(private val database: BudgetDatabase) {
         val periodEnd = calendar.timeInMillis
         
         return Pair(periodStart, periodEnd)
+    }
+    
+    suspend fun checkAndTriggerBudgetAlerts(categoryName: String? = null) {
+        context?.let { ctx ->
+            try {
+                val notificationService = BudgetNotificationService(ctx)
+                
+                if (categoryName != null) {
+                    // Check specific category budget
+                    val budget = getActiveBudgetForCategory(categoryName)
+                    budget?.let {
+                        val progress = getBudgetProgress(it)
+                        if (progress.isOverBudget || progress.isNearLimit) {
+                            notificationService.checkBudgetAlerts()
+                        }
+                    }
+                } else {
+                    // Check all budgets
+                    notificationService.checkBudgetAlerts()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+    
+    suspend fun checkPeriodEndReminders() {
+        context?.let { ctx ->
+            try {
+                val budgets = getAllActiveBudgets()
+                budgets.collect { budgetList ->
+                    val notificationService = BudgetNotificationService(ctx)
+                    val currentTime = System.currentTimeMillis()
+                    
+                    budgetList.forEach { budget ->
+                        val daysUntilEnd = ((budget.endDate - currentTime) / (24 * 60 * 60 * 1000)).toInt()
+                        
+                        // Notify 3 days before period ends
+                        if (daysUntilEnd in 1..3) {
+                            notificationService.showPeriodEndReminder(budget.name, daysUntilEnd)
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 }
 

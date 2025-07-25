@@ -1,5 +1,6 @@
 package com.example.budgetapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -27,20 +28,6 @@ class StoreManagerActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var fab: FloatingActionButton
     
-    companion object {
-        private val STORE_CHAINS = mutableListOf(
-            "ICA",
-            "Coop",
-            "Hemköp",
-            "Willys",
-            "Lidl",
-            "Tempo",
-            "Ica Nära",
-            "City Gross",
-            "Bergendahls",
-            "Axfood"
-        )
-    }
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +38,7 @@ class StoreManagerActivity : AppCompatActivity() {
         setupViews()
         setupRecyclerView()
         setupFab()
+        setupManageChainsButton()
         observeStores()
     }
     
@@ -85,6 +73,14 @@ class StoreManagerActivity : AppCompatActivity() {
         fab = findViewById(R.id.fabAddStore)
         fab.setOnClickListener {
             showAddStoreDialog()
+        }
+    }
+    
+    private fun setupManageChainsButton() {
+        val btnManageChains = findViewById<MaterialButton>(R.id.btnManageChains)
+        btnManageChains.setOnClickListener {
+            val intent = Intent(this, StoreChainManagerActivity::class.java)
+            startActivity(intent)
         }
     }
     
@@ -130,7 +126,7 @@ class StoreManagerActivity : AppCompatActivity() {
                 
                 lifecycleScope.launch {
                     database.storeDao().insertStore(store)
-                    // Add new chain to local list if it's new
+                    // Add new chain to database if it's new
                     chain?.let { addNewChainIfNeeded(it) }
                     Toast.makeText(this@StoreManagerActivity, "Butik sparad", Toast.LENGTH_SHORT).show()
                 }
@@ -188,7 +184,7 @@ class StoreManagerActivity : AppCompatActivity() {
                 
                 lifecycleScope.launch {
                     database.storeDao().updateStore(updatedStore)
-                    // Add new chain to local list if it's new
+                    // Add new chain to database if it's new
                     chain?.let { addNewChainIfNeeded(it) }
                     Toast.makeText(this@StoreManagerActivity, "Butik uppdaterad", Toast.LENGTH_SHORT).show()
                 }
@@ -220,20 +216,16 @@ class StoreManagerActivity : AppCompatActivity() {
     }
     
     private fun setupChainDropdown(chainInput: AutoCompleteTextView) {
-        // Load existing chains from database and combine with default list
+        // Load chains from database
         lifecycleScope.launch {
             try {
-                val existingChains = database.storeDao().getDistinctChains()
-                val allChains = (STORE_CHAINS + existingChains)
-                    .distinct()
-                    .sorted()
-                    .toMutableList()
+                val chainNames = database.storeChainDao().getAllChainNames()
                 
                 runOnUiThread {
                     val adapter = ArrayAdapter(
                         this@StoreManagerActivity,
                         android.R.layout.simple_dropdown_item_1line,
-                        allChains
+                        chainNames.toMutableList()
                     )
                     chainInput.setAdapter(adapter)
                     
@@ -259,11 +251,11 @@ class StoreManagerActivity : AppCompatActivity() {
                 }
             } catch (e: Exception) {
                 runOnUiThread {
-                    // Fallback to default chains if database query fails
+                    // Fallback to empty list if database query fails
                     val adapter = ArrayAdapter(
                         this@StoreManagerActivity,
                         android.R.layout.simple_dropdown_item_1line,
-                        STORE_CHAINS.toMutableList()
+                        mutableListOf<String>()
                     )
                     chainInput.setAdapter(adapter)
                     
@@ -278,10 +270,18 @@ class StoreManagerActivity : AppCompatActivity() {
         }
     }
     
-    private fun addNewChainIfNeeded(chainName: String) {
-        if (chainName.isNotBlank() && !STORE_CHAINS.contains(chainName)) {
-            STORE_CHAINS.add(chainName)
-            STORE_CHAINS.sort()
+    private suspend fun addNewChainIfNeeded(chainName: String) {
+        if (chainName.isNotBlank()) {
+            // Check if chain already exists in database
+            val existingChain = database.storeChainDao().getChainByName(chainName)
+            if (existingChain == null) {
+                // Create new chain
+                val newChain = com.example.budgetapp.database.entities.StoreChain(
+                    name = chainName,
+                    isDefault = false
+                )
+                database.storeChainDao().insertChain(newChain)
+            }
         }
     }
 }

@@ -38,6 +38,13 @@ class ProductWithPricesAdapter(
                 textViewProductBrandName.visibility = android.view.View.VISIBLE
             }
             
+            // Helper function to calculate total price including deposit
+            fun getTotalPrice(productStore: com.example.budgetapp.database.entities.ProductStore): Double {
+                val basePrice = productStore.price
+                val depositAmount = if (product.hasDeposit) product.depositAmount ?: 0.0 else 0.0
+                return basePrice + depositAmount
+            }
+            
             // Price information
             when {
                 productWithPrices.prices.isEmpty() -> {
@@ -45,8 +52,8 @@ class ProductWithPricesAdapter(
                     textViewPriceRange.visibility = android.view.View.GONE
                 }
                 productWithPrices.prices.size == 1 -> {
-                    val price = productWithPrices.prices.first().productStore.price
-                    textViewPrice.text = "${priceFormatter.format(price)} kr"
+                    val totalPrice = getTotalPrice(productWithPrices.prices.first().productStore)
+                    textViewPrice.text = "${priceFormatter.format(totalPrice)} kr"
                     textViewPriceRange.visibility = android.view.View.GONE
                 }
                 else -> {
@@ -96,6 +103,13 @@ class ProductWithPricesAdapter(
             // Button actions
             buttonEdit.setOnClickListener { onEditClick(productWithPrices) }
             buttonDelete.setOnClickListener { onDeleteClick(productWithPrices) }
+            
+            // Update button text based on whether prices exist
+            if (productWithPrices.prices.isEmpty()) {
+                buttonViewPrices.text = "Lägg till priser"
+            } else {
+                buttonViewPrices.text = "Visa priser"
+            }
             buttonViewPrices.setOnClickListener { onViewPricesClick(productWithPrices) }
         }
     }

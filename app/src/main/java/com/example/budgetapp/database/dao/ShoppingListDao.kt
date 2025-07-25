@@ -41,4 +41,8 @@ interface ShoppingListDao {
 
     @Query("SELECT COUNT(*) FROM shopping_lists WHERE isCompleted = 1")
     fun getCompletedShoppingListsCount(): LiveData<Int>
+    
+    // Suspend functions for background thread access
+    @Query("SELECT * FROM shopping_lists WHERE isCompleted = :isCompleted ORDER BY createdAt DESC")
+    suspend fun getShoppingListsByStatusSuspend(isCompleted: Boolean): List<ShoppingList>
 }

@@ -46,6 +46,41 @@ class AddExpenseActivity : AppCompatActivity() {
     private var editingExpenseId: Long? = null
     private var isEditing: Boolean = false
     
+    // Product selection
+    private var selectedProductId: Long? = null
+    private val selectProductLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            result.data?.let { data ->
+                selectedProductId = data.getLongExtra("selected_product_id", -1L).takeIf { it != -1L }
+                val productName = data.getStringExtra("selected_product_name") ?: ""
+                
+                // Fyll i produktnamn som titel
+                binding.etTitle.setText(productName)
+                
+                // Hämta prisinfo för produkten om tillgängligt
+                selectedProductId?.let { productId ->
+                    lifecycleScope.launch {
+                        try {
+                            val priceInfo = database.productDao().getPriceStatsWithCampaignAndDeposit(productId)
+                            priceInfo?.let { stats ->
+                                val avgPrice = stats.getTotalAvgPrice()
+                                if (avgPrice != null && avgPrice > 0) {
+                                    binding.etAmount.setText(String.format("%.2f", avgPrice))
+                                }
+                            }
+                        } catch (e: Exception) {
+                            // Ignorera fel vid prshämtning
+                        }
+                    }
+                }
+                
+                Toast.makeText(this, "Produkt vald: $productName", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+    
     // Receipt functionality
     private lateinit var receiptItemAdapter: ReceiptItemAdapter
     private val receiptItems = mutableListOf<ReceiptItemInput>()
@@ -53,6 +88,7 @@ class AddExpenseActivity : AppCompatActivity() {
     private var existingProducts = listOf<Product>()
     private var existingStores = listOf<com.example.budgetapp.database.entities.Store>()
     private var currentReceiptDialog: DialogAddReceiptItemBinding? = null
+    private var userEditingDiscount = false
     
     // Barcode scanner for receipt items
     private val receiptBarcodeScannerLauncher = registerForActivityResult(
@@ -62,6 +98,20 @@ class AddExpenseActivity : AppCompatActivity() {
             val barcode = result.data?.getStringExtra("barcode")
             if (barcode != null && currentReceiptDialog != null) {
                 handleScannedBarcodeInReceipt(barcode, currentReceiptDialog!!)
+            }
+        }
+    }
+    
+    // Product selector for receipt items
+    private val receiptProductSelectorLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK && currentReceiptDialog != null) {
+            result.data?.let { data ->
+                val productId = data.getLongExtra("selected_product_id", -1L).takeIf { it != -1L }
+                val productName = data.getStringExtra("selected_product_name") ?: ""
+                
+                handleSelectedProductInReceipt(productId, productName, currentReceiptDialog!!)
             }
         }
     }
@@ -190,6 +240,11 @@ class AddExpenseActivity : AppCompatActivity() {
         
         binding.btnCancel.setOnClickListener {
             finish()
+        }
+        
+        binding.btnSelectProduct.setOnClickListener {
+            val intent = Intent(this, SelectProductActivity::class.java)
+            selectProductLauncher.launch(intent)
         }
     }
     
@@ -453,6 +508,7 @@ class AddExpenseActivity : AppCompatActivity() {
             dialogBinding.autocompleteProductName.setText(it.productName)
             dialogBinding.editQuantity.setText(it.quantity.toString())
             dialogBinding.dropdownUnit.setText(it.unit, false)
+            dialogBinding.editProductSize.setText(it.productSize ?: "")
             dialogBinding.editUnitPrice.setText(it.unitPrice.toString())
             dialogBinding.editDiscount.setText(it.discount.toString())
             // Set deposit information
@@ -465,9 +521,7 @@ class AddExpenseActivity : AppCompatActivity() {
         
         // Setup text watchers for live total preview
         listOf(
-            dialogBinding.editQuantity,
             dialogBinding.editUnitPrice,
-            dialogBinding.editDiscount,
             dialogBinding.editDepositAmount
         ).forEach { editText ->
             editText.doOnTextChanged { _, _, _, _ ->
@@ -475,9 +529,58 @@ class AddExpenseActivity : AppCompatActivity() {
             }
         }
         
+        // Special handling for discount field - don't auto-update campaign discounts if user is manually editing
+        userEditingDiscount = false
+        dialogBinding.editDiscount.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                userEditingDiscount = true
+            }
+        }
+        
+        dialogBinding.editDiscount.doOnTextChanged { _, _, _, _ ->
+            if (!userEditingDiscount) {
+                // Only update total if this is an automatic discount update
+                updateTotalPreview(dialogBinding)
+            } else {
+                // User is manually editing, just update total
+                updateTotalPreview(dialogBinding)
+            }
+        }
+        
+        // Special handling for quantity changes to recalculate campaign pricing
+        dialogBinding.editQuantity.doOnTextChanged { _, _, _, _ ->
+            // Only auto-calculate campaign discount if user isn't manually editing discount
+            if (!userEditingDiscount) {
+                // Check if we have a selected product and should recalculate price
+                val currentProductName = dialogBinding.autocompleteProductName.text.toString()
+                val existingProduct = existingProducts.find { it.name.equals(currentProductName, ignoreCase = true) }
+                
+                if (existingProduct != null) {
+                    lifecycleScope.launch {
+                        try {
+                            updateReceiptPriceWithCampaignLogic(existingProduct.id, dialogBinding)
+                        } catch (e: Exception) {
+                            updateTotalPreview(dialogBinding)
+                        }
+                    }
+                } else {
+                    updateTotalPreview(dialogBinding)
+                }
+            } else {
+                // User is manually editing discount, just update total
+                updateTotalPreview(dialogBinding)
+            }
+        }
+        
         val dialog = MaterialAlertDialogBuilder(this)
             .setView(dialogBinding.root)
             .create()
+        
+        // Setup product selection
+        dialogBinding.buttonSelectProduct.setOnClickListener {
+            val intent = Intent(this, SelectProductActivity::class.java)
+            receiptProductSelectorLauncher.launch(intent)
+        }
         
         // Setup barcode scanning
         dialogBinding.buttonScanBarcode.setOnClickListener {
@@ -519,6 +622,49 @@ class AddExpenseActivity : AppCompatActivity() {
         dialog.show()
     }
     
+    private fun handleSelectedProductInReceipt(productId: Long?, productName: String, dialogBinding: DialogAddReceiptItemBinding) {
+        if (productId != null) {
+            // Find the product in our cached list
+            val existingProduct = existingProducts.find { it.id == productId }
+            if (existingProduct != null) {
+                // Fill in product information automatically
+                dialogBinding.autocompleteProductName.setText(existingProduct.name)
+                dialogBinding.dropdownUnit.setText(existingProduct.unit ?: "st", false)
+                
+                // Set deposit information if available
+                if (existingProduct.hasDeposit && existingProduct.depositAmount != null) {
+                    dialogBinding.switchHasDeposit.isChecked = true
+                    dialogBinding.editDepositAmount.setText(existingProduct.depositAmount.toString())
+                } else {
+                    dialogBinding.switchHasDeposit.isChecked = false
+                }
+                
+                // Set quantity if available
+                existingProduct.amount?.let { amount ->
+                    dialogBinding.editQuantity.setText(amount.toString())
+                }
+                
+                // Get smart price calculation for this product
+                lifecycleScope.launch {
+                    try {
+                        updateReceiptPriceWithCampaignLogic(existingProduct.id, dialogBinding)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        runOnUiThread {
+                            updateTotalPreview(dialogBinding)
+                        }
+                    }
+                }
+                
+                Toast.makeText(this, "Produkt vald: ${existingProduct.name}", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            // Just set the product name if no ID
+            dialogBinding.autocompleteProductName.setText(productName)
+            Toast.makeText(this, "Produkt vald: $productName", Toast.LENGTH_SHORT).show()
+        }
+    }
+    
     private fun handleScannedBarcodeInReceipt(barcode: String, dialogBinding: DialogAddReceiptItemBinding) {
         // Hitta produkt med denna streckkod
         val existingProduct = existingProducts.find { it.barcode == barcode }
@@ -541,46 +687,10 @@ class AddExpenseActivity : AppCompatActivity() {
                 dialogBinding.editQuantity.setText(amount.toString())
             }
             
-            // Hitta senaste pris för denna produkt från ProductStore
+            // Get smart price calculation for this product
             lifecycleScope.launch {
                 try {
-                    // Ta endast första värdet från Flow, inte collect kontinuerligt
-                    val productStores = database.productStoreDao().getPricesForProduct(existingProduct.id)
-                    productStores.collect { stores ->
-                        if (stores.isNotEmpty()) {
-                            // Hitta senaste pris baserat på createdAt
-                            val latestPrice = stores.maxByOrNull { it.createdAt }
-                            
-                            latestPrice?.let { ps ->
-                                var finalPrice = ps.price
-                                
-                                // Debug: visa vad som finns i databasen
-                                android.util.Log.d("BARCODE_SCAN", "Produkt pris: ${ps.price}, har kampanj: ${ps.hasCampaignPrice}")
-                                if (ps.hasCampaignPrice) {
-                                    android.util.Log.d("BARCODE_SCAN", "Kampanjpris: ${ps.campaignPrice}, antal: ${ps.campaignQuantity}")
-                                }
-                                
-                                // För säkerhets skull: använd ALDRIG kampanjpris för scannning
-                                // Detta förhindrar problem med felaktig data i databasen
-                                // Använd bara det normala priset
-                                finalPrice = ps.price
-                                
-                                runOnUiThread {
-                                    // Avrunda till 2 decimaler för att undvika långa decimaltal
-                                    val roundedPrice = String.format("%.2f", finalPrice).toDouble()
-                                    dialogBinding.editUnitPrice.setText(roundedPrice.toString())
-                                    updateTotalPreview(dialogBinding)
-                                }
-                            }
-                        } else {
-                            // Inget pris hittat, låt användaren mata in manuellt
-                            runOnUiThread {
-                                updateTotalPreview(dialogBinding)
-                            }
-                        }
-                        // Avbryt collect efter första hämtningen
-                        return@collect
-                    }
+                    updateReceiptPriceWithCampaignLogic(existingProduct.id, dialogBinding)
                 } catch (e: Exception) {
                     e.printStackTrace()
                     runOnUiThread {
@@ -593,6 +703,73 @@ class AddExpenseActivity : AppCompatActivity() {
             // Produkten finns inte, bara sätt streckkoden som produktnamn
             dialogBinding.autocompleteProductName.setText(barcode)
             Toast.makeText(this, "Okänd produkt. Ange produktnamn manuellt.", Toast.LENGTH_SHORT).show()
+        }
+    }
+    
+    private suspend fun updateReceiptPriceWithCampaignLogic(productId: Long, dialogBinding: DialogAddReceiptItemBinding) {
+        try {
+            val quantity = dialogBinding.editQuantity.text.toString().toDoubleOrNull() ?: 1.0
+            
+            // Get regular price and campaign info
+            val productStores = database.productStoreDao().getPricesForProduct(productId)
+            productStores.collect { stores ->
+                if (stores.isNotEmpty()) {
+                    val latestPrice = stores.maxByOrNull { it.createdAt }
+                    latestPrice?.let { ps ->
+                        // Always show the regular unit price
+                        val regularUnitPrice = ps.price
+                        
+                        // Calculate total price with campaign logic
+                        val bestTotalPrice = calculateBestPriceForQuantity(database, productId, quantity)
+                        
+                        if (bestTotalPrice != null) {
+                            val product = database.productDao().getProductById(productId)
+                            val depositAmount = if (product?.hasDeposit == true) product.depositAmount ?: 0.0 else 0.0
+                            
+                            // Calculate what the total would be without campaign (regular price + deposit)
+                            val regularTotalPrice = (regularUnitPrice * quantity) + (depositAmount * quantity)
+                            
+                            // Calculate discount as the difference
+                            val campaignDiscount = maxOf(0.0, regularTotalPrice - bestTotalPrice)
+                            
+                            runOnUiThread {
+                                // Set regular unit price (unchanged)
+                                dialogBinding.editUnitPrice.setText(String.format("%.2f", regularUnitPrice))
+                                
+                                // Only update discount if user isn't manually editing it
+                                if (!userEditingDiscount) {
+                                    // Set campaign discount if applicable
+                                    if (campaignDiscount > 0) {
+                                        dialogBinding.editDiscount.setText(String.format("%.2f", campaignDiscount))
+                                    } else {
+                                        dialogBinding.editDiscount.setText("0")
+                                    }
+                                }
+                                
+                                updateTotalPreview(dialogBinding)
+                            }
+                        } else {
+                            runOnUiThread {
+                                dialogBinding.editUnitPrice.setText(String.format("%.2f", regularUnitPrice))
+                                if (!userEditingDiscount) {
+                                    dialogBinding.editDiscount.setText("0")
+                                }
+                                updateTotalPreview(dialogBinding)
+                            }
+                        }
+                    }
+                } else {
+                    runOnUiThread {
+                        updateTotalPreview(dialogBinding)
+                    }
+                }
+                return@collect
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            runOnUiThread {
+                updateTotalPreview(dialogBinding)
+            }
         }
     }
     
@@ -647,6 +824,7 @@ class AddExpenseActivity : AppCompatActivity() {
         val productName = dialogBinding.autocompleteProductName.text.toString()
         val quantity = dialogBinding.editQuantity.text.toString().toDouble()
         val unit = dialogBinding.dropdownUnit.text.toString()
+        val productSize = dialogBinding.editProductSize.text.toString().takeIf { it.isNotBlank() }
         val unitPrice = dialogBinding.editUnitPrice.text.toString().toDouble()
         val discount = dialogBinding.editDiscount.text.toString().toDoubleOrNull() ?: 0.0
         val storeName = dialogBinding.autocompleteStoreName.text.toString().takeIf { it.isNotBlank() }
@@ -665,6 +843,7 @@ class AddExpenseActivity : AppCompatActivity() {
             quantity = quantity,
             unitPrice = unitPrice,
             unit = unit,
+            productSize = productSize,
             discount = discount,
             productId = existingProduct?.id,
             storeName = storeName,
@@ -682,7 +861,7 @@ class AddExpenseActivity : AppCompatActivity() {
                     // Product doesn't exist, save it
                     val newProduct = Product(
                         name = item.productName,
-                        categoryId = 1, // Default category, could be made configurable
+                        productCategoryId = 1, // Default category, could be made configurable
                         amount = item.quantity,
                         unit = item.unit,
                         hasDeposit = item.hasDeposit,
@@ -775,6 +954,7 @@ class AddExpenseActivity : AppCompatActivity() {
                     unitPrice = item.unitPrice,
                     totalPrice = item.totalPrice,
                     unit = item.unit,
+                    productSize = item.productSize,
                     discount = item.discount,
                     hasDeposit = item.hasDeposit,
                     depositAmount = item.depositAmount,
@@ -1000,6 +1180,69 @@ class AddExpenseActivity : AppCompatActivity() {
         } catch (e: Exception) {
             ErrorHandler.logError("AddExpenseActivity", "Error creating ProductStore connection", e)
             e.printStackTrace()
+        }
+    }
+    
+    /**
+     * Beräknar bästa pris för en given kvantitet av en produkt.
+     * Tar hänsyn till om kampanjpris är fördelaktigt baserat på kvantitet.
+     * 
+     * Exempel: Vara kostar 13,95 + 1kr pant, kampanj "2 för 20kr"
+     * - 1 vara: 13,95 + 1 = 14,95 kr
+     * - 2 varor: 20 + 2 = 22 kr (kampanj + pant per vara)
+     * - 3 varor: 20 + 13,95 + 3 = 36,95 kr (kampanj för 2 + ordinarie för 1 + pant för alla)
+     */
+    private suspend fun calculateBestPriceForQuantity(database: BudgetDatabase, productId: Long, quantity: Double): Double? {
+        val productStores = database.productDao().getProductStoresWithPrices(productId)
+        if (productStores.isEmpty()) return null
+        
+        val product = database.productDao().getProductById(productId) ?: return null
+        val depositAmount = if (product.hasDeposit) product.depositAmount ?: 0.0 else 0.0
+        
+        // Hitta det bästa totalpriset för den angivna kvantiteten
+        var bestTotalPrice = Double.MAX_VALUE
+        
+        for (store in productStores) {
+            val basePrice = store.price  // Baspris per vara (utan pant)
+            val campaignPrice = store.campaignPrice
+            val campaignQuantity = store.campaignQuantity
+            
+            // Beräkna totalpris för ordinarie köp
+            val regularTotalPrice = (basePrice * quantity) + (depositAmount * quantity)
+            
+            // Beräkna totalpris för kampanjköp (om kampanj finns och är fördelaktig)
+            val campaignTotalPrice = if (store.hasCampaignPrice && campaignPrice != null && campaignQuantity != null && campaignQuantity > 0) {
+                // Kontrollera om kampanjen är fördelaktig per enhet
+                val campaignPricePerUnit = campaignPrice / campaignQuantity
+                
+                if (campaignPricePerUnit < basePrice) {
+                    // Kampanjen är fördelaktig, beräkna blandad pricing
+                    val fullCampaignSets = (quantity / campaignQuantity).toInt()
+                    val remainingItems = quantity % campaignQuantity
+                    
+                    // Totalkostnad = (antal kampanjset × kampanjpris) + (resterande × ordinarie pris) + (total pant)
+                    (fullCampaignSets * campaignPrice) + (remainingItems * basePrice) + (depositAmount * quantity)
+                } else {
+                    // Kampanjen är inte fördelaktig, använd ordinarie pris
+                    regularTotalPrice
+                }
+            } else {
+                // Ingen kampanj tillgänglig
+                regularTotalPrice
+            }
+            
+            // Välj det billigaste alternativet för denna butik
+            val bestPriceForThisStore = minOf(regularTotalPrice, campaignTotalPrice)
+            
+            if (bestPriceForThisStore < bestTotalPrice) {
+                bestTotalPrice = bestPriceForThisStore
+            }
+        }
+        
+        return if (bestTotalPrice != Double.MAX_VALUE) {
+            bestTotalPrice
+        } else {
+            null
         }
     }
     

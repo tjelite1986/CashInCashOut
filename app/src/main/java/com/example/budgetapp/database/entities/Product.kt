@@ -9,19 +9,19 @@ import androidx.room.PrimaryKey
     tableName = "products",
     foreignKeys = [
         ForeignKey(
-            entity = Category::class,
+            entity = ProductCategory::class,
             parentColumns = ["id"],
-            childColumns = ["categoryId"],
+            childColumns = ["productCategoryId"],
             onDelete = ForeignKey.SET_NULL
         )
     ],
-    indices = [Index(value = ["categoryId"])]
+    indices = [Index(value = ["productCategoryId"])]
 )
 data class Product(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
     val name: String,
-    val categoryId: Long? = null,
+    val productCategoryId: Long? = null,
     val hasDeposit: Boolean = false,
     val depositAmount: Double? = null,
     val barcode: String? = null,

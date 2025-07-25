@@ -23,6 +23,7 @@ class AddLoanActivity : AppCompatActivity() {
     
     private var editingLoanId: Long? = null
     private var isEditing: Boolean = false
+    private var originalLoan: Loan? = null
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -181,8 +182,7 @@ class AddLoanActivity : AppCompatActivity() {
             
             // Create loan object
             val loan = if (isEditing) {
-                Loan(
-                    id = editingLoanId!!,
+                originalLoan!!.copy(
                     title = title,
                     amount = amount,
                     personName = personName,
@@ -232,6 +232,7 @@ class AddLoanActivity : AppCompatActivity() {
             try {
                 val loan = database.loanDao().getLoanById(editingLoanId!!)
                 if (loan != null) {
+                    originalLoan = loan
                     binding.etTitle.setText(loan.title)
                     binding.etAmount.setText(loan.amount.toString())
                     binding.etPersonName.setText(loan.personName)

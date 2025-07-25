@@ -4,6 +4,14 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera" android:required="false" />
+    
+    <!-- Notification permissions -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
 
     <application
         android:allowBackup="true"
@@ -57,6 +65,12 @@
             android:exported="false"
             android:theme="@style/Theme.BudgetApp.NoActionBar"
             android:parentActivityName=".ProductListActivity" />
+            
+        <activity
+            android:name=".StoreChainManagerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BudgetApp.NoActionBar"
+            android:parentActivityName=".StoreManagerActivity" />
             
         <activity
             android:name=".AddIncomeActivity"
@@ -113,6 +127,18 @@
             android:parentActivityName=".ShoppingListDetailActivity" />
             
         <activity
+            android:name=".SelectProductActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BudgetApp.NoActionBar"
+            android:parentActivityName=".AddEditShoppingListItemActivity" />
+            
+        <activity
+            android:name=".OptimizedShoppingActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BudgetApp.NoActionBar"
+            android:parentActivityName=".ShoppingListDetailActivity" />
+            
+        <activity
             android:name=".PriceHistoryActivity"
             android:exported="false"
             android:theme="@style/Theme.BudgetApp.NoActionBar"
@@ -123,6 +149,82 @@
             android:exported="false"
             android:theme="@style/Theme.BudgetApp.NoActionBar"
             android:parentActivityName=".MainActivity" />
+            
+        <activity
+            android:name=".BudgetAnalyticsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BudgetApp.NoActionBar"
+            android:parentActivityName=".MainActivity" />
+            
+        <activity
+            android:name=".CategoryManagerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BudgetApp.NoActionBar"
+            android:parentActivityName=".MainActivity" />
+            
+        <activity
+            android:name=".AddEditCategoryActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BudgetApp.NoActionBar"
+            android:parentActivityName=".CategoryManagerActivity" />
+            
+        <activity
+            android:name=".BudgetRolloverSettingsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BudgetApp.NoActionBar"
+            android:parentActivityName=".MainActivity" />
+            
+        <activity
+            android:name=".ThemePreferencesActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BudgetApp.NoActionBar"
+            android:parentActivityName=".MainActivity" />
+            
+        <activity
+            android:name=".ProductCategoryManagerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BudgetApp.NoActionBar"
+            android:parentActivityName=".MainActivity" />
+            
+        <activity
+            android:name=".NotificationSettingsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BudgetApp.NoActionBar"
+            android:parentActivityName=".MainActivity" />
+            
+        <activity
+            android:name=".TransactionSelectorActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BudgetApp.NoActionBar"
+            android:parentActivityName=".NotificationSettingsActivity" />
+            
+        <activity
+            android:name=".StoreDetailActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BudgetApp.NoActionBar"
+            android:parentActivityName=".SmartRecommendationsActivity" />
+            
+        <activity
+            android:name=".StoreAndProductManagerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BudgetApp.NoActionBar"
+            android:parentActivityName=".MainActivity" />
+            
+        <!-- Notification Receiver -->
+        <receiver
+            android:name=".receivers.NotificationReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.example.budgetapp.DAILY_IF_NOT_OPENED" />
+                <action android:name="com.example.budgetapp.DAILY_ALWAYS" />
+                <action android:name="com.example.budgetapp.24_HOURS_CHECK" />
+                <action android:name="com.example.budgetapp.UPCOMING_TRANSACTIONS" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
         
     </application>
 

@@ -13,6 +13,7 @@ data class ReceiptItemInput(
     val quantity: Double,
     val unitPrice: Double,
     val unit: String = "st",
+    val productSize: String? = null, // Produktstorlek/volym (t.ex. 500ml, 1kg)
     val discount: Double = 0.0,
     val productId: Long? = null, // Koppling till befintlig produkt om vald
     val storeName: String? = null,

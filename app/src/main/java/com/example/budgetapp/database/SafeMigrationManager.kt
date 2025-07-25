@@ -9,8 +9,34 @@ object SafeMigrationManager {
     
     fun createDatabaseWithSafeMigration(context: Context): BudgetDatabase {
         return try {
-            // Temporarily use fallback to destructive migration for debugging
-            createCleanDatabase(context)
+            // Temporarily use destructive migration while fixing schema issues
+            Room.databaseBuilder(
+                context.applicationContext,
+                BudgetDatabase::class.java,
+                "budget_database"
+            )
+            .addMigrations(
+                BudgetDatabase.MIGRATION_1_2,
+                BudgetDatabase.MIGRATION_2_3,
+                BudgetDatabase.MIGRATION_3_4,
+                BudgetDatabase.MIGRATION_4_5,
+                BudgetDatabase.MIGRATION_5_6,
+                BudgetDatabase.MIGRATION_6_7,
+                BudgetDatabase.MIGRATION_7_8,
+                BudgetDatabase.MIGRATION_8_9,
+                BudgetDatabase.MIGRATION_9_10,
+                BudgetDatabase.MIGRATION_10_11,
+                BudgetDatabase.MIGRATION_11_12,
+                BudgetDatabase.MIGRATION_12_13,
+                BudgetDatabase.MIGRATION_13_14,
+                BudgetDatabase.MIGRATION_14_15,
+                BudgetDatabase.MIGRATION_15_16,
+                BudgetDatabase.MIGRATION_16_17,
+                BudgetDatabase.MIGRATION_17_18
+            )
+            .addCallback(BudgetDatabase.Companion.DatabaseCallback())
+            .fallbackToDestructiveMigration()
+            .build()
         } catch (e: Exception) {
             e.printStackTrace()
             // Fallback: Create fresh database with backup attempt

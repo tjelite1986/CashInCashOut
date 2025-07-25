@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <item
+        android:id="@+id/action_edit"
+        android:title="Redigera"
+        android:icon="@drawable/ic_edit" />
+    
+    <item
+        android:id="@+id/action_pay_back"
+        android:title="Markera som återbetalt"
+        android:icon="@drawable/ic_income" />
+    
+    <item
+        android:id="@+id/action_undo_payment"
+        android:title="Ångra återbetalning"
+        android:icon="@drawable/ic_arrow_back" />
+    
+    <item
+        android:id="@+id/action_delete"
+        android:title="Ta bort"
+        android:icon="@drawable/ic_delete" />
+        
+</menu>

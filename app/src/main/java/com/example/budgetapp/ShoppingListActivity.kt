@@ -12,12 +12,15 @@ import com.example.budgetapp.databinding.ActivityShoppingListBinding
 import com.example.budgetapp.repository.ShoppingListRepository
 import com.example.budgetapp.viewmodel.ShoppingListViewModel
 import com.example.budgetapp.viewmodel.ShoppingListViewModelFactory
+import com.example.budgetapp.data.ThemeSettings
+import com.example.budgetapp.utils.ThemeManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class ShoppingListActivity : AppCompatActivity() {
+class ShoppingListActivity : AppCompatActivity(), ThemeManager.ThemeChangeListener {
     
     private lateinit var binding: ActivityShoppingListBinding
     private lateinit var adapter: ShoppingListAdapter
+    private lateinit var themeManager: ThemeManager
     
     private val viewModel: ShoppingListViewModel by viewModels {
         val database = BudgetDatabase.getDatabase(this)
@@ -35,10 +38,17 @@ class ShoppingListActivity : AppCompatActivity() {
         binding = ActivityShoppingListBinding.inflate(layoutInflater)
         setContentView(binding.root)
         
+        // Initialize theme manager
+        themeManager = ThemeManager.getInstance(this)
+        themeManager.addThemeChangeListener(this)
+        
         setupToolbar()
         setupRecyclerView()
         setupObservers()
         setupClickListeners()
+        
+        // Apply initial theme
+        onThemeChanged(themeManager.getCurrentThemeSettings())
     }
     
     private fun setupToolbar() {
@@ -119,5 +129,22 @@ class ShoppingListActivity : AppCompatActivity() {
                 dialog.dismiss()
             }
             .show()
+    }
+    
+    override fun onDestroy() {
+        super.onDestroy()
+        themeManager.removeThemeChangeListener(this)
+    }
+    
+    override fun onThemeChanged(settings: ThemeSettings) {
+        val accentColor = themeManager.getAccentColorInt()
+        
+        // Apply theme to FAB
+        binding.fabAddShoppingList.backgroundTintList = android.content.res.ColorStateList.valueOf(accentColor)
+        
+        // Apply theme to adapter
+        if (::adapter.isInitialized) {
+            adapter.applyTheme(settings)
+        }
     }
 }

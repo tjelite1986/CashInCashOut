@@ -8,7 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.budgetapp.database.BudgetDatabase
-import com.example.budgetapp.database.entities.Category
+import com.example.budgetapp.database.entities.ProductCategory
 import com.example.budgetapp.database.entities.Product
 import com.example.budgetapp.database.entities.Store
 import com.example.budgetapp.database.entities.ProductStore
@@ -21,7 +21,7 @@ class AddProductActivity : AppCompatActivity() {
     
     private lateinit var binding: ActivityAddProductBinding
     private lateinit var database: BudgetDatabase
-    private var categories: List<Category> = emptyList()
+    private var categories: List<ProductCategory> = emptyList()
     private var stores: List<Store> = emptyList()
     private var selectedCategoryId: Long? = null
     private var selectedStoreId: Long? = null
@@ -100,7 +100,7 @@ class AddProductActivity : AppCompatActivity() {
     
     private fun loadCategories() {
         lifecycleScope.launch {
-            categories = database.categoryDao().getAllCategories().first()
+            categories = database.productCategoryDao().getAllProductCategories().first()
             setupCategorySpinner()
         }
     }
@@ -134,7 +134,7 @@ class AddProductActivity : AppCompatActivity() {
     }
     
     private fun setupStoreSpinner() {
-        val storeNames = listOf("Välj butik *") + stores.map { "${it.name} (${it.chain ?: ""})" }
+        val storeNames = listOf("Välj butik (valfritt)") + stores.map { "${it.name} (${it.chain ?: ""})" }
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, storeNames)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerStore.adapter = adapter
@@ -209,7 +209,7 @@ class AddProductActivity : AppCompatActivity() {
                 }
                 
                 // Set category
-                existingProduct.categoryId?.let { categoryId ->
+                existingProduct.productCategoryId?.let { categoryId ->
                     val categoryIndex = categories.indexOfFirst { it.id == categoryId }
                     if (categoryIndex >= 0) {
                         binding.spinnerCategory.setSelection(categoryIndex + 1)
@@ -241,16 +241,17 @@ class AddProductActivity : AppCompatActivity() {
             return
         }
         
-        val price = priceText.toDoubleOrNull()
-        if (price == null || price <= 0) {
-            binding.editTextPrice.error = "Giltigt pris krävs"
-            return
-        }
-        
-        // Validate store selection
-        if (selectedStoreId == null) {
-            Toast.makeText(this, "Välj en butik", Toast.LENGTH_SHORT).show()
-            return
+        // Price is only required if a store is selected
+        val price = if (selectedStoreId != null) {
+            val parsedPrice = priceText.toDoubleOrNull()
+            if (parsedPrice == null || parsedPrice <= 0) {
+                binding.editTextPrice.error = "Pris krävs när butik är vald"
+                return
+            }
+            parsedPrice
+        } else {
+            // No store selected, price is optional
+            priceText.toDoubleOrNull()
         }
         
         // Handle deposit
@@ -291,7 +292,7 @@ class AddProductActivity : AppCompatActivity() {
         
         val product = Product(
             name = name,
-            categoryId = selectedCategoryId,
+            productCategoryId = selectedCategoryId,
             hasDeposit = hasDeposit,
             depositAmount = depositAmount,
             barcode = barcode,
@@ -314,7 +315,7 @@ class AddProductActivity : AppCompatActivity() {
                     // Update existing product
                     val updatedProduct = existingProduct.copy(
                         name = name,
-                        categoryId = selectedCategoryId,
+                        productCategoryId = selectedCategoryId,
                         hasDeposit = hasDeposit,
                         depositAmount = depositAmount,
                         productName = productName,
@@ -330,29 +331,33 @@ class AddProductActivity : AppCompatActivity() {
                     database.productDao().insertProduct(product)
                 }
                 
-                // Now save the price for the selected store
-                val productStore = ProductStore(
-                    productId = productId,
-                    storeId = selectedStoreId!!,
-                    price = price,
-                    hasCampaignPrice = hasCampaignPrice,
-                    campaignQuantity = campaignQuantity,
-                    campaignPrice = campaignPrice
-                )
-                
-                database.productStoreDao().insertProductStore(productStore)
-                
-                // Save initial price to history
-                val priceHistory = PriceHistory(
-                    productId = productId,
-                    storeId = selectedStoreId!!,
-                    price = price,
-                    campaignPrice = if (hasCampaignPrice) campaignPrice else null,
-                    source = "manual_entry"
-                )
-                database.priceHistoryDao().insertPriceHistory(priceHistory)
-                
-                Toast.makeText(this@AddProductActivity, "Produkt och pris sparad!", Toast.LENGTH_SHORT).show()
+                // Only save price if store is selected
+                if (selectedStoreId != null && price != null) {
+                    val productStore = ProductStore(
+                        productId = productId,
+                        storeId = selectedStoreId!!,
+                        price = price,
+                        hasCampaignPrice = hasCampaignPrice,
+                        campaignQuantity = campaignQuantity,
+                        campaignPrice = campaignPrice
+                    )
+                    
+                    database.productStoreDao().insertProductStore(productStore)
+                    
+                    // Save initial price to history
+                    val priceHistory = PriceHistory(
+                        productId = productId,
+                        storeId = selectedStoreId!!,
+                        price = price,
+                        campaignPrice = if (hasCampaignPrice) campaignPrice else null,
+                        source = "manual_entry"
+                    )
+                    database.priceHistoryDao().insertPriceHistory(priceHistory)
+                    
+                    Toast.makeText(this@AddProductActivity, "Produkt och pris sparad!", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this@AddProductActivity, "Produkt sparad! Du kan lägga till priser senare.", Toast.LENGTH_SHORT).show()
+                }
                 finish()
             } catch (e: Exception) {
                 Toast.makeText(this@AddProductActivity, "Fel vid sparande: ${e.message}", Toast.LENGTH_LONG).show()

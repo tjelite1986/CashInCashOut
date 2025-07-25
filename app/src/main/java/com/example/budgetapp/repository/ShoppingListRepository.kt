@@ -7,6 +7,7 @@ import com.example.budgetapp.database.dao.ProductDao
 import com.example.budgetapp.database.dao.StoreDao
 import com.example.budgetapp.database.entities.ShoppingList
 import com.example.budgetapp.database.entities.ShoppingListItem
+import com.example.budgetapp.data.ShoppingListItemWithProduct
 
 class ShoppingListRepository(
     private val shoppingListDao: ShoppingListDao,
@@ -49,6 +50,9 @@ class ShoppingListRepository(
     // Shopping List Item operations
     fun getItemsForShoppingList(shoppingListId: Long): LiveData<List<ShoppingListItem>> = 
         shoppingListItemDao.getItemsForShoppingList(shoppingListId)
+    
+    fun getItemsWithProductForShoppingList(shoppingListId: Long): LiveData<List<ShoppingListItemWithProduct>> =
+        shoppingListItemDao.getItemsWithProductForShoppingList(shoppingListId)
     
     fun getActiveItemsForShoppingList(shoppingListId: Long): LiveData<List<ShoppingListItem>> = 
         shoppingListItemDao.getItemsForShoppingListByStatus(shoppingListId, false)

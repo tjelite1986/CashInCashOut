@@ -47,7 +47,6 @@ class ProductPriceManagerActivity : AppCompatActivity() {
         }
 
         setupUI()
-        setupRecyclerView()
         setupClickListeners()
         loadData()
     }
@@ -60,6 +59,7 @@ class ProductPriceManagerActivity : AppCompatActivity() {
     private fun setupRecyclerView() {
         priceAdapter = ProductPriceAdapter(
             prices = productPrices,
+            product = currentProduct,
             onEditClick = { productStoreWithStore ->
                 editPrice(productStoreWithStore)
             },
@@ -95,6 +95,9 @@ class ProductPriceManagerActivity : AppCompatActivity() {
 
             // Load stores
             stores = database.storeDao().getAllStores().first()
+
+            // Setup RecyclerView after product is loaded
+            setupRecyclerView()
 
             // Load prices
             loadPrices()

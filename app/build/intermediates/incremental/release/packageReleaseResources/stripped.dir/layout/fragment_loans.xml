@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lån"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Filter Chips -->
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group_filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:singleSelection="true"
+            app:chipSpacingHorizontal="8dp">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alla"
+                android:checked="true"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:textColor="@android:color/white"
+                app:chipBackgroundColor="#333333"
+                app:checkedIconTint="@android:color/white"
+                app:chipStrokeColor="#666666" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_borrowed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lånat"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:textColor="@android:color/white"
+                app:chipBackgroundColor="#333333"
+                app:checkedIconTint="#F44336"
+                app:chipStrokeColor="#666666" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_lent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lånat ut"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:textColor="@android:color/white"
+                app:chipBackgroundColor="#333333"
+                app:checkedIconTint="#4CAF50"
+                app:chipStrokeColor="#666666" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_active"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aktiva"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:textColor="@android:color/white"
+                app:chipBackgroundColor="#333333"
+                app:checkedIconTint="#FF9800"
+                app:chipStrokeColor="#666666" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_paid_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Återbetalda"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:textColor="@android:color/white"
+                app:chipBackgroundColor="#333333"
+                app:checkedIconTint="#9E9E9E"
+                app:chipStrokeColor="#666666" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+    </LinearLayout>
+
+    <!-- Summary Cards -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="16dp">
+
+        <!-- Borrowed Summary -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_borrowed_summary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="#1A1A1A">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lånat (skulder)"
+                    android:textSize="12sp"
+                    android:textColor="#B0B0B0"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/text_borrowed_total"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0 kr"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#F44336" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Lent Summary -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_lent_summary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="#1A1A1A">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lånat ut (fordringar)"
+                    android:textSize="12sp"
+                    android:textColor="#B0B0B0"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/text_lent_total"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0 kr"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#4CAF50" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+    <!-- Loans List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_loans"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="20dp"
+        android:paddingBottom="100dp"
+        android:clipToPadding="false" />
+
+    <!-- Empty State -->
+    <LinearLayout
+        android:id="@+id/layout_empty_state"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone"
+        android:padding="40dp"
+        android:paddingBottom="100dp">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_loans"
+            app:tint="#666666"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/text_empty_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inga lån"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/text_empty_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lägg till ditt första lån genom att trycka på + knappen"
+            android:textSize="14sp"
+            android:textColor="#B0B0B0"
+            android:gravity="center"
+            android:layout_marginBottom="24dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_add_borrowed_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginEnd="8dp"
+                android:text="+ Lånat"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#F44336"
+                style="@style/Widget.Material3.Button" />
+
+            <Button
+                android:id="@+id/btn_add_lent_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:text="+ Lånat ut"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#4CAF50"
+                style="@style/Widget.Material3.Button" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
+
+    <!-- Floating Action Buttons -->
+    <!-- Main FAB -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="#6C63FF"
+        app:srcCompat="@android:drawable/ic_input_add"
+        app:tint="@android:color/white"
+        android:elevation="8dp"
+        android:contentDescription="Lägg till lån" />
+
+    <!-- Borrowed FAB -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_borrowed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="90dp"
+        android:backgroundTint="#F44336"
+        app:srcCompat="@android:drawable/ic_input_add"
+        app:tint="@android:color/white"
+        app:fabSize="mini"
+        android:visibility="gone"
+        android:elevation="8dp"
+        android:contentDescription="Lägg till lånat" />
+
+    <!-- Lent FAB -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_lent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="150dp"
+        android:backgroundTint="#4CAF50"
+        app:srcCompat="@android:drawable/ic_input_add"
+        app:tint="@android:color/white"
+        app:fabSize="mini"
+        android:visibility="gone"
+        android:elevation="8dp"
+        android:contentDescription="Lägg till lånat ut" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

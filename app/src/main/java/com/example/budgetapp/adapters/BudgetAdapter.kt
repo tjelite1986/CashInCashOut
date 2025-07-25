@@ -1,5 +1,7 @@
 package com.example.budgetapp.adapters
 
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -9,15 +11,25 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.budgetapp.R
 import com.example.budgetapp.databinding.ItemBudgetBinding
 import com.example.budgetapp.repository.BudgetProgress
+import com.example.budgetapp.data.ThemeSettings
+import com.example.budgetapp.data.InterfaceStyle
+import com.example.budgetapp.utils.ThemeAware
+import com.example.budgetapp.utils.ThemeManager
 import java.text.NumberFormat
 import java.util.*
 
 class BudgetAdapter(
     private val onEditClick: (BudgetProgress) -> Unit,
     private val onDeleteClick: (BudgetProgress) -> Unit
-) : ListAdapter<BudgetProgress, BudgetAdapter.BudgetViewHolder>(BudgetDiffCallback()) {
+) : ListAdapter<BudgetProgress, BudgetAdapter.BudgetViewHolder>(BudgetDiffCallback()), ThemeAware {
+    
+    private var currentThemeSettings: ThemeSettings? = null
+    private lateinit var themeManager: ThemeManager
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BudgetViewHolder {
+        if (!::themeManager.isInitialized) {
+            themeManager = ThemeManager.getInstance(parent.context)
+        }
         val binding = ItemBudgetBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
@@ -28,9 +40,14 @@ class BudgetAdapter(
 
     override fun onBindViewHolder(holder: BudgetViewHolder, position: Int) {
         holder.bind(getItem(position))
+        
+        // Apply current theme to this item
+        currentThemeSettings?.let { settings ->
+            applyThemeToItem(holder, settings)
+        }
     }
 
-    inner class BudgetViewHolder(private val binding: ItemBudgetBinding) : 
+    inner class BudgetViewHolder(val binding: ItemBudgetBinding) : 
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(budgetProgress: BudgetProgress) {
@@ -99,6 +116,56 @@ class BudgetAdapter(
                 else -> period
             }
         }
+    }
+
+    override fun applyTheme(settings: ThemeSettings) {
+        currentThemeSettings = settings
+        // Only notify if we have a valid context and the adapter is attached
+        if (::themeManager.isInitialized) {
+            notifyDataSetChanged() // Refresh all items with new theme
+        }
+    }
+    
+    private fun applyThemeToItem(holder: BudgetViewHolder, settings: ThemeSettings) {
+        if (!::themeManager.isInitialized) return
+        
+        val binding = holder.binding
+        val accentColor = themeManager.getAccentColorInt()
+        val isColorful = settings.interfaceStyle == InterfaceStyle.COLORFUL
+        
+        // Apply theme to the card background
+        if (isColorful) {
+            // Very subtle background tint
+            val verySubtleColor = adjustColorAlpha(accentColor, 0.02f)
+            binding.root.setBackgroundColor(verySubtleColor)
+        } else {
+            // Reset to default background for material mode
+            binding.root.setBackgroundResource(android.R.color.transparent)
+        }
+        
+        // Apply subtle colors to buttons
+        val context = binding.root.context
+        
+        if (isColorful) {
+            binding.buttonEdit.setTextColor(adjustColorBrightness(accentColor, 0.7f))
+            binding.buttonDelete.setTextColor(adjustColorBrightness(Color.RED, 0.8f))
+        } else {
+            // Simple material design colors
+            binding.buttonEdit.setTextColor(context.getColor(android.R.color.darker_gray))
+            binding.buttonDelete.setTextColor(context.getColor(android.R.color.holo_red_dark))
+        }
+    }
+    
+    private fun adjustColorAlpha(color: Int, alpha: Float): Int {
+        val alphaInt = (255 * alpha).toInt().coerceIn(0, 255)
+        return Color.argb(alphaInt, Color.red(color), Color.green(color), Color.blue(color))
+    }
+    
+    private fun adjustColorBrightness(color: Int, factor: Float): Int {
+        val red = (Color.red(color) * factor).toInt().coerceIn(0, 255)
+        val green = (Color.green(color) * factor).toInt().coerceIn(0, 255)
+        val blue = (Color.blue(color) * factor).toInt().coerceIn(0, 255)
+        return Color.rgb(red, green, blue)
     }
 
     class BudgetDiffCallback : DiffUtil.ItemCallback<BudgetProgress>() {

@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.budgetapp.data.ThemeSettings
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.CancellationException
 import java.util.concurrent.CopyOnWriteArrayList
+import com.example.budgetapp.BudgetAnalyticsActivity
 import com.example.budgetapp.activities.AddEditBudgetActivity
 import com.example.budgetapp.adapters.BudgetAdapter
 import com.example.budgetapp.databinding.FragmentBudgetBinding
@@ -24,7 +26,7 @@ import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.util.*
 
-class BudgetFragment : Fragment() {
+class BudgetFragment : BaseFragment() {
 
     private var _binding: FragmentBudgetBinding? = null
     private val binding: FragmentBudgetBinding
@@ -58,13 +60,12 @@ class BudgetFragment : Fragment() {
     
     private fun initializeComponents() {
         val database = BudgetDatabase.getDatabase(requireContext())
-        budgetRepository = BudgetRepository(database)
+        budgetRepository = BudgetRepository(database, requireContext())
     }
 
     private fun setupRecyclerView() {
         budgetAdapter = BudgetAdapter(
             onEditClick = { budgetProgress ->
-                // TODO: Öppna redigera budget aktivitet
                 openAddEditBudgetActivity(budgetProgress.budget.id)
             },
             onDeleteClick = { budgetProgress ->
@@ -93,8 +94,11 @@ class BudgetFragment : Fragment() {
             true
         }
         
+        binding.buttonAnalytics.setOnClickListener {
+            openBudgetAnalytics()
+        }
+        
         binding.buttonFilter.setOnClickListener {
-            // TODO: Implementera filter funktionalitet
             showFilterDialog()
         }
     }
@@ -165,6 +169,15 @@ class BudgetFragment : Fragment() {
         }
     }
     
+    private fun openBudgetAnalytics() {
+        try {
+            val intent = Intent(requireContext(), BudgetAnalyticsActivity::class.java)
+            startActivity(intent)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+    
     private fun showDeleteConfirmationDialog(budgetProgress: BudgetProgress) {
         try {
             MaterialAlertDialogBuilder(requireContext())
@@ -192,28 +205,56 @@ class BudgetFragment : Fragment() {
     
     private fun showFilterDialog() {
         try {
-            val filterOptions = arrayOf("Alla", "Aktiva", "Över budget", "Nära gränsen")
+            val filterOptions = arrayOf(
+                "Alla budgetar",
+                "Aktiva (inom budget)", 
+                "Över budget",
+                "Nära gränsen (>80%)",
+                "Veckobudgetar",
+                "Månadsbudgetar",
+                "Kvartal/Årsbudgetar"
+            )
             
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle("Filtrera budgetar")
                 .setItems(filterOptions) { dialog, which ->
                     when (which) {
                         0 -> filterBudgets { true } // Alla
-                        1 -> filterBudgets { !it.isOverBudget } // Aktiva
+                        1 -> filterBudgets { !it.isOverBudget && !it.isNearLimit } // Aktiva inom budget
                         2 -> filterBudgets { it.isOverBudget } // Över budget
                         3 -> filterBudgets { it.isNearLimit && !it.isOverBudget } // Nära gränsen
+                        4 -> filterBudgets { it.budget.period == com.example.budgetapp.database.entities.BudgetPeriod.WEEKLY } // Veckobudgetar
+                        5 -> filterBudgets { it.budget.period == com.example.budgetapp.database.entities.BudgetPeriod.MONTHLY } // Månadsbudgetar
+                        6 -> filterBudgets { 
+                            it.budget.period == com.example.budgetapp.database.entities.BudgetPeriod.QUARTERLY || 
+                            it.budget.period == com.example.budgetapp.database.entities.BudgetPeriod.YEARLY 
+                        } // Kvartal/År
                     }
                     dialog.dismiss()
                 }
+                .setNegativeButton("Avbryt", null)
                 .show()
         } catch (e: Exception) {
-            e.printStackTrace()
+            ErrorHandler.logError("BudgetFragment", "Error showing filter dialog", e)
         }
     }
     
     private fun filterBudgets(predicate: (BudgetProgress) -> Boolean) {
         val filteredList = budgetProgressList.filter(predicate)
         budgetAdapter.submitList(filteredList)
+        
+        // Show feedback for empty results
+        if (filteredList.isEmpty() && budgetProgressList.isNotEmpty()) {
+            ErrorHandler.showErrorSnackbar(
+                binding.root,
+                "Inga budgetar matchar filtret",
+                "Rensa filter"
+            ) { resetFilter() }
+        }
+    }
+    
+    private fun resetFilter() {
+        budgetAdapter.submitList(budgetProgressList.toList())
     }
     
     private fun createSampleData() {
@@ -235,5 +276,18 @@ class BudgetFragment : Fragment() {
         super.onDestroyView()
         observationJob?.cancel()
         _binding = null
+    }
+    
+    override fun applyCustomTheme(settings: ThemeSettings) {
+        // Apply custom theme styling specific to BudgetFragment
+        val accentColor = themeManager.getAccentColorInt()
+        
+        // Update FAB color
+        binding.fabAddBudget.backgroundTintList = android.content.res.ColorStateList.valueOf(accentColor)
+        
+        // Update adapter theme
+        if (::budgetAdapter.isInitialized) {
+            budgetAdapter.applyTheme(settings)
+        }
     }
 }

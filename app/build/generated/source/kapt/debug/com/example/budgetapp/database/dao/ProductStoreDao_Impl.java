@@ -307,6 +307,75 @@ public final class ProductStoreDao_Impl implements ProductStoreDao {
   }
 
   @Override
+  public Flow<List<ProductStore>> getAllProductStores() {
+    final String _sql = "SELECT * FROM product_stores";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
+    return CoroutinesRoom.createFlow(__db, false, new String[] {"product_stores"}, new Callable<List<ProductStore>>() {
+      @Override
+      @NonNull
+      public List<ProductStore> call() throws Exception {
+        final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+        try {
+          final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
+          final int _cursorIndexOfProductId = CursorUtil.getColumnIndexOrThrow(_cursor, "productId");
+          final int _cursorIndexOfStoreId = CursorUtil.getColumnIndexOrThrow(_cursor, "storeId");
+          final int _cursorIndexOfPrice = CursorUtil.getColumnIndexOrThrow(_cursor, "price");
+          final int _cursorIndexOfHasCampaignPrice = CursorUtil.getColumnIndexOrThrow(_cursor, "hasCampaignPrice");
+          final int _cursorIndexOfCampaignQuantity = CursorUtil.getColumnIndexOrThrow(_cursor, "campaignQuantity");
+          final int _cursorIndexOfCampaignPrice = CursorUtil.getColumnIndexOrThrow(_cursor, "campaignPrice");
+          final int _cursorIndexOfLastSeen = CursorUtil.getColumnIndexOrThrow(_cursor, "lastSeen");
+          final int _cursorIndexOfCreatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "createdAt");
+          final int _cursorIndexOfUpdatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "updatedAt");
+          final List<ProductStore> _result = new ArrayList<ProductStore>(_cursor.getCount());
+          while (_cursor.moveToNext()) {
+            final ProductStore _item;
+            final long _tmpId;
+            _tmpId = _cursor.getLong(_cursorIndexOfId);
+            final long _tmpProductId;
+            _tmpProductId = _cursor.getLong(_cursorIndexOfProductId);
+            final long _tmpStoreId;
+            _tmpStoreId = _cursor.getLong(_cursorIndexOfStoreId);
+            final double _tmpPrice;
+            _tmpPrice = _cursor.getDouble(_cursorIndexOfPrice);
+            final boolean _tmpHasCampaignPrice;
+            final int _tmp;
+            _tmp = _cursor.getInt(_cursorIndexOfHasCampaignPrice);
+            _tmpHasCampaignPrice = _tmp != 0;
+            final Integer _tmpCampaignQuantity;
+            if (_cursor.isNull(_cursorIndexOfCampaignQuantity)) {
+              _tmpCampaignQuantity = null;
+            } else {
+              _tmpCampaignQuantity = _cursor.getInt(_cursorIndexOfCampaignQuantity);
+            }
+            final Double _tmpCampaignPrice;
+            if (_cursor.isNull(_cursorIndexOfCampaignPrice)) {
+              _tmpCampaignPrice = null;
+            } else {
+              _tmpCampaignPrice = _cursor.getDouble(_cursorIndexOfCampaignPrice);
+            }
+            final long _tmpLastSeen;
+            _tmpLastSeen = _cursor.getLong(_cursorIndexOfLastSeen);
+            final long _tmpCreatedAt;
+            _tmpCreatedAt = _cursor.getLong(_cursorIndexOfCreatedAt);
+            final long _tmpUpdatedAt;
+            _tmpUpdatedAt = _cursor.getLong(_cursorIndexOfUpdatedAt);
+            _item = new ProductStore(_tmpId,_tmpProductId,_tmpStoreId,_tmpPrice,_tmpHasCampaignPrice,_tmpCampaignQuantity,_tmpCampaignPrice,_tmpLastSeen,_tmpCreatedAt,_tmpUpdatedAt);
+            _result.add(_item);
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+        }
+      }
+
+      @Override
+      protected void finalize() {
+        _statement.release();
+      }
+    });
+  }
+
+  @Override
   public Flow<List<ProductStore>> getPricesForProduct(final long productId) {
     final String _sql = "SELECT * FROM product_stores WHERE productId = ? ORDER BY price ASC";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
