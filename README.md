@@ -1,4 +1,4 @@
-# Budget App
+# CashInCashOut
 
 En avancerad Android budget-app skapad med Kotlin och Material Design 3, med fokus på produkthantering, prisjämförelse, inkomst- och utgiftshantering.
 
@@ -98,6 +98,76 @@ Appen har en bottom navigation bar med fyra huvudsektioner:
 - **Flera rekommendationstyper** - Bästa pris, prisfall, bra deals, undvik höga priser
 - **Konfidenspoäng** - bedömer tillförlitlighet baserat på datamängd och aktualitet
 - **Inköpslisteoptimeringar** - får personliga tips för att spara pengar
+
+## 🏗️ Teknisk arkitektur
+
+### Systemdesign
+Appen använder en **lagerad arkitektur** med tydlig separation av ansvar:
+
+1. **Presentationslager** - Activities, Fragments, Adapters
+2. **Affärslogiklager** - Services, Repositories, ViewModels  
+3. **Datalager** - Database entities, DAOs, Room database
+
+### Kärnkomponenter
+
+#### Activities (`com/example/budgetapp/`)
+| Aktivitet | Syfte | Nyckelfunktioner |
+|-----------|-------|------------------|
+| `MainActivity.kt` | Huvudnavigering | Bottom navigation, fragmenthantering, tema/notifikationsinställningar |
+| `AddExpenseActivity.kt` | Utgiftsskapande | Kategorival, butikslänkning, betalmetoder |
+| `AddIncomeActivity.kt` | Inkomstspårning | Inkomstkategorier, återkommande inkomststöd |
+| `AddLoanActivity.kt` | Lånhantering | Lånade/utlånade pengar med räntor |
+| `ProductListActivity.kt` | Produktkatalog | Produkthantering med prishistorik |
+| `SmartRecommendationsActivity.kt` | AI-drivna insikter | Prisanalys och sparrekommendationer |
+
+#### Fragmentstruktur (`fragments/`)
+- **OverviewFragment** - Dashboard med balans, snabbåtgärder, lånöversikt
+- **TransactionsFragment** - Enhetlig transaktionsvy med filtrering
+- **LoansFragment** - Komplett lånhanteringssystem
+- **BudgetFragment** - Budgetplanering och spårning
+- **MoreFragment** - Inställningar och ytterligare funktioner
+
+#### Databasarkitektur (`database/`)
+**Room Database Version 16** med 17 entiteter:
+
+**Kärnfinansiella entiteter:**
+- `Expense` - Utgiftsspårning med kategorier, butiker, betalmetoder
+- `Income` - Inkomsthantering med återkommande stöd
+- `Loan` - Lånspårning (lånat/utlånat) med ränteberäkningar
+- `Budget` - Budgetplanering och gränser
+
+**Produkthantering:**
+- `Product` - Produktkatalog med streckkodsstöd
+- `ProductCategory` - Produktkategoriseringssystem
+- `ProductStore` - Prisspårning per butik
+- `PriceHistory` - Historiska prisdata för rekommendationer
+
+**Avancerade funktioner:**
+- `Receipt` + `ReceiptItem` - Kvittohanteringssystem
+- `ShoppingList` + `ShoppingListItem` - Inköpslisteoptimering
+- `TransactionNotification` - Smart notifikationssystem
+
+#### Services & Bakgrundsbearbetning (`services/`)
+- **SmartRecommendationService** - AI-driven prisanalys
+- **BudgetNotificationService** - Automatiserade budgetvarningar
+- **BudgetRolloverWorker** - Månatlig budgetbearbetning
+- **ShoppingListOptimizer** - Butiksbaserad inköpsoptimering
+
+#### Repository Pattern (`repository/`)
+Rent dataåtkomstlager med repositories för:
+- Budgethantering
+- Kategorihantering
+- Inköpslisteoperationer
+- Butikshantering
+
+### Tekniska höjdpunkter
+1. **Material Design 3** - Modernt UI med temastöd
+2. **Room Database** - Robust lokal lagring med migreringar
+3. **Kotlin Coroutines** - Asynkrona operationer
+4. **ViewBinding** - Typsäkra vyreferenser
+5. **WorkManager** - Bakgrundsuppgiftsbearbetning
+6. **Streckkodscanning** - Produktidentifiering med ML Kit
+7. **Notifikationssystem** - Smarta budgetvarningar
 - **Smarta förslag** - notifieringar om prisfall och besparingsmöjligheter
 - **Butiksrekommendationer** - hitta de mest kostnadseffektiva butikerna
 - **Potentiella besparingar** - beräknar hur mycket du kan spara
