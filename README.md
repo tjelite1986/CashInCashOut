@@ -55,9 +55,20 @@ Appen har en bottom navigation bar med fem huvudsektioner och en floating menu-k
 - **Insight-kategorisering** - kritiska, höga, mediumvarningar med färgkodning
 - **Interaktiv dashboard** - detaljerade insiktsdialoger med handlingsrekommendationer
 
+### 🤖 Smart Automation
+- **Intelligent automation system** - avancerat AI-drivet automationssystem för finansiell hantering
+- **SmartAutomationEngine** - automatisk transaktionsbehandling och mönsteranalys
+- **Machine Learning insikter** - ML-driven utgiftsanalys och beteendeförändringsdetektering
+- **Budget optimering** - automatiska förslag för budgetjusteringar baserat på historisk data
+- **Utgiftsmönster-detektering** - identifierar förändringar i utgiftsbeteende
+- **Predictive analytics** - förutsäger framtida utgifter per kategori med konfidenspoäng
+- **Automation management UI** - komplett gränssnitt för att hantera automationsregler
+- **Smart insights generation** - automatisk generering av finansiella insikter och rekommendationer
+
 ### ⚙️ Floating Menu (⋮)
 Tillgänglig via den lilla runda knappen längst upp till höger:
 - **Kategorihantering** - avancerat system för att hantera inkomst- och utgiftskategorier
+- **Smart Automation** - AI-drivet automationssystem för finansiell hantering
 - **Smarta rekommendationer** - AI-driven prisanalys och besparingstips
 - **Inköpslistor** - skapa och hantera inköpslistor med prishistorik
 - **Prishistorik** - spåra prisutveckling över tid med grafer
@@ -144,7 +155,7 @@ Appen använder en **lagerad arkitektur** med tydlig separation av ansvar:
 - **MoreFragment** - Inställningar och ytterligare funktioner (via floating menu)
 
 #### Databasarkitektur (`database/`)
-**Room Database Version 18** med 21 entiteter inklusive avancerade analytics:
+**Room Database Version 21** med 24+ entiteter inklusive avancerade analytics och automation:
 
 **Kärnfinansiella entiteter:**
 - `Expense` - Utgiftsspårning med kategorier, butiker, betalmetoder
@@ -169,9 +180,16 @@ Appen använder en **lagerad arkitektur** med tydlig separation av ansvar:
 - `SpendingPattern` - Utgiftsmönsteranalys för anomalidetektering  
 - `SpendingForecast` - Prediktiva utgiftsprognoser
 
+**Smart Automation-entiteter:**
+- `AutomationRule` - Automationsregler för intelligent transaktionsbehandling
+- `AutoTransferRule` - Automatiska överföringsregler för sparmål
+- `SmartInsight` - ML-genererade finansiella insikter med konfidenspoäng
+
 #### Services & Bakgrundsbearbetning (`services/`)
 - **SmartRecommendationService** - AI-driven prisanalys
 - **AdvancedAnalyticsService** - Avancerad finansiell AI-analys och insiktsgenerering
+- **SmartAutomationEngine** - Intelligent automation för transaktionsbehandling
+- **MachineLearningInsightEngine** - ML-driven utgiftsanalys och beteendedetektering
 - **BudgetNotificationService** - Automatiserade budgetvarningar
 - **BudgetRolloverWorker** - Månatlig budgetbearbetning
 - **ShoppingListOptimizer** - Butiksbaserad inköpsoptimering
@@ -285,7 +303,7 @@ Rent dataåtkomstlager med repositories för:
 - **MinSDK**: 24 (Android 7.0)
 - **TargetSDK**: 34
 - **Architecture**: Fragment-based navigation med MVVM-pattern
-- **Databas**: Room (SQLite) version 18 med avancerade analytics-entiteter
+- **Databas**: Room (SQLite) version 21 med automation- och analytics-entiteter
 - **Kamera**: CameraX med ML Kit för streckkodscanning
 - **Charts**: MPAndroidChart för prishistorikgrafer  
 - **AI-analys**: Anpassad smart rekommendationsalgoritm
@@ -310,6 +328,7 @@ app/
 │   │   ├── EditHomeActivity.kt
 │   │   ├── StoreManagerActivity.kt
 │   │   ├── SmartRecommendationsActivity.kt
+│   │   ├── AutomationActivity.kt
 │   │   ├── ShoppingListActivity.kt
 │   │   ├── ShoppingListDetailActivity.kt
 │   │   ├── PriceHistoryActivity.kt
@@ -326,6 +345,8 @@ app/
 │   │   │   ├── RecommendationAdapter.kt
 │   │   │   ├── ShoppingListAdapter.kt
 │   │   │   ├── ShoppingListItemAdapter.kt
+│   │   │   ├── AutomationRuleAdapter.kt
+│   │   │   ├── SmartInsightAdapter.kt
 │   │   │   └── InsightAdapter.kt
 │   │   ├── fragments/
 │   │   │   ├── OverviewFragment.kt
@@ -336,6 +357,14 @@ app/
 │   │   │   ├── MoreFragment.kt
 │   │   │   ├── SettingsFragment.kt
 │   │   │   └── InsightDetailsDialogFragment.kt
+│   │   ├── automation/
+│   │   │   ├── SmartAutomationEngine.kt
+│   │   │   ├── AutomationTypeConverters.kt
+│   │   │   ├── dao/
+│   │   │   │   └── AutomationRuleDao.kt
+│   │   │   └── ml/
+│   │   │       ├── MachineLearningInsightEngine.kt
+│   │   │       └── MLTypeConverters.kt
 │   │   ├── services/
 │   │   │   ├── SmartRecommendationService.kt
 │   │   │   └── AdvancedAnalyticsService.kt
@@ -625,8 +654,9 @@ Appen använder ett grönt färgtema som är lämpligt för ekonomi-appar:
 11. **Hantera butiker**: Översikt → "Hantera butiker" → Lägg till/redigera/ta bort butiker
 12. **Hantera kategorier**: Mer-fliken → "Kategorier" → Lägg till/redigera kategorier → Välj ikoner och färger
 13. **Smart rekommendationer**: Mer-fliken → "Smarta tips" → Se prisanalys och besparingsförslag
-14. **Inköpslistor**: Mer-fliken → "Inköpslistor" → Skapa listor → Lägg till produkter → Få prisrekommendationer
-15. **Prishistorik**: Produktlista → "Visa prishistorik" → Se prisutveckling över tid
+14. **Smart Automation**: Mer-fliken → "Smart Automation" → Hantera automationsregler → Generera ML-insikter → Optimera budgetar
+15. **Inköpslistor**: Mer-fliken → "Inköpslistor" → Skapa listor → Lägg till produkter → Få prisrekommendationer
+16. **Prishistorik**: Produktlista → "Visa prishistorik" → Se prisutveckling över tid
 
 ## Nästa steg
 
@@ -643,14 +673,18 @@ Appen är nu komplett med avancerade funktioner. Möjliga förbättringar:
 9. **Kundklubsintegration**: Synkronisering med ICA Kortet, Coop medlemskap
 
 ✅ **Implementerat**:
+- **Smart Automation System** - Komplett AI-drivet automationssystem för finansiell hantering
+- **Machine Learning Insights** - ML-powered utgiftsanalys och beteendeförändringsdetektering
+- **Predictive Analytics** - Förutsäger framtida utgifter med konfidenspoäng
 - **Avancerad AI Analytics Dashboard** - Finansiell hälsoscore, smarta insikter, målprogress
 - **Floating Menu Navigation** - Clean design utan toolbar men med full funktionalitet
+- **Budget Optimization** - Automatiska förslag för budgetjusteringar
 - Avancerat kategorisystem med visuella ikoner och färger
 - Smarta rekommendationer med AI-analys
 - Komplett prishistoriksystem  
 - Inköpslistor med prisoptimering
 - Kvittohantering
-- Avancerad databas (18+ tabeller med analytics-entiteter)
+- Avancerad databas (21+ tabeller med automation- och analytics-entiteter)
 - Modern Material Design 3 UI
 
 ## Hur man bygger
