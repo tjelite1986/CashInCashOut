@@ -184,7 +184,7 @@ public final class ProductDao_Impl implements ProductDao {
   }
 
   @Override
-  public Object insertProduct(final Product product, final Continuation<? super Long> arg1) {
+  public Object insertProduct(final Product product, final Continuation<? super Long> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Long>() {
       @Override
       @NonNull
@@ -198,11 +198,11 @@ public final class ProductDao_Impl implements ProductDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object deleteProduct(final Product product, final Continuation<? super Unit> arg1) {
+  public Object deleteProduct(final Product product, final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -216,11 +216,11 @@ public final class ProductDao_Impl implements ProductDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object updateProduct(final Product product, final Continuation<? super Unit> arg1) {
+  public Object updateProduct(final Product product, final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -234,11 +234,11 @@ public final class ProductDao_Impl implements ProductDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object deleteProductById(final long id, final Continuation<? super Unit> arg1) {
+  public Object deleteProductById(final long id, final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -259,7 +259,7 @@ public final class ProductDao_Impl implements ProductDao {
           __preparedStmtOfDeleteProductById.release(_stmt);
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
@@ -362,7 +362,7 @@ public final class ProductDao_Impl implements ProductDao {
   }
 
   @Override
-  public Object getProductById(final long id, final Continuation<? super Product> arg1) {
+  public Object getProductById(final long id, final Continuation<? super Product> $completion) {
     final String _sql = "SELECT * FROM products WHERE id = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -456,12 +456,12 @@ public final class ProductDao_Impl implements ProductDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object getProductByBarcode(final String barcode,
-      final Continuation<? super Product> arg1) {
+      final Continuation<? super Product> $completion) {
     final String _sql = "SELECT * FROM products WHERE barcode = ? LIMIT 1";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -559,7 +559,7 @@ public final class ProductDao_Impl implements ProductDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
@@ -776,7 +776,7 @@ public final class ProductDao_Impl implements ProductDao {
 
   @Override
   public Object getPriceStats(final long productId,
-      final Continuation<? super ProductDao.PriceStats> arg1) {
+      final Continuation<? super ProductDao.PriceStats> $completion) {
     final String _sql = "\n"
             + "        SELECT MIN(ps.price) as minPrice, MAX(ps.price) as maxPrice, AVG(ps.price) as avgPrice\n"
             + "        FROM product_stores ps\n"
@@ -825,12 +825,12 @@ public final class ProductDao_Impl implements ProductDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object getPriceStatsWithCampaignAndDeposit(final long productId,
-      final Continuation<? super ProductDao.PriceStatsWithDeposit> arg1) {
+      final Continuation<? super ProductDao.PriceStatsWithDeposit> $completion) {
     final String _sql = "\n"
             + "        SELECT \n"
             + "            MIN(CASE \n"
@@ -907,12 +907,12 @@ public final class ProductDao_Impl implements ProductDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object getProductStoresWithPrices(final long productId,
-      final Continuation<? super List<ProductDao.ProductStoreWithPrice>> arg1) {
+      final Continuation<? super List<ProductDao.ProductStoreWithPrice>> $completion) {
     final String _sql = "\n"
             + "        SELECT \n"
             + "            ps.*,\n"
@@ -1021,12 +1021,12 @@ public final class ProductDao_Impl implements ProductDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object getCheapestStoreForProduct(final long productId,
-      final Continuation<? super ProductDao.ProductStoreWithPrice> arg1) {
+      final Continuation<? super ProductDao.ProductStoreWithPrice> $completion) {
     final String _sql = "\n"
             + "        SELECT \n"
             + "            ps.*,\n"
@@ -1136,11 +1136,11 @@ public final class ProductDao_Impl implements ProductDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object getProductCount(final Continuation<? super Integer> arg0) {
+  public Object getProductCount(final Continuation<? super Integer> $completion) {
     final String _sql = "SELECT COUNT(*) FROM products";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
@@ -1168,7 +1168,7 @@ public final class ProductDao_Impl implements ProductDao {
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @NonNull

@@ -319,7 +319,7 @@ public final class FinancialGoalDao_Impl implements FinancialGoalDao {
   }
 
   @Override
-  public Object insertGoal(final FinancialGoal goal, final Continuation<? super Long> arg1) {
+  public Object insertGoal(final FinancialGoal goal, final Continuation<? super Long> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Long>() {
       @Override
       @NonNull
@@ -333,12 +333,12 @@ public final class FinancialGoalDao_Impl implements FinancialGoalDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object insertGoals(final List<FinancialGoal> goals,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -352,11 +352,11 @@ public final class FinancialGoalDao_Impl implements FinancialGoalDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object deleteGoal(final FinancialGoal goal, final Continuation<? super Unit> arg1) {
+  public Object deleteGoal(final FinancialGoal goal, final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -370,11 +370,11 @@ public final class FinancialGoalDao_Impl implements FinancialGoalDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object updateGoal(final FinancialGoal goal, final Continuation<? super Unit> arg1) {
+  public Object updateGoal(final FinancialGoal goal, final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -388,12 +388,12 @@ public final class FinancialGoalDao_Impl implements FinancialGoalDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object updateGoalProgress(final long goalId, final double amount, final long timestamp,
-      final Continuation<? super Unit> arg3) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -418,12 +418,12 @@ public final class FinancialGoalDao_Impl implements FinancialGoalDao {
           __preparedStmtOfUpdateGoalProgress.release(_stmt);
         }
       }
-    }, arg3);
+    }, $completion);
   }
 
   @Override
   public Object addToGoalProgress(final long goalId, final double amount, final long timestamp,
-      final Continuation<? super Unit> arg3) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -448,12 +448,12 @@ public final class FinancialGoalDao_Impl implements FinancialGoalDao {
           __preparedStmtOfAddToGoalProgress.release(_stmt);
         }
       }
-    }, arg3);
+    }, $completion);
   }
 
   @Override
   public Object markGoalCompleted(final long goalId, final long timestamp,
-      final Continuation<? super Unit> arg2) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -478,12 +478,12 @@ public final class FinancialGoalDao_Impl implements FinancialGoalDao {
           __preparedStmtOfMarkGoalCompleted.release(_stmt);
         }
       }
-    }, arg2);
+    }, $completion);
   }
 
   @Override
   public Object deactivateGoal(final long goalId, final long timestamp,
-      final Continuation<? super Unit> arg2) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -506,12 +506,12 @@ public final class FinancialGoalDao_Impl implements FinancialGoalDao {
           __preparedStmtOfDeactivateGoal.release(_stmt);
         }
       }
-    }, arg2);
+    }, $completion);
   }
 
   @Override
   public Object activateGoal(final long goalId, final long timestamp,
-      final Continuation<? super Unit> arg2) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -534,11 +534,11 @@ public final class FinancialGoalDao_Impl implements FinancialGoalDao {
           __preparedStmtOfActivateGoal.release(_stmt);
         }
       }
-    }, arg2);
+    }, $completion);
   }
 
   @Override
-  public Object deleteGoalById(final long goalId, final Continuation<? super Unit> arg1) {
+  public Object deleteGoalById(final long goalId, final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -559,12 +559,12 @@ public final class FinancialGoalDao_Impl implements FinancialGoalDao {
           __preparedStmtOfDeleteGoalById.release(_stmt);
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object deleteOldCompletedGoals(final long cutoffTime,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -585,11 +585,11 @@ public final class FinancialGoalDao_Impl implements FinancialGoalDao {
           __preparedStmtOfDeleteOldCompletedGoals.release(_stmt);
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object deleteAllGoals(final Continuation<? super Unit> arg0) {
+  public Object deleteAllGoals(final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -608,7 +608,7 @@ public final class FinancialGoalDao_Impl implements FinancialGoalDao {
           __preparedStmtOfDeleteAllGoals.release(_stmt);
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @Override
@@ -1361,7 +1361,8 @@ public final class FinancialGoalDao_Impl implements FinancialGoalDao {
   }
 
   @Override
-  public Object getGoalById(final long goalId, final Continuation<? super FinancialGoal> arg1) {
+  public Object getGoalById(final long goalId,
+      final Continuation<? super FinancialGoal> $completion) {
     final String _sql = "SELECT * FROM financial_goals WHERE id = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -1503,12 +1504,12 @@ public final class FinancialGoalDao_Impl implements FinancialGoalDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object getOverdueGoals(final long date,
-      final Continuation<? super List<FinancialGoal>> arg1) {
+      final Continuation<? super List<FinancialGoal>> $completion) {
     final String _sql = "SELECT * FROM financial_goals WHERE targetDate IS NOT NULL AND targetDate < ? AND isCompleted = 0";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -1650,12 +1651,12 @@ public final class FinancialGoalDao_Impl implements FinancialGoalDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object getGoalsDueInRange(final long startDate, final long endDate,
-      final Continuation<? super List<FinancialGoal>> arg2) {
+      final Continuation<? super List<FinancialGoal>> $completion) {
     final String _sql = "SELECT * FROM financial_goals WHERE targetDate IS NOT NULL AND targetDate BETWEEN ? AND ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 2);
     int _argIndex = 1;
@@ -1799,11 +1800,12 @@ public final class FinancialGoalDao_Impl implements FinancialGoalDao {
           _statement.release();
         }
       }
-    }, arg2);
+    }, $completion);
   }
 
   @Override
-  public Object getGoalsReadyForCompletion(final Continuation<? super List<FinancialGoal>> arg0) {
+  public Object getGoalsReadyForCompletion(
+      final Continuation<? super List<FinancialGoal>> $completion) {
     final String _sql = "SELECT * FROM financial_goals WHERE (currentAmount / targetAmount * 100) >= 100 AND isCompleted = 0";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
@@ -1943,11 +1945,11 @@ public final class FinancialGoalDao_Impl implements FinancialGoalDao {
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @Override
-  public Object getGoalsWithReminders(final Continuation<? super List<FinancialGoal>> arg0) {
+  public Object getGoalsWithReminders(final Continuation<? super List<FinancialGoal>> $completion) {
     final String _sql = "SELECT * FROM financial_goals WHERE reminderEnabled = 1 AND isActive = 1 AND isCompleted = 0";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
@@ -2087,11 +2089,12 @@ public final class FinancialGoalDao_Impl implements FinancialGoalDao {
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @Override
-  public Object getGoalsWithAutoTransfer(final Continuation<? super List<FinancialGoal>> arg0) {
+  public Object getGoalsWithAutoTransfer(
+      final Continuation<? super List<FinancialGoal>> $completion) {
     final String _sql = "SELECT * FROM financial_goals WHERE autoTransferEnabled = 1 AND isActive = 1 AND isCompleted = 0";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
@@ -2231,7 +2234,7 @@ public final class FinancialGoalDao_Impl implements FinancialGoalDao {
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @Override
@@ -2305,7 +2308,7 @@ public final class FinancialGoalDao_Impl implements FinancialGoalDao {
   }
 
   @Override
-  public Object getTotalTargetAmount(final Continuation<? super Double> arg0) {
+  public Object getTotalTargetAmount(final Continuation<? super Double> $completion) {
     final String _sql = "SELECT SUM(targetAmount) FROM financial_goals WHERE isActive = 1";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
@@ -2333,11 +2336,11 @@ public final class FinancialGoalDao_Impl implements FinancialGoalDao {
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @Override
-  public Object getTotalCurrentAmount(final Continuation<? super Double> arg0) {
+  public Object getTotalCurrentAmount(final Continuation<? super Double> $completion) {
     final String _sql = "SELECT SUM(currentAmount) FROM financial_goals WHERE isActive = 1";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
@@ -2365,11 +2368,11 @@ public final class FinancialGoalDao_Impl implements FinancialGoalDao {
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @Override
-  public Object getAverageProgress(final Continuation<? super Double> arg0) {
+  public Object getAverageProgress(final Continuation<? super Double> $completion) {
     final String _sql = "SELECT AVG(currentAmount / targetAmount * 100) FROM financial_goals WHERE isActive = 1";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
@@ -2397,11 +2400,12 @@ public final class FinancialGoalDao_Impl implements FinancialGoalDao {
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @Override
-  public Object getActiveGoalCountsByType(final Continuation<? super List<GoalTypeCount>> arg0) {
+  public Object getActiveGoalCountsByType(
+      final Continuation<? super List<GoalTypeCount>> $completion) {
     final String _sql = "\n"
             + "        SELECT goalType, COUNT(*) as count \n"
             + "        FROM financial_goals \n"
@@ -2438,11 +2442,12 @@ public final class FinancialGoalDao_Impl implements FinancialGoalDao {
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @Override
-  public Object getAverageProgressByType(final Continuation<? super List<GoalTypeProgress>> arg0) {
+  public Object getAverageProgressByType(
+      final Continuation<? super List<GoalTypeProgress>> $completion) {
     final String _sql = "\n"
             + "        SELECT goalType, AVG(currentAmount / targetAmount * 100) as avgProgress \n"
             + "        FROM financial_goals \n"
@@ -2479,11 +2484,11 @@ public final class FinancialGoalDao_Impl implements FinancialGoalDao {
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @Override
-  public Object getTotalTargetByType(final Continuation<? super List<GoalTypeTarget>> arg0) {
+  public Object getTotalTargetByType(final Continuation<? super List<GoalTypeTarget>> $completion) {
     final String _sql = "\n"
             + "        SELECT goalType, SUM(targetAmount) as totalTarget \n"
             + "        FROM financial_goals \n"
@@ -2520,12 +2525,12 @@ public final class FinancialGoalDao_Impl implements FinancialGoalDao {
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @Override
   public Object getActiveGoalCountsByPriority(
-      final Continuation<? super List<GoalPriorityCount>> arg0) {
+      final Continuation<? super List<GoalPriorityCount>> $completion) {
     final String _sql = "\n"
             + "        SELECT priority, COUNT(*) as count \n"
             + "        FROM financial_goals \n"
@@ -2562,7 +2567,7 @@ public final class FinancialGoalDao_Impl implements FinancialGoalDao {
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @NonNull

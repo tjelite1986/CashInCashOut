@@ -116,7 +116,7 @@ public final class ReceiptDao_Impl implements ReceiptDao {
   }
 
   @Override
-  public Object insertReceipt(final Receipt receipt, final Continuation<? super Long> arg1) {
+  public Object insertReceipt(final Receipt receipt, final Continuation<? super Long> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Long>() {
       @Override
       @NonNull
@@ -130,11 +130,11 @@ public final class ReceiptDao_Impl implements ReceiptDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object deleteReceipt(final Receipt receipt, final Continuation<? super Unit> arg1) {
+  public Object deleteReceipt(final Receipt receipt, final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -148,11 +148,11 @@ public final class ReceiptDao_Impl implements ReceiptDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object updateReceipt(final Receipt receipt, final Continuation<? super Unit> arg1) {
+  public Object updateReceipt(final Receipt receipt, final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -166,11 +166,12 @@ public final class ReceiptDao_Impl implements ReceiptDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object deleteReceiptById(final long receiptId, final Continuation<? super Unit> arg1) {
+  public Object deleteReceiptById(final long receiptId,
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -191,7 +192,7 @@ public final class ReceiptDao_Impl implements ReceiptDao {
           __preparedStmtOfDeleteReceiptById.release(_stmt);
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
@@ -252,7 +253,8 @@ public final class ReceiptDao_Impl implements ReceiptDao {
   }
 
   @Override
-  public Object getReceiptById(final long receiptId, final Continuation<? super Receipt> arg1) {
+  public Object getReceiptById(final long receiptId,
+      final Continuation<? super Receipt> $completion) {
     final String _sql = "SELECT * FROM receipts WHERE id = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -304,12 +306,12 @@ public final class ReceiptDao_Impl implements ReceiptDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object getReceiptByExpenseId(final long expenseId,
-      final Continuation<? super Receipt> arg1) {
+      final Continuation<? super Receipt> $completion) {
     final String _sql = "SELECT * FROM receipts WHERE expenseId = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -361,7 +363,7 @@ public final class ReceiptDao_Impl implements ReceiptDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override

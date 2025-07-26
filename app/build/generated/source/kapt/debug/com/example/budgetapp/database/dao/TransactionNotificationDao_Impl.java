@@ -151,7 +151,7 @@ public final class TransactionNotificationDao_Impl implements TransactionNotific
 
   @Override
   public Object insertNotification(final TransactionNotification notification,
-      final Continuation<? super Long> arg1) {
+      final Continuation<? super Long> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Long>() {
       @Override
       @NonNull
@@ -165,12 +165,12 @@ public final class TransactionNotificationDao_Impl implements TransactionNotific
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object insertNotifications(final List<TransactionNotification> notifications,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -184,12 +184,12 @@ public final class TransactionNotificationDao_Impl implements TransactionNotific
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object deleteNotification(final TransactionNotification notification,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -203,12 +203,12 @@ public final class TransactionNotificationDao_Impl implements TransactionNotific
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object updateNotification(final TransactionNotification notification,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -222,12 +222,12 @@ public final class TransactionNotificationDao_Impl implements TransactionNotific
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object deleteNotificationForTransaction(final long transactionId,
-      final TransactionType type, final Continuation<? super Unit> arg2) {
+      final TransactionType type, final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -250,12 +250,12 @@ public final class TransactionNotificationDao_Impl implements TransactionNotific
           __preparedStmtOfDeleteNotificationForTransaction.release(_stmt);
         }
       }
-    }, arg2);
+    }, $completion);
   }
 
   @Override
   public Object deleteNotificationsByType(final TransactionType type,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -276,12 +276,12 @@ public final class TransactionNotificationDao_Impl implements TransactionNotific
           __preparedStmtOfDeleteNotificationsByType.release(_stmt);
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object toggleNotification(final long id, final boolean enabled,
-      final Continuation<? super Unit> arg2) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -305,12 +305,12 @@ public final class TransactionNotificationDao_Impl implements TransactionNotific
           __preparedStmtOfToggleNotification.release(_stmt);
         }
       }
-    }, arg2);
+    }, $completion);
   }
 
   @Override
   public Object getActiveNotifications(
-      final Continuation<? super List<TransactionNotification>> arg0) {
+      final Continuation<? super List<TransactionNotification>> $completion) {
     final String _sql = "SELECT * FROM transaction_notifications WHERE isEnabled = 1";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
@@ -369,12 +369,12 @@ public final class TransactionNotificationDao_Impl implements TransactionNotific
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @Override
   public Object getAllNotifications(
-      final Continuation<? super List<TransactionNotification>> arg0) {
+      final Continuation<? super List<TransactionNotification>> $completion) {
     final String _sql = "SELECT * FROM transaction_notifications";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
@@ -433,12 +433,12 @@ public final class TransactionNotificationDao_Impl implements TransactionNotific
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @Override
   public Object getNotificationForTransaction(final long transactionId, final TransactionType type,
-      final Continuation<? super TransactionNotification> arg2) {
+      final Continuation<? super TransactionNotification> $completion) {
     final String _sql = "SELECT * FROM transaction_notifications WHERE transactionId = ? AND transactionType = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 2);
     int _argIndex = 1;
@@ -501,12 +501,12 @@ public final class TransactionNotificationDao_Impl implements TransactionNotific
           _statement.release();
         }
       }
-    }, arg2);
+    }, $completion);
   }
 
   @Override
   public Object getNotificationsByType(final TransactionType type,
-      final Continuation<? super List<TransactionNotification>> arg1) {
+      final Continuation<? super List<TransactionNotification>> $completion) {
     final String _sql = "SELECT * FROM transaction_notifications WHERE transactionType = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -567,11 +567,11 @@ public final class TransactionNotificationDao_Impl implements TransactionNotific
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object getActiveNotificationCount(final Continuation<? super Integer> arg0) {
+  public Object getActiveNotificationCount(final Continuation<? super Integer> $completion) {
     final String _sql = "SELECT COUNT(*) FROM transaction_notifications WHERE isEnabled = 1";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
@@ -599,7 +599,7 @@ public final class TransactionNotificationDao_Impl implements TransactionNotific
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @NonNull

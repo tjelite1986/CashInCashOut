@@ -216,7 +216,7 @@ public final class LoanDao_Impl implements LoanDao {
   }
 
   @Override
-  public Object insertLoan(final Loan loan, final Continuation<? super Long> arg1) {
+  public Object insertLoan(final Loan loan, final Continuation<? super Long> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Long>() {
       @Override
       @NonNull
@@ -230,11 +230,11 @@ public final class LoanDao_Impl implements LoanDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object insertLoans(final List<Loan> loans, final Continuation<? super Unit> arg1) {
+  public Object insertLoans(final List<Loan> loans, final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -248,11 +248,11 @@ public final class LoanDao_Impl implements LoanDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object deleteLoan(final Loan loan, final Continuation<? super Unit> arg1) {
+  public Object deleteLoan(final Loan loan, final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -266,11 +266,11 @@ public final class LoanDao_Impl implements LoanDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object updateLoan(final Loan loan, final Continuation<? super Unit> arg1) {
+  public Object updateLoan(final Loan loan, final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -284,11 +284,11 @@ public final class LoanDao_Impl implements LoanDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object deleteLoanById(final long loanId, final Continuation<? super Unit> arg1) {
+  public Object deleteLoanById(final long loanId, final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -309,11 +309,11 @@ public final class LoanDao_Impl implements LoanDao {
           __preparedStmtOfDeleteLoanById.release(_stmt);
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object deleteAllLoans(final Continuation<? super Unit> arg0) {
+  public Object deleteAllLoans(final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -332,12 +332,12 @@ public final class LoanDao_Impl implements LoanDao {
           __preparedStmtOfDeleteAllLoans.release(_stmt);
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @Override
   public Object markLoanAsPaidBack(final long loanId, final long paidDate, final double amount,
-      final long updatedAt, final Continuation<? super Unit> arg4) {
+      final long updatedAt, final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -364,12 +364,12 @@ public final class LoanDao_Impl implements LoanDao {
           __preparedStmtOfMarkLoanAsPaidBack.release(_stmt);
         }
       }
-    }, arg4);
+    }, $completion);
   }
 
   @Override
   public Object undoLoanPayment(final long loanId, final long updatedAt,
-      final Continuation<? super Unit> arg2) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -392,12 +392,12 @@ public final class LoanDao_Impl implements LoanDao {
           __preparedStmtOfUndoLoanPayment.release(_stmt);
         }
       }
-    }, arg2);
+    }, $completion);
   }
 
   @Override
   public Object updatePaidBackAmount(final long loanId, final double amount, final long updatedAt,
-      final Continuation<? super Unit> arg3) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -422,7 +422,7 @@ public final class LoanDao_Impl implements LoanDao {
           __preparedStmtOfUpdatePaidBackAmount.release(_stmt);
         }
       }
-    }, arg3);
+    }, $completion);
   }
 
   @Override
@@ -522,7 +522,7 @@ public final class LoanDao_Impl implements LoanDao {
   }
 
   @Override
-  public Object getAllLoansSnapshot(final Continuation<? super List<Loan>> arg0) {
+  public Object getAllLoansSnapshot(final Continuation<? super List<Loan>> $completion) {
     final String _sql = "SELECT * FROM loans ORDER BY createdAt DESC";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
@@ -611,11 +611,11 @@ public final class LoanDao_Impl implements LoanDao {
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @Override
-  public Object getLoanById(final long loanId, final Continuation<? super Loan> arg1) {
+  public Object getLoanById(final long loanId, final Continuation<? super Loan> $completion) {
     final String _sql = "SELECT * FROM loans WHERE id = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -706,7 +706,7 @@ public final class LoanDao_Impl implements LoanDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
@@ -912,7 +912,7 @@ public final class LoanDao_Impl implements LoanDao {
   }
 
   @Override
-  public Object getUnpaidLoans(final Continuation<? super List<Loan>> arg0) {
+  public Object getUnpaidLoans(final Continuation<? super List<Loan>> $completion) {
     final String _sql = "SELECT * FROM loans WHERE isPaidBack = 0 ORDER BY createdAt DESC";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
@@ -1001,7 +1001,7 @@ public final class LoanDao_Impl implements LoanDao {
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @Override
@@ -1305,7 +1305,8 @@ public final class LoanDao_Impl implements LoanDao {
   }
 
   @Override
-  public Object getTotalAmountByType(final LoanType type, final Continuation<? super Double> arg1) {
+  public Object getTotalAmountByType(final LoanType type,
+      final Continuation<? super Double> $completion) {
     final String _sql = "SELECT SUM(amount) FROM loans WHERE type = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -1340,12 +1341,12 @@ public final class LoanDao_Impl implements LoanDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object getActiveAmountByType(final LoanType type,
-      final Continuation<? super Double> arg1) {
+      final Continuation<? super Double> $completion) {
     final String _sql = "SELECT SUM(amount) FROM loans WHERE type = ? AND isPaidBack = 0";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -1380,12 +1381,12 @@ public final class LoanDao_Impl implements LoanDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object getPaidBackAmountByType(final LoanType type,
-      final Continuation<? super Double> arg1) {
+      final Continuation<? super Double> $completion) {
     final String _sql = "SELECT SUM(paidBackAmount) FROM loans WHERE type = ? AND isPaidBack = 1";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -1420,12 +1421,12 @@ public final class LoanDao_Impl implements LoanDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object checkDuplicateLoan(final String title, final double amount, final String personName,
-      final LoanType type, final Continuation<? super Integer> arg4) {
+      final LoanType type, final Continuation<? super Integer> $completion) {
     final String _sql = "SELECT COUNT(*) FROM loans WHERE title = ? AND amount = ? AND personName = ? AND type = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 4);
     int _argIndex = 1;
@@ -1474,7 +1475,7 @@ public final class LoanDao_Impl implements LoanDao {
           _statement.release();
         }
       }
-    }, arg4);
+    }, $completion);
   }
 
   @NonNull

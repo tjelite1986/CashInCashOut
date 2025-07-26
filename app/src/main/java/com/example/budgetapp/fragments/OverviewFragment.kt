@@ -82,12 +82,20 @@ class OverviewFragment : BaseFragment() {
     }
     
     private fun updateSectionVisibility() {
-        binding.cardAccounts.visibility = if (prefs.getBoolean("accounts_visible", true)) View.VISIBLE else View.GONE
-        binding.cardIncomeExpenses.visibility = if (prefs.getBoolean("income_expenses_visible", true)) View.VISIBLE else View.GONE
-        binding.cardLoans.visibility = if (prefs.getBoolean("loans_visible", true)) View.VISIBLE else View.GONE
-        binding.cardBudgets.visibility = if (prefs.getBoolean("budgets_visible", false)) View.VISIBLE else View.GONE
-        binding.cardGoals.visibility = if (prefs.getBoolean("goals_visible", false)) View.VISIBLE else View.GONE
-        binding.cardNetWorth.visibility = if (prefs.getBoolean("net_worth_visible", false)) View.VISIBLE else View.GONE
+        val accountsVisible = prefs.getBoolean("accounts_visible", true)
+        val incomeExpensesVisible = prefs.getBoolean("income_expenses_visible", true)
+        val loansVisible = prefs.getBoolean("loans_visible", true)
+        val budgetsVisible = prefs.getBoolean("budgets_visible", false)
+        val goalsVisible = prefs.getBoolean("goals_visible", false)
+        val netWorthVisible = prefs.getBoolean("net_worth_visible", false)
+        
+        // Apply visibility settings
+        binding.cardAccounts.visibility = if (accountsVisible) View.VISIBLE else View.GONE
+        binding.cardIncomeExpenses.visibility = if (incomeExpensesVisible) View.VISIBLE else View.GONE
+        binding.cardLoans.visibility = if (loansVisible) View.VISIBLE else View.GONE
+        binding.cardBudgets.visibility = if (budgetsVisible) View.VISIBLE else View.GONE
+        binding.cardGoals.visibility = if (goalsVisible) View.VISIBLE else View.GONE
+        binding.cardNetWorth.visibility = if (netWorthVisible) View.VISIBLE else View.GONE
     }
     
     private fun setupDefaultUI() {

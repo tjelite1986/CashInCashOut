@@ -167,7 +167,7 @@ public final class StoreChainDao_Impl implements StoreChainDao {
   }
 
   @Override
-  public Object insertChain(final StoreChain chain, final Continuation<? super Long> arg1) {
+  public Object insertChain(final StoreChain chain, final Continuation<? super Long> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Long>() {
       @Override
       @NonNull
@@ -181,11 +181,12 @@ public final class StoreChainDao_Impl implements StoreChainDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object insertChains(final List<StoreChain> chains, final Continuation<? super Unit> arg1) {
+  public Object insertChains(final List<StoreChain> chains,
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -199,11 +200,11 @@ public final class StoreChainDao_Impl implements StoreChainDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object deleteChain(final StoreChain chain, final Continuation<? super Unit> arg1) {
+  public Object deleteChain(final StoreChain chain, final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -217,11 +218,11 @@ public final class StoreChainDao_Impl implements StoreChainDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object updateChain(final StoreChain chain, final Continuation<? super Unit> arg1) {
+  public Object updateChain(final StoreChain chain, final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -235,12 +236,12 @@ public final class StoreChainDao_Impl implements StoreChainDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object deactivateChain(final long id, final long timestamp,
-      final Continuation<? super Unit> arg2) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -263,12 +264,12 @@ public final class StoreChainDao_Impl implements StoreChainDao {
           __preparedStmtOfDeactivateChain.release(_stmt);
         }
       }
-    }, arg2);
+    }, $completion);
   }
 
   @Override
   public Object activateChain(final long id, final long timestamp,
-      final Continuation<? super Unit> arg2) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -291,11 +292,11 @@ public final class StoreChainDao_Impl implements StoreChainDao {
           __preparedStmtOfActivateChain.release(_stmt);
         }
       }
-    }, arg2);
+    }, $completion);
   }
 
   @Override
-  public Object deleteCustomChains(final Continuation<? super Unit> arg0) {
+  public Object deleteCustomChains(final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -314,7 +315,7 @@ public final class StoreChainDao_Impl implements StoreChainDao {
           __preparedStmtOfDeleteCustomChains.release(_stmt);
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @Override
@@ -470,7 +471,7 @@ public final class StoreChainDao_Impl implements StoreChainDao {
   }
 
   @Override
-  public Object getChainById(final long id, final Continuation<? super StoreChain> arg1) {
+  public Object getChainById(final long id, final Continuation<? super StoreChain> $completion) {
     final String _sql = "SELECT * FROM store_chains WHERE id = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -541,11 +542,12 @@ public final class StoreChainDao_Impl implements StoreChainDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object getChainByName(final String name, final Continuation<? super StoreChain> arg1) {
+  public Object getChainByName(final String name,
+      final Continuation<? super StoreChain> $completion) {
     final String _sql = "SELECT * FROM store_chains WHERE name = ? AND isActive = 1";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -620,11 +622,11 @@ public final class StoreChainDao_Impl implements StoreChainDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object getAllChainNames(final Continuation<? super List<String>> arg0) {
+  public Object getAllChainNames(final Continuation<? super List<String>> $completion) {
     final String _sql = "SELECT name FROM store_chains WHERE isActive = 1 ORDER BY isDefault DESC, name ASC";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
@@ -650,11 +652,11 @@ public final class StoreChainDao_Impl implements StoreChainDao {
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @Override
-  public Object getDefaultChainsCount(final Continuation<? super Integer> arg0) {
+  public Object getDefaultChainsCount(final Continuation<? super Integer> $completion) {
     final String _sql = "SELECT COUNT(*) FROM store_chains WHERE isDefault = 1";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
@@ -682,7 +684,7 @@ public final class StoreChainDao_Impl implements StoreChainDao {
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @NonNull

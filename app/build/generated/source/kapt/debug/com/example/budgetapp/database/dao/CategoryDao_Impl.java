@@ -181,7 +181,8 @@ public final class CategoryDao_Impl implements CategoryDao {
   }
 
   @Override
-  public Object insertCategory(final Category category, final Continuation<? super Long> arg1) {
+  public Object insertCategory(final Category category,
+      final Continuation<? super Long> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Long>() {
       @Override
       @NonNull
@@ -195,11 +196,12 @@ public final class CategoryDao_Impl implements CategoryDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object deleteCategory(final Category category, final Continuation<? super Unit> arg1) {
+  public Object deleteCategory(final Category category,
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -213,11 +215,12 @@ public final class CategoryDao_Impl implements CategoryDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object updateCategory(final Category category, final Continuation<? super Unit> arg1) {
+  public Object updateCategory(final Category category,
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -231,11 +234,11 @@ public final class CategoryDao_Impl implements CategoryDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object deactivateCategory(final long id, final Continuation<? super Unit> arg1) {
+  public Object deactivateCategory(final long id, final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -256,11 +259,12 @@ public final class CategoryDao_Impl implements CategoryDao {
           __preparedStmtOfDeactivateCategory.release(_stmt);
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object incrementTransactionCount(final long id, final Continuation<? super Unit> arg1) {
+  public Object incrementTransactionCount(final long id,
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -281,11 +285,12 @@ public final class CategoryDao_Impl implements CategoryDao {
           __preparedStmtOfIncrementTransactionCount.release(_stmt);
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object decrementTransactionCount(final long id, final Continuation<? super Unit> arg1) {
+  public Object decrementTransactionCount(final long id,
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -306,7 +311,7 @@ public final class CategoryDao_Impl implements CategoryDao {
           __preparedStmtOfDecrementTransactionCount.release(_stmt);
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
@@ -572,7 +577,7 @@ public final class CategoryDao_Impl implements CategoryDao {
   }
 
   @Override
-  public Object getCategoryById(final long id, final Continuation<? super Category> arg1) {
+  public Object getCategoryById(final long id, final Continuation<? super Category> $completion) {
     final String _sql = "SELECT * FROM categories WHERE id = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -653,12 +658,12 @@ public final class CategoryDao_Impl implements CategoryDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object checkDuplicateCategory(final String name, final CategoryType type,
-      final Continuation<? super Integer> arg2) {
+      final Continuation<? super Integer> $completion) {
     final String _sql = "SELECT COUNT(*) FROM categories WHERE name = ? AND type = ? AND isActive = 1";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 2);
     int _argIndex = 1;
@@ -694,7 +699,7 @@ public final class CategoryDao_Impl implements CategoryDao {
           _statement.release();
         }
       }
-    }, arg2);
+    }, $completion);
   }
 
   @Override

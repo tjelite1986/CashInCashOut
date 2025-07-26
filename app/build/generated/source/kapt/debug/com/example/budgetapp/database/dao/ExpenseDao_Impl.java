@@ -178,7 +178,7 @@ public final class ExpenseDao_Impl implements ExpenseDao {
   }
 
   @Override
-  public Object insertExpense(final Expense expense, final Continuation<? super Long> arg1) {
+  public Object insertExpense(final Expense expense, final Continuation<? super Long> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Long>() {
       @Override
       @NonNull
@@ -192,12 +192,12 @@ public final class ExpenseDao_Impl implements ExpenseDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object insertExpenses(final List<Expense> expenses,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -211,11 +211,11 @@ public final class ExpenseDao_Impl implements ExpenseDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object deleteExpense(final Expense expense, final Continuation<? super Unit> arg1) {
+  public Object deleteExpense(final Expense expense, final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -229,11 +229,11 @@ public final class ExpenseDao_Impl implements ExpenseDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object updateExpense(final Expense expense, final Continuation<? super Unit> arg1) {
+  public Object updateExpense(final Expense expense, final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -247,11 +247,12 @@ public final class ExpenseDao_Impl implements ExpenseDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object deleteExpenseById(final long expenseId, final Continuation<? super Unit> arg1) {
+  public Object deleteExpenseById(final long expenseId,
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -272,11 +273,11 @@ public final class ExpenseDao_Impl implements ExpenseDao {
           __preparedStmtOfDeleteExpenseById.release(_stmt);
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object deleteAllExpenses(final Continuation<? super Unit> arg0) {
+  public Object deleteAllExpenses(final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -295,7 +296,7 @@ public final class ExpenseDao_Impl implements ExpenseDao {
           __preparedStmtOfDeleteAllExpenses.release(_stmt);
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @Override
@@ -390,7 +391,8 @@ public final class ExpenseDao_Impl implements ExpenseDao {
   }
 
   @Override
-  public Object getExpenseById(final long expenseId, final Continuation<? super Expense> arg1) {
+  public Object getExpenseById(final long expenseId,
+      final Continuation<? super Expense> $completion) {
     final String _sql = "SELECT * FROM expenses WHERE id = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -476,7 +478,7 @@ public final class ExpenseDao_Impl implements ExpenseDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
@@ -673,7 +675,7 @@ public final class ExpenseDao_Impl implements ExpenseDao {
 
   @Override
   public Object getExpensesBetweenDates(final long startDate, final long endDate,
-      final Continuation<? super List<Expense>> arg2) {
+      final Continuation<? super List<Expense>> $completion) {
     final String _sql = "SELECT * FROM expenses WHERE date >= ? AND date <= ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 2);
     int _argIndex = 1;
@@ -761,11 +763,11 @@ public final class ExpenseDao_Impl implements ExpenseDao {
           _statement.release();
         }
       }
-    }, arg2);
+    }, $completion);
   }
 
   @Override
-  public Object getAllExpensesSnapshot(final Continuation<? super List<Expense>> arg0) {
+  public Object getAllExpensesSnapshot(final Continuation<? super List<Expense>> $completion) {
     final String _sql = "SELECT * FROM expenses ORDER BY date DESC";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
@@ -849,7 +851,7 @@ public final class ExpenseDao_Impl implements ExpenseDao {
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @Override
@@ -950,7 +952,7 @@ public final class ExpenseDao_Impl implements ExpenseDao {
   }
 
   @Override
-  public Object getTotalExpenses(final Continuation<? super Double> arg0) {
+  public Object getTotalExpenses(final Continuation<? super Double> $completion) {
     final String _sql = "SELECT SUM(amount) FROM expenses";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
@@ -978,12 +980,12 @@ public final class ExpenseDao_Impl implements ExpenseDao {
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @Override
   public Object getTotalExpensesByDateRange(final long startDate, final long endDate,
-      final Continuation<? super Double> arg2) {
+      final Continuation<? super Double> $completion) {
     final String _sql = "SELECT SUM(amount) FROM expenses WHERE date >= ? AND date <= ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 2);
     int _argIndex = 1;
@@ -1015,12 +1017,12 @@ public final class ExpenseDao_Impl implements ExpenseDao {
           _statement.release();
         }
       }
-    }, arg2);
+    }, $completion);
   }
 
   @Override
   public Object getTotalExpensesByCategory(final String category,
-      final Continuation<? super Double> arg1) {
+      final Continuation<? super Double> $completion) {
     final String _sql = "SELECT SUM(amount) FROM expenses WHERE category = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -1054,12 +1056,12 @@ public final class ExpenseDao_Impl implements ExpenseDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object getTotalExpensesByStore(final String store,
-      final Continuation<? super Double> arg1) {
+      final Continuation<? super Double> $completion) {
     final String _sql = "SELECT SUM(amount) FROM expenses WHERE store = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -1093,13 +1095,13 @@ public final class ExpenseDao_Impl implements ExpenseDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object checkDuplicateExpense(final String title, final double amount,
       final String category, final long date, final String store,
-      final Continuation<? super Integer> arg5) {
+      final Continuation<? super Integer> $completion) {
     final String _sql = "SELECT COUNT(*) FROM expenses WHERE title = ? AND amount = ? AND COALESCE(category, '') = ? AND date = ? AND COALESCE(store, '') = COALESCE(?, '')";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 5);
     int _argIndex = 1;
@@ -1149,11 +1151,11 @@ public final class ExpenseDao_Impl implements ExpenseDao {
           _statement.release();
         }
       }
-    }, arg5);
+    }, $completion);
   }
 
   @Override
-  public Object getRecurringExpenses(final Continuation<? super List<Expense>> arg0) {
+  public Object getRecurringExpenses(final Continuation<? super List<Expense>> $completion) {
     final String _sql = "SELECT * FROM expenses WHERE isRecurring = 1 ORDER BY date DESC";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
@@ -1237,7 +1239,7 @@ public final class ExpenseDao_Impl implements ExpenseDao {
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @NonNull

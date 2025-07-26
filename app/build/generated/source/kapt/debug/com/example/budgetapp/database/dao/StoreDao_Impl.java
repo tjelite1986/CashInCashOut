@@ -194,7 +194,7 @@ public final class StoreDao_Impl implements StoreDao {
   }
 
   @Override
-  public Object insertStore(final Store store, final Continuation<? super Long> arg1) {
+  public Object insertStore(final Store store, final Continuation<? super Long> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Long>() {
       @Override
       @NonNull
@@ -208,11 +208,12 @@ public final class StoreDao_Impl implements StoreDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object insertStores(final List<Store> stores, final Continuation<? super Unit> arg1) {
+  public Object insertStores(final List<Store> stores,
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -226,11 +227,11 @@ public final class StoreDao_Impl implements StoreDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object deleteStore(final Store store, final Continuation<? super Unit> arg1) {
+  public Object deleteStore(final Store store, final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -244,11 +245,11 @@ public final class StoreDao_Impl implements StoreDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object updateStore(final Store store, final Continuation<? super Unit> arg1) {
+  public Object updateStore(final Store store, final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -262,11 +263,11 @@ public final class StoreDao_Impl implements StoreDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object deleteStoreById(final long storeId, final Continuation<? super Unit> arg1) {
+  public Object deleteStoreById(final long storeId, final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -287,7 +288,7 @@ public final class StoreDao_Impl implements StoreDao {
           __preparedStmtOfDeleteStoreById.release(_stmt);
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
@@ -397,7 +398,7 @@ public final class StoreDao_Impl implements StoreDao {
   }
 
   @Override
-  public Object getStoreById(final long storeId, final Continuation<? super Store> arg1) {
+  public Object getStoreById(final long storeId, final Continuation<? super Store> $completion) {
     final String _sql = "SELECT * FROM stores WHERE id = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -498,7 +499,7 @@ public final class StoreDao_Impl implements StoreDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
@@ -727,7 +728,7 @@ public final class StoreDao_Impl implements StoreDao {
 
   @Override
   public Object checkDuplicateStore(final String name, final String chain,
-      final Continuation<? super Integer> arg2) {
+      final Continuation<? super Integer> $completion) {
     final String _sql = "SELECT COUNT(*) FROM stores WHERE name = ? AND COALESCE(chain, '') = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 2);
     int _argIndex = 1;
@@ -767,12 +768,12 @@ public final class StoreDao_Impl implements StoreDao {
           _statement.release();
         }
       }
-    }, arg2);
+    }, $completion);
   }
 
   @Override
   public Object checkDuplicateStoreWithCity(final String name, final String chain,
-      final String city, final Continuation<? super Integer> arg3) {
+      final String city, final Continuation<? super Integer> $completion) {
     final String _sql = "SELECT COUNT(*) FROM stores WHERE name = ? AND COALESCE(chain, '') = ? AND COALESCE(city, '') = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 3);
     int _argIndex = 1;
@@ -818,11 +819,11 @@ public final class StoreDao_Impl implements StoreDao {
           _statement.release();
         }
       }
-    }, arg3);
+    }, $completion);
   }
 
   @Override
-  public Object getDistinctChains(final Continuation<? super List<String>> arg0) {
+  public Object getDistinctChains(final Continuation<? super List<String>> $completion) {
     final String _sql = "SELECT DISTINCT chain FROM stores WHERE chain IS NOT NULL ORDER BY chain ASC";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
@@ -848,7 +849,7 @@ public final class StoreDao_Impl implements StoreDao {
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @NonNull

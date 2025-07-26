@@ -132,7 +132,7 @@ public final class ProductCategoryDao_Impl implements ProductCategoryDao {
 
   @Override
   public Object insertProductCategory(final ProductCategory category,
-      final Continuation<? super Long> arg1) {
+      final Continuation<? super Long> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Long>() {
       @Override
       @NonNull
@@ -146,12 +146,12 @@ public final class ProductCategoryDao_Impl implements ProductCategoryDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object deleteProductCategory(final ProductCategory category,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -165,12 +165,12 @@ public final class ProductCategoryDao_Impl implements ProductCategoryDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object updateProductCategory(final ProductCategory category,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -184,11 +184,12 @@ public final class ProductCategoryDao_Impl implements ProductCategoryDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object deleteProductCategoryById(final long id, final Continuation<? super Unit> arg1) {
+  public Object deleteProductCategoryById(final long id,
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -209,7 +210,7 @@ public final class ProductCategoryDao_Impl implements ProductCategoryDao {
           __preparedStmtOfDeleteProductCategoryById.release(_stmt);
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
@@ -275,7 +276,7 @@ public final class ProductCategoryDao_Impl implements ProductCategoryDao {
 
   @Override
   public Object getProductCategoryById(final long id,
-      final Continuation<? super ProductCategory> arg1) {
+      final Continuation<? super ProductCategory> $completion) {
     final String _sql = "SELECT * FROM product_categories WHERE id = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -331,12 +332,12 @@ public final class ProductCategoryDao_Impl implements ProductCategoryDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object checkDuplicateProductCategory(final String name,
-      final Continuation<? super Integer> arg1) {
+      final Continuation<? super Integer> $completion) {
     final String _sql = "SELECT COUNT(*) FROM product_categories WHERE name = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -370,12 +371,12 @@ public final class ProductCategoryDao_Impl implements ProductCategoryDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object getProductCountForCategory(final long productCategoryId,
-      final Continuation<? super Integer> arg1) {
+      final Continuation<? super Integer> $completion) {
     final String _sql = "SELECT COUNT(*) FROM products WHERE productCategoryId = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -405,7 +406,7 @@ public final class ProductCategoryDao_Impl implements ProductCategoryDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @NonNull

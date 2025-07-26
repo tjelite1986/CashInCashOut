@@ -226,6 +226,13 @@
             </intent-filter>
         </receiver>
         
+        <!-- Automation Activity -->
+        <activity
+            android:name=".AutomationActivity"
+            android:exported="false"
+            android:label="Smart Automation"
+            android:parentActivityName=".MainActivity" />
+        
     </application>
 
 </manifest>

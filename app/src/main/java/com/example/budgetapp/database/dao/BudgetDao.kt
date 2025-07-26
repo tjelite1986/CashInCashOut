@@ -39,4 +39,7 @@ interface BudgetDao {
     
     @Query("SELECT SUM(budgetAmount) FROM budgets WHERE isActive = 1 AND startDate <= :currentDate AND endDate >= :currentDate")
     suspend fun getTotalActiveBudgetAmount(currentDate: Long): Double?
+    
+    @Query("SELECT * FROM budgets WHERE isActive = 1 ORDER BY createdAt DESC")
+    suspend fun getAllActiveBudgetsSnapshot(): List<Budget>
 }

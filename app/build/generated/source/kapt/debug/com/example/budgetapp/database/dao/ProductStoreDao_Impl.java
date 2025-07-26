@@ -153,7 +153,7 @@ public final class ProductStoreDao_Impl implements ProductStoreDao {
 
   @Override
   public Object insertProductStore(final ProductStore productStore,
-      final Continuation<? super Long> arg1) {
+      final Continuation<? super Long> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Long>() {
       @Override
       @NonNull
@@ -167,12 +167,12 @@ public final class ProductStoreDao_Impl implements ProductStoreDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object insertProductStores(final List<ProductStore> productStores,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -186,12 +186,12 @@ public final class ProductStoreDao_Impl implements ProductStoreDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object deleteProductStore(final ProductStore productStore,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -205,12 +205,12 @@ public final class ProductStoreDao_Impl implements ProductStoreDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object updateProductStore(final ProductStore productStore,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -224,12 +224,12 @@ public final class ProductStoreDao_Impl implements ProductStoreDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object deleteAllPricesForProduct(final long productId,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -250,11 +250,12 @@ public final class ProductStoreDao_Impl implements ProductStoreDao {
           __preparedStmtOfDeleteAllPricesForProduct.release(_stmt);
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object deleteAllPricesForStore(final long storeId, final Continuation<? super Unit> arg1) {
+  public Object deleteAllPricesForStore(final long storeId,
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -275,12 +276,12 @@ public final class ProductStoreDao_Impl implements ProductStoreDao {
           __preparedStmtOfDeleteAllPricesForStore.release(_stmt);
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object deleteProductStorePrice(final long productId, final long storeId,
-      final Continuation<? super Unit> arg2) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -303,7 +304,7 @@ public final class ProductStoreDao_Impl implements ProductStoreDao {
           __preparedStmtOfDeleteProductStorePrice.release(_stmt);
         }
       }
-    }, arg2);
+    }, $completion);
   }
 
   @Override
@@ -519,7 +520,7 @@ public final class ProductStoreDao_Impl implements ProductStoreDao {
 
   @Override
   public Object getProductStorePrice(final long productId, final long storeId,
-      final Continuation<? super ProductStore> arg2) {
+      final Continuation<? super ProductStore> $completion) {
     final String _sql = "SELECT * FROM product_stores WHERE productId = ? AND storeId = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 2);
     int _argIndex = 1;
@@ -585,7 +586,7 @@ public final class ProductStoreDao_Impl implements ProductStoreDao {
           _statement.release();
         }
       }
-    }, arg2);
+    }, $completion);
   }
 
   @Override
@@ -666,7 +667,8 @@ public final class ProductStoreDao_Impl implements ProductStoreDao {
   }
 
   @Override
-  public Object getLowestPrice(final long productId, final Continuation<? super Double> arg1) {
+  public Object getLowestPrice(final long productId,
+      final Continuation<? super Double> $completion) {
     final String _sql = "\n"
             + "        SELECT MIN(price) FROM product_stores \n"
             + "        WHERE productId = ?\n"
@@ -699,11 +701,12 @@ public final class ProductStoreDao_Impl implements ProductStoreDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object getHighestPrice(final long productId, final Continuation<? super Double> arg1) {
+  public Object getHighestPrice(final long productId,
+      final Continuation<? super Double> $completion) {
     final String _sql = "\n"
             + "        SELECT MAX(price) FROM product_stores \n"
             + "        WHERE productId = ?\n"
@@ -736,11 +739,12 @@ public final class ProductStoreDao_Impl implements ProductStoreDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object getAveragePrice(final long productId, final Continuation<? super Double> arg1) {
+  public Object getAveragePrice(final long productId,
+      final Continuation<? super Double> $completion) {
     final String _sql = "\n"
             + "        SELECT AVG(price) FROM product_stores \n"
             + "        WHERE productId = ?\n"
@@ -773,7 +777,7 @@ public final class ProductStoreDao_Impl implements ProductStoreDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @NonNull

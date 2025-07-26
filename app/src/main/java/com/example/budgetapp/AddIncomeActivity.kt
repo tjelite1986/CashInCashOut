@@ -10,7 +10,11 @@ import com.example.budgetapp.database.BudgetDatabase
 import com.example.budgetapp.database.entities.Income
 import com.example.budgetapp.databinding.ActivityAddIncomeBinding
 import com.example.budgetapp.utils.CategoryConstants
+import com.example.budgetapp.analytics.ai.NLPCategorizationService
+import com.example.budgetapp.analytics.ai.CategorySuggestion
+import com.example.budgetapp.database.entities.Category
 import com.google.android.material.appbar.MaterialToolbar
+import androidx.core.widget.doOnTextChanged
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
@@ -19,6 +23,7 @@ class AddIncomeActivity : AppCompatActivity() {
     
     private lateinit var binding: ActivityAddIncomeBinding
     private lateinit var database: BudgetDatabase
+    private lateinit var nlpService: NLPCategorizationService
     private var selectedDate: Long = System.currentTimeMillis()
     private var selectedCategory: String = "Lön"
     private var selectedRecurringType: String? = null
@@ -27,6 +32,10 @@ class AddIncomeActivity : AppCompatActivity() {
     private var editingIncomeId: Long? = null
     private var isEditing: Boolean = false
     
+    // NLP categorization variables
+    private var currentSuggestion: CategorySuggestion? = null
+    private var hasUserSelectedCategory = false
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         try {
@@ -34,6 +43,7 @@ class AddIncomeActivity : AppCompatActivity() {
             setContentView(binding.root)
             
             database = BudgetDatabase.getDatabase(this)
+            nlpService = NLPCategorizationService(this)
             
             // Check if we're editing an existing income
             editingIncomeId = intent.getLongExtra("INCOME_ID", -1).takeIf { it != -1L }
@@ -42,6 +52,7 @@ class AddIncomeActivity : AppCompatActivity() {
             setupUI()
             setupSpinners()
             setupClickListeners()
+            setupNLPCategorization()
             
             if (isEditing) {
                 loadIncomeForEditing()
@@ -92,6 +103,14 @@ class AddIncomeActivity : AppCompatActivity() {
         binding.spinnerCategory.setOnItemSelectedListener(object : android.widget.AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: android.widget.AdapterView<*>?, view: android.view.View?, position: Int, id: Long) {
                 selectedCategory = categories[position]
+                hasUserSelectedCategory = true
+                
+                // Learn from user correction if different from suggestion
+                currentSuggestion?.let { suggestion ->
+                    if (suggestion.category?.name != selectedCategory) {
+                        learnFromUserCorrection(suggestion, selectedCategory)
+                    }
+                }
             }
             
             override fun onNothingSelected(parent: android.widget.AdapterView<*>?) {
@@ -266,6 +285,119 @@ class AddIncomeActivity : AppCompatActivity() {
         } catch (e: Exception) {
             e.printStackTrace()
             return super.onSupportNavigateUp()
+        }
+    }
+    
+    /**
+     * Setup NLP-based auto-categorization for income
+     */
+    private fun setupNLPCategorization() {
+        // Auto-categorize when title or description changes
+        binding.etTitle.doOnTextChanged { _, _, _, _ ->
+            if (!hasUserSelectedCategory && !isEditing) {
+                performAutoCategorization()
+            }
+        }
+        
+        binding.etDescription.doOnTextChanged { _, _, _, _ ->
+            if (!hasUserSelectedCategory && !isEditing) {
+                performAutoCategorization()
+            }
+        }
+    }
+    
+    /**
+     * Perform automatic categorization for income based on transaction text
+     */
+    private fun performAutoCategorization() {
+        val title = binding.etTitle.text.toString().trim()
+        val description = binding.etDescription.text.toString().trim()
+        val amountText = binding.etAmount.text.toString().trim()
+        
+        if (title.length < 3) return // Too short to categorize reliably
+        
+        val amount = amountText.toDoubleOrNull() ?: 0.0
+        
+        lifecycleScope.launch {
+            try {
+                val suggestion = nlpService.categorizeTransaction(
+                    title = title,
+                    description = description,
+                    amount = amount,
+                    isIncome = true
+                )
+                
+                suggestion?.let { applyCategorySuggestion(it) }
+            } catch (e: Exception) {
+                // Fail silently for auto-categorization
+                com.example.budgetapp.utils.ErrorHandler.logError("AddIncomeActivity", "Auto-categorization failed", e)
+            }
+        }
+    }
+    
+    /**
+     * Apply the category suggestion to the UI
+     */
+    private fun applyCategorySuggestion(suggestion: CategorySuggestion) {
+        runOnUiThread {
+            currentSuggestion = suggestion
+            
+            // Find the matching category in our spinner
+            val categories = CategoryConstants.INCOME_CATEGORIES
+            val matchingIndex = when {
+                suggestion.category != null -> {
+                    categories.indexOfFirst { it.equals(suggestion.category.name, ignoreCase = true) }
+                }
+                else -> -1
+            }
+            
+            if (matchingIndex >= 0) {
+                binding.spinnerCategory.setSelection(matchingIndex)
+                selectedCategory = categories[matchingIndex]
+                
+                // Show suggestion confidence to user
+                showCategorySuggestionFeedback(suggestion)
+            }
+        }
+    }
+    
+    /**
+     * Show feedback about the category suggestion
+     */
+    private fun showCategorySuggestionFeedback(suggestion: CategorySuggestion) {
+        val confidencePercent = (suggestion.confidence * 100).toInt()
+        val message = "Auto-kategoriserad som '${suggestion.category?.name}' ($confidencePercent% säkerhet)"
+        
+        // Show a subtle toast for high-confidence suggestions
+        if (suggestion.confidence > 0.8f) {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        }
+    }
+    
+    /**
+     * Learn from user correction to improve future categorization
+     */
+    private fun learnFromUserCorrection(suggestion: CategorySuggestion, actualCategory: String) {
+        lifecycleScope.launch {
+            try {
+                // Find the actual category ID
+                val categories = mutableListOf<Category>()
+                database.categoryDao().getAllCategories().collect { categories.addAll(it) }
+                val actualCategoryEntity = categories.find { 
+                    it.name.equals(actualCategory, ignoreCase = true) 
+                }
+                
+                actualCategoryEntity?.let { category ->
+                    val originalText = "${binding.etTitle.text} ${binding.etDescription.text}"
+                    nlpService.learnFromCorrection(
+                        originalText = originalText,
+                        suggestedCategoryId = suggestion.category?.id,
+                        actualCategoryId = category.id
+                    )
+                }
+            } catch (e: Exception) {
+                com.example.budgetapp.utils.ErrorHandler.logError("AddIncomeActivity", "Failed to learn from correction", e)
+            }
         }
     }
 }

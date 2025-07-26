@@ -77,6 +77,34 @@ class PriceRecommendationAdapter(
                     )
                     binding.imageTypeIcon.setImageResource(R.drawable.ic_trending_down)
                 }
+                RecommendationType.BUDGET_ALERT -> {
+                    binding.textRecommendationType.text = "Budgetvarning"
+                    binding.textRecommendationType.setTextColor(
+                        binding.root.context.getColor(R.color.warning)
+                    )
+                    binding.imageTypeIcon.setImageResource(R.drawable.ic_warning)
+                }
+                RecommendationType.SEASONAL_DEAL -> {
+                    binding.textRecommendationType.text = "Säsongserbjudande"
+                    binding.textRecommendationType.setTextColor(
+                        binding.root.context.getColor(R.color.success)
+                    )
+                    binding.imageTypeIcon.setImageResource(R.drawable.ic_seasonal)
+                }
+                RecommendationType.BULK_DISCOUNT -> {
+                    binding.textRecommendationType.text = "Partipris"
+                    binding.textRecommendationType.setTextColor(
+                        binding.root.context.getColor(R.color.success)
+                    )
+                    binding.imageTypeIcon.setImageResource(R.drawable.ic_shopping)
+                }
+                RecommendationType.CATEGORY_OPTIMIZATION -> {
+                    binding.textRecommendationType.text = "Kategorioptimering"
+                    binding.textRecommendationType.setTextColor(
+                        binding.root.context.getColor(R.color.primary)
+                    )
+                    binding.imageTypeIcon.setImageResource(R.drawable.ic_category)
+                }
             }
             
             // Show savings if any

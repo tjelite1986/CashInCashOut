@@ -124,7 +124,7 @@ public final class SpendingPatternDao_Impl implements SpendingPatternDao {
 
   @Override
   public Object insertPattern(final SpendingPattern pattern,
-      final Continuation<? super Long> arg1) {
+      final Continuation<? super Long> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Long>() {
       @Override
       @NonNull
@@ -138,12 +138,12 @@ public final class SpendingPatternDao_Impl implements SpendingPatternDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object insertPatterns(final List<SpendingPattern> patterns,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -157,11 +157,12 @@ public final class SpendingPatternDao_Impl implements SpendingPatternDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object deleteOldPatterns(final long cutoffTime, final Continuation<? super Unit> arg1) {
+  public Object deleteOldPatterns(final long cutoffTime,
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -182,11 +183,11 @@ public final class SpendingPatternDao_Impl implements SpendingPatternDao {
           __preparedStmtOfDeleteOldPatterns.release(_stmt);
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object deleteAllPatterns(final Continuation<? super Unit> arg0) {
+  public Object deleteAllPatterns(final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -205,7 +206,7 @@ public final class SpendingPatternDao_Impl implements SpendingPatternDao {
           __preparedStmtOfDeleteAllPatterns.release(_stmt);
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @Override
@@ -559,7 +560,7 @@ public final class SpendingPatternDao_Impl implements SpendingPatternDao {
 
   @Override
   public Object getAnomalousPatterns(final float threshold,
-      final Continuation<? super List<SpendingPattern>> arg1) {
+      final Continuation<? super List<SpendingPattern>> $completion) {
     final String _sql = "SELECT * FROM spending_patterns WHERE anomalyScore >= ? ORDER BY anomalyScore DESC";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -666,12 +667,12 @@ public final class SpendingPatternDao_Impl implements SpendingPatternDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object getPatternsByTrend(final TrendDirection direction,
-      final Continuation<? super List<SpendingPattern>> arg1) {
+      final Continuation<? super List<SpendingPattern>> $completion) {
     final String _sql = "SELECT * FROM spending_patterns WHERE trendDirection = ? ORDER BY analysisDate DESC";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -783,11 +784,11 @@ public final class SpendingPatternDao_Impl implements SpendingPatternDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object getSeasonalPatterns(final Continuation<? super List<SpendingPattern>> arg0) {
+  public Object getSeasonalPatterns(final Continuation<? super List<SpendingPattern>> $completion) {
     final String _sql = "SELECT * FROM spending_patterns WHERE seasonality != 'NONE' ORDER BY analysisDate DESC";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
@@ -892,7 +893,7 @@ public final class SpendingPatternDao_Impl implements SpendingPatternDao {
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @NonNull

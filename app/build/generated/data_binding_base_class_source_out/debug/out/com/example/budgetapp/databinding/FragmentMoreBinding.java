@@ -4,64 +4,38 @@ package com.example.budgetapp.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.example.budgetapp.R;
+import com.google.android.material.appbar.MaterialToolbar;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
 
 public final class FragmentMoreBinding implements ViewBinding {
   @NonNull
-  private final ScrollView rootView;
+  private final CoordinatorLayout rootView;
 
   @NonNull
-  public final LinearLayout cardBudgetRollover;
+  public final RecyclerView recyclerViewMore;
 
   @NonNull
-  public final LinearLayout cardNotificationSettings;
+  public final MaterialToolbar toolbar;
 
-  @NonNull
-  public final LinearLayout cardSettings;
-
-  @NonNull
-  public final LinearLayout cardShoppingLists;
-
-  @NonNull
-  public final LinearLayout cardSmartRecommendations;
-
-  @NonNull
-  public final LinearLayout cardStatistics;
-
-  @NonNull
-  public final LinearLayout cardStoreManagement;
-
-  @NonNull
-  public final LinearLayout cardThemeSettings;
-
-  private FragmentMoreBinding(@NonNull ScrollView rootView,
-      @NonNull LinearLayout cardBudgetRollover, @NonNull LinearLayout cardNotificationSettings,
-      @NonNull LinearLayout cardSettings, @NonNull LinearLayout cardShoppingLists,
-      @NonNull LinearLayout cardSmartRecommendations, @NonNull LinearLayout cardStatistics,
-      @NonNull LinearLayout cardStoreManagement, @NonNull LinearLayout cardThemeSettings) {
+  private FragmentMoreBinding(@NonNull CoordinatorLayout rootView,
+      @NonNull RecyclerView recyclerViewMore, @NonNull MaterialToolbar toolbar) {
     this.rootView = rootView;
-    this.cardBudgetRollover = cardBudgetRollover;
-    this.cardNotificationSettings = cardNotificationSettings;
-    this.cardSettings = cardSettings;
-    this.cardShoppingLists = cardShoppingLists;
-    this.cardSmartRecommendations = cardSmartRecommendations;
-    this.cardStatistics = cardStatistics;
-    this.cardStoreManagement = cardStoreManagement;
-    this.cardThemeSettings = cardThemeSettings;
+    this.recyclerViewMore = recyclerViewMore;
+    this.toolbar = toolbar;
   }
 
   @Override
   @NonNull
-  public ScrollView getRoot() {
+  public CoordinatorLayout getRoot() {
     return rootView;
   }
 
@@ -86,57 +60,19 @@ public final class FragmentMoreBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.card_budget_rollover;
-      LinearLayout cardBudgetRollover = ViewBindings.findChildViewById(rootView, id);
-      if (cardBudgetRollover == null) {
+      id = R.id.recyclerViewMore;
+      RecyclerView recyclerViewMore = ViewBindings.findChildViewById(rootView, id);
+      if (recyclerViewMore == null) {
         break missingId;
       }
 
-      id = R.id.card_notification_settings;
-      LinearLayout cardNotificationSettings = ViewBindings.findChildViewById(rootView, id);
-      if (cardNotificationSettings == null) {
+      id = R.id.toolbar;
+      MaterialToolbar toolbar = ViewBindings.findChildViewById(rootView, id);
+      if (toolbar == null) {
         break missingId;
       }
 
-      id = R.id.card_settings;
-      LinearLayout cardSettings = ViewBindings.findChildViewById(rootView, id);
-      if (cardSettings == null) {
-        break missingId;
-      }
-
-      id = R.id.card_shopping_lists;
-      LinearLayout cardShoppingLists = ViewBindings.findChildViewById(rootView, id);
-      if (cardShoppingLists == null) {
-        break missingId;
-      }
-
-      id = R.id.card_smart_recommendations;
-      LinearLayout cardSmartRecommendations = ViewBindings.findChildViewById(rootView, id);
-      if (cardSmartRecommendations == null) {
-        break missingId;
-      }
-
-      id = R.id.card_statistics;
-      LinearLayout cardStatistics = ViewBindings.findChildViewById(rootView, id);
-      if (cardStatistics == null) {
-        break missingId;
-      }
-
-      id = R.id.card_store_management;
-      LinearLayout cardStoreManagement = ViewBindings.findChildViewById(rootView, id);
-      if (cardStoreManagement == null) {
-        break missingId;
-      }
-
-      id = R.id.card_theme_settings;
-      LinearLayout cardThemeSettings = ViewBindings.findChildViewById(rootView, id);
-      if (cardThemeSettings == null) {
-        break missingId;
-      }
-
-      return new FragmentMoreBinding((ScrollView) rootView, cardBudgetRollover,
-          cardNotificationSettings, cardSettings, cardShoppingLists, cardSmartRecommendations,
-          cardStatistics, cardStoreManagement, cardThemeSettings);
+      return new FragmentMoreBinding((CoordinatorLayout) rootView, recyclerViewMore, toolbar);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

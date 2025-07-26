@@ -231,6 +231,13 @@
             </intent-filter>
         </receiver>
 
+        <!-- Automation Activity -->
+        <activity
+            android:name="com.example.budgetapp.AutomationActivity"
+            android:exported="false"
+            android:label="Smart Automation"
+            android:parentActivityName="com.example.budgetapp.MainActivity" />
+
         <!--
         Service for holding metadata. Cannot be instantiated.
         Metadata will be merged from other manifests.
@@ -261,6 +268,9 @@
             android:exported="false" >
             <meta-data
                 android:name="com.google.firebase.components:com.google.mlkit.vision.barcode.internal.BarcodeRegistrar"
+                android:value="com.google.firebase.components.ComponentRegistrar" />
+            <meta-data
+                android:name="com.google.firebase.components:com.google.mlkit.vision.text.internal.TextRegistrar"
                 android:value="com.google.firebase.components.ComponentRegistrar" />
             <meta-data
                 android:name="com.google.firebase.components:com.google.mlkit.vision.common.internal.VisionCommonRegistrar"

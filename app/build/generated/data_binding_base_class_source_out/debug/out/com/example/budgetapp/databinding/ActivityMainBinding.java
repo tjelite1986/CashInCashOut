@@ -13,7 +13,6 @@ import androidx.viewbinding.ViewBindings;
 import com.example.budgetapp.R;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
@@ -26,20 +25,16 @@ public final class ActivityMainBinding implements ViewBinding {
   public final BottomNavigationView bottomNavigation;
 
   @NonNull
-  public final FloatingActionButton fabMenu;
-
-  @NonNull
   public final FragmentContainerView navHostFragment;
 
   @NonNull
   public final MaterialToolbar toolbar;
 
   private ActivityMainBinding(@NonNull ConstraintLayout rootView,
-      @NonNull BottomNavigationView bottomNavigation, @NonNull FloatingActionButton fabMenu,
+      @NonNull BottomNavigationView bottomNavigation,
       @NonNull FragmentContainerView navHostFragment, @NonNull MaterialToolbar toolbar) {
     this.rootView = rootView;
     this.bottomNavigation = bottomNavigation;
-    this.fabMenu = fabMenu;
     this.navHostFragment = navHostFragment;
     this.toolbar = toolbar;
   }
@@ -77,12 +72,6 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.fab_menu;
-      FloatingActionButton fabMenu = ViewBindings.findChildViewById(rootView, id);
-      if (fabMenu == null) {
-        break missingId;
-      }
-
       id = R.id.nav_host_fragment;
       FragmentContainerView navHostFragment = ViewBindings.findChildViewById(rootView, id);
       if (navHostFragment == null) {
@@ -95,8 +84,8 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityMainBinding((ConstraintLayout) rootView, bottomNavigation, fabMenu,
-          navHostFragment, toolbar);
+      return new ActivityMainBinding((ConstraintLayout) rootView, bottomNavigation, navHostFragment,
+          toolbar);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

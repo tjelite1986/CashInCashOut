@@ -153,7 +153,7 @@ public final class ReminderSettingsDao_Impl implements ReminderSettingsDao {
 
   @Override
   public Object insertReminder(final ReminderSettings reminder,
-      final Continuation<? super Long> arg1) {
+      final Continuation<? super Long> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Long>() {
       @Override
       @NonNull
@@ -167,12 +167,12 @@ public final class ReminderSettingsDao_Impl implements ReminderSettingsDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object deleteReminder(final ReminderSettings reminder,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -186,12 +186,12 @@ public final class ReminderSettingsDao_Impl implements ReminderSettingsDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object updateReminder(final ReminderSettings reminder,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -205,12 +205,12 @@ public final class ReminderSettingsDao_Impl implements ReminderSettingsDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object toggleReminder(final long id, final boolean enabled,
-      final Continuation<? super Unit> arg2) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -234,11 +234,11 @@ public final class ReminderSettingsDao_Impl implements ReminderSettingsDao {
           __preparedStmtOfToggleReminder.release(_stmt);
         }
       }
-    }, arg2);
+    }, $completion);
   }
 
   @Override
-  public Object deleteAllReminders(final Continuation<? super Unit> arg0) {
+  public Object deleteAllReminders(final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -257,7 +257,7 @@ public final class ReminderSettingsDao_Impl implements ReminderSettingsDao {
           __preparedStmtOfDeleteAllReminders.release(_stmt);
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @Override
@@ -332,7 +332,8 @@ public final class ReminderSettingsDao_Impl implements ReminderSettingsDao {
   }
 
   @Override
-  public Object getEnabledReminders(final Continuation<? super List<ReminderSettings>> arg0) {
+  public Object getEnabledReminders(
+      final Continuation<? super List<ReminderSettings>> $completion) {
     final String _sql = "SELECT * FROM reminder_settings WHERE isEnabled = 1";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
@@ -396,12 +397,12 @@ public final class ReminderSettingsDao_Impl implements ReminderSettingsDao {
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @Override
   public Object getReminderByType(final String type,
-      final Continuation<? super ReminderSettings> arg1) {
+      final Continuation<? super ReminderSettings> $completion) {
     final String _sql = "SELECT * FROM reminder_settings WHERE reminderType = ? LIMIT 1";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -471,7 +472,7 @@ public final class ReminderSettingsDao_Impl implements ReminderSettingsDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @NonNull

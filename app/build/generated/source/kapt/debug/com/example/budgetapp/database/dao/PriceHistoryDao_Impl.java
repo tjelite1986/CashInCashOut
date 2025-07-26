@@ -179,7 +179,7 @@ public final class PriceHistoryDao_Impl implements PriceHistoryDao {
 
   @Override
   public Object insertPriceHistory(final PriceHistory priceHistory,
-      final Continuation<? super Long> arg1) {
+      final Continuation<? super Long> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Long>() {
       @Override
       @NonNull
@@ -193,12 +193,12 @@ public final class PriceHistoryDao_Impl implements PriceHistoryDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object insertPriceHistoryList(final List<PriceHistory> priceHistories,
-      final Continuation<? super List<Long>> arg1) {
+      final Continuation<? super List<Long>> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<List<Long>>() {
       @Override
       @NonNull
@@ -212,12 +212,12 @@ public final class PriceHistoryDao_Impl implements PriceHistoryDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object deletePriceHistory(final PriceHistory priceHistory,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -231,12 +231,12 @@ public final class PriceHistoryDao_Impl implements PriceHistoryDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object updatePriceHistory(final PriceHistory priceHistory,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -250,11 +250,12 @@ public final class PriceHistoryDao_Impl implements PriceHistoryDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object deletePriceHistoryById(final long id, final Continuation<? super Unit> arg1) {
+  public Object deletePriceHistoryById(final long id,
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -275,12 +276,12 @@ public final class PriceHistoryDao_Impl implements PriceHistoryDao {
           __preparedStmtOfDeletePriceHistoryById.release(_stmt);
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object deletePriceHistoryForProduct(final long productId,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -301,12 +302,12 @@ public final class PriceHistoryDao_Impl implements PriceHistoryDao {
           __preparedStmtOfDeletePriceHistoryForProduct.release(_stmt);
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object deletePriceHistoryForStore(final long storeId,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -327,12 +328,12 @@ public final class PriceHistoryDao_Impl implements PriceHistoryDao {
           __preparedStmtOfDeletePriceHistoryForStore.release(_stmt);
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object deleteOldPriceHistory(final long cutoffDate,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -353,7 +354,7 @@ public final class PriceHistoryDao_Impl implements PriceHistoryDao {
           __preparedStmtOfDeleteOldPriceHistory.release(_stmt);
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
@@ -847,7 +848,7 @@ public final class PriceHistoryDao_Impl implements PriceHistoryDao {
 
   @Override
   public Object getPriceStatisticsForProduct(final long productId,
-      final Continuation<? super PriceHistoryDao.PriceStatistics> arg1) {
+      final Continuation<? super PriceHistoryDao.PriceStatistics> $completion) {
     final String _sql = "SELECT MIN(price) as minPrice, MAX(price) as maxPrice, AVG(price) as avgPrice FROM price_history WHERE productId = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -880,12 +881,12 @@ public final class PriceHistoryDao_Impl implements PriceHistoryDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object getPriceStatisticsForProductAtStore(final long productId, final long storeId,
-      final Continuation<? super PriceHistoryDao.PriceStatistics> arg2) {
+      final Continuation<? super PriceHistoryDao.PriceStatistics> $completion) {
     final String _sql = "SELECT MIN(price) as minPrice, MAX(price) as maxPrice, AVG(price) as avgPrice FROM price_history WHERE productId = ? AND storeId = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 2);
     int _argIndex = 1;
@@ -920,12 +921,12 @@ public final class PriceHistoryDao_Impl implements PriceHistoryDao {
           _statement.release();
         }
       }
-    }, arg2);
+    }, $completion);
   }
 
   @Override
   public Object getLatestPriceForProductAtStore(final long productId, final long storeId,
-      final Continuation<? super PriceHistory> arg2) {
+      final Continuation<? super PriceHistory> $completion) {
     final String _sql = "SELECT * FROM price_history WHERE productId = ? AND storeId = ? ORDER BY recordedAt DESC LIMIT 1";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 2);
     int _argIndex = 1;
@@ -999,12 +1000,12 @@ public final class PriceHistoryDao_Impl implements PriceHistoryDao {
           _statement.release();
         }
       }
-    }, arg2);
+    }, $completion);
   }
 
   @Override
   public Object getLowestPriceForProduct(final long productId,
-      final Continuation<? super PriceHistory> arg1) {
+      final Continuation<? super PriceHistory> $completion) {
     final String _sql = "SELECT * FROM price_history WHERE productId = ? ORDER BY price ASC LIMIT 1";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -1076,12 +1077,12 @@ public final class PriceHistoryDao_Impl implements PriceHistoryDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object getHighestPriceForProduct(final long productId,
-      final Continuation<? super PriceHistory> arg1) {
+      final Continuation<? super PriceHistory> $completion) {
     final String _sql = "SELECT * FROM price_history WHERE productId = ? ORDER BY price DESC LIMIT 1";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -1153,7 +1154,7 @@ public final class PriceHistoryDao_Impl implements PriceHistoryDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
@@ -1195,7 +1196,7 @@ public final class PriceHistoryDao_Impl implements PriceHistoryDao {
 
   @Override
   public Object getStoreCountWithPriceHistoryForProduct(final long productId,
-      final Continuation<? super Integer> arg1) {
+      final Continuation<? super Integer> $completion) {
     final String _sql = "SELECT COUNT(DISTINCT storeId) FROM price_history WHERE productId = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -1225,12 +1226,12 @@ public final class PriceHistoryDao_Impl implements PriceHistoryDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object getPriceHistoryForProductSuspend(final long productId,
-      final Continuation<? super List<PriceHistory>> arg1) {
+      final Continuation<? super List<PriceHistory>> $completion) {
     final String _sql = "SELECT * FROM price_history WHERE productId = ? ORDER BY recordedAt DESC";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -1302,12 +1303,12 @@ public final class PriceHistoryDao_Impl implements PriceHistoryDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object getRecentPriceHistorySuspend(final long date,
-      final Continuation<? super List<PriceHistory>> arg1) {
+      final Continuation<? super List<PriceHistory>> $completion) {
     final String _sql = "SELECT * FROM price_history WHERE recordedAt >= ? ORDER BY recordedAt DESC";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -1379,7 +1380,7 @@ public final class PriceHistoryDao_Impl implements PriceHistoryDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @NonNull

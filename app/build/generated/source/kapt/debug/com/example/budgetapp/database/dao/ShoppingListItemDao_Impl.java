@@ -227,7 +227,7 @@ public final class ShoppingListItemDao_Impl implements ShoppingListItemDao {
 
   @Override
   public Object insertShoppingListItem(final ShoppingListItem item,
-      final Continuation<? super Long> arg1) {
+      final Continuation<? super Long> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Long>() {
       @Override
       @NonNull
@@ -241,12 +241,12 @@ public final class ShoppingListItemDao_Impl implements ShoppingListItemDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object insertShoppingListItems(final List<ShoppingListItem> items,
-      final Continuation<? super List<Long>> arg1) {
+      final Continuation<? super List<Long>> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<List<Long>>() {
       @Override
       @NonNull
@@ -260,12 +260,12 @@ public final class ShoppingListItemDao_Impl implements ShoppingListItemDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object deleteShoppingListItem(final ShoppingListItem item,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -279,12 +279,12 @@ public final class ShoppingListItemDao_Impl implements ShoppingListItemDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object updateShoppingListItem(final ShoppingListItem item,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -298,11 +298,12 @@ public final class ShoppingListItemDao_Impl implements ShoppingListItemDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object deleteShoppingListItemById(final long id, final Continuation<? super Unit> arg1) {
+  public Object deleteShoppingListItemById(final long id,
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -323,12 +324,12 @@ public final class ShoppingListItemDao_Impl implements ShoppingListItemDao {
           __preparedStmtOfDeleteShoppingListItemById.release(_stmt);
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object deleteAllItemsForShoppingList(final long shoppingListId,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -349,12 +350,12 @@ public final class ShoppingListItemDao_Impl implements ShoppingListItemDao {
           __preparedStmtOfDeleteAllItemsForShoppingList.release(_stmt);
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object updateShoppingListItemStatus(final long id, final boolean isCompleted,
-      final Long completedAt, final long updatedAt, final Continuation<? super Unit> arg4) {
+      final Long completedAt, final long updatedAt, final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -386,12 +387,12 @@ public final class ShoppingListItemDao_Impl implements ShoppingListItemDao {
           __preparedStmtOfUpdateShoppingListItemStatus.release(_stmt);
         }
       }
-    }, arg4);
+    }, $completion);
   }
 
   @Override
   public Object updateShoppingListItemQuantity(final long id, final int quantity,
-      final long updatedAt, final Continuation<? super Unit> arg3) {
+      final long updatedAt, final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -416,12 +417,12 @@ public final class ShoppingListItemDao_Impl implements ShoppingListItemDao {
           __preparedStmtOfUpdateShoppingListItemQuantity.release(_stmt);
         }
       }
-    }, arg3);
+    }, $completion);
   }
 
   @Override
   public Object updateShoppingListItemActualPrice(final long id, final double actualPrice,
-      final long updatedAt, final Continuation<? super Unit> arg3) {
+      final long updatedAt, final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -446,7 +447,7 @@ public final class ShoppingListItemDao_Impl implements ShoppingListItemDao {
           __preparedStmtOfUpdateShoppingListItemActualPrice.release(_stmt);
         }
       }
-    }, arg3);
+    }, $completion);
   }
 
   @Override
@@ -800,7 +801,7 @@ public final class ShoppingListItemDao_Impl implements ShoppingListItemDao {
 
   @Override
   public Object getShoppingListItemById(final long id,
-      final Continuation<? super ShoppingListItem> arg1) {
+      final Continuation<? super ShoppingListItem> $completion) {
     final String _sql = "SELECT * FROM shopping_list_items WHERE id = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -896,7 +897,7 @@ public final class ShoppingListItemDao_Impl implements ShoppingListItemDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
@@ -1152,7 +1153,7 @@ public final class ShoppingListItemDao_Impl implements ShoppingListItemDao {
 
   @Override
   public Object getItemsForShoppingListSuspend(final long shoppingListId,
-      final Continuation<? super List<ShoppingListItem>> arg1) {
+      final Continuation<? super List<ShoppingListItem>> $completion) {
     final String _sql = "SELECT * FROM shopping_list_items WHERE shoppingListId = ? ORDER BY priority DESC, createdAt ASC";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -1248,7 +1249,7 @@ public final class ShoppingListItemDao_Impl implements ShoppingListItemDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @NonNull

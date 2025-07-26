@@ -36,6 +36,12 @@ class EditHomeActivity : AppCompatActivity() {
         binding.switchBudgets.isChecked = prefs.getBoolean("budgets_visible", false)
         binding.switchGoals.isChecked = prefs.getBoolean("goals_visible", false)
         binding.switchNetWorth.isChecked = prefs.getBoolean("net_worth_visible", false)
+        binding.switchStatistics.isChecked = prefs.getBoolean("statistics_visible", true)
+        binding.switchQuickActions.isChecked = prefs.getBoolean("quick_actions_visible", true)
+        binding.switchSavingsGoals.isChecked = prefs.getBoolean("savings_goals_visible", false)
+        binding.switchInvestmentOverview.isChecked = prefs.getBoolean("investment_overview_visible", false)
+        binding.switchRecentActivity.isChecked = prefs.getBoolean("recent_activity_visible", true)
+        binding.switchMonthlySummary.isChecked = prefs.getBoolean("monthly_summary_visible", true)
     }
     
     private fun setupClickListeners() {
@@ -61,6 +67,30 @@ class EditHomeActivity : AppCompatActivity() {
         
         binding.switchNetWorth.setOnCheckedChangeListener { _, isChecked ->
             prefs.edit().putBoolean("net_worth_visible", isChecked).apply()
+        }
+        
+        binding.switchStatistics.setOnCheckedChangeListener { _, isChecked ->
+            prefs.edit().putBoolean("statistics_visible", isChecked).apply()
+        }
+        
+        binding.switchQuickActions.setOnCheckedChangeListener { _, isChecked ->
+            prefs.edit().putBoolean("quick_actions_visible", isChecked).apply()
+        }
+        
+        binding.switchSavingsGoals.setOnCheckedChangeListener { _, isChecked ->
+            prefs.edit().putBoolean("savings_goals_visible", isChecked).apply()
+        }
+        
+        binding.switchInvestmentOverview.setOnCheckedChangeListener { _, isChecked ->
+            prefs.edit().putBoolean("investment_overview_visible", isChecked).apply()
+        }
+        
+        binding.switchRecentActivity.setOnCheckedChangeListener { _, isChecked ->
+            prefs.edit().putBoolean("recent_activity_visible", isChecked).apply()
+        }
+        
+        binding.switchMonthlySummary.setOnCheckedChangeListener { _, isChecked ->
+            prefs.edit().putBoolean("monthly_summary_visible", isChecked).apply()
         }
     }
 }

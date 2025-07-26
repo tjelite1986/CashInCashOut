@@ -1,770 +1,794 @@
 [
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_groceries.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_groceries.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_statistics.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_statistics.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_trending_down.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_trending_down.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_insight.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_insight.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_budget.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_budget.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/mipmap-xhdpi_ic_launcher_round.xml.flat",
+        "source": "com.example.budgetapp-main-67:/mipmap-xhdpi/ic_launcher_round.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_inventory.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_inventory.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_tax.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_tax.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_loan.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_loan.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_gift.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_gift.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_investment.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_investment.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_investment.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_investment.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_arrow_back.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_arrow_back.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_cool_to_dry.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_cool_to_dry.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/mipmap-hdpi_ic_launcher_round.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/mipmap-hdpi/ic_launcher_round.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_save.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_save.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_item_category_manager.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/item_category_manager.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_select_product.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_select_product.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_entertainment.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_entertainment.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_category_manager.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_category_manager.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_fragment_loans.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/fragment_loans.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_product_price_manager.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_product_price_manager.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_store_chain_manager.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_store_chain_manager.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_add.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_add.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_main.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_main.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_arrow_back.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_arrow_back.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_add_edit_shopping_list.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_add_edit_shopping_list.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_sport.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_sport.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_item_loan.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/item_loan.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_transaction_selector.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_transaction_selector.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_arrow_forward.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_arrow_forward.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_more_vert.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_more_vert.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_circular_progress.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/circular_progress.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_menu.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_menu.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/mipmap-xhdpi_ic_launcher.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/mipmap-xhdpi/ic_launcher.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_add_loan.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_add_loan.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_sale.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_sale.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_shopping_list.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_shopping_list.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_dining.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_dining.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_freelance.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_freelance.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_category.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_category.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_palette.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_palette.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_tech.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_tech.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_thumb_up.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_thumb_up.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_item_store_product.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/item_store_product.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_more_menu.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_more_menu.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_home.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_home.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_dialog_add_store_chain.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/dialog_add_store_chain.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_search.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_search.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_budget.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_budget.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_drinks.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_drinks.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_tips.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_tips.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_notification_settings.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_notification_settings.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_price_history.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_price_history.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_cool_to_dry.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_cool_to_dry.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_fragment_transactions.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/fragment_transactions.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_bonus.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_bonus.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_add_edit_shopping_list.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_add_edit_shopping_list.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/xml_data_extraction_rules.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/xml/data_extraction_rules.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_automation.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_automation.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_backup.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_backup.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_more_horiz.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_more_horiz.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_tax.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_tax.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_circular_progress.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/circular_progress.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_item_product_category.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/item_product_category.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_product_category.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_product_category.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_add.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_add.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_clothes.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_clothes.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/xml_backup_rules.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/xml/backup_rules.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_export.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_export.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_notifications.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_notifications.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_product.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_product.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_transit.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_transit.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_other.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_other.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_business.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_business.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/mipmap-hdpi_ic_launcher.xml.flat",
+        "source": "com.example.budgetapp-main-67:/mipmap-hdpi/ic_launcher.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_add_edit_budget.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_add_edit_budget.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_delete.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_delete.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_savings.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_savings.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/mipmap-xxhdpi_ic_launcher_round.xml.flat",
+        "source": "com.example.budgetapp-main-67:/mipmap-xxhdpi/ic_launcher_round.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_empty_state.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_empty_state.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_menu_dots.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_menu_dots.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_shopping_list_detail.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_shopping_list_detail.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_category_icon.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_category_icon.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/menu_transaction_context_menu.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/menu/transaction_context_menu.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_edit.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_edit.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_product_list.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_product_list.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_check.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_check.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_edit.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_edit.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_debt.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_debt.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_fragment_analytics.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/fragment_analytics.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_apps.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_apps.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_statistics.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_statistics.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_rounded_background.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/rounded_background.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_store_manager.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_store_manager.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/xml_data_extraction_rules.xml.flat",
+        "source": "com.example.budgetapp-main-67:/xml/data_extraction_rules.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_tips.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_tips.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_edit_home.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_edit_home.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_overview.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_overview.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_dialog_edit_price.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/dialog_edit_price.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_loans.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_loans.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_store_chain_manager.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_store_chain_manager.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_coffee.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_coffee.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_product_with_prices.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_product_with_prices.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_delete.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_delete.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_filter.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_filter.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_spinner_item.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/spinner_item.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/menu_shopping_list_detail_menu.xml.flat",
+        "source": "com.example.budgetapp-main-67:/menu/shopping_list_detail_menu.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/mipmap-xxxhdpi_ic_launcher_round.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/mipmap-xxxhdpi/ic_launcher_round.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_store_chain.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_store_chain.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_dialog_add_receipt_item.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/dialog_add_receipt_item.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/mipmap-xxxhdpi_ic_launcher.xml.flat",
+        "source": "com.example.budgetapp-main-67:/mipmap-xxxhdpi/ic_launcher.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_menu.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_menu.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_optimized_shopping.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_optimized_shopping.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_item_budget.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/item_budget.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_pharmacy.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_pharmacy.xml"
+    },
+    {
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_add_edit_budget.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_add_edit_budget.xml"
+    },
+    {
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_calendar.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_calendar.xml"
+    },
+    {
+        "merged": "com.example.budgetapp-merged_res-65:/menu_loan_context_menu.xml.flat",
+        "source": "com.example.budgetapp-main-67:/menu/loan_context_menu.xml"
+    },
+    {
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_beauty.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_beauty.xml"
+    },
+    {
+        "merged": "com.example.budgetapp-merged_res-65:/layout_fragment_more.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/fragment_more.xml"
+    },
+    {
+        "merged": "com.example.budgetapp-merged_res-65:/menu_bottom_navigation.xml.flat",
+        "source": "com.example.budgetapp-main-67:/menu/bottom_navigation.xml"
+    },
+    {
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_optimized_shopping_list.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_optimized_shopping_list.xml"
+    },
+    {
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_background_chip.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/background_chip.xml"
     },
     {
         "merged": "com.example.budgetapp-merged_res-65:/layout_activity_main.xml.flat",
         "source": "com.example.budgetapp-main-67:/layout/activity_main.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_subcategory.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_subcategory.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_automation_rule.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_automation_rule.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_refresh.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_refresh.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_fragment_budget.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/fragment_budget.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_item_category_icon.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/item_category_icon.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_spinner_item_selector.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/spinner_item_selector.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_price_history.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_price_history.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_dialog_add_receipt_item.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/dialog_add_receipt_item.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_fragment_settings.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/fragment_settings.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_spinner_item.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/spinner_item.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_warning.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_warning.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_notifications.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_notifications.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_bar_chart.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_bar_chart.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_trending_down.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_trending_down.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_freelance.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_freelance.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_home_app_logo.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_home_app_logo.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_price_alert.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_price_alert.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/mipmap-xxxhdpi_ic_launcher_round.xml.flat",
+        "source": "com.example.budgetapp-main-67:/mipmap-xxxhdpi/ic_launcher_round.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_fragment_transactions.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/fragment_transactions.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_coffee.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_coffee.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_sport.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_sport.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_store_manager.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_store_manager.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_settings.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_settings.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_search.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_search.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_item_color_choice.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/item_color_choice.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_color_picker.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_color_picker.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_star.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_star.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_category_default.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_category_default.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_seasonal.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_seasonal.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_entertainment.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_entertainment.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_expenses.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_expenses.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_sale.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_sale.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_transaction_selector.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_transaction_selector.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_refresh.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_refresh.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_pets.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_pets.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_dialog_add_store.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/dialog_add_store.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_item_store_chain.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/item_store_chain.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_optimized_shopping_item.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_optimized_shopping_item.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_store_detail.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_store_detail.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_health.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_health.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_payments.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_payments.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_savings.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_savings.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_theme_preferences.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_theme_preferences.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_goal.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_goal.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_security.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_security.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_budget.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_budget.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_tobacco.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_tobacco.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_warning.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_warning.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/menu_shopping_list_detail_menu.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/menu/shopping_list_detail_menu.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_info.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_info.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_dialog_add_store_chain.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/dialog_add_store_chain.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_circle_shape.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/circle_shape.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_thumb_up.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_thumb_up.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/menu_store_detail_menu.xml.flat",
+        "source": "com.example.budgetapp-main-67:/menu/store_detail_menu.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_item_optimized_shopping_list.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/item_optimized_shopping_list.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_fragment_simple_statistics.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/fragment_simple_statistics.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_smart_recommendations.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_smart_recommendations.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_income.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_income.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/menu_product_list_menu.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/menu/product_list_menu.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_arrow_forward.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_arrow_forward.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_add_loan.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_add_loan.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_product_category_manager.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_product_category_manager.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_clothes.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_clothes.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_store_detail.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_store_detail.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_filter.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_filter.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_add_income.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_add_income.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_beauty.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_beauty.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_drinks.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_drinks.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_category_manager.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_category_manager.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_store.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_store.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_edit_home.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_edit_home.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_barcode_scanner.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_barcode_scanner.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_home_app_logo.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_home_app_logo.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/menu_floating_menu.xml.flat",
+        "source": "com.example.budgetapp-main-67:/menu/floating_menu.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_category_default.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_category_default.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_car.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_car.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_salary.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_salary.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_category.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_category.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_product_price_manager.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_product_price_manager.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_loan.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_loan.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_income.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_income.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_expenses.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_expenses.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_select_product.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_select_product.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_category_manager.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_category_manager.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_rounded_background.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/rounded_background.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_smart_suggestion.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_smart_suggestion.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_add_product.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_add_product.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_scanner_overlay.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/scanner_overlay.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_gas.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_gas.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_settings.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_settings.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_shopping.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_shopping.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/menu_menu_select_product.xml.flat",
+        "source": "com.example.budgetapp-main-67:/menu/menu_select_product.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_info.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_info.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_star.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_star.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_circle_shape.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/circle_shape.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/mipmap-xhdpi_ic_launcher.xml.flat",
+        "source": "com.example.budgetapp-main-67:/mipmap-xhdpi/ic_launcher.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/mipmap-mdpi_ic_launcher.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/mipmap-mdpi/ic_launcher.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_fragment_overview.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/fragment_overview.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_fragment_settings_old.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/fragment_settings_old.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_dining.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_dining.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_car.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_car.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_price_alert.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_price_alert.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_item_smart_suggestion.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/item_smart_suggestion.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_prediction.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_prediction.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_budget_rollover_settings.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_budget_rollover_settings.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_fragment_settings_old.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/fragment_settings_old.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_optimized_shopping.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_optimized_shopping.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_price_recommendation.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_price_recommendation.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_item_insight.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/item_insight.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_smart_insight.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_smart_insight.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_item_color_picker.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/item_color_picker.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_fragment_loans.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/fragment_loans.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_edit_product.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_edit_product.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_lightning_bolt.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_lightning_bolt.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_item_price_recommendation.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/item_price_recommendation.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_transaction.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_transaction.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_item_product.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/item_product.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/menu_transaction_context_menu.xml.flat",
+        "source": "com.example.budgetapp-main-67:/menu/transaction_context_menu.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_export.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_export.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_smart_recommendations.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_smart_recommendations.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_item_product_price.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/item_product_price.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_security.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_security.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/mipmap-xhdpi_ic_launcher_round.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/mipmap-xhdpi/ic_launcher_round.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_select_product.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_select_product.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_more_vert.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_more_vert.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_recommendation.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_recommendation.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_item_recommendation_header.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/item_recommendation_header.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_loans.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_loans.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_item_selectable_transaction.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/item_selectable_transaction.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_bills.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_bills.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_palette.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_palette.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/mipmap-mdpi_ic_launcher.xml.flat",
+        "source": "com.example.budgetapp-main-67:/mipmap-mdpi/ic_launcher.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/mipmap-xxxhdpi_ic_launcher.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/mipmap-xxxhdpi/ic_launcher.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_inventory.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_inventory.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_fragment_simple_statistics.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/fragment_simple_statistics.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_money.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_money.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_item_transaction.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/item_transaction.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_tobacco.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_tobacco.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_shopping_list.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_shopping_list.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_salary.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_salary.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_item_optimized_shopping_item.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/item_optimized_shopping_item.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_optimization.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_optimization.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/menu_main_toolbar_menu.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/menu/main_toolbar_menu.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_loan.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_loan.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_item_receipt_item.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/item_receipt_item.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_education.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_education.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_check.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_check.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_travel.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_travel.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_spinner_item_selector.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/spinner_item_selector.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_store_product.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_store_product.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_gift.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_gift.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_notification_settings.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_notification_settings.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/mipmap-xxhdpi_ic_launcher_round.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/mipmap-xxhdpi/ic_launcher_round.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_trending_up.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_trending_up.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_add_edit_category.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_add_edit_category.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_more_header.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_more_header.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_add_income.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_add_income.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/xml_backup_rules.xml.flat",
+        "source": "com.example.budgetapp-main-67:/xml/backup_rules.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_item_select_product.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/item_select_product.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_dropdown_item_light.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/dropdown_item_light.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_save.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_save.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_product_price.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_product_price.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_lightbulb.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_lightbulb.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_theme_preferences.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_theme_preferences.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_menu_dots.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_menu_dots.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_gas.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_gas.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_apps.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_apps.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/menu_main_toolbar_menu.xml.flat",
+        "source": "com.example.budgetapp-main-67:/menu/main_toolbar_menu.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_money.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_money.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_tech.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_tech.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_calendar.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_calendar.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_backup.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_backup.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_debt.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_debt.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_add_expense.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_add_expense.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_other.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_other.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_shopping_list_item.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_shopping_list_item.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_add_product.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_add_product.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_product_list.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_product_list.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_dialog_edit_price.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/dialog_edit_price.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_business.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_business.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_health.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_health.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_fragment_transaction_list.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/fragment_transaction_list.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/menu_loan_context_menu.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/menu/loan_context_menu.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_add_edit_shopping_list_item.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_add_edit_shopping_list_item.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_store.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_store.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_home.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_home.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_prediction.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_prediction.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_selectable_transaction.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_selectable_transaction.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_fragment_transaction_list.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/fragment_transaction_list.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/mipmap-xxhdpi_ic_launcher.xml.flat",
+        "source": "com.example.budgetapp-main-67:/mipmap-xxhdpi/ic_launcher.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/mipmap-mdpi_ic_launcher_round.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/mipmap-mdpi/ic_launcher_round.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_color_circle_system.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/color_circle_system.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_education.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_education.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_lightbulb.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_lightbulb.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_real_estate_agent.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_real_estate_agent.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_subcategory.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_subcategory.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_fragment_overview.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/fragment_overview.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_shopping_list_detail.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_shopping_list_detail.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_goal.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_goal.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_pets.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_pets.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_store_and_product_manager.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_store_and_product_manager.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_seasonal.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_seasonal.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_bills.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_bills.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_fragment_analytics.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/fragment_analytics.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_product_category_manager.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_product_category_manager.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_color_choice.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_color_choice.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_spinner_dropdown_item.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/spinner_dropdown_item.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_payments.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_payments.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_dialog_insight_details.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/dialog_insight_details.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_history.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_history.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_item_recommendation.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/item_recommendation.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_budget_rollover_settings.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_budget_rollover_settings.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_item_shopping_list_item.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/item_shopping_list_item.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/menu_product_list_menu.xml.flat",
+        "source": "com.example.budgetapp-main-67:/menu/product_list_menu.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_dialog_add_price.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/dialog_add_price.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_bar_chart.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_bar_chart.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_scanner_overlay.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/scanner_overlay.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_dialog_add_price.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/dialog_add_price.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_optimization.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_optimization.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_bonus.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_bonus.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_color_circle_system.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/color_circle_system.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_fragment_settings.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/fragment_settings.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_dialog_add_store.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/dialog_add_store.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_add_product.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_add_product.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/menu_store_detail_menu.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/menu/store_detail_menu.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_receipt_item.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_receipt_item.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/menu_menu_select_product.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/menu/menu_select_product.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_dialog_insight_details.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/dialog_insight_details.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_add_edit_shopping_list_item.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_add_edit_shopping_list_item.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_budget_analytics.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_budget_analytics.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_budget_analytics.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_budget_analytics.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/mipmap-hdpi_ic_launcher_round.xml.flat",
+        "source": "com.example.budgetapp-main-67:/mipmap-hdpi/ic_launcher_round.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_pharmacy.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_pharmacy.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_overview.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_overview.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_item_product_with_prices.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/item_product_with_prices.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_groceries.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_groceries.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_item_shopping_list.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/item_shopping_list.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_real_estate_agent.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_real_estate_agent.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_item_store.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/item_store.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_spinner_dropdown_item.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/spinner_dropdown_item.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_more_horiz.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_more_horiz.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_store_and_product_manager.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_store_and_product_manager.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_trending_up.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_trending_up.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_shopping_list.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_shopping_list.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_fragment_budget.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/fragment_budget.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/mipmap-mdpi_ic_launcher_round.xml.flat",
+        "source": "com.example.budgetapp-main-67:/mipmap-mdpi/ic_launcher_round.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/mipmap-xxhdpi_ic_launcher.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/mipmap-xxhdpi/ic_launcher.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_recommendation_header.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_recommendation_header.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/menu_bottom_navigation.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/menu/bottom_navigation.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_empty_state.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_empty_state.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_barcode_scanner.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_barcode_scanner.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_add_edit_category.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_add_edit_category.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_activity_add_expense.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/activity_add_expense.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_activity_edit_product.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/activity_edit_product.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_ic_travel.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/ic_travel.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/layout_item_store.xml.flat",
+        "source": "com.example.budgetapp-main-67:/layout/item_store.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/drawable_background_chip.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/drawable/background_chip.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_transit.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_transit.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/menu_floating_menu.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/menu/floating_menu.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_add_product.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_add_product.xml"
     },
     {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/mipmap-hdpi_ic_launcher.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/mipmap-hdpi/ic_launcher.xml"
-    },
-    {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_dropdown_item_light.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/dropdown_item_light.xml"
-    },
-    {
-        "merged": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-merged_res-65:/layout_fragment_more.xml.flat",
-        "source": "/home/thomas/.gradle/daemon/8.2/com.example.budgetapp-main-67:/layout/fragment_more.xml"
+        "merged": "com.example.budgetapp-merged_res-65:/drawable_ic_shopping.xml.flat",
+        "source": "com.example.budgetapp-main-67:/drawable/ic_shopping.xml"
     }
 ]

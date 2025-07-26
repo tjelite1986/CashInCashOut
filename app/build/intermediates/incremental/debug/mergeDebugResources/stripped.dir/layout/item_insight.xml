@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp"
+    app:rippleColor="@color/primary_color">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <!-- Severity Indicator -->
+        <View
+            android:id="@+id/viewSeverityIndicator"
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="12dp"
+            android:background="@color/severity_high"
+            tools:background="@color/severity_high" />
+
+        <!-- Insight Icon -->
+        <ImageView
+            android:id="@+id/imageViewInsightIcon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="12dp"
+            android:layout_gravity="top"
+            android:src="@drawable/ic_warning"
+            android:tint="@color/primary_color"
+            tools:src="@drawable/ic_warning" />
+
+        <!-- Main Content -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!-- Header Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/textViewInsightTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Unusual spending detected"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    tools:text="Unusual spending detected" />
+
+                <!-- New Indicator -->
+                <View
+                    android:id="@+id/viewNewIndicator"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/circle_shape"
+                    android:backgroundTint="@color/accent_color"
+                    android:visibility="visible" />
+
+            </LinearLayout>
+
+            <!-- Description -->
+            <TextView
+                android:id="@+id/textViewInsightDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="You spent 2,450 kr on groceries, which is 2.3x higher than your average of 1,080 kr"
+                android:textSize="14sp"
+                android:textColor="@color/text_secondary"
+                android:maxLines="3"
+                android:ellipsize="end"
+                tools:text="You spent 2,450 kr on groceries, which is 2.3x higher than your average of 1,080 kr" />
+
+            <!-- Amount and Percentage Info -->
+            <LinearLayout
+                android:id="@+id/layoutAmountInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/textViewAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2,450 kr"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/primary_color"
+                    tools:text="2,450 kr" />
+
+                <TextView
+                    android:id="@+id/textViewPercentage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="+127%"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/severity_high"
+                    tools:text="+127%" />
+
+            </LinearLayout>
+
+            <!-- Bottom Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <!-- Severity Badge -->
+                <TextView
+                    android:id="@+id/textViewSeverity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="HIGH"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/severity_high"
+                    android:background="@drawable/rounded_background"
+                    android:backgroundTint="@color/severity_high_background"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="2dp"
+                    tools:text="HIGH" />
+
+                <!-- Confidence Score -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <ProgressBar
+                        android:id="@+id/progressBarConfidence"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="40dp"
+                        android:layout_height="6dp"
+                        android:indeterminate="false"
+                        android:max="100"
+                        android:progress="85"
+                        tools:progress="85" />
+
+                    <TextView
+                        android:id="@+id/textViewConfidence"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="85%"
+                        android:textSize="10sp"
+                        android:textColor="@color/text_secondary"
+                        tools:text="85%" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <!-- Date -->
+                <TextView
+                    android:id="@+id/textViewInsightDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jul 25, 2025"
+                    android:textSize="10sp"
+                    android:textColor="@color/text_secondary"
+                    tools:text="Jul 25, 2025" />
+
+            </LinearLayout>
+
+            <!-- Suggested Action -->
+            <LinearLayout
+                android:id="@+id/layoutSuggestedAction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/rounded_background"
+                android:backgroundTint="@color/action_background"
+                android:padding="8dp"
+                android:visibility="visible">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_lightbulb"
+                    android:tint="@color/action_color"
+                    android:layout_marginEnd="8dp" />
+
+                <TextView
+                    android:id="@+id/textViewSuggestedAction"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Review this transaction and consider if it aligns with your budget goals"
+                    android:textSize="12sp"
+                    android:textColor="@color/action_color"
+                    tools:text="Review this transaction and consider if it aligns with your budget goals" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

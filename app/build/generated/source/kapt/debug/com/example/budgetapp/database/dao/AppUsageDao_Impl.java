@@ -63,7 +63,7 @@ public final class AppUsageDao_Impl implements AppUsageDao {
 
   @Override
   public Object insertOrUpdateAppUsage(final AppUsage appUsage,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -77,12 +77,12 @@ public final class AppUsageDao_Impl implements AppUsageDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object updateLastOpened(final long lastOpened, final long updatedAt,
-      final Continuation<? super Unit> arg2) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -105,11 +105,11 @@ public final class AppUsageDao_Impl implements AppUsageDao {
           __preparedStmtOfUpdateLastOpened.release(_stmt);
         }
       }
-    }, arg2);
+    }, $completion);
   }
 
   @Override
-  public Object getAppUsage(final Continuation<? super AppUsage> arg0) {
+  public Object getAppUsage(final Continuation<? super AppUsage> $completion) {
     final String _sql = "SELECT * FROM app_usage WHERE id = 1 LIMIT 1";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
@@ -140,11 +140,11 @@ public final class AppUsageDao_Impl implements AppUsageDao {
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @Override
-  public Object getLastOpenedTime(final Continuation<? super Long> arg0) {
+  public Object getLastOpenedTime(final Continuation<? super Long> $completion) {
     final String _sql = "SELECT lastOpenedAt FROM app_usage WHERE id = 1 LIMIT 1";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
@@ -170,7 +170,7 @@ public final class AppUsageDao_Impl implements AppUsageDao {
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @NonNull

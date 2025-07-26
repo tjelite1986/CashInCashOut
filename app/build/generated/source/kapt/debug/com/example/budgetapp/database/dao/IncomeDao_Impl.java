@@ -158,7 +158,7 @@ public final class IncomeDao_Impl implements IncomeDao {
   }
 
   @Override
-  public Object insertIncome(final Income income, final Continuation<? super Long> arg1) {
+  public Object insertIncome(final Income income, final Continuation<? super Long> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Long>() {
       @Override
       @NonNull
@@ -172,11 +172,12 @@ public final class IncomeDao_Impl implements IncomeDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object insertIncomes(final List<Income> incomes, final Continuation<? super Unit> arg1) {
+  public Object insertIncomes(final List<Income> incomes,
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -190,11 +191,11 @@ public final class IncomeDao_Impl implements IncomeDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object deleteIncome(final Income income, final Continuation<? super Unit> arg1) {
+  public Object deleteIncome(final Income income, final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -208,11 +209,11 @@ public final class IncomeDao_Impl implements IncomeDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object updateIncome(final Income income, final Continuation<? super Unit> arg1) {
+  public Object updateIncome(final Income income, final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -226,11 +227,12 @@ public final class IncomeDao_Impl implements IncomeDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object deleteIncomeById(final long incomeId, final Continuation<? super Unit> arg1) {
+  public Object deleteIncomeById(final long incomeId,
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -251,11 +253,11 @@ public final class IncomeDao_Impl implements IncomeDao {
           __preparedStmtOfDeleteIncomeById.release(_stmt);
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object deleteAllIncomes(final Continuation<? super Unit> arg0) {
+  public Object deleteAllIncomes(final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -274,7 +276,7 @@ public final class IncomeDao_Impl implements IncomeDao {
           __preparedStmtOfDeleteAllIncomes.release(_stmt);
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @Override
@@ -355,7 +357,7 @@ public final class IncomeDao_Impl implements IncomeDao {
   }
 
   @Override
-  public Object getIncomeById(final long incomeId, final Continuation<? super Income> arg1) {
+  public Object getIncomeById(final long incomeId, final Continuation<? super Income> $completion) {
     final String _sql = "SELECT * FROM incomes WHERE id = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -427,7 +429,7 @@ public final class IncomeDao_Impl implements IncomeDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
@@ -595,7 +597,7 @@ public final class IncomeDao_Impl implements IncomeDao {
   }
 
   @Override
-  public Object getAllIncomesSnapshot(final Continuation<? super List<Income>> arg0) {
+  public Object getAllIncomesSnapshot(final Continuation<? super List<Income>> $completion) {
     final String _sql = "SELECT * FROM incomes ORDER BY date DESC";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
@@ -665,11 +667,11 @@ public final class IncomeDao_Impl implements IncomeDao {
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @Override
-  public Object getTotalIncome(final Continuation<? super Double> arg0) {
+  public Object getTotalIncome(final Continuation<? super Double> $completion) {
     final String _sql = "SELECT SUM(amount) FROM incomes";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
@@ -697,12 +699,12 @@ public final class IncomeDao_Impl implements IncomeDao {
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @Override
   public Object getTotalIncomeByDateRange(final long startDate, final long endDate,
-      final Continuation<? super Double> arg2) {
+      final Continuation<? super Double> $completion) {
     final String _sql = "SELECT SUM(amount) FROM incomes WHERE date >= ? AND date <= ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 2);
     int _argIndex = 1;
@@ -734,12 +736,12 @@ public final class IncomeDao_Impl implements IncomeDao {
           _statement.release();
         }
       }
-    }, arg2);
+    }, $completion);
   }
 
   @Override
   public Object getTotalIncomeByCategory(final String category,
-      final Continuation<? super Double> arg1) {
+      final Continuation<? super Double> $completion) {
     final String _sql = "SELECT SUM(amount) FROM incomes WHERE category = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -773,12 +775,12 @@ public final class IncomeDao_Impl implements IncomeDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object checkDuplicateIncome(final String title, final double amount, final String category,
-      final long date, final Continuation<? super Integer> arg4) {
+      final long date, final Continuation<? super Integer> $completion) {
     final String _sql = "SELECT COUNT(*) FROM incomes WHERE title = ? AND amount = ? AND COALESCE(category, '') = ? AND date = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 4);
     int _argIndex = 1;
@@ -822,11 +824,11 @@ public final class IncomeDao_Impl implements IncomeDao {
           _statement.release();
         }
       }
-    }, arg4);
+    }, $completion);
   }
 
   @Override
-  public Object getRecurringIncomes(final Continuation<? super List<Income>> arg0) {
+  public Object getRecurringIncomes(final Continuation<? super List<Income>> $completion) {
     final String _sql = "SELECT * FROM incomes WHERE isRecurring = 1 ORDER BY date DESC";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
@@ -896,7 +898,7 @@ public final class IncomeDao_Impl implements IncomeDao {
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @NonNull

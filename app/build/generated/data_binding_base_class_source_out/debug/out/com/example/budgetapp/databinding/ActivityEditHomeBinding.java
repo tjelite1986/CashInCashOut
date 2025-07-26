@@ -36,10 +36,28 @@ public final class ActivityEditHomeBinding implements ViewBinding {
   public final LinearLayout sectionIncomeExpenses;
 
   @NonNull
+  public final LinearLayout sectionInvestmentOverview;
+
+  @NonNull
   public final LinearLayout sectionLoans;
 
   @NonNull
+  public final LinearLayout sectionMonthlySummary;
+
+  @NonNull
   public final LinearLayout sectionNetWorth;
+
+  @NonNull
+  public final LinearLayout sectionQuickActions;
+
+  @NonNull
+  public final LinearLayout sectionRecentActivity;
+
+  @NonNull
+  public final LinearLayout sectionSavingsGoals;
+
+  @NonNull
+  public final LinearLayout sectionStatistics;
 
   @NonNull
   public final SwitchMaterial switchAccounts;
@@ -54,32 +72,68 @@ public final class ActivityEditHomeBinding implements ViewBinding {
   public final SwitchMaterial switchIncomeExpenses;
 
   @NonNull
+  public final SwitchMaterial switchInvestmentOverview;
+
+  @NonNull
   public final SwitchMaterial switchLoans;
+
+  @NonNull
+  public final SwitchMaterial switchMonthlySummary;
 
   @NonNull
   public final SwitchMaterial switchNetWorth;
 
+  @NonNull
+  public final SwitchMaterial switchQuickActions;
+
+  @NonNull
+  public final SwitchMaterial switchRecentActivity;
+
+  @NonNull
+  public final SwitchMaterial switchSavingsGoals;
+
+  @NonNull
+  public final SwitchMaterial switchStatistics;
+
   private ActivityEditHomeBinding(@NonNull LinearLayout rootView, @NonNull ImageView btnBack,
       @NonNull LinearLayout sectionAccounts, @NonNull LinearLayout sectionBudgets,
       @NonNull LinearLayout sectionGoals, @NonNull LinearLayout sectionIncomeExpenses,
-      @NonNull LinearLayout sectionLoans, @NonNull LinearLayout sectionNetWorth,
+      @NonNull LinearLayout sectionInvestmentOverview, @NonNull LinearLayout sectionLoans,
+      @NonNull LinearLayout sectionMonthlySummary, @NonNull LinearLayout sectionNetWorth,
+      @NonNull LinearLayout sectionQuickActions, @NonNull LinearLayout sectionRecentActivity,
+      @NonNull LinearLayout sectionSavingsGoals, @NonNull LinearLayout sectionStatistics,
       @NonNull SwitchMaterial switchAccounts, @NonNull SwitchMaterial switchBudgets,
       @NonNull SwitchMaterial switchGoals, @NonNull SwitchMaterial switchIncomeExpenses,
-      @NonNull SwitchMaterial switchLoans, @NonNull SwitchMaterial switchNetWorth) {
+      @NonNull SwitchMaterial switchInvestmentOverview, @NonNull SwitchMaterial switchLoans,
+      @NonNull SwitchMaterial switchMonthlySummary, @NonNull SwitchMaterial switchNetWorth,
+      @NonNull SwitchMaterial switchQuickActions, @NonNull SwitchMaterial switchRecentActivity,
+      @NonNull SwitchMaterial switchSavingsGoals, @NonNull SwitchMaterial switchStatistics) {
     this.rootView = rootView;
     this.btnBack = btnBack;
     this.sectionAccounts = sectionAccounts;
     this.sectionBudgets = sectionBudgets;
     this.sectionGoals = sectionGoals;
     this.sectionIncomeExpenses = sectionIncomeExpenses;
+    this.sectionInvestmentOverview = sectionInvestmentOverview;
     this.sectionLoans = sectionLoans;
+    this.sectionMonthlySummary = sectionMonthlySummary;
     this.sectionNetWorth = sectionNetWorth;
+    this.sectionQuickActions = sectionQuickActions;
+    this.sectionRecentActivity = sectionRecentActivity;
+    this.sectionSavingsGoals = sectionSavingsGoals;
+    this.sectionStatistics = sectionStatistics;
     this.switchAccounts = switchAccounts;
     this.switchBudgets = switchBudgets;
     this.switchGoals = switchGoals;
     this.switchIncomeExpenses = switchIncomeExpenses;
+    this.switchInvestmentOverview = switchInvestmentOverview;
     this.switchLoans = switchLoans;
+    this.switchMonthlySummary = switchMonthlySummary;
     this.switchNetWorth = switchNetWorth;
+    this.switchQuickActions = switchQuickActions;
+    this.switchRecentActivity = switchRecentActivity;
+    this.switchSavingsGoals = switchSavingsGoals;
+    this.switchStatistics = switchStatistics;
   }
 
   @Override
@@ -139,15 +193,51 @@ public final class ActivityEditHomeBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.section_investment_overview;
+      LinearLayout sectionInvestmentOverview = ViewBindings.findChildViewById(rootView, id);
+      if (sectionInvestmentOverview == null) {
+        break missingId;
+      }
+
       id = R.id.section_loans;
       LinearLayout sectionLoans = ViewBindings.findChildViewById(rootView, id);
       if (sectionLoans == null) {
         break missingId;
       }
 
+      id = R.id.section_monthly_summary;
+      LinearLayout sectionMonthlySummary = ViewBindings.findChildViewById(rootView, id);
+      if (sectionMonthlySummary == null) {
+        break missingId;
+      }
+
       id = R.id.section_net_worth;
       LinearLayout sectionNetWorth = ViewBindings.findChildViewById(rootView, id);
       if (sectionNetWorth == null) {
+        break missingId;
+      }
+
+      id = R.id.section_quick_actions;
+      LinearLayout sectionQuickActions = ViewBindings.findChildViewById(rootView, id);
+      if (sectionQuickActions == null) {
+        break missingId;
+      }
+
+      id = R.id.section_recent_activity;
+      LinearLayout sectionRecentActivity = ViewBindings.findChildViewById(rootView, id);
+      if (sectionRecentActivity == null) {
+        break missingId;
+      }
+
+      id = R.id.section_savings_goals;
+      LinearLayout sectionSavingsGoals = ViewBindings.findChildViewById(rootView, id);
+      if (sectionSavingsGoals == null) {
+        break missingId;
+      }
+
+      id = R.id.section_statistics;
+      LinearLayout sectionStatistics = ViewBindings.findChildViewById(rootView, id);
+      if (sectionStatistics == null) {
         break missingId;
       }
 
@@ -175,9 +265,21 @@ public final class ActivityEditHomeBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.switch_investment_overview;
+      SwitchMaterial switchInvestmentOverview = ViewBindings.findChildViewById(rootView, id);
+      if (switchInvestmentOverview == null) {
+        break missingId;
+      }
+
       id = R.id.switch_loans;
       SwitchMaterial switchLoans = ViewBindings.findChildViewById(rootView, id);
       if (switchLoans == null) {
+        break missingId;
+      }
+
+      id = R.id.switch_monthly_summary;
+      SwitchMaterial switchMonthlySummary = ViewBindings.findChildViewById(rootView, id);
+      if (switchMonthlySummary == null) {
         break missingId;
       }
 
@@ -187,10 +289,37 @@ public final class ActivityEditHomeBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.switch_quick_actions;
+      SwitchMaterial switchQuickActions = ViewBindings.findChildViewById(rootView, id);
+      if (switchQuickActions == null) {
+        break missingId;
+      }
+
+      id = R.id.switch_recent_activity;
+      SwitchMaterial switchRecentActivity = ViewBindings.findChildViewById(rootView, id);
+      if (switchRecentActivity == null) {
+        break missingId;
+      }
+
+      id = R.id.switch_savings_goals;
+      SwitchMaterial switchSavingsGoals = ViewBindings.findChildViewById(rootView, id);
+      if (switchSavingsGoals == null) {
+        break missingId;
+      }
+
+      id = R.id.switch_statistics;
+      SwitchMaterial switchStatistics = ViewBindings.findChildViewById(rootView, id);
+      if (switchStatistics == null) {
+        break missingId;
+      }
+
       return new ActivityEditHomeBinding((LinearLayout) rootView, btnBack, sectionAccounts,
-          sectionBudgets, sectionGoals, sectionIncomeExpenses, sectionLoans, sectionNetWorth,
-          switchAccounts, switchBudgets, switchGoals, switchIncomeExpenses, switchLoans,
-          switchNetWorth);
+          sectionBudgets, sectionGoals, sectionIncomeExpenses, sectionInvestmentOverview,
+          sectionLoans, sectionMonthlySummary, sectionNetWorth, sectionQuickActions,
+          sectionRecentActivity, sectionSavingsGoals, sectionStatistics, switchAccounts,
+          switchBudgets, switchGoals, switchIncomeExpenses, switchInvestmentOverview, switchLoans,
+          switchMonthlySummary, switchNetWorth, switchQuickActions, switchRecentActivity,
+          switchSavingsGoals, switchStatistics);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

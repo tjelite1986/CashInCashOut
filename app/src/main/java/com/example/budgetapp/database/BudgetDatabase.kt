@@ -29,6 +29,7 @@ import com.example.budgetapp.database.dao.FinancialInsightDao
 import com.example.budgetapp.database.dao.FinancialGoalDao
 import com.example.budgetapp.database.dao.SpendingPatternDao
 import com.example.budgetapp.database.dao.SpendingForecastDao
+import com.example.budgetapp.analytics.investments.dao.InvestmentDao
 import com.example.budgetapp.database.entities.Category
 import com.example.budgetapp.database.entities.ProductCategory
 import com.example.budgetapp.database.entities.Product
@@ -51,19 +52,34 @@ import com.example.budgetapp.database.entities.FinancialInsight
 import com.example.budgetapp.database.entities.FinancialGoal
 import com.example.budgetapp.database.entities.SpendingPattern
 import com.example.budgetapp.database.entities.SpendingForecast
+import com.example.budgetapp.analytics.investments.entities.Investment
+import com.example.budgetapp.analytics.investments.entities.InvestmentTransaction
+import com.example.budgetapp.analytics.investments.entities.InvestmentPriceHistory
+import com.example.budgetapp.analytics.investments.entities.InvestmentDividend
+import com.example.budgetapp.analytics.investments.entities.InvestmentPortfolio
+import com.example.budgetapp.analytics.investments.entities.PortfolioInvestment
+import com.example.budgetapp.analytics.investments.multicurrency.ExchangeRate
+import com.example.budgetapp.analytics.investments.multicurrency.CurrencyAlert
+import com.example.budgetapp.analytics.investments.multicurrency.MultiCurrencyTransaction
 import com.example.budgetapp.database.entities.LoanTypeConverter
 import com.example.budgetapp.database.entities.BudgetTypeConverter
 import com.example.budgetapp.database.entities.AnalyticsTypeConverters
+import com.example.budgetapp.automation.AutomationTypeConverters
+import com.example.budgetapp.automation.ml.MLTypeConverters
+import com.example.budgetapp.automation.dao.AutomationRuleDao
+import com.example.budgetapp.automation.AutomationRule
+import com.example.budgetapp.automation.AutoTransferRule
+import com.example.budgetapp.automation.ml.SmartInsight
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Database(
-    entities = [Product::class, ProductCategory::class, Category::class, Store::class, StoreChain::class, ProductStore::class, Income::class, Expense::class, Loan::class, Budget::class, Receipt::class, ReceiptItem::class, ShoppingList::class, ShoppingListItem::class, PriceHistory::class, ReminderSettings::class, AppUsage::class, TransactionNotification::class, FinancialInsight::class, FinancialGoal::class, SpendingPattern::class, SpendingForecast::class],
-    version = 18,
+    entities = [Product::class, ProductCategory::class, Category::class, Store::class, StoreChain::class, ProductStore::class, Income::class, Expense::class, Loan::class, Budget::class, Receipt::class, ReceiptItem::class, ShoppingList::class, ShoppingListItem::class, PriceHistory::class, ReminderSettings::class, AppUsage::class, TransactionNotification::class, FinancialInsight::class, FinancialGoal::class, SpendingPattern::class, SpendingForecast::class, Investment::class, InvestmentTransaction::class, InvestmentPriceHistory::class, InvestmentDividend::class, InvestmentPortfolio::class, PortfolioInvestment::class, ExchangeRate::class, CurrencyAlert::class, MultiCurrencyTransaction::class, AutomationRule::class, AutoTransferRule::class, SmartInsight::class],
+    version = 21,
     exportSchema = false
 )
-@TypeConverters(LoanTypeConverter::class, BudgetTypeConverter::class, AnalyticsTypeConverters::class)
+@TypeConverters(LoanTypeConverter::class, BudgetTypeConverter::class, AnalyticsTypeConverters::class, AutomationTypeConverters::class, MLTypeConverters::class)
 abstract class BudgetDatabase : RoomDatabase() {
     
     abstract fun productDao(): ProductDao
@@ -88,6 +104,9 @@ abstract class BudgetDatabase : RoomDatabase() {
     abstract fun financialGoalDao(): FinancialGoalDao
     abstract fun spendingPatternDao(): SpendingPatternDao
     abstract fun spendingForecastDao(): SpendingForecastDao
+    abstract fun investmentDao(): InvestmentDao
+    abstract fun exchangeRateDao(): com.example.budgetapp.analytics.investments.dao.ExchangeRateDao
+    abstract fun automationRuleDao(): AutomationRuleDao
     
     companion object {
         @Volatile
@@ -924,6 +943,211 @@ abstract class BudgetDatabase : RoomDatabase() {
                 } catch (e: Exception) {
                     e.printStackTrace()
                     throw Exception("Migration 17->18 failed: ${e.message}", e)
+                }
+            }
+        }
+        
+        val MIGRATION_18_19 = object : Migration(18, 19) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                try {
+                    // Create investments table
+                    database.execSQL("""
+                        CREATE TABLE IF NOT EXISTS investments (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                            name TEXT NOT NULL,
+                            symbol TEXT,
+                            type TEXT NOT NULL,
+                            initialValue REAL NOT NULL,
+                            currentValue REAL NOT NULL,
+                            quantity REAL NOT NULL DEFAULT 1.0,
+                            averageCost REAL NOT NULL,
+                            purchaseDate INTEGER NOT NULL,
+                            currency TEXT NOT NULL DEFAULT 'SEK',
+                            broker TEXT,
+                            category TEXT NOT NULL DEFAULT 'EQUITY',
+                            notes TEXT,
+                            isActive INTEGER NOT NULL DEFAULT 1,
+                            lastUpdated INTEGER NOT NULL,
+                            createdAt INTEGER NOT NULL
+                        )
+                    """)
+                    
+                    // Create investment_transactions table
+                    database.execSQL("""
+                        CREATE TABLE IF NOT EXISTS investment_transactions (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                            investmentId INTEGER NOT NULL,
+                            type TEXT NOT NULL,
+                            quantity REAL NOT NULL,
+                            pricePerUnit REAL NOT NULL,
+                            totalAmount REAL NOT NULL,
+                            fees REAL NOT NULL DEFAULT 0.0,
+                            transactionDate INTEGER NOT NULL,
+                            notes TEXT,
+                            createdAt INTEGER NOT NULL,
+                            FOREIGN KEY(investmentId) REFERENCES investments(id) ON DELETE CASCADE
+                        )
+                    """)
+                    
+                    // Create investment_price_history table
+                    database.execSQL("""
+                        CREATE TABLE IF NOT EXISTS investment_price_history (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                            investmentId INTEGER NOT NULL,
+                            price REAL NOT NULL,
+                            currency TEXT NOT NULL DEFAULT 'SEK',
+                            recordedAt INTEGER NOT NULL,
+                            source TEXT,
+                            FOREIGN KEY(investmentId) REFERENCES investments(id) ON DELETE CASCADE
+                        )
+                    """)
+                    
+                    // Create investment_dividends table
+                    database.execSQL("""
+                        CREATE TABLE IF NOT EXISTS investment_dividends (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                            investmentId INTEGER NOT NULL,
+                            amountPerShare REAL NOT NULL,
+                            totalAmount REAL NOT NULL,
+                            currency TEXT NOT NULL DEFAULT 'SEK',
+                            paymentDate INTEGER NOT NULL,
+                            exDividendDate INTEGER,
+                            taxWithheld REAL NOT NULL DEFAULT 0.0,
+                            notes TEXT,
+                            createdAt INTEGER NOT NULL,
+                            FOREIGN KEY(investmentId) REFERENCES investments(id) ON DELETE CASCADE
+                        )
+                    """)
+                    
+                    // Create investment_portfolios table
+                    database.execSQL("""
+                        CREATE TABLE IF NOT EXISTS investment_portfolios (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                            name TEXT NOT NULL,
+                            description TEXT,
+                            targetAllocation TEXT,
+                            riskProfile TEXT NOT NULL DEFAULT 'MODERATE',
+                            isActive INTEGER NOT NULL DEFAULT 1,
+                            createdAt INTEGER NOT NULL
+                        )
+                    """)
+                    
+                    // Create portfolio_investments table
+                    database.execSQL("""
+                        CREATE TABLE IF NOT EXISTS portfolio_investments (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                            portfolioId INTEGER NOT NULL,
+                            investmentId INTEGER NOT NULL,
+                            targetPercentage REAL,
+                            addedAt INTEGER NOT NULL,
+                            FOREIGN KEY(portfolioId) REFERENCES investment_portfolios(id) ON DELETE CASCADE,
+                            FOREIGN KEY(investmentId) REFERENCES investments(id) ON DELETE CASCADE
+                        )
+                    """)
+                    
+                    // Create indices for better performance
+                    database.execSQL("CREATE INDEX IF NOT EXISTS index_investments_type ON investments(type)")
+                    database.execSQL("CREATE INDEX IF NOT EXISTS index_investments_category ON investments(category)")
+                    database.execSQL("CREATE INDEX IF NOT EXISTS index_investments_isActive ON investments(isActive)")
+                    database.execSQL("CREATE INDEX IF NOT EXISTS index_investment_transactions_investmentId ON investment_transactions(investmentId)")
+                    database.execSQL("CREATE INDEX IF NOT EXISTS index_investment_transactions_transactionDate ON investment_transactions(transactionDate)")
+                    database.execSQL("CREATE INDEX IF NOT EXISTS index_investment_price_history_investmentId ON investment_price_history(investmentId)")
+                    database.execSQL("CREATE INDEX IF NOT EXISTS index_investment_price_history_recordedAt ON investment_price_history(recordedAt)")
+                    database.execSQL("CREATE INDEX IF NOT EXISTS index_investment_dividends_investmentId ON investment_dividends(investmentId)")
+                    database.execSQL("CREATE INDEX IF NOT EXISTS index_investment_dividends_paymentDate ON investment_dividends(paymentDate)")
+                    database.execSQL("CREATE INDEX IF NOT EXISTS index_portfolio_investments_portfolioId ON portfolio_investments(portfolioId)")
+                    database.execSQL("CREATE INDEX IF NOT EXISTS index_portfolio_investments_investmentId ON portfolio_investments(investmentId)")
+                    
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    throw Exception("Migration 18->19 failed: ${e.message}", e)
+                }
+            }
+        }
+        
+        val MIGRATION_19_20 = object : Migration(19, 20) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                // This migration might already be applied, just ensuring it exists
+                try {
+                    // Any additional migrations for version 20 if needed
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
+        
+        val MIGRATION_20_21 = object : Migration(20, 21) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                try {
+                    // Create automation_rules table
+                    database.execSQL("""
+                        CREATE TABLE IF NOT EXISTS automation_rules (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                            name TEXT NOT NULL,
+                            description TEXT NOT NULL,
+                            conditions TEXT NOT NULL,
+                            actions TEXT NOT NULL,
+                            isActive INTEGER NOT NULL DEFAULT 1,
+                            priority INTEGER NOT NULL DEFAULT 1,
+                            usageCount INTEGER NOT NULL DEFAULT 0,
+                            createdBy TEXT NOT NULL DEFAULT 'USER',
+                            confidence REAL NOT NULL DEFAULT 1.0,
+                            createdAt INTEGER NOT NULL,
+                            lastModified INTEGER NOT NULL
+                        )
+                    """)
+                    
+                    // Create auto_transfer_rules table
+                    database.execSQL("""
+                        CREATE TABLE IF NOT EXISTS auto_transfer_rules (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                            name TEXT NOT NULL,
+                            description TEXT NOT NULL,
+                            sourceAccountId TEXT NOT NULL,
+                            targetAccountId TEXT NOT NULL,
+                            transferType TEXT NOT NULL,
+                            amount REAL NOT NULL,
+                            frequency TEXT NOT NULL,
+                            conditions TEXT NOT NULL,
+                            isActive INTEGER NOT NULL DEFAULT 1,
+                            lastExecuted INTEGER,
+                            totalTransferred REAL NOT NULL DEFAULT 0.0,
+                            createdAt INTEGER NOT NULL
+                        )
+                    """)
+                    
+                    // Create smart_insights table
+                    database.execSQL("""
+                        CREATE TABLE IF NOT EXISTS smart_insights (
+                            id TEXT PRIMARY KEY NOT NULL,
+                            type TEXT NOT NULL,
+                            title TEXT NOT NULL,
+                            description TEXT NOT NULL,
+                            actionable INTEGER NOT NULL DEFAULT 0,
+                            actions TEXT NOT NULL,
+                            priority TEXT NOT NULL,
+                            confidence REAL NOT NULL,
+                            category TEXT,
+                            impact TEXT NOT NULL,
+                            isRead INTEGER NOT NULL DEFAULT 0,
+                            isDismissed INTEGER NOT NULL DEFAULT 0,
+                            createdAt INTEGER NOT NULL,
+                            expiresAt INTEGER
+                        )
+                    """)
+                    
+                    // Create indices for better performance
+                    database.execSQL("CREATE INDEX IF NOT EXISTS index_automation_rules_isActive ON automation_rules(isActive)")
+                    database.execSQL("CREATE INDEX IF NOT EXISTS index_automation_rules_priority ON automation_rules(priority)")
+                    database.execSQL("CREATE INDEX IF NOT EXISTS index_automation_rules_usageCount ON automation_rules(usageCount)")
+                    database.execSQL("CREATE INDEX IF NOT EXISTS index_auto_transfer_rules_isActive ON auto_transfer_rules(isActive)")
+                    database.execSQL("CREATE INDEX IF NOT EXISTS index_smart_insights_type ON smart_insights(type)")
+                    database.execSQL("CREATE INDEX IF NOT EXISTS index_smart_insights_isRead ON smart_insights(isRead)")
+                    database.execSQL("CREATE INDEX IF NOT EXISTS index_smart_insights_isDismissed ON smart_insights(isDismissed)")
+                    
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    throw Exception("Migration 20->21 failed: ${e.message}", e)
                 }
             }
         }

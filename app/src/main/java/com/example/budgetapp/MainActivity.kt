@@ -14,7 +14,6 @@ import com.example.budgetapp.fragments.OverviewFragment
 import com.example.budgetapp.fragments.SettingsFragment
 import com.example.budgetapp.fragments.LoansFragment
 import com.example.budgetapp.fragments.SimpleStatisticsFragment
-import com.example.budgetapp.fragments.AnalyticsFragment
 import com.example.budgetapp.fragments.MoreFragment
 import com.example.budgetapp.services.BudgetRolloverWorker
 import android.view.MenuItem
@@ -57,7 +56,6 @@ class MainActivity : AppCompatActivity() {
         initializeNotifications()
         setupToolbar()
         setupBottomNavigation()
-        setupFloatingMenu()
         handleNavigationIntent()
         
         // Show overview fragment by default
@@ -196,20 +194,6 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
     
-    private fun setupFloatingMenu() {
-        binding.fabMenu.setOnClickListener {
-            showFloatingMenu()
-        }
-    }
-    
-    private fun showFloatingMenu() {
-        val popup = androidx.appcompat.widget.PopupMenu(this, binding.fabMenu)
-        popup.menuInflater.inflate(R.menu.floating_menu, popup.menu)
-        popup.setOnMenuItemClickListener { item ->
-            handleToolbarMenuClick(item)
-        }
-        popup.show()
-    }
     
     private fun initializeNotifications() {
         notificationSettingsManager = NotificationSettingsManager(this)
@@ -299,8 +283,8 @@ class MainActivity : AppCompatActivity() {
                         showFragment(BudgetFragment())
                         true
                     }
-                    R.id.nav_analytics -> {
-                        showFragment(AnalyticsFragment())
+                    R.id.nav_more -> {
+                        showFragment(MoreFragment())
                         true
                     }
                     else -> false

@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /home/thomas/budget/app/src/main/AndroidManifest.xml:2:1-231:12
-INJECTED from /home/thomas/budget/app/src/main/AndroidManifest.xml:2:1-231:12
-INJECTED from /home/thomas/budget/app/src/main/AndroidManifest.xml:2:1-231:12
-INJECTED from /home/thomas/budget/app/src/main/AndroidManifest.xml:2:1-231:12
+ADDED from /home/thomas/budget/app/src/main/AndroidManifest.xml:2:1-238:12
+INJECTED from /home/thomas/budget/app/src/main/AndroidManifest.xml:2:1-238:12
+INJECTED from /home/thomas/budget/app/src/main/AndroidManifest.xml:2:1-238:12
+INJECTED from /home/thomas/budget/app/src/main/AndroidManifest.xml:2:1-238:12
 MERGED from [androidx.databinding:viewbinding:8.1.4] /home/thomas/.gradle/caches/transforms-3/05e924fd1e1aad1462d77262bf6e5216/transformed/jetified-viewbinding-8.1.4/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.navigation:navigation-common:2.7.6] /home/thomas/.gradle/caches/transforms-3/f6f3d50d679172e34e2ba35ff560b9ad/transformed/navigation-common-2.7.6/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.navigation:navigation-common-ktx:2.7.6] /home/thomas/.gradle/caches/transforms-3/ab7678c0891150d3007a16b4ddee7cbf/transformed/navigation-common-ktx-2.7.6/AndroidManifest.xml:2:1-7:12
@@ -26,9 +26,13 @@ MERGED from [androidx.appcompat:appcompat:1.7.0] /home/thomas/.gradle/caches/tra
 MERGED from [androidx.viewpager2:viewpager2:1.0.0] /home/thomas/.gradle/caches/transforms-3/5daddd029124079ce0ce1d9991e752d7/transformed/jetified-viewpager2-1.0.0/AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.gms:play-services-maps:18.2.0] /home/thomas/.gradle/caches/transforms-3/285d5663bf1bc1721a96668ff51eaddf/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:17:1-44:12
 MERGED from [com.google.mlkit:barcode-scanning:17.2.0] /home/thomas/.gradle/caches/transforms-3/fda8d91c0f1f927b2d426ac18169ecfe/transformed/jetified-barcode-scanning-17.2.0/AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.mlkit:text-recognition:16.0.0] /home/thomas/.gradle/caches/transforms-3/3cf520969d9b4e1de892d29458ac3422/transformed/jetified-text-recognition-16.0.0/AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.gms:play-services-location:21.0.1] /home/thomas/.gradle/caches/transforms-3/0cfdb7e5932d37f0399d3d78753c3f31/transformed/jetified-play-services-location-21.0.1/AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0] /home/thomas/.gradle/caches/transforms-3/9c451ed1d07071d558168d331a3f6b0a/transformed/jetified-play-services-mlkit-barcode-scanning-18.3.0/AndroidManifest.xml:2:1-18:12
 MERGED from [com.google.mlkit:barcode-scanning-common:17.0.0] /home/thomas/.gradle/caches/transforms-3/12f872d8adcaff73cb30c40b6fd6afd2/transformed/jetified-barcode-scanning-common-17.0.0/AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.mlkit:text-recognition-bundled-common:16.0.0] /home/thomas/.gradle/caches/transforms-3/740d7b15c73a3983069a47c38a62322e/transformed/jetified-text-recognition-bundled-common-16.0.0/AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.gms:play-services-mlkit-text-recognition:19.0.0] /home/thomas/.gradle/caches/transforms-3/df631ad872b5aeb8e09e230f83361c08/transformed/jetified-play-services-mlkit-text-recognition-19.0.0/AndroidManifest.xml:2:1-8:12
+MERGED from [com.google.android.gms:play-services-mlkit-text-recognition-common:19.0.0] /home/thomas/.gradle/caches/transforms-3/6905eeb3e314e2ee922350e2e2111d39/transformed/jetified-play-services-mlkit-text-recognition-common-19.0.0/AndroidManifest.xml:2:1-18:12
 MERGED from [com.google.mlkit:vision-common:17.3.0] /home/thomas/.gradle/caches/transforms-3/e4bf9162b813903ca2056e64d71f3ab8/transformed/jetified-vision-common-17.3.0/AndroidManifest.xml:2:1-18:12
 MERGED from [com.google.mlkit:common:18.9.0] /home/thomas/.gradle/caches/transforms-3/bdfb949d32277798a93ab41793a4a4b8/transformed/jetified-common-18.9.0/AndroidManifest.xml:2:1-26:12
 MERGED from [com.google.android.gms:play-services-base:18.1.0] /home/thomas/.gradle/caches/transforms-3/53bc36d90f858a74fca23637ec675d4b/transformed/jetified-play-services-base-18.1.0/AndroidManifest.xml:16:1-24:12
@@ -146,8 +150,8 @@ ADDED from /home/thomas/budget/app/src/main/AndroidManifest.xml:14:5-74
 	android:name
 		ADDED from /home/thomas/budget/app/src/main/AndroidManifest.xml:14:22-71
 application
-ADDED from /home/thomas/budget/app/src/main/AndroidManifest.xml:16:5-229:19
-INJECTED from /home/thomas/budget/app/src/main/AndroidManifest.xml:16:5-229:19
+ADDED from /home/thomas/budget/app/src/main/AndroidManifest.xml:16:5-236:19
+INJECTED from /home/thomas/budget/app/src/main/AndroidManifest.xml:16:5-236:19
 MERGED from [com.google.android.material:material:1.12.0] /home/thomas/.gradle/caches/transforms-3/858eba75ed0b39f0a60451ae251cb115/transformed/material-1.12.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.12.0] /home/thomas/.gradle/caches/transforms-3/858eba75ed0b39f0a60451ae251cb115/transformed/material-1.12.0/AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /home/thomas/.gradle/caches/transforms-3/49435ce3453524fc804e41ccc47f2473/transformed/constraintlayout-2.1.4/AndroidManifest.xml:9:5-20
@@ -164,6 +168,8 @@ MERGED from [com.google.android.gms:play-services-location:21.0.1] /home/thomas/
 MERGED from [com.google.android.gms:play-services-location:21.0.1] /home/thomas/.gradle/caches/transforms-3/0cfdb7e5932d37f0399d3d78753c3f31/transformed/jetified-play-services-location-21.0.1/AndroidManifest.xml:7:5-20
 MERGED from [com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0] /home/thomas/.gradle/caches/transforms-3/9c451ed1d07071d558168d331a3f6b0a/transformed/jetified-play-services-mlkit-barcode-scanning-18.3.0/AndroidManifest.xml:8:5-16:19
 MERGED from [com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0] /home/thomas/.gradle/caches/transforms-3/9c451ed1d07071d558168d331a3f6b0a/transformed/jetified-play-services-mlkit-barcode-scanning-18.3.0/AndroidManifest.xml:8:5-16:19
+MERGED from [com.google.android.gms:play-services-mlkit-text-recognition-common:19.0.0] /home/thomas/.gradle/caches/transforms-3/6905eeb3e314e2ee922350e2e2111d39/transformed/jetified-play-services-mlkit-text-recognition-common-19.0.0/AndroidManifest.xml:8:5-16:19
+MERGED from [com.google.android.gms:play-services-mlkit-text-recognition-common:19.0.0] /home/thomas/.gradle/caches/transforms-3/6905eeb3e314e2ee922350e2e2111d39/transformed/jetified-play-services-mlkit-text-recognition-common-19.0.0/AndroidManifest.xml:8:5-16:19
 MERGED from [com.google.mlkit:vision-common:17.3.0] /home/thomas/.gradle/caches/transforms-3/e4bf9162b813903ca2056e64d71f3ab8/transformed/jetified-vision-common-17.3.0/AndroidManifest.xml:8:5-16:19
 MERGED from [com.google.mlkit:vision-common:17.3.0] /home/thomas/.gradle/caches/transforms-3/e4bf9162b813903ca2056e64d71f3ab8/transformed/jetified-vision-common-17.3.0/AndroidManifest.xml:8:5-16:19
 MERGED from [com.google.mlkit:common:18.9.0] /home/thomas/.gradle/caches/transforms-3/bdfb949d32277798a93ab41793a4a4b8/transformed/jetified-common-18.9.0/AndroidManifest.xml:8:5-24:19
@@ -568,6 +574,16 @@ data
 ADDED from /home/thomas/budget/app/src/main/AndroidManifest.xml:225:17-50
 	android:scheme
 		ADDED from /home/thomas/budget/app/src/main/AndroidManifest.xml:225:23-47
+activity#com.example.budgetapp.AutomationActivity
+ADDED from /home/thomas/budget/app/src/main/AndroidManifest.xml:230:9-234:58
+	android:parentActivityName
+		ADDED from /home/thomas/budget/app/src/main/AndroidManifest.xml:234:13-55
+	android:label
+		ADDED from /home/thomas/budget/app/src/main/AndroidManifest.xml:233:13-45
+	android:exported
+		ADDED from /home/thomas/budget/app/src/main/AndroidManifest.xml:232:13-37
+	android:name
+		ADDED from /home/thomas/budget/app/src/main/AndroidManifest.xml:231:13-47
 uses-sdk
 INJECTED from /home/thomas/budget/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /home/thomas/budget/app/src/main/AndroidManifest.xml
@@ -616,12 +632,20 @@ MERGED from [com.google.android.gms:play-services-maps:18.2.0] /home/thomas/.gra
 MERGED from [com.google.android.gms:play-services-maps:18.2.0] /home/thomas/.gradle/caches/transforms-3/285d5663bf1bc1721a96668ff51eaddf/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:20:5-44
 MERGED from [com.google.mlkit:barcode-scanning:17.2.0] /home/thomas/.gradle/caches/transforms-3/fda8d91c0f1f927b2d426ac18169ecfe/transformed/jetified-barcode-scanning-17.2.0/AndroidManifest.xml:5:5-44
 MERGED from [com.google.mlkit:barcode-scanning:17.2.0] /home/thomas/.gradle/caches/transforms-3/fda8d91c0f1f927b2d426ac18169ecfe/transformed/jetified-barcode-scanning-17.2.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.mlkit:text-recognition:16.0.0] /home/thomas/.gradle/caches/transforms-3/3cf520969d9b4e1de892d29458ac3422/transformed/jetified-text-recognition-16.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.mlkit:text-recognition:16.0.0] /home/thomas/.gradle/caches/transforms-3/3cf520969d9b4e1de892d29458ac3422/transformed/jetified-text-recognition-16.0.0/AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-location:21.0.1] /home/thomas/.gradle/caches/transforms-3/0cfdb7e5932d37f0399d3d78753c3f31/transformed/jetified-play-services-location-21.0.1/AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-location:21.0.1] /home/thomas/.gradle/caches/transforms-3/0cfdb7e5932d37f0399d3d78753c3f31/transformed/jetified-play-services-location-21.0.1/AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0] /home/thomas/.gradle/caches/transforms-3/9c451ed1d07071d558168d331a3f6b0a/transformed/jetified-play-services-mlkit-barcode-scanning-18.3.0/AndroidManifest.xml:6:5-44
 MERGED from [com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0] /home/thomas/.gradle/caches/transforms-3/9c451ed1d07071d558168d331a3f6b0a/transformed/jetified-play-services-mlkit-barcode-scanning-18.3.0/AndroidManifest.xml:6:5-44
 MERGED from [com.google.mlkit:barcode-scanning-common:17.0.0] /home/thomas/.gradle/caches/transforms-3/12f872d8adcaff73cb30c40b6fd6afd2/transformed/jetified-barcode-scanning-common-17.0.0/AndroidManifest.xml:5:5-44
 MERGED from [com.google.mlkit:barcode-scanning-common:17.0.0] /home/thomas/.gradle/caches/transforms-3/12f872d8adcaff73cb30c40b6fd6afd2/transformed/jetified-barcode-scanning-common-17.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.mlkit:text-recognition-bundled-common:16.0.0] /home/thomas/.gradle/caches/transforms-3/740d7b15c73a3983069a47c38a62322e/transformed/jetified-text-recognition-bundled-common-16.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.mlkit:text-recognition-bundled-common:16.0.0] /home/thomas/.gradle/caches/transforms-3/740d7b15c73a3983069a47c38a62322e/transformed/jetified-text-recognition-bundled-common-16.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-mlkit-text-recognition:19.0.0] /home/thomas/.gradle/caches/transforms-3/df631ad872b5aeb8e09e230f83361c08/transformed/jetified-play-services-mlkit-text-recognition-19.0.0/AndroidManifest.xml:6:5-44
+MERGED from [com.google.android.gms:play-services-mlkit-text-recognition:19.0.0] /home/thomas/.gradle/caches/transforms-3/df631ad872b5aeb8e09e230f83361c08/transformed/jetified-play-services-mlkit-text-recognition-19.0.0/AndroidManifest.xml:6:5-44
+MERGED from [com.google.android.gms:play-services-mlkit-text-recognition-common:19.0.0] /home/thomas/.gradle/caches/transforms-3/6905eeb3e314e2ee922350e2e2111d39/transformed/jetified-play-services-mlkit-text-recognition-common-19.0.0/AndroidManifest.xml:6:5-44
+MERGED from [com.google.android.gms:play-services-mlkit-text-recognition-common:19.0.0] /home/thomas/.gradle/caches/transforms-3/6905eeb3e314e2ee922350e2e2111d39/transformed/jetified-play-services-mlkit-text-recognition-common-19.0.0/AndroidManifest.xml:6:5-44
 MERGED from [com.google.mlkit:vision-common:17.3.0] /home/thomas/.gradle/caches/transforms-3/e4bf9162b813903ca2056e64d71f3ab8/transformed/jetified-vision-common-17.3.0/AndroidManifest.xml:6:5-44
 MERGED from [com.google.mlkit:vision-common:17.3.0] /home/thomas/.gradle/caches/transforms-3/e4bf9162b813903ca2056e64d71f3ab8/transformed/jetified-vision-common-17.3.0/AndroidManifest.xml:6:5-44
 MERGED from [com.google.mlkit:common:18.9.0] /home/thomas/.gradle/caches/transforms-3/bdfb949d32277798a93ab41793a4a4b8/transformed/jetified-common-18.9.0/AndroidManifest.xml:6:5-44
@@ -842,6 +866,8 @@ ADDED from [com.google.android.gms:play-services-maps:18.2.0] /home/thomas/.grad
 		ADDED from [com.google.android.gms:play-services-maps:18.2.0] /home/thomas/.gradle/caches/transforms-3/285d5663bf1bc1721a96668ff51eaddf/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:40:13-50
 service#com.google.mlkit.common.internal.MlKitComponentDiscoveryService
 ADDED from [com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0] /home/thomas/.gradle/caches/transforms-3/9c451ed1d07071d558168d331a3f6b0a/transformed/jetified-play-services-mlkit-barcode-scanning-18.3.0/AndroidManifest.xml:9:9-15:19
+MERGED from [com.google.android.gms:play-services-mlkit-text-recognition-common:19.0.0] /home/thomas/.gradle/caches/transforms-3/6905eeb3e314e2ee922350e2e2111d39/transformed/jetified-play-services-mlkit-text-recognition-common-19.0.0/AndroidManifest.xml:9:9-15:19
+MERGED from [com.google.android.gms:play-services-mlkit-text-recognition-common:19.0.0] /home/thomas/.gradle/caches/transforms-3/6905eeb3e314e2ee922350e2e2111d39/transformed/jetified-play-services-mlkit-text-recognition-common-19.0.0/AndroidManifest.xml:9:9-15:19
 MERGED from [com.google.mlkit:vision-common:17.3.0] /home/thomas/.gradle/caches/transforms-3/e4bf9162b813903ca2056e64d71f3ab8/transformed/jetified-vision-common-17.3.0/AndroidManifest.xml:9:9-15:19
 MERGED from [com.google.mlkit:vision-common:17.3.0] /home/thomas/.gradle/caches/transforms-3/e4bf9162b813903ca2056e64d71f3ab8/transformed/jetified-vision-common-17.3.0/AndroidManifest.xml:9:9-15:19
 MERGED from [com.google.mlkit:common:18.9.0] /home/thomas/.gradle/caches/transforms-3/bdfb949d32277798a93ab41793a4a4b8/transformed/jetified-common-18.9.0/AndroidManifest.xml:15:9-23:19
@@ -860,6 +886,12 @@ ADDED from [com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0] 
 		ADDED from [com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0] /home/thomas/.gradle/caches/transforms-3/9c451ed1d07071d558168d331a3f6b0a/transformed/jetified-play-services-mlkit-barcode-scanning-18.3.0/AndroidManifest.xml:14:17-82
 	android:name
 		ADDED from [com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0] /home/thomas/.gradle/caches/transforms-3/9c451ed1d07071d558168d331a3f6b0a/transformed/jetified-play-services-mlkit-barcode-scanning-18.3.0/AndroidManifest.xml:13:17-120
+meta-data#com.google.firebase.components:com.google.mlkit.vision.text.internal.TextRegistrar
+ADDED from [com.google.android.gms:play-services-mlkit-text-recognition-common:19.0.0] /home/thomas/.gradle/caches/transforms-3/6905eeb3e314e2ee922350e2e2111d39/transformed/jetified-play-services-mlkit-text-recognition-common-19.0.0/AndroidManifest.xml:12:13-14:85
+	android:value
+		ADDED from [com.google.android.gms:play-services-mlkit-text-recognition-common:19.0.0] /home/thomas/.gradle/caches/transforms-3/6905eeb3e314e2ee922350e2e2111d39/transformed/jetified-play-services-mlkit-text-recognition-common-19.0.0/AndroidManifest.xml:14:17-82
+	android:name
+		ADDED from [com.google.android.gms:play-services-mlkit-text-recognition-common:19.0.0] /home/thomas/.gradle/caches/transforms-3/6905eeb3e314e2ee922350e2e2111d39/transformed/jetified-play-services-mlkit-text-recognition-common-19.0.0/AndroidManifest.xml:13:17-114
 meta-data#com.google.firebase.components:com.google.mlkit.vision.common.internal.VisionCommonRegistrar
 ADDED from [com.google.mlkit:vision-common:17.3.0] /home/thomas/.gradle/caches/transforms-3/e4bf9162b813903ca2056e64d71f3ab8/transformed/jetified-vision-common-17.3.0/AndroidManifest.xml:12:13-14:85
 	android:value

@@ -1,6 +1,7 @@
 package com.example.budgetapp.services
 
 import com.example.budgetapp.data.*
+import com.example.budgetapp.data.RecommendationType
 import com.example.budgetapp.database.BudgetDatabase
 import com.example.budgetapp.database.entities.*
 import kotlinx.coroutines.flow.first

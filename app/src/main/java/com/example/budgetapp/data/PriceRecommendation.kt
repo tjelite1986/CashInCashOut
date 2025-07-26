@@ -24,7 +24,11 @@ enum class RecommendationType {
     GOOD_DEAL,           // Below average price
     AVOID_HIGH_PRICE,    // Above average price - warning
     PRICE_TREND_UP,      // Price trending upward
-    PRICE_TREND_DOWN     // Price trending downward
+    PRICE_TREND_DOWN,    // Price trending downward
+    BUDGET_ALERT,        // Budget-related recommendation
+    SEASONAL_DEAL,       // Seasonal pricing opportunity
+    BULK_DISCOUNT,       // Bulk purchase opportunity
+    CATEGORY_OPTIMIZATION // Category spending optimization
 }
 
 data class ShoppingListRecommendations(

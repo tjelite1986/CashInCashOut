@@ -193,7 +193,7 @@ public final class ReceiptItemDao_Impl implements ReceiptItemDao {
 
   @Override
   public Object insertReceiptItem(final ReceiptItem receiptItem,
-      final Continuation<? super Long> arg1) {
+      final Continuation<? super Long> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Long>() {
       @Override
       @NonNull
@@ -207,12 +207,12 @@ public final class ReceiptItemDao_Impl implements ReceiptItemDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object insertReceiptItems(final List<ReceiptItem> receiptItems,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -226,12 +226,12 @@ public final class ReceiptItemDao_Impl implements ReceiptItemDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object deleteReceiptItem(final ReceiptItem receiptItem,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -245,12 +245,12 @@ public final class ReceiptItemDao_Impl implements ReceiptItemDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object updateReceiptItem(final ReceiptItem receiptItem,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -264,11 +264,12 @@ public final class ReceiptItemDao_Impl implements ReceiptItemDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object deleteReceiptItemById(final long itemId, final Continuation<? super Unit> arg1) {
+  public Object deleteReceiptItemById(final long itemId,
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -289,12 +290,12 @@ public final class ReceiptItemDao_Impl implements ReceiptItemDao {
           __preparedStmtOfDeleteReceiptItemById.release(_stmt);
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object deleteReceiptItemsByReceiptId(final long receiptId,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -315,7 +316,7 @@ public final class ReceiptItemDao_Impl implements ReceiptItemDao {
           __preparedStmtOfDeleteReceiptItemsByReceiptId.release(_stmt);
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
@@ -427,7 +428,7 @@ public final class ReceiptItemDao_Impl implements ReceiptItemDao {
 
   @Override
   public Object getReceiptItemById(final long itemId,
-      final Continuation<? super ReceiptItem> arg1) {
+      final Continuation<? super ReceiptItem> $completion) {
     final String _sql = "SELECT * FROM receipt_items WHERE id = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -529,12 +530,12 @@ public final class ReceiptItemDao_Impl implements ReceiptItemDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object getReceiptItemsByReceiptId(final long receiptId,
-      final Continuation<? super List<ReceiptItem>> arg1) {
+      final Continuation<? super List<ReceiptItem>> $completion) {
     final String _sql = "SELECT * FROM receipt_items WHERE receiptId = ? ORDER BY createdAt ASC";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -636,7 +637,7 @@ public final class ReceiptItemDao_Impl implements ReceiptItemDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override

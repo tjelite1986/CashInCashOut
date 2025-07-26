@@ -22,8 +22,8 @@
         android:icon="@drawable/ic_budget" />
     
     <item
-        android:id="@+id/nav_analytics"
-        android:title="Analytics"
-        android:icon="@drawable/ic_statistics" />
+        android:id="@+id/nav_more"
+        android:title="Mer"
+        android:icon="@drawable/ic_more_horiz" />
         
 </menu>

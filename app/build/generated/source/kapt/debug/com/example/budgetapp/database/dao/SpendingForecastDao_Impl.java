@@ -118,7 +118,7 @@ public final class SpendingForecastDao_Impl implements SpendingForecastDao {
 
   @Override
   public Object insertForecast(final SpendingForecast forecast,
-      final Continuation<? super Long> arg1) {
+      final Continuation<? super Long> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Long>() {
       @Override
       @NonNull
@@ -132,12 +132,12 @@ public final class SpendingForecastDao_Impl implements SpendingForecastDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object insertForecasts(final List<SpendingForecast> forecasts,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -151,12 +151,12 @@ public final class SpendingForecastDao_Impl implements SpendingForecastDao {
           __db.endTransaction();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
   public Object updateForecastActual(final long id, final double actual, final double accuracy,
-      final Continuation<? super Unit> arg3) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -181,12 +181,12 @@ public final class SpendingForecastDao_Impl implements SpendingForecastDao {
           __preparedStmtOfUpdateForecastActual.release(_stmt);
         }
       }
-    }, arg3);
+    }, $completion);
   }
 
   @Override
   public Object deleteExpiredForecasts(final long currentTime,
-      final Continuation<? super Unit> arg1) {
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -207,11 +207,11 @@ public final class SpendingForecastDao_Impl implements SpendingForecastDao {
           __preparedStmtOfDeleteExpiredForecasts.release(_stmt);
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object deleteAllForecasts(final Continuation<? super Unit> arg0) {
+  public Object deleteAllForecasts(final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
@@ -230,7 +230,7 @@ public final class SpendingForecastDao_Impl implements SpendingForecastDao {
           __preparedStmtOfDeleteAllForecasts.release(_stmt);
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @Override
@@ -419,7 +419,7 @@ public final class SpendingForecastDao_Impl implements SpendingForecastDao {
 
   @Override
   public Object getForecastsInRange(final long startDate, final long endDate,
-      final Continuation<? super List<SpendingForecast>> arg2) {
+      final Continuation<? super List<SpendingForecast>> $completion) {
     final String _sql = "SELECT * FROM spending_forecasts WHERE forecastDate BETWEEN ? AND ? ORDER BY forecastDate ASC";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 2);
     int _argIndex = 1;
@@ -505,12 +505,12 @@ public final class SpendingForecastDao_Impl implements SpendingForecastDao {
           _statement.release();
         }
       }
-    }, arg2);
+    }, $completion);
   }
 
   @Override
   public Object getForecastsNeedingActuals(final long currentTime,
-      final Continuation<? super List<SpendingForecast>> arg1) {
+      final Continuation<? super List<SpendingForecast>> $completion) {
     final String _sql = "SELECT * FROM spending_forecasts WHERE actualAmount IS NULL AND forecastDate < ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -594,11 +594,12 @@ public final class SpendingForecastDao_Impl implements SpendingForecastDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @Override
-  public Object getCompletedForecasts(final Continuation<? super List<SpendingForecast>> arg0) {
+  public Object getCompletedForecasts(
+      final Continuation<? super List<SpendingForecast>> $completion) {
     final String _sql = "SELECT * FROM spending_forecasts WHERE actualAmount IS NOT NULL";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
@@ -680,12 +681,12 @@ public final class SpendingForecastDao_Impl implements SpendingForecastDao {
           _statement.release();
         }
       }
-    }, arg0);
+    }, $completion);
   }
 
   @Override
   public Object getAverageAccuracyByMethod(final ForecastMethod method,
-      final Continuation<? super Double> arg1) {
+      final Continuation<? super Double> $completion) {
     final String _sql = "SELECT AVG(accuracy) FROM spending_forecasts WHERE accuracy IS NOT NULL AND forecastMethod = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
@@ -720,7 +721,7 @@ public final class SpendingForecastDao_Impl implements SpendingForecastDao {
           _statement.release();
         }
       }
-    }, arg1);
+    }, $completion);
   }
 
   @NonNull

@@ -11,6 +11,12 @@ import androidx.room.util.DBUtil;
 import androidx.room.util.TableInfo;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
+import com.example.budgetapp.analytics.investments.dao.ExchangeRateDao;
+import com.example.budgetapp.analytics.investments.dao.ExchangeRateDao_Impl;
+import com.example.budgetapp.analytics.investments.dao.InvestmentDao;
+import com.example.budgetapp.analytics.investments.dao.InvestmentDao_Impl;
+import com.example.budgetapp.automation.dao.AutomationRuleDao;
+import com.example.budgetapp.automation.dao.AutomationRuleDao_Impl;
 import com.example.budgetapp.database.dao.AppUsageDao;
 import com.example.budgetapp.database.dao.AppUsageDao_Impl;
 import com.example.budgetapp.database.dao.BudgetDao;
@@ -113,10 +119,16 @@ public final class BudgetDatabase_Impl extends BudgetDatabase {
 
   private volatile SpendingForecastDao _spendingForecastDao;
 
+  private volatile InvestmentDao _investmentDao;
+
+  private volatile ExchangeRateDao _exchangeRateDao;
+
+  private volatile AutomationRuleDao _automationRuleDao;
+
   @Override
   @NonNull
   protected SupportSQLiteOpenHelper createOpenHelper(@NonNull final DatabaseConfiguration config) {
-    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(config, new RoomOpenHelper.Delegate(18) {
+    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(config, new RoomOpenHelper.Delegate(21) {
       @Override
       public void createAllTables(@NonNull final SupportSQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS `products` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `productCategoryId` INTEGER, `hasDeposit` INTEGER NOT NULL, `depositAmount` REAL, `barcode` TEXT, `productName` TEXT, `description` TEXT, `amount` REAL, `unit` TEXT, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, FOREIGN KEY(`productCategoryId`) REFERENCES `product_categories`(`id`) ON UPDATE NO ACTION ON DELETE SET NULL )");
@@ -155,8 +167,20 @@ public final class BudgetDatabase_Impl extends BudgetDatabase {
         db.execSQL("CREATE TABLE IF NOT EXISTS `spending_forecasts` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `category` TEXT, `forecastDate` INTEGER NOT NULL, `predictedAmount` REAL NOT NULL, `confidenceInterval` REAL NOT NULL, `confidenceLevel` REAL NOT NULL, `forecastMethod` TEXT NOT NULL, `basedOnDays` INTEGER NOT NULL, `seasonalityFactor` REAL NOT NULL, `trendFactor` REAL NOT NULL, `actualAmount` REAL, `accuracy` REAL, `createdAt` INTEGER NOT NULL, `validUntil` INTEGER NOT NULL)");
         db.execSQL("CREATE INDEX IF NOT EXISTS `index_spending_forecasts_category_forecastDate` ON `spending_forecasts` (`category`, `forecastDate`)");
         db.execSQL("CREATE INDEX IF NOT EXISTS `index_spending_forecasts_forecastDate` ON `spending_forecasts` (`forecastDate`)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS `investments` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `symbol` TEXT, `type` TEXT NOT NULL, `initialValue` REAL NOT NULL, `currentValue` REAL NOT NULL, `quantity` REAL NOT NULL, `averageCost` REAL NOT NULL, `purchaseDate` INTEGER NOT NULL, `currency` TEXT NOT NULL, `broker` TEXT, `category` TEXT NOT NULL, `notes` TEXT, `isActive` INTEGER NOT NULL, `lastUpdated` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS `investment_transactions` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `investmentId` INTEGER NOT NULL, `type` TEXT NOT NULL, `quantity` REAL NOT NULL, `pricePerUnit` REAL NOT NULL, `totalAmount` REAL NOT NULL, `fees` REAL NOT NULL, `transactionDate` INTEGER NOT NULL, `notes` TEXT, `createdAt` INTEGER NOT NULL)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS `investment_price_history` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `investmentId` INTEGER NOT NULL, `price` REAL NOT NULL, `currency` TEXT NOT NULL, `recordedAt` INTEGER NOT NULL, `source` TEXT)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS `investment_dividends` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `investmentId` INTEGER NOT NULL, `amountPerShare` REAL NOT NULL, `totalAmount` REAL NOT NULL, `currency` TEXT NOT NULL, `paymentDate` INTEGER NOT NULL, `exDividendDate` INTEGER, `taxWithheld` REAL NOT NULL, `notes` TEXT, `createdAt` INTEGER NOT NULL)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS `investment_portfolios` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `description` TEXT, `targetAllocation` TEXT, `riskProfile` TEXT NOT NULL, `isActive` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS `portfolio_investments` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `portfolioId` INTEGER NOT NULL, `investmentId` INTEGER NOT NULL, `targetPercentage` REAL, `addedAt` INTEGER NOT NULL)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS `exchange_rates` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fromCurrency` TEXT NOT NULL, `toCurrency` TEXT NOT NULL, `rate` REAL NOT NULL, `lastUpdated` INTEGER NOT NULL)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS `currency_alerts` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fromCurrency` TEXT NOT NULL, `toCurrency` TEXT NOT NULL, `targetRate` REAL NOT NULL, `alertType` TEXT NOT NULL, `isActive` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `triggeredAt` INTEGER)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS `multi_currency_transactions` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `amount` REAL NOT NULL, `currency` TEXT NOT NULL, `convertedAmount` REAL NOT NULL, `baseCurrency` TEXT NOT NULL, `exchangeRate` REAL NOT NULL, `category` TEXT NOT NULL, `description` TEXT NOT NULL, `transactionDate` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS `automation_rules` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `conditions` TEXT NOT NULL, `actions` TEXT NOT NULL, `isActive` INTEGER NOT NULL, `priority` INTEGER NOT NULL, `usageCount` INTEGER NOT NULL, `createdBy` TEXT NOT NULL, `confidence` REAL NOT NULL, `createdAt` INTEGER NOT NULL, `lastModified` INTEGER NOT NULL)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS `auto_transfer_rules` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `sourceAccountId` TEXT NOT NULL, `targetAccountId` TEXT NOT NULL, `transferType` TEXT NOT NULL, `amount` REAL NOT NULL, `frequency` TEXT NOT NULL, `conditions` TEXT NOT NULL, `isActive` INTEGER NOT NULL, `lastExecuted` INTEGER, `totalTransferred` REAL NOT NULL, `createdAt` INTEGER NOT NULL)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS `smart_insights` (`id` TEXT NOT NULL, `type` TEXT NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `actionable` INTEGER NOT NULL, `actions` TEXT NOT NULL, `priority` TEXT NOT NULL, `confidence` REAL NOT NULL, `category` TEXT, `impact` TEXT NOT NULL, `isRead` INTEGER NOT NULL, `isDismissed` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `expiresAt` INTEGER, PRIMARY KEY(`id`))");
         db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'eb271cf7662a144a6159e7c5585685fa')");
+        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'efe1c484743b689c2966294e37e0ff77')");
       }
 
       @Override
@@ -183,6 +207,18 @@ public final class BudgetDatabase_Impl extends BudgetDatabase {
         db.execSQL("DROP TABLE IF EXISTS `financial_goals`");
         db.execSQL("DROP TABLE IF EXISTS `spending_patterns`");
         db.execSQL("DROP TABLE IF EXISTS `spending_forecasts`");
+        db.execSQL("DROP TABLE IF EXISTS `investments`");
+        db.execSQL("DROP TABLE IF EXISTS `investment_transactions`");
+        db.execSQL("DROP TABLE IF EXISTS `investment_price_history`");
+        db.execSQL("DROP TABLE IF EXISTS `investment_dividends`");
+        db.execSQL("DROP TABLE IF EXISTS `investment_portfolios`");
+        db.execSQL("DROP TABLE IF EXISTS `portfolio_investments`");
+        db.execSQL("DROP TABLE IF EXISTS `exchange_rates`");
+        db.execSQL("DROP TABLE IF EXISTS `currency_alerts`");
+        db.execSQL("DROP TABLE IF EXISTS `multi_currency_transactions`");
+        db.execSQL("DROP TABLE IF EXISTS `automation_rules`");
+        db.execSQL("DROP TABLE IF EXISTS `auto_transfer_rules`");
+        db.execSQL("DROP TABLE IF EXISTS `smart_insights`");
         final List<? extends RoomDatabase.Callback> _callbacks = mCallbacks;
         if (_callbacks != null) {
           for (RoomDatabase.Callback _callback : _callbacks) {
@@ -723,9 +759,245 @@ public final class BudgetDatabase_Impl extends BudgetDatabase {
                   + " Expected:\n" + _infoSpendingForecasts + "\n"
                   + " Found:\n" + _existingSpendingForecasts);
         }
+        final HashMap<String, TableInfo.Column> _columnsInvestments = new HashMap<String, TableInfo.Column>(16);
+        _columnsInvestments.put("id", new TableInfo.Column("id", "INTEGER", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestments.put("name", new TableInfo.Column("name", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestments.put("symbol", new TableInfo.Column("symbol", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestments.put("type", new TableInfo.Column("type", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestments.put("initialValue", new TableInfo.Column("initialValue", "REAL", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestments.put("currentValue", new TableInfo.Column("currentValue", "REAL", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestments.put("quantity", new TableInfo.Column("quantity", "REAL", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestments.put("averageCost", new TableInfo.Column("averageCost", "REAL", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestments.put("purchaseDate", new TableInfo.Column("purchaseDate", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestments.put("currency", new TableInfo.Column("currency", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestments.put("broker", new TableInfo.Column("broker", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestments.put("category", new TableInfo.Column("category", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestments.put("notes", new TableInfo.Column("notes", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestments.put("isActive", new TableInfo.Column("isActive", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestments.put("lastUpdated", new TableInfo.Column("lastUpdated", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestments.put("createdAt", new TableInfo.Column("createdAt", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysInvestments = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesInvestments = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoInvestments = new TableInfo("investments", _columnsInvestments, _foreignKeysInvestments, _indicesInvestments);
+        final TableInfo _existingInvestments = TableInfo.read(db, "investments");
+        if (!_infoInvestments.equals(_existingInvestments)) {
+          return new RoomOpenHelper.ValidationResult(false, "investments(com.example.budgetapp.analytics.investments.entities.Investment).\n"
+                  + " Expected:\n" + _infoInvestments + "\n"
+                  + " Found:\n" + _existingInvestments);
+        }
+        final HashMap<String, TableInfo.Column> _columnsInvestmentTransactions = new HashMap<String, TableInfo.Column>(10);
+        _columnsInvestmentTransactions.put("id", new TableInfo.Column("id", "INTEGER", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestmentTransactions.put("investmentId", new TableInfo.Column("investmentId", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestmentTransactions.put("type", new TableInfo.Column("type", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestmentTransactions.put("quantity", new TableInfo.Column("quantity", "REAL", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestmentTransactions.put("pricePerUnit", new TableInfo.Column("pricePerUnit", "REAL", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestmentTransactions.put("totalAmount", new TableInfo.Column("totalAmount", "REAL", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestmentTransactions.put("fees", new TableInfo.Column("fees", "REAL", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestmentTransactions.put("transactionDate", new TableInfo.Column("transactionDate", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestmentTransactions.put("notes", new TableInfo.Column("notes", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestmentTransactions.put("createdAt", new TableInfo.Column("createdAt", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysInvestmentTransactions = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesInvestmentTransactions = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoInvestmentTransactions = new TableInfo("investment_transactions", _columnsInvestmentTransactions, _foreignKeysInvestmentTransactions, _indicesInvestmentTransactions);
+        final TableInfo _existingInvestmentTransactions = TableInfo.read(db, "investment_transactions");
+        if (!_infoInvestmentTransactions.equals(_existingInvestmentTransactions)) {
+          return new RoomOpenHelper.ValidationResult(false, "investment_transactions(com.example.budgetapp.analytics.investments.entities.InvestmentTransaction).\n"
+                  + " Expected:\n" + _infoInvestmentTransactions + "\n"
+                  + " Found:\n" + _existingInvestmentTransactions);
+        }
+        final HashMap<String, TableInfo.Column> _columnsInvestmentPriceHistory = new HashMap<String, TableInfo.Column>(6);
+        _columnsInvestmentPriceHistory.put("id", new TableInfo.Column("id", "INTEGER", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestmentPriceHistory.put("investmentId", new TableInfo.Column("investmentId", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestmentPriceHistory.put("price", new TableInfo.Column("price", "REAL", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestmentPriceHistory.put("currency", new TableInfo.Column("currency", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestmentPriceHistory.put("recordedAt", new TableInfo.Column("recordedAt", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestmentPriceHistory.put("source", new TableInfo.Column("source", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysInvestmentPriceHistory = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesInvestmentPriceHistory = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoInvestmentPriceHistory = new TableInfo("investment_price_history", _columnsInvestmentPriceHistory, _foreignKeysInvestmentPriceHistory, _indicesInvestmentPriceHistory);
+        final TableInfo _existingInvestmentPriceHistory = TableInfo.read(db, "investment_price_history");
+        if (!_infoInvestmentPriceHistory.equals(_existingInvestmentPriceHistory)) {
+          return new RoomOpenHelper.ValidationResult(false, "investment_price_history(com.example.budgetapp.analytics.investments.entities.InvestmentPriceHistory).\n"
+                  + " Expected:\n" + _infoInvestmentPriceHistory + "\n"
+                  + " Found:\n" + _existingInvestmentPriceHistory);
+        }
+        final HashMap<String, TableInfo.Column> _columnsInvestmentDividends = new HashMap<String, TableInfo.Column>(10);
+        _columnsInvestmentDividends.put("id", new TableInfo.Column("id", "INTEGER", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestmentDividends.put("investmentId", new TableInfo.Column("investmentId", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestmentDividends.put("amountPerShare", new TableInfo.Column("amountPerShare", "REAL", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestmentDividends.put("totalAmount", new TableInfo.Column("totalAmount", "REAL", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestmentDividends.put("currency", new TableInfo.Column("currency", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestmentDividends.put("paymentDate", new TableInfo.Column("paymentDate", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestmentDividends.put("exDividendDate", new TableInfo.Column("exDividendDate", "INTEGER", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestmentDividends.put("taxWithheld", new TableInfo.Column("taxWithheld", "REAL", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestmentDividends.put("notes", new TableInfo.Column("notes", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestmentDividends.put("createdAt", new TableInfo.Column("createdAt", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysInvestmentDividends = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesInvestmentDividends = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoInvestmentDividends = new TableInfo("investment_dividends", _columnsInvestmentDividends, _foreignKeysInvestmentDividends, _indicesInvestmentDividends);
+        final TableInfo _existingInvestmentDividends = TableInfo.read(db, "investment_dividends");
+        if (!_infoInvestmentDividends.equals(_existingInvestmentDividends)) {
+          return new RoomOpenHelper.ValidationResult(false, "investment_dividends(com.example.budgetapp.analytics.investments.entities.InvestmentDividend).\n"
+                  + " Expected:\n" + _infoInvestmentDividends + "\n"
+                  + " Found:\n" + _existingInvestmentDividends);
+        }
+        final HashMap<String, TableInfo.Column> _columnsInvestmentPortfolios = new HashMap<String, TableInfo.Column>(7);
+        _columnsInvestmentPortfolios.put("id", new TableInfo.Column("id", "INTEGER", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestmentPortfolios.put("name", new TableInfo.Column("name", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestmentPortfolios.put("description", new TableInfo.Column("description", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestmentPortfolios.put("targetAllocation", new TableInfo.Column("targetAllocation", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestmentPortfolios.put("riskProfile", new TableInfo.Column("riskProfile", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestmentPortfolios.put("isActive", new TableInfo.Column("isActive", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsInvestmentPortfolios.put("createdAt", new TableInfo.Column("createdAt", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysInvestmentPortfolios = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesInvestmentPortfolios = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoInvestmentPortfolios = new TableInfo("investment_portfolios", _columnsInvestmentPortfolios, _foreignKeysInvestmentPortfolios, _indicesInvestmentPortfolios);
+        final TableInfo _existingInvestmentPortfolios = TableInfo.read(db, "investment_portfolios");
+        if (!_infoInvestmentPortfolios.equals(_existingInvestmentPortfolios)) {
+          return new RoomOpenHelper.ValidationResult(false, "investment_portfolios(com.example.budgetapp.analytics.investments.entities.InvestmentPortfolio).\n"
+                  + " Expected:\n" + _infoInvestmentPortfolios + "\n"
+                  + " Found:\n" + _existingInvestmentPortfolios);
+        }
+        final HashMap<String, TableInfo.Column> _columnsPortfolioInvestments = new HashMap<String, TableInfo.Column>(5);
+        _columnsPortfolioInvestments.put("id", new TableInfo.Column("id", "INTEGER", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsPortfolioInvestments.put("portfolioId", new TableInfo.Column("portfolioId", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsPortfolioInvestments.put("investmentId", new TableInfo.Column("investmentId", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsPortfolioInvestments.put("targetPercentage", new TableInfo.Column("targetPercentage", "REAL", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsPortfolioInvestments.put("addedAt", new TableInfo.Column("addedAt", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysPortfolioInvestments = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesPortfolioInvestments = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoPortfolioInvestments = new TableInfo("portfolio_investments", _columnsPortfolioInvestments, _foreignKeysPortfolioInvestments, _indicesPortfolioInvestments);
+        final TableInfo _existingPortfolioInvestments = TableInfo.read(db, "portfolio_investments");
+        if (!_infoPortfolioInvestments.equals(_existingPortfolioInvestments)) {
+          return new RoomOpenHelper.ValidationResult(false, "portfolio_investments(com.example.budgetapp.analytics.investments.entities.PortfolioInvestment).\n"
+                  + " Expected:\n" + _infoPortfolioInvestments + "\n"
+                  + " Found:\n" + _existingPortfolioInvestments);
+        }
+        final HashMap<String, TableInfo.Column> _columnsExchangeRates = new HashMap<String, TableInfo.Column>(5);
+        _columnsExchangeRates.put("id", new TableInfo.Column("id", "INTEGER", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsExchangeRates.put("fromCurrency", new TableInfo.Column("fromCurrency", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsExchangeRates.put("toCurrency", new TableInfo.Column("toCurrency", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsExchangeRates.put("rate", new TableInfo.Column("rate", "REAL", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsExchangeRates.put("lastUpdated", new TableInfo.Column("lastUpdated", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysExchangeRates = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesExchangeRates = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoExchangeRates = new TableInfo("exchange_rates", _columnsExchangeRates, _foreignKeysExchangeRates, _indicesExchangeRates);
+        final TableInfo _existingExchangeRates = TableInfo.read(db, "exchange_rates");
+        if (!_infoExchangeRates.equals(_existingExchangeRates)) {
+          return new RoomOpenHelper.ValidationResult(false, "exchange_rates(com.example.budgetapp.analytics.investments.multicurrency.ExchangeRate).\n"
+                  + " Expected:\n" + _infoExchangeRates + "\n"
+                  + " Found:\n" + _existingExchangeRates);
+        }
+        final HashMap<String, TableInfo.Column> _columnsCurrencyAlerts = new HashMap<String, TableInfo.Column>(8);
+        _columnsCurrencyAlerts.put("id", new TableInfo.Column("id", "INTEGER", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsCurrencyAlerts.put("fromCurrency", new TableInfo.Column("fromCurrency", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsCurrencyAlerts.put("toCurrency", new TableInfo.Column("toCurrency", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsCurrencyAlerts.put("targetRate", new TableInfo.Column("targetRate", "REAL", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsCurrencyAlerts.put("alertType", new TableInfo.Column("alertType", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsCurrencyAlerts.put("isActive", new TableInfo.Column("isActive", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsCurrencyAlerts.put("createdAt", new TableInfo.Column("createdAt", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsCurrencyAlerts.put("triggeredAt", new TableInfo.Column("triggeredAt", "INTEGER", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysCurrencyAlerts = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesCurrencyAlerts = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoCurrencyAlerts = new TableInfo("currency_alerts", _columnsCurrencyAlerts, _foreignKeysCurrencyAlerts, _indicesCurrencyAlerts);
+        final TableInfo _existingCurrencyAlerts = TableInfo.read(db, "currency_alerts");
+        if (!_infoCurrencyAlerts.equals(_existingCurrencyAlerts)) {
+          return new RoomOpenHelper.ValidationResult(false, "currency_alerts(com.example.budgetapp.analytics.investments.multicurrency.CurrencyAlert).\n"
+                  + " Expected:\n" + _infoCurrencyAlerts + "\n"
+                  + " Found:\n" + _existingCurrencyAlerts);
+        }
+        final HashMap<String, TableInfo.Column> _columnsMultiCurrencyTransactions = new HashMap<String, TableInfo.Column>(10);
+        _columnsMultiCurrencyTransactions.put("id", new TableInfo.Column("id", "INTEGER", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsMultiCurrencyTransactions.put("amount", new TableInfo.Column("amount", "REAL", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsMultiCurrencyTransactions.put("currency", new TableInfo.Column("currency", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsMultiCurrencyTransactions.put("convertedAmount", new TableInfo.Column("convertedAmount", "REAL", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsMultiCurrencyTransactions.put("baseCurrency", new TableInfo.Column("baseCurrency", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsMultiCurrencyTransactions.put("exchangeRate", new TableInfo.Column("exchangeRate", "REAL", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsMultiCurrencyTransactions.put("category", new TableInfo.Column("category", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsMultiCurrencyTransactions.put("description", new TableInfo.Column("description", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsMultiCurrencyTransactions.put("transactionDate", new TableInfo.Column("transactionDate", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsMultiCurrencyTransactions.put("createdAt", new TableInfo.Column("createdAt", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysMultiCurrencyTransactions = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesMultiCurrencyTransactions = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoMultiCurrencyTransactions = new TableInfo("multi_currency_transactions", _columnsMultiCurrencyTransactions, _foreignKeysMultiCurrencyTransactions, _indicesMultiCurrencyTransactions);
+        final TableInfo _existingMultiCurrencyTransactions = TableInfo.read(db, "multi_currency_transactions");
+        if (!_infoMultiCurrencyTransactions.equals(_existingMultiCurrencyTransactions)) {
+          return new RoomOpenHelper.ValidationResult(false, "multi_currency_transactions(com.example.budgetapp.analytics.investments.multicurrency.MultiCurrencyTransaction).\n"
+                  + " Expected:\n" + _infoMultiCurrencyTransactions + "\n"
+                  + " Found:\n" + _existingMultiCurrencyTransactions);
+        }
+        final HashMap<String, TableInfo.Column> _columnsAutomationRules = new HashMap<String, TableInfo.Column>(12);
+        _columnsAutomationRules.put("id", new TableInfo.Column("id", "INTEGER", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsAutomationRules.put("name", new TableInfo.Column("name", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsAutomationRules.put("description", new TableInfo.Column("description", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsAutomationRules.put("conditions", new TableInfo.Column("conditions", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsAutomationRules.put("actions", new TableInfo.Column("actions", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsAutomationRules.put("isActive", new TableInfo.Column("isActive", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsAutomationRules.put("priority", new TableInfo.Column("priority", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsAutomationRules.put("usageCount", new TableInfo.Column("usageCount", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsAutomationRules.put("createdBy", new TableInfo.Column("createdBy", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsAutomationRules.put("confidence", new TableInfo.Column("confidence", "REAL", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsAutomationRules.put("createdAt", new TableInfo.Column("createdAt", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsAutomationRules.put("lastModified", new TableInfo.Column("lastModified", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysAutomationRules = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesAutomationRules = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoAutomationRules = new TableInfo("automation_rules", _columnsAutomationRules, _foreignKeysAutomationRules, _indicesAutomationRules);
+        final TableInfo _existingAutomationRules = TableInfo.read(db, "automation_rules");
+        if (!_infoAutomationRules.equals(_existingAutomationRules)) {
+          return new RoomOpenHelper.ValidationResult(false, "automation_rules(com.example.budgetapp.automation.AutomationRule).\n"
+                  + " Expected:\n" + _infoAutomationRules + "\n"
+                  + " Found:\n" + _existingAutomationRules);
+        }
+        final HashMap<String, TableInfo.Column> _columnsAutoTransferRules = new HashMap<String, TableInfo.Column>(13);
+        _columnsAutoTransferRules.put("id", new TableInfo.Column("id", "INTEGER", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsAutoTransferRules.put("name", new TableInfo.Column("name", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsAutoTransferRules.put("description", new TableInfo.Column("description", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsAutoTransferRules.put("sourceAccountId", new TableInfo.Column("sourceAccountId", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsAutoTransferRules.put("targetAccountId", new TableInfo.Column("targetAccountId", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsAutoTransferRules.put("transferType", new TableInfo.Column("transferType", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsAutoTransferRules.put("amount", new TableInfo.Column("amount", "REAL", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsAutoTransferRules.put("frequency", new TableInfo.Column("frequency", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsAutoTransferRules.put("conditions", new TableInfo.Column("conditions", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsAutoTransferRules.put("isActive", new TableInfo.Column("isActive", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsAutoTransferRules.put("lastExecuted", new TableInfo.Column("lastExecuted", "INTEGER", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsAutoTransferRules.put("totalTransferred", new TableInfo.Column("totalTransferred", "REAL", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsAutoTransferRules.put("createdAt", new TableInfo.Column("createdAt", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysAutoTransferRules = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesAutoTransferRules = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoAutoTransferRules = new TableInfo("auto_transfer_rules", _columnsAutoTransferRules, _foreignKeysAutoTransferRules, _indicesAutoTransferRules);
+        final TableInfo _existingAutoTransferRules = TableInfo.read(db, "auto_transfer_rules");
+        if (!_infoAutoTransferRules.equals(_existingAutoTransferRules)) {
+          return new RoomOpenHelper.ValidationResult(false, "auto_transfer_rules(com.example.budgetapp.automation.AutoTransferRule).\n"
+                  + " Expected:\n" + _infoAutoTransferRules + "\n"
+                  + " Found:\n" + _existingAutoTransferRules);
+        }
+        final HashMap<String, TableInfo.Column> _columnsSmartInsights = new HashMap<String, TableInfo.Column>(14);
+        _columnsSmartInsights.put("id", new TableInfo.Column("id", "TEXT", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsSmartInsights.put("type", new TableInfo.Column("type", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsSmartInsights.put("title", new TableInfo.Column("title", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsSmartInsights.put("description", new TableInfo.Column("description", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsSmartInsights.put("actionable", new TableInfo.Column("actionable", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsSmartInsights.put("actions", new TableInfo.Column("actions", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsSmartInsights.put("priority", new TableInfo.Column("priority", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsSmartInsights.put("confidence", new TableInfo.Column("confidence", "REAL", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsSmartInsights.put("category", new TableInfo.Column("category", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsSmartInsights.put("impact", new TableInfo.Column("impact", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsSmartInsights.put("isRead", new TableInfo.Column("isRead", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsSmartInsights.put("isDismissed", new TableInfo.Column("isDismissed", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsSmartInsights.put("createdAt", new TableInfo.Column("createdAt", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsSmartInsights.put("expiresAt", new TableInfo.Column("expiresAt", "INTEGER", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysSmartInsights = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesSmartInsights = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoSmartInsights = new TableInfo("smart_insights", _columnsSmartInsights, _foreignKeysSmartInsights, _indicesSmartInsights);
+        final TableInfo _existingSmartInsights = TableInfo.read(db, "smart_insights");
+        if (!_infoSmartInsights.equals(_existingSmartInsights)) {
+          return new RoomOpenHelper.ValidationResult(false, "smart_insights(com.example.budgetapp.automation.ml.SmartInsight).\n"
+                  + " Expected:\n" + _infoSmartInsights + "\n"
+                  + " Found:\n" + _existingSmartInsights);
+        }
         return new RoomOpenHelper.ValidationResult(true, null);
       }
-    }, "eb271cf7662a144a6159e7c5585685fa", "be101206e347264873479c29d3ddc64f");
+    }, "efe1c484743b689c2966294e37e0ff77", "c615859d5635d44677a6509cd9f080a5");
     final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(config.context).name(config.name).callback(_openCallback).build();
     final SupportSQLiteOpenHelper _helper = config.sqliteOpenHelperFactory.create(_sqliteConfig);
     return _helper;
@@ -736,7 +1008,7 @@ public final class BudgetDatabase_Impl extends BudgetDatabase {
   protected InvalidationTracker createInvalidationTracker() {
     final HashMap<String, String> _shadowTablesMap = new HashMap<String, String>(0);
     final HashMap<String, Set<String>> _viewTables = new HashMap<String, Set<String>>(0);
-    return new InvalidationTracker(this, _shadowTablesMap, _viewTables, "products","product_categories","categories","stores","store_chains","product_stores","incomes","expenses","loans","budgets","receipts","receipt_items","shopping_lists","shopping_list_items","price_history","reminder_settings","app_usage","transaction_notifications","financial_insights","financial_goals","spending_patterns","spending_forecasts");
+    return new InvalidationTracker(this, _shadowTablesMap, _viewTables, "products","product_categories","categories","stores","store_chains","product_stores","incomes","expenses","loans","budgets","receipts","receipt_items","shopping_lists","shopping_list_items","price_history","reminder_settings","app_usage","transaction_notifications","financial_insights","financial_goals","spending_patterns","spending_forecasts","investments","investment_transactions","investment_price_history","investment_dividends","investment_portfolios","portfolio_investments","exchange_rates","currency_alerts","multi_currency_transactions","automation_rules","auto_transfer_rules","smart_insights");
   }
 
   @Override
@@ -774,6 +1046,18 @@ public final class BudgetDatabase_Impl extends BudgetDatabase {
       _db.execSQL("DELETE FROM `financial_goals`");
       _db.execSQL("DELETE FROM `spending_patterns`");
       _db.execSQL("DELETE FROM `spending_forecasts`");
+      _db.execSQL("DELETE FROM `investments`");
+      _db.execSQL("DELETE FROM `investment_transactions`");
+      _db.execSQL("DELETE FROM `investment_price_history`");
+      _db.execSQL("DELETE FROM `investment_dividends`");
+      _db.execSQL("DELETE FROM `investment_portfolios`");
+      _db.execSQL("DELETE FROM `portfolio_investments`");
+      _db.execSQL("DELETE FROM `exchange_rates`");
+      _db.execSQL("DELETE FROM `currency_alerts`");
+      _db.execSQL("DELETE FROM `multi_currency_transactions`");
+      _db.execSQL("DELETE FROM `automation_rules`");
+      _db.execSQL("DELETE FROM `auto_transfer_rules`");
+      _db.execSQL("DELETE FROM `smart_insights`");
       super.setTransactionSuccessful();
     } finally {
       super.endTransaction();
@@ -813,6 +1097,9 @@ public final class BudgetDatabase_Impl extends BudgetDatabase {
     _typeConvertersMap.put(FinancialGoalDao.class, FinancialGoalDao_Impl.getRequiredConverters());
     _typeConvertersMap.put(SpendingPatternDao.class, SpendingPatternDao_Impl.getRequiredConverters());
     _typeConvertersMap.put(SpendingForecastDao.class, SpendingForecastDao_Impl.getRequiredConverters());
+    _typeConvertersMap.put(InvestmentDao.class, InvestmentDao_Impl.getRequiredConverters());
+    _typeConvertersMap.put(ExchangeRateDao.class, ExchangeRateDao_Impl.getRequiredConverters());
+    _typeConvertersMap.put(AutomationRuleDao.class, AutomationRuleDao_Impl.getRequiredConverters());
     return _typeConvertersMap;
   }
 
@@ -1135,6 +1422,48 @@ public final class BudgetDatabase_Impl extends BudgetDatabase {
           _spendingForecastDao = new SpendingForecastDao_Impl(this);
         }
         return _spendingForecastDao;
+      }
+    }
+  }
+
+  @Override
+  public InvestmentDao investmentDao() {
+    if (_investmentDao != null) {
+      return _investmentDao;
+    } else {
+      synchronized(this) {
+        if(_investmentDao == null) {
+          _investmentDao = new InvestmentDao_Impl(this);
+        }
+        return _investmentDao;
+      }
+    }
+  }
+
+  @Override
+  public ExchangeRateDao exchangeRateDao() {
+    if (_exchangeRateDao != null) {
+      return _exchangeRateDao;
+    } else {
+      synchronized(this) {
+        if(_exchangeRateDao == null) {
+          _exchangeRateDao = new ExchangeRateDao_Impl(this);
+        }
+        return _exchangeRateDao;
+      }
+    }
+  }
+
+  @Override
+  public AutomationRuleDao automationRuleDao() {
+    if (_automationRuleDao != null) {
+      return _automationRuleDao;
+    } else {
+      synchronized(this) {
+        if(_automationRuleDao == null) {
+          _automationRuleDao = new AutomationRuleDao_Impl(this);
+        }
+        return _automationRuleDao;
       }
     }
   }
