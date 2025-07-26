@@ -19,29 +19,61 @@ class MachineLearningInsightEngine(private val context: Context) {
     suspend fun generateSmartInsights(): List<SmartInsight> = withContext(Dispatchers.IO) {
         val insights = mutableListOf<SmartInsight>()
         
-        // Spending pattern insights
-        insights.addAll(analyzeSpendingPatterns())
+        try {
+            // Spending pattern insights
+            insights.addAll(analyzeSpendingPatterns())
+        } catch (e: Exception) {
+            android.util.Log.w("MLInsightEngine", "Error analyzing spending patterns: ${e.message}")
+        }
         
-        // Income insights
-        insights.addAll(analyzeIncomePatterns())
+        try {
+            // Income insights
+            insights.addAll(analyzeIncomePatterns())
+        } catch (e: Exception) {
+            android.util.Log.w("MLInsightEngine", "Error analyzing income patterns: ${e.message}")
+        }
         
-        // Budget optimization insights
-        insights.addAll(analyzeBudgetOptimization())
+        try {
+            // Budget optimization insights
+            insights.addAll(analyzeBudgetOptimization())
+        } catch (e: Exception) {
+            android.util.Log.w("MLInsightEngine", "Error analyzing budget optimization: ${e.message}")
+        }
         
-        // Saving opportunities
-        insights.addAll(identifySavingOpportunities())
+        try {
+            // Saving opportunities
+            insights.addAll(identifySavingOpportunities())
+        } catch (e: Exception) {
+            android.util.Log.w("MLInsightEngine", "Error identifying saving opportunities: ${e.message}")
+        }
         
-        // Financial health insights
-        insights.addAll(assessFinancialHealth())
+        try {
+            // Financial health insights
+            insights.addAll(assessFinancialHealth())
+        } catch (e: Exception) {
+            android.util.Log.w("MLInsightEngine", "Error assessing financial health: ${e.message}")
+        }
         
-        // Anomaly detection
-        insights.addAll(detectSpendingAnomalies())
+        try {
+            // Anomaly detection
+            insights.addAll(detectSpendingAnomalies())
+        } catch (e: Exception) {
+            android.util.Log.w("MLInsightEngine", "Error detecting anomalies: ${e.message}")
+        }
         
-        // Seasonal insights
-        insights.addAll(generateSeasonalInsights())
+        try {
+            // Seasonal insights
+            insights.addAll(generateSeasonalInsights())
+        } catch (e: Exception) {
+            android.util.Log.w("MLInsightEngine", "Error generating seasonal insights: ${e.message}")
+        }
         
-        // Goal achievement insights
-        insights.addAll(analyzeGoalProgress())
+        try {
+            // Goal achievement insights
+            insights.addAll(analyzeGoalProgress())
+        } catch (e: Exception) {
+            android.util.Log.w("MLInsightEngine", "Error analyzing goal progress: ${e.message}")
+        }
         
         // Sort by priority and confidence
         insights.sortedWith(compareByDescending<SmartInsight> { it.priority.value }.thenByDescending { it.confidence })
@@ -317,34 +349,47 @@ class MachineLearningInsightEngine(private val context: Context) {
     private suspend fun analyzeSpendingPatterns(): List<SmartInsight> {
         val insights = mutableListOf<SmartInsight>()
         
-        val expenses = database.expenseDao().getExpensesBetweenDates(
-            System.currentTimeMillis() - (90 * 24 * 60 * 60 * 1000),
-            System.currentTimeMillis()
-        )
-        
-        // Most expensive categories
-        val categoryTotals = expenses.groupBy { it.category ?: "" }
-            .mapValues { (_, expenseList) -> expenseList.sumOf { expense -> expense.amount } }
-            .toList()
-            .sortedByDescending { it.second }
-        
-        if (categoryTotals.isNotEmpty()) {
-            val topCategory = categoryTotals.first()
-            insights.add(
-                SmartInsight(
-                    id = UUID.randomUUID().toString(),
-                    type = InsightType.SPENDING_PATTERN,
-                    title = "Högsta utgiftskategori",
-                    description = "${topCategory.first} är din största utgift med ${topCategory.second.toInt()} SEK (${((topCategory.second / expenses.sumOf { it.amount }) * 100).toInt()}% av total)",
-                    actionable = true,
-                    actions = listOf("Granska ${topCategory.first} utgifter", "Sätt en budget för ${topCategory.first}"),
-                    priority = InsightPriority.HIGH,
-                    confidence = 0.95,
-                    category = topCategory.first,
-                    impact = if (topCategory.second > 5000) ImpactLevel.HIGH else ImpactLevel.MEDIUM,
-                    createdAt = System.currentTimeMillis()
-                )
+        try {
+            val expenses = database.expenseDao().getExpensesBetweenDates(
+                System.currentTimeMillis() - (90 * 24 * 60 * 60 * 1000),
+                System.currentTimeMillis()
             )
+            
+            if (expenses.isEmpty()) {
+                return insights
+            }
+            
+            // Most expensive categories
+            val categoryTotals = expenses.groupBy { it.category ?: "Other" }
+                .mapValues { (_, expenseList) -> expenseList.sumOf { expense -> expense.amount } }
+                .toList()
+                .sortedByDescending { it.second }
+            
+            if (categoryTotals.isNotEmpty()) {
+                val topCategory = categoryTotals.first()
+                val totalExpenses = expenses.sumOf { it.amount }
+                
+                if (totalExpenses > 0) {
+                    val percentage = ((topCategory.second / totalExpenses) * 100).toInt()
+                    insights.add(
+                        SmartInsight(
+                            id = UUID.randomUUID().toString(),
+                            type = InsightType.SPENDING_PATTERN,
+                            title = "Högsta utgiftskategori",
+                            description = "${topCategory.first} är din största utgift med ${topCategory.second.toInt()} SEK (${percentage}% av total)",
+                            actionable = true,
+                            actions = listOf("Granska ${topCategory.first} utgifter", "Sätt en budget för ${topCategory.first}"),
+                            priority = InsightPriority.HIGH,
+                            confidence = 0.95,
+                            category = topCategory.first,
+                            impact = if (topCategory.second > 5000) ImpactLevel.HIGH else ImpactLevel.MEDIUM,
+                            createdAt = System.currentTimeMillis()
+                        )
+                    )
+                }
+            }
+        } catch (e: Exception) {
+            android.util.Log.e("MLInsightEngine", "Error in analyzeSpendingPatterns", e)
         }
         
         return insights
@@ -467,8 +512,9 @@ data class SmartInsight(
     val impact: ImpactLevel,
     val isRead: Boolean = false,
     val isDismissed: Boolean = false,
+    val expiresAt: Long? = null,
     val createdAt: Long,
-    val expiresAt: Long? = null
+    val updatedAt: Long = System.currentTimeMillis()
 )
 
 enum class InsightType {

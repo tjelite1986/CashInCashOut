@@ -35,7 +35,9 @@ object SafeMigrationManager {
                 BudgetDatabase.MIGRATION_17_18,
                 BudgetDatabase.MIGRATION_18_19,
                 BudgetDatabase.MIGRATION_19_20,
-                BudgetDatabase.MIGRATION_20_21
+                BudgetDatabase.MIGRATION_20_21,
+                BudgetDatabase.MIGRATION_21_22,
+                BudgetDatabase.MIGRATION_22_23
             )
             .addCallback(BudgetDatabase.Companion.DatabaseCallback())
             .fallbackToDestructiveMigration()

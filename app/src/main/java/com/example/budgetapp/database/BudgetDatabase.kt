@@ -76,7 +76,7 @@ import kotlinx.coroutines.launch
 
 @Database(
     entities = [Product::class, ProductCategory::class, Category::class, Store::class, StoreChain::class, ProductStore::class, Income::class, Expense::class, Loan::class, Budget::class, Receipt::class, ReceiptItem::class, ShoppingList::class, ShoppingListItem::class, PriceHistory::class, ReminderSettings::class, AppUsage::class, TransactionNotification::class, FinancialInsight::class, FinancialGoal::class, SpendingPattern::class, SpendingForecast::class, Investment::class, InvestmentTransaction::class, InvestmentPriceHistory::class, InvestmentDividend::class, InvestmentPortfolio::class, PortfolioInvestment::class, ExchangeRate::class, CurrencyAlert::class, MultiCurrencyTransaction::class, AutomationRule::class, AutoTransferRule::class, SmartInsight::class],
-    version = 21,
+    version = 23,
     exportSchema = false
 )
 @TypeConverters(LoanTypeConverter::class, BudgetTypeConverter::class, AnalyticsTypeConverters::class, AutomationTypeConverters::class, MLTypeConverters::class)
@@ -1131,8 +1131,9 @@ abstract class BudgetDatabase : RoomDatabase() {
                             impact TEXT NOT NULL,
                             isRead INTEGER NOT NULL DEFAULT 0,
                             isDismissed INTEGER NOT NULL DEFAULT 0,
+                            expiresAt INTEGER,
                             createdAt INTEGER NOT NULL,
-                            expiresAt INTEGER
+                            updatedAt INTEGER NOT NULL
                         )
                     """)
                     
@@ -1148,6 +1149,86 @@ abstract class BudgetDatabase : RoomDatabase() {
                 } catch (e: Exception) {
                     e.printStackTrace()
                     throw Exception("Migration 20->21 failed: ${e.message}", e)
+                }
+            }
+        }
+        
+        val MIGRATION_21_22 = object : Migration(21, 22) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                try {
+                    // Add missing updatedAt column to smart_insights table if it doesn't exist
+                    database.execSQL("ALTER TABLE smart_insights ADD COLUMN updatedAt INTEGER DEFAULT ${System.currentTimeMillis()}")
+                } catch (e: Exception) {
+                    // Column might already exist, ignore error
+                    e.printStackTrace()
+                }
+            }
+        }
+        
+        val MIGRATION_22_23 = object : Migration(22, 23) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                try {
+                    // Create automation_rules table if it doesn't exist
+                    database.execSQL("""
+                        CREATE TABLE IF NOT EXISTS automation_rules (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                            name TEXT NOT NULL,
+                            description TEXT NOT NULL,
+                            conditions TEXT NOT NULL,
+                            actions TEXT NOT NULL,
+                            isActive INTEGER NOT NULL DEFAULT 1,
+                            priority INTEGER NOT NULL DEFAULT 1,
+                            usageCount INTEGER NOT NULL DEFAULT 0,
+                            createdBy TEXT NOT NULL,
+                            confidence REAL NOT NULL DEFAULT 1.0,
+                            createdAt INTEGER NOT NULL,
+                            lastModified INTEGER NOT NULL
+                        )
+                    """)
+                    
+                    // Create auto_transfer_rules table if it doesn't exist
+                    database.execSQL("""
+                        CREATE TABLE IF NOT EXISTS auto_transfer_rules (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                            name TEXT NOT NULL,
+                            description TEXT NOT NULL,
+                            sourceAccountId TEXT NOT NULL,
+                            targetAccountId TEXT NOT NULL,
+                            transferType TEXT NOT NULL,
+                            amount REAL NOT NULL,
+                            frequency TEXT NOT NULL,
+                            conditions TEXT NOT NULL,
+                            isActive INTEGER NOT NULL DEFAULT 1,
+                            lastExecuted INTEGER,
+                            totalTransferred REAL NOT NULL DEFAULT 0.0,
+                            createdAt INTEGER NOT NULL
+                        )
+                    """)
+                    
+                    // Create smart_insights table if it doesn't exist
+                    database.execSQL("""
+                        CREATE TABLE IF NOT EXISTS smart_insights (
+                            id TEXT PRIMARY KEY NOT NULL,
+                            type TEXT NOT NULL,
+                            title TEXT NOT NULL,
+                            description TEXT NOT NULL,
+                            actionable INTEGER NOT NULL,
+                            actions TEXT NOT NULL,
+                            priority TEXT NOT NULL,
+                            confidence REAL NOT NULL,
+                            category TEXT,
+                            impact TEXT NOT NULL,
+                            isRead INTEGER NOT NULL DEFAULT 0,
+                            isDismissed INTEGER NOT NULL DEFAULT 0,
+                            expiresAt INTEGER,
+                            createdAt INTEGER NOT NULL,
+                            updatedAt INTEGER NOT NULL DEFAULT ${System.currentTimeMillis()}
+                        )
+                    """)
+                    
+                } catch (e: Exception) {
+                    // Tables might already exist, ignore error
+                    e.printStackTrace()
                 }
             }
         }

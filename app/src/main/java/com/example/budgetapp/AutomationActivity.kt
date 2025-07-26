@@ -39,10 +39,16 @@ class AutomationActivity : AppCompatActivity() {
     }
     
     private fun setupToolbar() {
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            title = "Smart Automation"
+        try {
+            setSupportActionBar(binding.toolbar)
+            supportActionBar?.apply {
+                setDisplayHomeAsUpEnabled(true)
+                title = "Smart Automation"
+            }
+        } catch (e: IllegalStateException) {
+            // Fallback if action bar is already provided by window decor
+            binding.toolbar.setNavigationOnClickListener { finish() }
+            binding.toolbar.title = "Smart Automation"
         }
     }
     
@@ -116,7 +122,13 @@ class AutomationActivity : AppCompatActivity() {
                 updateRuleStatistics(emptyRules)
                 
                 // Load smart insights
-                val insights = database.automationRuleDao().getActiveInsights()
+                val insights = try {
+                    database.automationRuleDao().getActiveInsights()
+                } catch (e: Exception) {
+                    // If database table doesn't exist yet, return empty list
+                    android.util.Log.w("AutomationActivity", "Could not load insights: ${e.message}")
+                    emptyList()
+                }
                 insightAdapter.submitList(insights)
                 updateInsightStatistics(insights)
                 
@@ -125,6 +137,7 @@ class AutomationActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 binding.progressBar.visibility = android.view.View.GONE
                 showError("Failed to load automation data: ${e.message}")
+                android.util.Log.e("AutomationActivity", "Error loading data", e)
             }
         }
     }
@@ -134,28 +147,47 @@ class AutomationActivity : AppCompatActivity() {
             try {
                 binding.progressBar.visibility = android.view.View.VISIBLE
                 
-                val insights = mlEngine.generateSmartInsights()
+                val insights = try {
+                    mlEngine.generateSmartInsights()
+                } catch (e: Exception) {
+                    android.util.Log.e("AutomationActivity", "Error generating insights", e)
+                    emptyList()
+                }
                 
                 // Save insights to database
                 insights.forEach { insight ->
-                    database.automationRuleDao().insertInsight(insight)
+                    try {
+                        database.automationRuleDao().insertInsight(insight)
+                    } catch (e: Exception) {
+                        android.util.Log.w("AutomationActivity", "Could not save insight: ${e.message}")
+                    }
                 }
                 
                 // Refresh the insights list
-                val activeInsights = database.automationRuleDao().getActiveInsights()
+                val activeInsights = try {
+                    database.automationRuleDao().getActiveInsights()
+                } catch (e: Exception) {
+                    android.util.Log.w("AutomationActivity", "Could not load active insights: ${e.message}")
+                    insights
+                }
                 insightAdapter.submitList(activeInsights)
                 
                 binding.progressBar.visibility = android.view.View.GONE
                 
                 Snackbar.make(binding.root, "Generated ${insights.size} smart insights", Snackbar.LENGTH_LONG)
                     .setAction("View") {
-                        binding.viewPager.currentItem = 1 // Switch to insights tab
+                        try {
+                            binding.viewPager.currentItem = 1 // Switch to insights tab
+                        } catch (e: Exception) {
+                            android.util.Log.w("AutomationActivity", "Could not switch tab: ${e.message}")
+                        }
                     }
                     .show()
                 
             } catch (e: Exception) {
                 binding.progressBar.visibility = android.view.View.GONE
                 showError("Failed to generate insights: ${e.message}")
+                android.util.Log.e("AutomationActivity", "Error in generateSmartInsights", e)
             }
         }
     }
@@ -165,7 +197,20 @@ class AutomationActivity : AppCompatActivity() {
             try {
                 binding.progressBar.visibility = android.view.View.VISIBLE
                 
-                val optimization = mlEngine.optimizeBudgetAllocations()
+                val optimization = try {
+                    mlEngine.optimizeBudgetAllocations()
+                } catch (e: Exception) {
+                    android.util.Log.e("AutomationActivity", "Error optimizing budgets", e)
+                    // Return empty optimization result
+                    com.example.budgetapp.automation.ml.BudgetOptimizationResult(
+                        adjustments = emptyList(),
+                        totalCurrentBudget = 0.0,
+                        totalOptimizedBudget = 0.0,
+                        potentialSavings = 0.0,
+                        overallConfidence = 0.0,
+                        implementationRecommendations = emptyList()
+                    )
+                }
                 
                 // Show optimization results in a dialog
                 showBudgetOptimizationDialog(optimization)
@@ -175,6 +220,7 @@ class AutomationActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 binding.progressBar.visibility = android.view.View.GONE
                 showError("Failed to optimize budgets: ${e.message}")
+                android.util.Log.e("AutomationActivity", "Error in optimizeBudgets", e)
             }
         }
     }
@@ -189,7 +235,12 @@ class AutomationActivity : AppCompatActivity() {
             try {
                 binding.progressBar.visibility = android.view.View.VISIBLE
                 
-                val changes = mlEngine.detectSpendingBehaviorChanges()
+                val changes = try {
+                    mlEngine.detectSpendingBehaviorChanges()
+                } catch (e: Exception) {
+                    android.util.Log.e("AutomationActivity", "Error detecting spending patterns", e)
+                    emptyList()
+                }
                 
                 // Show behavior changes in insights
                 val insights = changes.map { change ->
@@ -214,11 +265,20 @@ class AutomationActivity : AppCompatActivity() {
                 
                 // Save insights to database
                 insights.forEach { insight ->
-                    database.automationRuleDao().insertInsight(insight)
+                    try {
+                        database.automationRuleDao().insertInsight(insight)
+                    } catch (e: Exception) {
+                        android.util.Log.w("AutomationActivity", "Could not save insight: ${e.message}")
+                    }
                 }
                 
                 // Refresh insights
-                val activeInsights = database.automationRuleDao().getActiveInsights()
+                val activeInsights = try {
+                    database.automationRuleDao().getActiveInsights()
+                } catch (e: Exception) {
+                    android.util.Log.w("AutomationActivity", "Could not load active insights: ${e.message}")
+                    insights
+                }
                 insightAdapter.submitList(activeInsights)
                 
                 binding.progressBar.visibility = android.view.View.GONE
@@ -229,6 +289,7 @@ class AutomationActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 binding.progressBar.visibility = android.view.View.GONE
                 showError("Failed to detect patterns: ${e.message}")
+                android.util.Log.e("AutomationActivity", "Error in detectSpendingPatterns", e)
             }
         }
     }
@@ -243,7 +304,11 @@ class AutomationActivity : AppCompatActivity() {
     
     private fun markInsightAsRead(insightId: String) {
         lifecycleScope.launch {
-            database.automationRuleDao().markInsightAsRead(insightId)
+            try {
+                database.automationRuleDao().markInsightAsRead(insightId)
+            } catch (e: Exception) {
+                android.util.Log.w("AutomationActivity", "Could not mark insight as read: ${e.message}")
+            }
         }
     }
     
